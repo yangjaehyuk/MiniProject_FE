@@ -7,7 +7,7 @@ module.exports = {
 	],
 	theme: {
 		screens: {
-			lg: { max: '768px' },
+			lg: '768px',
 		},
 		extend: {
 			fontFamily: {
@@ -18,13 +18,16 @@ module.exports = {
 				secondary: '#de2e5f',
 				text: '#1A1A1A',
 				navy: '#oo2d79',
+				blue: '#0152cc',
 				gray: '#ccc',
+				textGray: '#919191',
 				bgGray: '#F2F2F2',
-				white: '#FFF',
 			},
 			fontSize: {
 				title: '18px',
 				content: '14px',
+				sm: '12px',
+				xxsm: '10px',
 			},
 		},
 	},
