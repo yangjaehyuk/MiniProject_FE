@@ -19,14 +19,24 @@ module.exports = {
 				text: '#1A1A1A',
 				navy: '#oo2d79',
 				gray: '#ccc',
+				black : '#1A1A1A',
 				bgGray: '#F2F2F2',
 				white: '#FFF',
 				blue : '#0152cc',
+				lightGray : '#F5F5F5',
+				footerTextGray : '#919191',
+				textGray : '#616161',
+				green : '#008161',
+				orange : '#E67000',
+				borderGray : '#e6e6e6',
+				hoverSecondary : '#B1244C'
+
 			},
 			fontSize: {
 				title: '18px',
 				content: '14px',
 				sm : '12px',
+				xs : '11px'
 			},
 		},
 	},
