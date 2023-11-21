@@ -12,18 +12,20 @@ module.exports = {
 			fontFamily : {
 				'body' : ['AppleSDGothicNeoL', 'Roboto', 'sans-serif'],
 			}
+			,
+			colors : {
+				primary : '#FF3478',
+				secondary : '#de2e5f',
+				text : '#1A1A1A',
+				navy : '#oo2d79',
+				gray : '#ccc',
+			},
+			fontSize : {
+				title : '18px',
+				content : '14px'
+			}
 		},
-		colors : {
-			primary : '#FF3478',
-			secondary : '#de2e5f',
-			text : '#1A1A1A',
-			navy : '#oo2d79',
-			gray : '#ccc',
-		},
-		fontSize : {
-			title : '18px',
-			content : '14px'
-		}
+		
 	},
 	plugins: [],
 };

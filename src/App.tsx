@@ -1,13 +1,15 @@
-import React from 'react';
 import './App.css';
-import { Button } from '@material-tailwind/react';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import GoodsDetail from 'pages/GoodsDetail';
 
 function App() {
-	return <>
-	<div className="font-body text-primary text-title">안녕하세요</div>
-	<Button>small</Button>
-	<div className='lg bg-primary'>container</div>
-	</>
+	return (
+		<Routes>
+			<Route path='/' element={<GoodsDetail/>}>
+			</Route>
+		</Routes>
+	)
 }
 
 export default App;
