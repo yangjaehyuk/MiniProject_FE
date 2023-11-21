@@ -1,13 +1,16 @@
 import React from 'react';
 import './App.css';
-import { Button } from '@material-tailwind/react';
+import { Route, Routes } from 'react-router';
+import Category from 'pages/category';
+import Region from 'pages/region';
 
 function App() {
-	return <>
-	<div className="font-body text-primary text-title">안녕하세요</div>
-	<Button>small</Button>
-	<div className='lg bg-primary'>container</div>
-	</>
+	return (
+		<Routes>
+			<Route path="/hotel" element={<Category />} />
+			<Route path="/hotel/seoul" element={<Region />} />
+		</Routes>
+	);
 }
 
 export default App;
