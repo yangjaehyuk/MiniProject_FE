@@ -6,8 +6,8 @@ import GoodsDetail from 'pages/GoodsDetail';
 function App() {
 	return (
 		<Routes>
-			<Route path='/' element={<GoodsDetail/>}>
-			</Route>
+			<Route path='/' element={<GoodsDetail/>}/>
+			
 		</Routes>
 	)
 }

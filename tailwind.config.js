@@ -21,10 +21,12 @@ module.exports = {
 				gray: '#ccc',
 				bgGray: '#F2F2F2',
 				white: '#FFF',
+				blue : '#0152cc',
 			},
 			fontSize: {
 				title: '18px',
 				content: '14px',
+				sm : '12px',
 			},
 		},
 	},
