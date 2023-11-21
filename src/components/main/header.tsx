@@ -3,10 +3,10 @@ import DehazeOutlinedIcon from '@mui/icons-material/DehazeOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
-const header = () => {
+const Header = () => {
 	return (
-		<div className="bg-pink-200 fixed left-0 top-0 w-screen">
-			<div className="bg-white h-[56px] w-[768px] px-4 m-auto top-0 left-0 flex justify-between items-center ">
+		<div className=" bg-white fixed left-0 top-0 w-screen drop-shadow-sm">
+			<div className=" h-[56px] w-[768px] px-4 m-auto top-0 left-0 flex justify-between items-center ">
 				<DehazeOutlinedIcon fontSize="small" />
 				<div>
 					<div className="border-solid border-[1px] px-4 border-gray rounded-full w-[650px] flex justify-between items-center">
@@ -22,4 +22,4 @@ const header = () => {
 	);
 };
 
-export default header;
+export default Header;
