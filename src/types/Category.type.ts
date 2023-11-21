@@ -1,4 +1,4 @@
-export const CATEGORY_SEOUL_DATA = [
+export const CATEGORY_SEOUL_DATA: CategoryItem[] = [
 	{
 		id: 1,
 		image: 'hotels/seoul/category-seoul01.png',
@@ -36,4 +36,13 @@ export const CATEGORY_SEOUL_DATA = [
 	},
 ];
 
-export {};
+interface CategoryItem {
+	id: number;
+	image: string;
+	title: string;
+	rating: number;
+	price: number;
+}
+export interface CategoryItemProps {
+	items: CategoryItem[];
+}
