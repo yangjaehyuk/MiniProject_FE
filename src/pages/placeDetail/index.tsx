@@ -10,6 +10,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import Footer from 'components/placeDetail/Footer';
 import CheckIcon from '@mui/icons-material/Check';
 import RoomItem from 'components/placeDetail/RoomItem';
+import SoldOutRoomItem from 'components/placeDetail/SoldOutRoomItem';
 
 export default function PlaceDetail() {
 	return (
@@ -50,6 +51,7 @@ export default function PlaceDetail() {
 					{/* 모달들어갈 곳 */}
 					{/* 객실아이템 */}
           <RoomItem />
+          <SoldOutRoomItem />
 				</div>
 				<div className="pt-5 px-5">
 					<div className="min-h-[3rem] flex items-center">

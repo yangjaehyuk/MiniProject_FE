@@ -29,7 +29,8 @@ module.exports = {
 				green : '#008161',
 				orange : '#E67000',
 				borderGray : '#e6e6e6',
-				hoverSecondary : '#B1244C'
+				hoverSecondary : '#B1244C',
+				soldOut : '#CCCCCC'
 
 			},
 			fontSize: {
