@@ -7,8 +7,17 @@ import Region from 'pages/region';
 function App() {
 	return (
 		<Routes>
-			<Route path="/hotel" element={<Category />} />
-			<Route path="/hotel/seoul" element={<Region />} />
+			{/* <Route path='/' element={}/> */}
+			<Route path="/:category" element={<Category />} />
+			<Route path="/:category/:region" element={<Region />} />
+			{/* <Route path='/login' element={}/>
+		<Route path='/signup' element={}/>
+		<Route path='/mypage' element={}/>
+		<Route path='/places/:hotelId' element={}/>
+		<Route path='/places/:hotelId/:roomId' element={}/>
+		<Route path='/cart' element={}/>
+		<Route path='/orders' element={}/>
+		<Route path='/result' element={}/> */}
 		</Routes>
 	);
 }
