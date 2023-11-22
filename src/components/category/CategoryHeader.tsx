@@ -9,7 +9,7 @@ function CategoryHeader() {
 				<div className={styles.leftWrap}>
 					<KeyboardArrowLeft sx={{ fontSize: '2rem' }} />
 				</div>
-				<div className="text-title">호텔/리조트</div>
+				<h2 className="text-title">호텔/리조트</h2>
 				<div className={styles.rightWrap}>
 					<ShoppingCartOutlined />
 				</div>
