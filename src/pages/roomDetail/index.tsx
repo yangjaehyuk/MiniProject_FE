@@ -22,7 +22,7 @@ export default function RoomDetail() {
 				<div className="pt-3">
 					<div className="flex w-full justify-between">
 						<div>
-							<p className="text-title font-bold text-black">스탠다드 트윈</p>
+							<p className="text-lg font-bold text-black">스탠다드 트윈</p>
 							<p className="text-content">초특가★</p>
 						</div>
 						<ShareIcon fontSize="small" />
@@ -153,7 +153,7 @@ export default function RoomDetail() {
                             
 						</tbody>
 					</table>
-                    <ul className="list-disc my-2 mb-[70px]">
+                    <ul className="list-disc my-2 pb-[70px]">
 						<li className="pb-2">
 							{' '}
 							연박(2일 이상의 숙박) 예약 시, 예약하신 각 투숙일 별 최소 수수료율이 차등 적용됩니다.

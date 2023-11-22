@@ -25,7 +25,7 @@ export default function PlaceDetail() {
 				<div className="pt-3">
 					<span className="text-sm">일반 호텔</span>
 					<div className="flex w-full justify-between">
-						<p className="text-title font-bold">호텔 아길라</p>
+						<p className="text-lg font-bold">호텔 아길라</p>
 						<div className="flex space-x-4">
 							<FavoriteBorderIcon fontSize="small" />
 							<ShareIcon fontSize="small" />
@@ -38,7 +38,7 @@ export default function PlaceDetail() {
 						</span>
 						<KeyboardArrowRightIcon sx={{ fill: '#0152cc' }} />
 					</div>
-					<div className="flex items-center pt-[2px]">
+					<div className="flex items-center pt-[2px] font-bold">
 						<StarIcon fontSize="small" sx={{ fill: '#FDBD00' }} />
 						4.5
 					</div>
@@ -46,7 +46,7 @@ export default function PlaceDetail() {
 				<img
 					src={banner}
 					alt="숙소사진"
-					className="w-[728px] mx-auto rounded-md"
+					className="w-[728px] mx-auto rounded-md pt-2"
 				/>
 				<div className="pt-5">
 					<div className="min-h-[3rem] flex items-center">
@@ -96,7 +96,7 @@ export default function PlaceDetail() {
 						</div>
 					</div>
 				</div>
-				<div className="pt-5">
+				<div className="py-5">
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold ">취소 안내</p>
 					</div>

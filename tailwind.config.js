@@ -40,6 +40,7 @@ module.exports = withMT({
 				sm: '12px',
 				xs: '11px',
 				xxsm: '10px',
+				lg : '20px'
 			},
 		},
 	},
