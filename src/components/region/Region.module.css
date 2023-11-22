@@ -4,7 +4,7 @@
 
 @layer components {
 	.nav {
-		@apply h-[48px] fixed top-0 left-0 w-full shadow-sm;
+		@apply h-[48px] fixed top-0 left-0 w-full shadow-sm z-10;
 		background: #fff;
 	}
 	.wrap {
