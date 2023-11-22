@@ -4,7 +4,7 @@
 
 @layer components {
 	.nav {
-		@apply h-[48px] fixed top-0 left-0 w-full;
+		@apply h-[48px] fixed top-0 left-0 w-full shadow-sm;
 		background: #fff;
 	}
 	.wrap {
@@ -15,14 +15,6 @@
 	}
 	.rightWrap {
 		@apply w-8;
-	}
-	.bodyContainer {
-		background: #f2f2f2;
-		@apply min-h-screen;
-	}
-	.inner {
-		background: #fff;
-		@apply max-w-[768px] mx-auto min-h-screen pt-[48px];
 	}
 	.title {
 		@apply text-title text-center mt-5 mb-3;
