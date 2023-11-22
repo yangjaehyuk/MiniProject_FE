@@ -14,27 +14,31 @@ import SoldOutRoomItem from 'components/placeDetail/SoldOutRoomItem';
 
 export default function PlaceDetail() {
 	return (
-		<div className="w-[769px] justify-center m-auto text-content text-black">
+		<div className="justify-center m-auto text-content text-black">
 			<Header />
 			<div className="relative mt-[48px] flex-row">
-				<img src={shop} alt="숙소사진" className="w-[769px]" />
-				<div className='px-5 pt-3'> 
+				<img
+					src={shop}
+					alt="숙소사진"
+					className="max-w-none w-[768px] h-[507px] -ml-5"
+				/>
+				<div className="pt-3">
 					<span className="text-sm">일반 호텔</span>
 					<div className="flex w-full justify-between">
-						<p className="text-title font-bold">호텔 아길라</p>
+						<p className="text-lg font-bold">호텔 아길라</p>
 						<div className="flex space-x-4">
-							<FavoriteBorderIcon fontSize='small' />
-							<ShareIcon fontSize='small'/>
+							<FavoriteBorderIcon fontSize="small" />
+							<ShareIcon fontSize="small" />
 						</div>
 					</div>
 					<div className="flex items-center pt-[6px] pb-[2px]">
-						<LocationOnIcon sx={{ fill: '#0152cc' }} fontSize='small' />
+						<LocationOnIcon sx={{ fill: '#0152cc' }} fontSize="small" />
 						<span className="text-blue font-bold text-content">
 							제주도에 위치
 						</span>
 						<KeyboardArrowRightIcon sx={{ fill: '#0152cc' }} />
 					</div>
-					<div className="flex items-center pt-[2px]">
+					<div className="flex items-center pt-[2px] font-bold">
 						<StarIcon fontSize="small" sx={{ fill: '#FDBD00' }} />
 						4.5
 					</div>
@@ -42,62 +46,62 @@ export default function PlaceDetail() {
 				<img
 					src={banner}
 					alt="숙소사진"
-					className="w-[728px] mx-auto rounded-md"
+					className="w-[728px] mx-auto rounded-md pt-2"
 				/>
-				<div className="pt-5 px-5">
+				<div className="pt-5">
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold ">객실 선택</p>
 					</div>
 					{/* 모달들어갈 곳 */}
 					{/* 객실아이템 */}
-          <RoomItem />
-          <SoldOutRoomItem />
+					<RoomItem />
+					<SoldOutRoomItem />
 				</div>
-				<div className="pt-5 px-5">
+				<div className="pt-5">
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold">위치/교통</p>
 					</div>
 					{/* 지도 */}
 				</div>
-				<div className="pt-5 px-5">
+				<div className="pt-5">
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold">숙소소개</p>
 					</div>
 					<p>제주국제공항에서 차로 32분거리에 위치하고 있습니다.</p>
 				</div>
-				<div className="pt-5 px-5">
+				<div className="pt-5">
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold">시실 및 서비스</p>
 					</div>
-					<div className='grid grid-cols-4 gap-4'>
-            <div className="flex items-center">
-              <CheckIcon />
-              <span>주차가능</span>
-            </div>
-            <div className="flex items-center">
-              <CheckIcon />
-              <span>주차가능</span>
-            </div>
-            <div className="flex items-center">
-              <CheckIcon />
-              <span>주차가능</span>
-            </div>
-            <div className="flex items-center">
-              <CheckIcon />
-              <span>주차가능</span>
-            </div>
-            <div className="flex items-center">
-              <CheckIcon />
-              <span>주차가능</span>
-            </div>
-          </div>
+					<div className="grid grid-cols-4 gap-4">
+						<div className="flex items-center">
+							<CheckIcon />
+							<span>주차가능</span>
+						</div>
+						<div className="flex items-center">
+							<CheckIcon />
+							<span>주차가능</span>
+						</div>
+						<div className="flex items-center">
+							<CheckIcon />
+							<span>주차가능</span>
+						</div>
+						<div className="flex items-center">
+							<CheckIcon />
+							<span>주차가능</span>
+						</div>
+						<div className="flex items-center">
+							<CheckIcon />
+							<span>주차가능</span>
+						</div>
+					</div>
 				</div>
-				<div className="pt-5 px-5">
+				<div className="py-5">
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold ">취소 안내</p>
 					</div>
 					<ul className="list-disc">
-						<li className='pb-2'>
+						<li className="pb-2">
 							{' '}
 							취소 밒 환불이 불가하 숙소 상품을 예약한 경우도 예약 완료 후 일정
 							시간 이내에 무료로 취소할 수 있습니다.
@@ -120,7 +124,7 @@ export default function PlaceDetail() {
 								</th>
 							</tr>
 						</thead>
-						<tbody className='text-textGray'>
+						<tbody className="text-textGray">
 							<tr>
 								<td className="border-lightGray border px-4 py-2">
 									예약 완료 후 체크인 시간까지 10분 이상 남은 경우

@@ -3,7 +3,7 @@ import logo from '../../assets/images/yanolja_gray.svg';
 
 export default function Footer() {
   return (
-    <div className='bg-bgGray pt-[20px] px-[20px] pb-8 text-xs '>
+    <div className='bg-bgGray pt-[20px] pb-8 text-xs -m-5 px-4'>
         <img src={logo} alt="logo" />
         <div className='pt-[20px] text-textGray'>
             <p className='pt-1'>객실 사진의 경우 객실별 대표사진으로 실제 배정받는 객실과 상의할 수 있습니다.</p>
