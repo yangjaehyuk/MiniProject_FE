@@ -10,6 +10,7 @@ import Category from 'pages/category';
 import Region from 'pages/region';
 import RoomDetail from 'pages/roomDetail';
 import Layout from 'components/common/Layout';
+import SubLayout from 'components/common/SubLayout';
 
 function App() {
 	return (
@@ -26,6 +27,9 @@ function App() {
 				<Route path="/cart" element={<Cart />} />
 				{/* <Route path='/orders' element={}/>
 					 <Route path='/result' element={}/> */}
+			</Route>
+			<Route element={<SubLayout />}>
+				<Route path="/cart" element={<Cart />} />
 			</Route>
 		</Routes>
 	);

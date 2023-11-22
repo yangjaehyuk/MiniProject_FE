@@ -5,8 +5,8 @@ import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutl
 const Header = () => {
 	return (
 		<div>
-			<div className=" h-[48px] w-[768px] m-auto top-0 left-0 ">
-				<div className="flex justify-between items-center h-[48px]">
+			<div className=" bg-white fixed left-0 top-0 w-screen h-[48px] drop-shadow-sm border-b border-bgGray ">
+				<div className=" w-[768px] px-4 m-auto h-[48px] top-0 left-0 flex justify-between items-center  ">
 					<div>
 						<ArrowBackIosNewOutlinedIcon />
 					</div>
