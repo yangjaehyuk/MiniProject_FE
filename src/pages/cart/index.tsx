@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/common/Header';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import carImage from '../../assets/images/cart-img.png';
 import styles from '../../components/cart/Cart.module.css';
 
 const Cart = () => {
+	const [show, setShow] = useState(false);
+	const handleScroll = () => {
+		if (window.scrollY > 200) {
+			setShow(true);
+		} else {
+			setShow(false);
+		}
+	};
+	useEffect(() => {
+		window.addEventListener('scroll', handleScroll);
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, [show]);
+
 	return (
 		<>
 			<Header title="장바구니" />
@@ -123,11 +138,13 @@ const Cart = () => {
 					<button className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-secondary rounded-md h-[20px]  text-white">
 						예약하기
 					</button>
-					<div className="text-textGray text-xxsm mt-2">
-						(주)야놀자는 통신판매중개업자로서, 통신판매의 당사자가 아니라는
-						사실을 고지하며 상품의 예약, 이용 및 환불 등과 관련한 의무와 책임은
-						각 판매자에게 있습니다.
-					</div>
+					{show && (
+						<div className="text-textGray text-xxsm mt-2">
+							(주)야놀자는 통신판매중개업자로서, 통신판매의 당사자가 아니라는
+							사실을 고지하며 상품의 예약, 이용 및 환불 등과 관련한 의무와
+							책임은 각 판매자에게 있습니다.
+						</div>
+					)}
 				</div>
 			</div>
 		</>
