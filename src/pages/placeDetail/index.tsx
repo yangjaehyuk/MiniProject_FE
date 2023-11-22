@@ -11,6 +11,8 @@ import Footer from 'components/placeDetail/Footer';
 import CheckIcon from '@mui/icons-material/Check';
 import RoomItem from 'components/placeDetail/RoomItem';
 import SoldOutRoomItem from 'components/placeDetail/SoldOutRoomItem';
+import KakaoMap from 'components/placeDetail/KakaoMap';
+import RoomIcon from '@mui/icons-material/Room';
 
 export default function PlaceDetail() {
 	return (
@@ -61,7 +63,12 @@ export default function PlaceDetail() {
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold">위치/교통</p>
 					</div>
-					{/* 지도 */}
+					<KakaoMap />
+					<div className='flex items-center py-3'>
+						<RoomIcon className='mr-1' sx={{ fill: '#cccccc', fontSize: '16px' }}/>
+						<p>제주특별자치도 제주시 도령로 27</p>
+					</div>
+					<button className='w-full border border-gray py-[6px] rounded-sm text-sm'>주소복사</button>
 				</div>
 				<div className="pt-5">
 					<div className="min-h-[3rem] flex items-center">
