@@ -10,6 +10,10 @@ export interface ProductSwiperProps {
 	items: ProductItem[];
 }
 
+export type TopRateItemProps = ProductItem & {
+	index: number;
+};
+
 export const CATEGORY_SEOUL_DATA: ProductItem[] = [
 	{
 		id: 1,

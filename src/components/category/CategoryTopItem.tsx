@@ -1,26 +1,34 @@
 import React from 'react';
 import { Star } from '@mui/icons-material';
-import { ProductItem } from 'types/Category.type';
+import { TopRateItemProps } from 'types/Category.type';
 import { formatNumberWithCommas } from 'utils/numberComma';
+import styles from './Category.module.css';
 
-function CategoryTopItem({ image, price, rating, title }: ProductItem) {
+function CategoryTopItem({
+	image,
+	price,
+	rating,
+	title,
+	index,
+}: TopRateItemProps) {
 	return (
-		<div className="border border-borderGray rounded-md overflow-hidden">
+		<div className="">
 			<div className="flex">
-				<div className="w-4/12">
-					<div className="item-image">
+				<div className={styles.itemThumb}>
+					<div className={styles.itemImage}>
 						<img src={image} alt={title} />
 					</div>
+					<div className={styles.rate}>{index + 1}</div>
 				</div>
 				<div className="w-8/12">
 					<div className="item-desc p-3">
-						<h4 className="text-sm lg:text-[1rem]">{title}</h4>
-						<p>
+						<h4 className="text-sm lg:text-content h-10 leading-5">{title}</h4>
+						<p className="text-content font-semibold">
 							<Star
 								sx={{
 									color: '#FFE500',
-									fontSize: '0.875rem',
-									verticalAlign: 'initial',
+									fontSize: '1rem',
+									verticalAlign: 'top',
 								}}
 							/>{' '}
 							{rating}

@@ -1,6 +1,4 @@
-@tailwind base;
 @tailwind components;
-@tailwind utilities;
 
 @layer components {
 	.nav {
@@ -25,5 +23,17 @@
 
 	.categorySwiper .item {
 		width: 140px;
+	}
+	.itemThumb {
+		@apply w-4/12 relative rounded-md overflow-hidden;
+	}
+	.itemImage {
+		@apply w-full h-full;
+	}
+	.itemImage img {
+		@apply w-full h-full object-cover;
+	}
+	.rate {
+		@apply absolute top-0 left-0 w-5 h-5 bg-black/75 text-white text-center text-sm leading-6 rounded-br-md;
 	}
 }
