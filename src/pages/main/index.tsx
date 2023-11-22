@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../../components/main/Header';
+import Header from '../../components/main/header';
 import hotel from '../../assets/images/hotelImg.svg';
 import pension from '../../assets/images/pensionImg.svg';
 import poolVilla from '../../assets/images/poolVillaImg.svg';
