@@ -20,6 +20,7 @@ import mainIcon3 from '../../assets/images/mainIcon3.svg';
 import mainIcon4 from '../../assets/images/mainIcon4.svg';
 
 import GoodsList from '../../components/main/GoodsList';
+
 const main = () => {
 	return (
 		<>

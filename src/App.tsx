@@ -25,12 +25,12 @@ function App() {
 				{/* <Route path="/mypage" element={} /> */}
 				<Route path="/places/:hotelId" element={<PlaceDetail />} />
 				<Route path="/places/:hotelId/:roomId" element={<RoomDetail />} />
-				<Route path="/cart" element={<Cart />} />
-				<Route path="/orders" element={<Orders />} />
+
 				{/*		 <Route path='/result' element={}/> */}
 			</Route>
 			<Route element={<SubLayout />}>
 				<Route path="/cart" element={<Cart />} />
+				<Route path="/orders" element={<Orders />} />
 			</Route>
 		</Routes>
 	);
