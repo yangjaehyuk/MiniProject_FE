@@ -4,10 +4,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
-import { CategoryItemProps } from 'types/Category.type';
+import { ProductSwiperProps } from 'types/Category.type';
+import { formatNumberWithCommas } from 'utils/numberComma';
 import styles from './Category.module.css';
 
-function CategoryItem({ items }: CategoryItemProps) {
+function CategorySwiper({ items }: ProductSwiperProps) {
 	return (
 		<Swiper
 			slidesPerView={'auto'}
@@ -35,7 +36,7 @@ function CategoryItem({ items }: CategoryItemProps) {
 							{item.rating}
 						</p>
 						<div className="text-[16px] font-semibold text-right">
-							{item.price}원~
+							{formatNumberWithCommas(item.price)}원~
 						</div>
 					</div>
 				</SwiperSlide>
@@ -44,4 +45,4 @@ function CategoryItem({ items }: CategoryItemProps) {
 	);
 }
 
-export default CategoryItem;
+export default CategorySwiper;
