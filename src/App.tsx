@@ -10,7 +10,7 @@ function App() {
 	return (
 		<>
 			<div className="bg-bgGray h-full ">
-				<div className="bg-white h-screen w-[768px] px-4 pt-[56px] m-auto top-0 left-0 scrollbar-hide overflow-x-clip overflow-y-scroll ">
+				<div className="bg-white h-screen w-[768px] px-5 m-auto top-0 left-0 scrollbar-hide overflow-x-clip overflow-y-scroll ">
 					<Routes>
 						<Route path="/" element={<Main />} />
 						{/* <Route path="/:category" element={} />

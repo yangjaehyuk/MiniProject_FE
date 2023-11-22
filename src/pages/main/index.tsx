@@ -24,7 +24,7 @@ const main = () => {
 	return (
 		<>
 			<Header />
-			<div className="flex text-xxsm px-20 py-5 justify-between items-center">
+			<div className="flex text-xxsm px-20 py-5 justify-between items-center pt-[56px]">
 				<div className="flex flex-col items-center justify-center font-semibold">
 					<img src={hotel} alt="Hotel" width={40} height={40} />
 					<span> 호텔</span>
