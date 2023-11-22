@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+const withMT = require('@material-tailwind/react/utils/withMT');
+
+module.exports = withMT({
 	content: [
 		'./src/**/*.{js,jsx,ts,tsx}',
 		'./node_modules/@material-tailwind/react/components/**/*.{js,ts,jsx,tsx}',
@@ -20,7 +22,7 @@ module.exports = {
 				navy: '#oo2d79',
 				blue: '#0152cc',
 				gray: '#ccc',
-				black : '#1A1A1A',
+				black: '#1A1A1A',
 				bgGray: '#F2F2F2',
 				white: '#FFF',
 				lightGray : '#F5F5F5',
@@ -35,11 +37,12 @@ module.exports = {
 			fontSize: {
 				title: '18px',
 				content: '14px',
-				sm : '12px',
-				xs : '11px',
+				sm: '12px',
+				xs: '11px',
 				xxsm: '10px',
+				lg : '20px'
 			},
 		},
 	},
 	plugins: [require('tailwind-scrollbar-hide')],
-};
+});

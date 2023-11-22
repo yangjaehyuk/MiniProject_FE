@@ -5,29 +5,28 @@ import Main from './pages/main/index';
 import Cart from './pages/cart/index';
 import PlaceDetail from 'pages/placeDetail';
 import Login from 'pages/login';
-import SignUp from 'pages/signUp';
+import Category from 'pages/category';
+import Region from 'pages/region';
+import RoomDetail from 'pages/roomDetail';
+import Layout from 'components/common/Layout';
 
 function App() {
 	return (
-		<>
-			<div className="bg-bgGray h-full ">
-				<div className="bg-white h-screen w-[768px] px-4 pt-[56px] m-auto top-0 left-0 scrollbar-hide overflow-x-clip overflow-y-scroll ">
-					<Routes>
-						<Route path="/" element={<Main />} />
-						{/* <Route path="/:category" element={} />
-						<Route path="/:category/:region" element={} /> */}
-						<Route path="/login" element={<Login />} />
-						<Route path="/signup" element={<SignUp />} />
-						{/* <Route path="/mypage" element={} /> */}
-						<Route path="/places/:hotelId" element={<PlaceDetail />} />
-						{/* <Route path="/places/:hotelId/:roomId" element={} /> */}
-						<Route path="/cart" element={<Cart />} />
-						{/* <Route path='/orders' element={}/>
-	 						<Route path='/result' element={}/> */}
-					</Routes>
-				</div>
-			</div>
-		</>
+		<Routes>
+			<Route element={<Layout />}>
+				<Route path="/" element={<Main />} />
+				<Route path="/:category" element={<Category />} />
+				<Route path="/:category/:region" element={<Region />} />
+				<Route path="/login" element={<Login />} />
+				{/* Route path="/signup" element={} />
+				<Route path="/mypage" element={} /> */}
+				<Route path="/places/:hotelId" element={<PlaceDetail />} />
+				<Route path="/places/:hotelId/:roomId" element={<RoomDetail />} />
+				<Route path="/cart" element={<Cart />} />
+				{/* <Route path='/orders' element={}/>
+					 <Route path='/result' element={}/> */}
+			</Route>
+		</Routes>
 	);
 }
 

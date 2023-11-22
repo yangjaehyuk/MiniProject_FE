@@ -5,7 +5,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 const Header = () => {
 	return (
-		<div className=" bg-white fixed left-0 top-0 w-screen drop-shadow-sm">
+		<div className=" bg-white fixed left-0 top-0 w-screen drop-shadow-sm ">
 			<div className=" h-[56px] w-[768px] px-4 m-auto top-0 left-0 flex justify-between items-center ">
 				<DehazeOutlinedIcon fontSize="small" />
 				<div>
