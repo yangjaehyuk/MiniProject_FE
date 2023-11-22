@@ -3,6 +3,7 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Main from './pages/main/index';
 import Cart from './pages/cart/index';
+import RoomDetail from 'pages/roomDetail';
 
 function App() {
 	return (
@@ -16,8 +17,8 @@ function App() {
 								<Route path='/login' element={}/>
 								<Route path='/signup' element={}/>
 								<Route path='/mypage' element={}/>
-								<Route path='/places/:hotelId' element={}/>
-								<Route path='/places/:hotelId/:roomId' element={}/> */}
+								<Route path='/places/:hotelId' element={}/>*/}
+						<Route path='/places/:hotelId/:roomId' element={<RoomDetail />}/> 
 						<Route path="/cart" element={<Cart />} />
 						{/* <Route path='/orders' element={}/>
 	 						<Route path='/result' element={}/> */}
