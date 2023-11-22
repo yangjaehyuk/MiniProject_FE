@@ -68,7 +68,7 @@ export default function PlaceDetail() {
 						<RoomIcon className='mr-1' sx={{ fill: '#cccccc', fontSize: '16px' }}/>
 						<p>제주특별자치도 제주시 도령로 27</p>
 					</div>
-					<button className='w-full border border-gray py-[6px] rounded-sm text-sm'>주소복사</button>
+					<button className='w-full border border-gray py-[6px] rounded-sm text-sm hover:bg-bgGray'>주소복사</button>
 				</div>
 				<div className="pt-5">
 					<div className="min-h-[3rem] flex items-center">
