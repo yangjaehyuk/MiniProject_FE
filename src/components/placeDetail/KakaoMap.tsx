@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import image from '../../assets/images/marker-removebg-preview.png'
 
 declare global {
   interface Window {
@@ -22,10 +23,15 @@ export default function KakaoMap() {
         };
         const map = new window.kakao.maps.Map(container, options);
 
+        const imageSize = new window.kakao.maps.Size(40,44);
+        const imageOption = { offset: new window.kakao.maps.Point(18, 44) };
+
+        const markerImage = new window.kakao.maps.MarkerImage(image, imageSize, imageOption);
         const markerPosition = new window.kakao.maps.LatLng(33.4482177, 126.3039055);
 
         const marker = new window.kakao.maps.Marker({
           position : markerPosition,
+          image : markerImage,
         });
 
         marker.setMap(map);
