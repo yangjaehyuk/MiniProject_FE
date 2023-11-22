@@ -5,6 +5,7 @@ import Main from './pages/main/index';
 import Cart from './pages/cart/index';
 import PlaceDetail from 'pages/placeDetail';
 import Login from 'pages/login';
+import SignUp from 'pages/signUp';
 
 function App() {
 	return (
@@ -14,10 +15,10 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Main />} />
 						{/* <Route path="/:category" element={} />
-						<Route path="/:category/:region" element={} />
-						<Route path="/login" element={} />
-						<Route path="/signup" element={} />
-						<Route path="/mypage" element={} /> */}
+						<Route path="/:category/:region" element={} /> */}
+						<Route path="/login" element={<Login />} />
+						<Route path="/signup" element={<SignUp />} />
+						{/* <Route path="/mypage" element={} /> */}
 						<Route path="/places/:hotelId" element={<PlaceDetail />} />
 						{/* <Route path="/places/:hotelId/:roomId" element={} /> */}
 						<Route path="/cart" element={<Cart />} />

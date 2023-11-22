@@ -4,16 +4,10 @@ import {
 	Visibility,
 	VisibilityOff,
 	ChevronRight,
-	Close,
 } from '@mui/icons-material';
-import {
-	Input,
-	Dialog,
-	DialogHeader,
-	DialogBody,
-	DialogFooter,
-} from '@material-tailwind/react';
+import { Input } from '@material-tailwind/react';
 import { useNavigate } from 'react-router-dom';
+import SignUpModal from './SignUpModal';
 const Inner = () => {
 	const navigate = useNavigate();
 	const mailRef = useRef<any>(null);
@@ -31,6 +25,7 @@ const Inner = () => {
 	const handleLoginSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		try {
+			console.log(1);
 			navigate('/');
 		} catch (e: any) {
 			console.error(e);
@@ -99,7 +94,9 @@ const Inner = () => {
 		};
 	}, [showVis]);
 
-	const handleOpen = () => setShowModal(!showModal);
+	const handleOnClose = () => {
+		setShowModal(false);
+	};
 
 	return (
 		<div className="pt-20 min-h-screen m-auto bg-white max-w-[768px] mx-auto">
@@ -156,42 +153,43 @@ const Inner = () => {
 							</div>
 						</div>
 					</div>
+
+					{(mail.length === 0 || pw.length === 0) && (
+						<div
+							style={{
+								width: '100%',
+								boxShadow: 'none',
+								fontFamily: 'AppleSDGothicNeoL',
+								color: 'white',
+								fontWeight: 700,
+								fontSize: '18px',
+								border: '1px solid #ccc',
+								borderRadius: '5px',
+							}}
+							className=" mt-4 pt-3 pb-3 flex items-center justify-center bg-gray cursor-default"
+						>
+							로그인
+						</div>
+					)}
+					{mail.length > 0 && pw.length > 0 && (
+						<button
+							type="submit"
+							style={{
+								width: '100%',
+								boxShadow: 'none',
+								fontFamily: 'AppleSDGothicNeoL',
+								color: 'white',
+								fontWeight: 700,
+								fontSize: '18px',
+								border: '1px solid #de2e5f',
+								borderRadius: '5px',
+							}}
+							className=" mt-4 pt-3 pb-3 flex items-center justify-center bg-secondary hover:brightness-90"
+						>
+							로그인
+						</button>
+					)}
 				</form>
-				{(mail.length === 0 || pw.length === 0) && (
-					<div
-						style={{
-							width: '100%',
-							boxShadow: 'none',
-							fontFamily: 'AppleSDGothicNeoL',
-							color: 'white',
-							fontWeight: 700,
-							fontSize: '18px',
-							border: '1px solid #ccc',
-							borderRadius: '5px',
-						}}
-						className=" mt-4 pt-3 pb-3 flex items-center justify-center bg-gray cursor-default"
-					>
-						로그인
-					</div>
-				)}
-				{mail.length > 0 && pw.length > 0 && (
-					<button
-						type="submit"
-						style={{
-							width: '100%',
-							boxShadow: 'none',
-							fontFamily: 'AppleSDGothicNeoL',
-							color: 'white',
-							fontWeight: 700,
-							fontSize: '18px',
-							border: '1px solid #de2e5f',
-							borderRadius: '5px',
-						}}
-						className=" mt-4 pt-3 pb-3 flex items-center justify-center bg-secondary hover:brightness-90"
-					>
-						로그인
-					</button>
-				)}
 				<div
 					className="flex justify-center items-center "
 					onClick={() => {
@@ -206,48 +204,7 @@ const Inner = () => {
 						<ChevronRight className="flex cursor-pointer m-2 justify-center items-center ml-1"></ChevronRight>
 					</span>
 				</div>
-				<Dialog open={showModal} handler={handleOpen}>
-					<div className="pt-3 pl-10 pr-10 pb-2 flex justify-between items-center">
-						<Close
-							className="cursor-pointer"
-							onClick={() => {
-								handleOpen();
-							}}
-						></Close>
-						<DialogHeader className="text-title font-bold cursor-default">
-							약관 동의
-						</DialogHeader>
-						<div className="m-2"></div>
-					</div>
-					<div className="pt-3 pl-10 pr-10 pb-2 flex justify-center items-center">
-						<DialogBody
-							className="justify-center items-center"
-							style={{ width: '400px' }}
-						>
-							asdad
-						</DialogBody>
-					</div>
-					<div className="pt-3 pl-10 pr-10 pb-2">
-						<DialogFooter>
-							<div
-								style={{
-									width: '100%',
-									boxShadow: 'none',
-									fontFamily: 'AppleSDGothicNeoL',
-									color: 'white',
-									fontWeight: 700,
-									fontSize: '18px',
-									border: '1px solid #ccc',
-									borderRadius: '5px',
-									cursor: 'default',
-								}}
-								className=" mt-4 pt-3 pb-3 flex items-center justify-center bg-gray"
-							>
-								동의하고 계속하기
-							</div>
-						</DialogFooter>
-					</div>
-				</Dialog>
+				<SignUpModal open={showModal} onClose={handleOnClose}></SignUpModal>
 			</div>
 		</div>
 	);
