@@ -27,7 +27,6 @@ const Inner = () => {
 	const handleLoginSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		try {
-			console.log(1);
 			navigate('/');
 		} catch (e: any) {
 			console.error(e);
