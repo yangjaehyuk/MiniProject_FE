@@ -123,7 +123,7 @@ const SignUpModal = ({ open, onClose }: any) => {
 								border: '1px solid #de2e5f',
 								borderRadius: '5px',
 							}}
-							className="mt-4 pt-3 pb-3 flex items-center justify-center bg-secondary hover:brightness-90"
+							className="mt-4 pt-3 pb-3 flex items-center justify-center bg-secondary hover:bg-hoverSecondary"
 						>
 							동의하고 계속하기
 						</button>
