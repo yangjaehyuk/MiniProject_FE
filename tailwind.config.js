@@ -1,23 +1,35 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	content: ['./src/**/*.{js,jsx,ts,tsx}'],
+	content: [
+		'./src/**/*.{js,jsx,ts,tsx}',
+		'./node_modules/@material-tailwind/react/components/**/*.{js,ts,jsx,tsx}',
+		'./node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}',
+	],
 	theme: {
+		screens: {
+			lg: '768px',
+		},
 		extend: {
-			fontFamily : {
-				'body' : ['AppleSDGothicNeoL', 'Roboto', 'sans-serif'],
-			}
+			fontFamily: {
+				body: ['AppleSDGothicNeoL', 'Roboto', 'sans-serif'],
+			},
+			colors: {
+				primary: '#FF3478',
+				secondary: '#de2e5f',
+				text: '#1A1A1A',
+				navy: '#oo2d79',
+				blue: '#0152cc',
+				gray: '#ccc',
+				textGray: '#919191',
+				bgGray: '#F2F2F2',
+			},
+			fontSize: {
+				title: '18px',
+				content: '14px',
+				sm: '12px',
+				xxsm: '10px',
+			},
 		},
-		colors : {
-			primary : '#FF3478',
-			secondary : '#de2e5f',
-			text : '#151515',
-			navy : '#oo2d79',
-			gray : '#ccc',
-		},
-		fontSize : {
-			title : '18px',
-			content : '14px'
-		}
 	},
 	plugins: [],
 };
