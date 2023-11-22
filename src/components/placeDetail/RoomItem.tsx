@@ -13,7 +13,7 @@ export default function RoomItem() {
         <div>
             <img src={room} alt='room image' className='w-[320px] h-[160px] rounded-lg'/>
             <p className='text-title text-black font-bold mt-3'>보스코 프린스 트윈 / 빌리지뷰</p>
-            <div className='flex gap-x-0.5 text-textGray mt-2'>
+            <div className='flex gap-x-0.5 text-secondaryTextGray mt-2'>
                 <PersonOutlineIcon fontSize='small'/>
                 <p>기준2인 / 최대 4인</p>
             </div>

@@ -24,14 +24,13 @@ module.exports = {
 				white: '#FFF',
 				blue : '#0152cc',
 				lightGray : '#F5F5F5',
-				footerTextGray : '#919191',
-				textGray : '#616161',
+				textGray : '#919191',
+				secondaryTextGray : '#616161',
 				green : '#008161',
 				orange : '#E67000',
 				borderGray : '#e6e6e6',
 				hoverSecondary : '#B1244C',
 				soldOut : '#CCCCCC'
-
 			},
 			fontSize: {
 				title: '18px',
