@@ -20,6 +20,7 @@ module.exports = {
 				navy: '#oo2d79',
 				blue: '#0152cc',
 				gray: '#ccc',
+				black : '#1A1A1A',
 				bgGray: '#F2F2F2',
 				white: '#FFF',
 				lightGray : '#F5F5F5',
@@ -30,11 +31,13 @@ module.exports = {
 				borderGray : '#e6e6e6',
 				hoverSecondary : '#B1244C',
 				soldOut : '#CCCCCC'
+				
 			},
 			fontSize: {
 				title: '18px',
 				content: '14px',
-				sm: '12px',
+				sm : '12px',
+				xs : '11px',
 				xxsm: '10px',
 			},
 		},
