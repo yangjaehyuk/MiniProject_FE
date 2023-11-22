@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.wrap {
+		@apply bg-white max-w-[768px] px-5 m-auto top-0 left-0 overflow-x-clip mb-4 shadow-sm;
+	}
+}
