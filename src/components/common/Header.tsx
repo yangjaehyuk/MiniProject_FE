@@ -2,7 +2,11 @@ import React from 'react';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 
-const Header = () => {
+interface propsType {
+	title: string;
+}
+
+const Header = ({ title }: propsType) => {
 	return (
 		<div>
 			<div className=" bg-white fixed left-0 top-0 w-screen h-[48px] drop-shadow-sm border-b border-bgGray ">
@@ -10,7 +14,7 @@ const Header = () => {
 					<div>
 						<ArrowBackIosNewOutlinedIcon />
 					</div>
-					<div>장바구니</div>
+					<div>{title}</div>
 					<div>
 						<HomeOutlinedIcon />
 					</div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../../components/cart/Header';
+import Header from '../../components/common/Header';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import carImage from '../../assets/images/cart-img.png';
 import styles from '../../components/cart/Cart.module.css';
@@ -7,9 +7,7 @@ import styles from '../../components/cart/Cart.module.css';
 const Cart = () => {
 	return (
 		<>
-			{/* 헤더 */}
-
-			<Header />
+			<Header title="장바구니" />
 
 			<div className="bg-white fixed left-0 top-[48px] w-screen drop-shadow-sm">
 				<div className="flex h-[48px]  justify-between items-center px-4  w-[768px]  m-auto top-0   left-0">
