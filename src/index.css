@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'AppleSDGothicNeoL';
-    src: url('assets/fonts/AppleSDGothicNeoL.ttf') format('truetype');
-  }
-  
+	font-family: 'AppleSDGothicNeoL';
+	src: url('assets/fonts/AppleSDGothicNeoL.ttf') format('truetype');
+}
