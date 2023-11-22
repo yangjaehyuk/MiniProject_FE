@@ -8,6 +8,8 @@ import {
 import { Input } from '@material-tailwind/react';
 import { useNavigate } from 'react-router-dom';
 import SignUpModal from './SignUpModal';
+import styles from '../../components/login/Login.module.css';
+
 const Inner = () => {
 	const navigate = useNavigate();
 	const mailRef = useRef<any>(null);
@@ -184,7 +186,7 @@ const Inner = () => {
 								border: '1px solid #de2e5f',
 								borderRadius: '5px',
 							}}
-							className="mt-4 pt-3 pb-3 flex items-center justify-center bg-secondary hover:bg-hoverSecondary"
+							className={styles.btnActive}
 						>
 							로그인
 						</button>
