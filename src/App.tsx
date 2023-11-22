@@ -1,13 +1,29 @@
 import React from 'react';
 import './App.css';
-import { Button } from '@material-tailwind/react';
+import { Routes, Route } from 'react-router-dom';
+import Main from './pages/main/index';
+import Cart from './pages/cart/index';
 
 function App() {
 	return (
 		<>
-			<div className="font-body text-primary text-title">안녕하세요</div>
-			<Button>small</Button>
-			<div className="lg bg-primary">container</div>
+			<div className="bg-bgGray h-full ">
+				<div className="bg-white h-screen w-[768px] px-4 pt-[56px] m-auto top-0 left-0 scrollbar-hide overflow-x-clip overflow-y-scroll ">
+					<Routes>
+						<Route path="/" element={<Main />} />
+						{/* <Route path='/:category' element={}/>
+								<Route path='/:category/:region' element={}/>
+								<Route path='/login' element={}/>
+								<Route path='/signup' element={}/>
+								<Route path='/mypage' element={}/>
+								<Route path='/places/:hotelId' element={}/>
+								<Route path='/places/:hotelId/:roomId' element={}/> */}
+						<Route path="/cart" element={<Cart />} />
+						{/* <Route path='/orders' element={}/>
+	 						<Route path='/result' element={}/> */}
+					</Routes>
+				</div>
+			</div>
 		</>
 	);
 }
