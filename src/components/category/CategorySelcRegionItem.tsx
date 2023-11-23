@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { RegionListItem } from 'types/Region.type';
 import styles from './Category.module.css';

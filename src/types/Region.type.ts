@@ -146,3 +146,15 @@ export type RegionProdOptionModalProps = ModalProps & {
 	handleDateOpen: () => void;
 	handleCapaOpen: () => void;
 };
+
+export const REGIONS = [
+	{ name: '서울', image: '' },
+	{ name: '부산', image: '' },
+	{ name: '제주', image: '' },
+	{ name: '경기', image: '' },
+	{ name: '인천', image: '' },
+	{ name: '강원', image: '' },
+	{ name: '경상', image: '' },
+	{ name: '전라', image: '' },
+	{ name: '충청', image: '' },
+];
