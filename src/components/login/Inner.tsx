@@ -1,4 +1,4 @@
-import React, { useState, useRef, ChangeEvent, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
 	Cancel,
 	Visibility,
@@ -10,72 +10,59 @@ import { useNavigate } from 'react-router-dom';
 import SignUpModal from './SignUpModal';
 import styles from '../../components/login/Login.module.css';
 import { validationLoginSchema } from 'utils/validateSchema';
+import { useFormik } from 'formik';
 
 const Inner = () => {
 	const navigate = useNavigate();
 	const mailRef = useRef<any>(null);
 	const pwRef = useRef<any>(null);
-	const [showVis, setShowVis] = useState(false);
-	const [pw, setPw] = useState('');
+	const [showPwVis, setShowPwVis] = useState(false);
 	const [showPw, setShowPw] = useState(false);
-	const [mail, setMail] = useState('');
 	const [showMail, setShowMail] = useState(false);
 	const [showModal, setShowModal] = useState(false);
-	const onChangeMail = (event: ChangeEvent<HTMLInputElement>) =>
-		setMail(event.target.value);
-	const onChangePw = (event: ChangeEvent<HTMLInputElement>) =>
-		setPw(event.target.value);
-	const handleLoginSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-		try {
-			navigate('/');
-		} catch (e: any) {
-			console.error(e);
-		}
-	};
-	useEffect(() => {
-		if (mail.length > 0) {
-			setShowMail(true);
-		}
-	}, [mail]);
-
-	useEffect(() => {
-		if (pw.length > 0) {
-			setShowVis(true);
-		}
-	}, [pw]);
 
 	const cancelCloseHandler = (event: MouseEvent) => {
-		if (
-			mail &&
-			mailRef.current &&
-			!mailRef.current.contains(event.target as Node)
-		) {
+		if (mailRef.current && !mailRef.current.contains(event.target as Node)) {
 			setShowMail(false);
 		}
 	};
 
 	const cancelOpenHandler = (event: MouseEvent) => {
-		if (
-			mail &&
-			mailRef.current &&
-			mailRef.current.contains(event.target as Node)
-		) {
+		if (mailRef.current && mailRef.current.contains(event.target as Node)) {
 			setShowMail(true);
 		}
 	};
 
 	const visCloseHandler = (event: MouseEvent) => {
-		if (pw && pwRef.current && !pwRef.current.contains(event.target as Node)) {
-			setShowVis(false);
+		if (pwRef.current && !pwRef.current.contains(event.target as Node)) {
+			setShowPwVis(false);
 		}
 	};
 
 	const visOpenHandler = (event: MouseEvent) => {
-		if (pw && pwRef.current && pwRef.current.contains(event.target as Node)) {
-			setShowVis(true);
+		if (pwRef.current && pwRef.current.contains(event.target as Node)) {
+			setShowPwVis(true);
 		}
 	};
+
+	const formik = useFormik({
+		initialValues: {
+			mail: '',
+			pw: '',
+		},
+		validationSchema: validationLoginSchema,
+		onSubmit: (values) => {
+			console.log(values);
+			try {
+				navigate('/');
+			} catch (e) {
+				console.error(e);
+			}
+		},
+	});
+
+	const { values, touched, errors, handleChange, handleBlur, handleSubmit } =
+		formik;
 
 	useEffect(() => {
 		window.addEventListener('click', cancelCloseHandler);
@@ -94,7 +81,7 @@ const Inner = () => {
 			window.removeEventListener('click', visCloseHandler);
 			window.removeEventListener('click', visOpenHandler);
 		};
-	}, [showVis]);
+	}, [showPwVis]);
 
 	const handleOnClose = () => {
 		setShowModal(false);
@@ -103,7 +90,7 @@ const Inner = () => {
 	return (
 		<div className="pt-20 min-h-screen m-auto bg-white max-w-[768px] mx-auto">
 			<div className="pt-4.5 pl-8 pr-8">
-				<form className="m-0 p-0" onSubmit={handleLoginSubmit}>
+				<form className="m-0 p-0" onSubmit={handleSubmit}>
 					<div className="relative">
 						<div className="mb-8">
 							<div className="pt-11 flex">
@@ -111,16 +98,19 @@ const Inner = () => {
 									type="text"
 									variant="standard"
 									label="이메일"
-									value={mail}
-									onChange={onChangeMail}
-									crossOrigin={undefined}
+									name="mail"
+									value={values.mail}
+									onChange={handleChange}
+									onBlur={handleBlur}
+									error={touched.mail && Boolean(errors.mail)}
 									ref={mailRef}
+									crossOrigin={undefined}
 								/>
-								{mail && showMail && (
+								{values.mail && showMail && (
 									<Cancel
 										className="cursor-pointer right-0 absolute"
 										onClick={() => {
-											setMail('');
+											formik.setFieldValue('mail', '');
 										}}
 									></Cancel>
 								)}
@@ -130,11 +120,14 @@ const Inner = () => {
 									type={showPw ? 'text' : 'password'}
 									variant="standard"
 									label="비밀번호"
-									value={pw}
-									onChange={onChangePw}
+									name="pw"
+									value={values.pw}
+									onChange={handleChange}
+									onBlur={handleBlur}
+									error={touched.pw && Boolean(errors.pw)}
 									crossOrigin={undefined}
 								/>
-								{pw && !showPw && showVis && (
+								{values.pw && !showPw && showPwVis && (
 									<Visibility
 										className="cursor-pointer right-0 absolute"
 										onClick={(e) => {
@@ -143,7 +136,7 @@ const Inner = () => {
 										}}
 									></Visibility>
 								)}
-								{pw && showPw && showVis && (
+								{values.pw && showPw && showPwVis && (
 									<VisibilityOff
 										className="cursor-pointer right-0 absolute"
 										onClick={(e) => {
@@ -155,8 +148,12 @@ const Inner = () => {
 							</div>
 						</div>
 					</div>
-
-					{(mail.length === 0 || pw.length === 0) && (
+					{!(
+						((touched.mail && Boolean(errors.mail) === false) ||
+							(touched.mail && Boolean(errors.mail) === undefined)) &&
+						((touched.pw && Boolean(errors.pw) === false) ||
+							(touched.pw && Boolean(errors.pw) === undefined))
+					) ? (
 						<div
 							style={{
 								width: '100%',
@@ -168,12 +165,11 @@ const Inner = () => {
 								border: '1px solid #ccc',
 								borderRadius: '5px',
 							}}
-							className=" mt-4 pt-3 pb-3 flex items-center justify-center bg-gray cursor-default"
+							className="mt-4 pt-3 pb-3 flex items-center justify-center bg-gray cursor-default"
 						>
 							로그인
 						</div>
-					)}
-					{mail.length > 0 && pw.length > 0 && (
+					) : (
 						<button
 							type="submit"
 							style={{
