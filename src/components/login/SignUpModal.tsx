@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import { Close } from '@mui/icons-material';
 import { Typography, Box } from '@mui/material';
@@ -11,6 +11,15 @@ const SignUpModal = ({ open, onClose }: any) => {
 	const [optionalChecked1, setOptionalChecked1] = useState(false);
 	const [optionalChecked2, setOptionalChecked2] = useState(false);
 	const [optionalChecked3, setOptionalChecked3] = useState(false);
+	useEffect(() => {
+		const allOthersChecked =
+			essentialChecked &&
+			optionalChecked1 &&
+			optionalChecked2 &&
+			optionalChecked3;
+
+		setAllChecked(allOthersChecked);
+	}, [essentialChecked, optionalChecked1, optionalChecked2, optionalChecked3]);
 
 	const handleAllCheckboxChange = () => {
 		const newCheckedStatus = !allChecked;

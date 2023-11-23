@@ -20,6 +20,7 @@ import mainIcon3 from '../../assets/images/mainIcon3.svg';
 import mainIcon4 from '../../assets/images/mainIcon4.svg';
 
 import GoodsList from '../../components/main/GoodsList';
+import MainFooter from 'components/Footer/MainFooter';
 
 const main = () => {
 	return (
@@ -163,6 +164,7 @@ const main = () => {
 					</div>
 				</div>
 			</div>
+			<MainFooter></MainFooter>
 		</>
 	);
 };
