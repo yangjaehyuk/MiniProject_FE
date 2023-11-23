@@ -1,17 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import RegionHeader from 'components/region/RegionHeader';
 import RegionListNav from 'components/region/RegionListNav';
 import RegionItems from 'components/region/RegionItems';
 import { REGION_SEOUL_DATA } from 'types/Region.type';
+import CategoryRegionModal from 'components/category/CategorySelcRegion';
+import { useParams } from 'react-router-dom';
+import RegionProdOptionModal from 'components/region/RegionProdOptionModal';
+import RegionProdCapacityModal from 'components/region/RegionProdCapacityModal';
 
 function Region() {
+	const { region } = useParams();
+	const [regionOpen, setRegionOpen] = useState(false);
+	const [optionOpen, setOptionOpen] = useState(false);
+	const [dateOpen, setDateOpen] = useState(false);
+	const [capacityOpen, setCapacityOpen] = useState(false);
+
+	const handleRegionOpen = () => {
+		setRegionOpen((prev) => !prev);
+	};
+	const handleOptionOpen = () => {
+		setOptionOpen((prev) => !prev);
+	};
+	const handleDateOpen = () => {
+		setDateOpen((prev) => !prev);
+	};
+	const handleCapacityOpen = () => {
+		setCapacityOpen((prev) => !prev);
+	};
+
+	useEffect(() => {
+		console.log('region changed to:', region);
+		setRegionOpen(false);
+		setOptionOpen(false);
+	}, [region]);
+
 	return (
 		<main className="">
 			<RegionHeader />
 			<div className="pt-[48px]">
-				<RegionListNav />
+				<RegionListNav
+					handleRegionOpen={handleRegionOpen}
+					handleOptionOpen={handleOptionOpen}
+				/>
 				<RegionItems items={REGION_SEOUL_DATA} />
 			</div>
+			<CategoryRegionModal isOpen={regionOpen} handleOpen={handleRegionOpen} />
+			<RegionProdOptionModal
+				isOpen={optionOpen}
+				handleOpen={handleOptionOpen}
+				handleCapaOpen={handleCapacityOpen}
+				handleDateOpen={handleDateOpen}
+			/>
+			<RegionProdCapacityModal
+				isOpen={capacityOpen}
+				handleOpen={handleCapacityOpen}
+			/>
 		</main>
 	);
 }
