@@ -8,6 +8,8 @@ import PaymentNotice from 'components/orders/PaymentNotice';
 import DoneIcon from '@mui/icons-material/Done';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
+import { Input } from '@material-tailwind/react';
+
 const orders = () => {
 	return (
 		<>
@@ -19,10 +21,47 @@ const orders = () => {
 				<ReservationItem />
 			</div>
 			<div className={styles.wrap}>
-				<div className="font-semibold text-md pb-2">예약자 정보</div>
+				<div className="font-semibold text-md pb-2 mb-3">예약자 정보</div>
+				<div className="flex flex-col gap-6">
+					<Input
+						variant="static"
+						label="성명"
+						placeholder="성명을 입력해주세요."
+						size="md"
+						crossOrigin
+					/>
+					<Input
+						variant="static"
+						label="휴대폰 번호 "
+						placeholder="휴대폰 번호를 입력해주세요."
+						crossOrigin
+					/>
+				</div>
 			</div>
 			<div className={styles.wrap}>
 				<div className="font-semibold text-md pb-2">이용자 정보</div>
+				<div className="bg-bgGray text-xs h-8 text-textGray pl-3 flex items-center">
+					상품 이용 시 필요한 필수 정보입니다.
+				</div>
+				<div className="flex mt-3">
+					<CheckBoxOutlinedIcon color="disabled" fontSize="small" />
+					<div className="text-md"> 예약자 정보와 동일합니다.</div>
+				</div>
+				<div className="flex flex-col gap-6 mt-6">
+					<Input
+						variant="static"
+						label="성명"
+						placeholder="성명을 입력해주세요."
+						size="md"
+						crossOrigin
+					/>
+					<Input
+						variant="static"
+						label="휴대폰 번호 "
+						placeholder="휴대폰 번호를 입력해주세요."
+						crossOrigin
+					/>
+				</div>
 			</div>
 			<div className={styles.wrap}>
 				<div className="font-semibold text-md pb-2">결제 금액</div>
@@ -88,6 +127,19 @@ const orders = () => {
 						<div className="text-textGray text-sm pl-2">
 							[선택] 이벤트, 혜택 정보 전송을 위한 개인정보 수집 및 이용 동의
 						</div>
+					</div>
+				</div>
+				<div>
+					<div className="text-textGray text-xxsm mt-2 py-2">
+						이용규칙, 취소 및 환불 규칙 동의하실 경우 결제하기를 클릭해주세요.
+					</div>
+					<button className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-secondary rounded-md h-[20px]  text-white">
+						870,000원 결제하기
+					</button>
+					<div className="text-textGray text-xxsm mt-2">
+						(주)야놀자는 통신판매중개업자로서, 통신판매의 당사자가 아니라는
+						사실을 고지하며 상품의 결제, 이용 및 환불 등과 관련한 의무와 책임은
+						각 판매자에게 있습니다.
 					</div>
 				</div>
 			</div>
