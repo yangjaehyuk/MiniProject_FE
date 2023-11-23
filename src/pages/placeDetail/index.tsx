@@ -1,5 +1,5 @@
 import Header from 'components/placeDetail/Header';
-import React from 'react';
+import React, { useState } from 'react';
 import shop from '../../assets/images/shop.jpg';
 import banner from '../../assets/images/banner.png';
 import StarIcon from '@mui/icons-material/Star';
@@ -13,8 +13,17 @@ import RoomItem from 'components/placeDetail/RoomItem';
 import SoldOutRoomItem from 'components/placeDetail/SoldOutRoomItem';
 import KakaoMap from 'components/placeDetail/KakaoMap';
 import RoomIcon from '@mui/icons-material/Room';
+import CalendarModal from 'components/common/CalendarModal';
 
 export default function PlaceDetail() {
+	const [isModalOpen, setIsModalOpen] =useState(false);
+
+	const handleCalendarClick = () => {
+		setIsModalOpen(!isModalOpen);
+	}
+	if (isModalOpen) {
+        return <CalendarModal handleModal={handleCalendarClick} />;
+    }
 	return (
 		<div className="justify-center m-auto text-content text-black">
 			<Header />
@@ -55,7 +64,7 @@ export default function PlaceDetail() {
 						<p className="text-title font-bold ">객실 선택</p>
 					</div>
 					{/* 모달들어갈 곳 */}
-					<div>달력</div>
+					<div onClick={handleCalendarClick}>달력</div>
 					<RoomItem />
 					<SoldOutRoomItem />
 				</div>

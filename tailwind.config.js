@@ -34,7 +34,7 @@ module.exports = withMT({
 				hoverSecondary: '#B1244C',
 				soldOut: '#CCCCCC',
 				bgOrange: '#FEF8F3',
-				red : 'DC0328'
+				red : '#DC0328'
 			},
 			fontSize: {
 				title: '18px',
