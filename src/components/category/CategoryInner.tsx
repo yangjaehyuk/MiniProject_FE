@@ -2,15 +2,15 @@ import React from 'react';
 import { KeyboardArrowRight, LocationOn } from '@mui/icons-material';
 import CategoryItems from './CategoryItems';
 import styles from './Category.module.css';
-import { CATEGORY_SEOUL_DATA } from 'types/Category.type';
+import { CATEGORY_SEOUL_DATA, CategoryInnerProps } from 'types/Category.type';
 import CategoryTopRated from './CategoryTopRated';
 import { REGION_SEOUL_DATA } from 'types/Region.type';
 
-function CategoryInner() {
+function CategoryInner({ handleOpen }: CategoryInnerProps) {
 	return (
 		<div className="pt-[48px]">
 			<h2 className={styles.title}>어디로 갈까요?</h2>
-			<div className={styles.regionSelcBtnBox}>
+			<div className={styles.regionSelcBtnBox} onClick={handleOpen}>
 				<div className="flex items-center">
 					<LocationOn />
 					<span className="text-title">지역 선택</span>

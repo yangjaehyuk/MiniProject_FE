@@ -7,8 +7,12 @@ import {
 	MenuList,
 } from '@material-tailwind/react';
 import { DateRange, KeyboardArrowDown, LocationOn } from '@mui/icons-material';
+import { RegionListNavProps } from 'types/Region.type';
 
-function RegionSearchBtns() {
+function RegionListNav({
+	handleRegionOpen,
+	handleOptionOpen,
+}: RegionListNavProps) {
 	return (
 		<div>
 			<div className="flex gap-3 justify-center py-6">
@@ -16,6 +20,7 @@ function RegionSearchBtns() {
 					variant="outlined"
 					size="sm"
 					className="flex items-center gap-1 w-36 border-borderGray"
+					onClick={handleRegionOpen}
 				>
 					<LocationOn />
 					<span className="text-content lg:text-title font-normal">서울</span>
@@ -24,10 +29,11 @@ function RegionSearchBtns() {
 					variant="outlined"
 					size="sm"
 					className="flex items-center gap-1 w-auto border-borderGray"
+					onClick={handleOptionOpen}
 				>
 					<DateRange />
 					<span className="text-content lg:text-title font-normal">
-						11.20 ~ 11.21, 성인 2명
+						11.20 ~ 11.21, 2명
 					</span>
 				</Button>
 			</div>
@@ -53,4 +59,4 @@ function RegionSearchBtns() {
 	);
 }
 
-export default RegionSearchBtns;
+export default RegionListNav;

@@ -18,7 +18,7 @@
 		@apply text-title text-center mt-5 mb-3;
 	}
 	.regionSelcBtnBox {
-		@apply flex justify-between items-center max-w-md mx-auto border-[1px] border-[#ccc] py-2 px-4 rounded-md;
+		@apply flex justify-between items-center max-w-md mx-auto border-[1px] border-[#ccc] py-2 px-4 rounded-md cursor-pointer;
 	}
 
 	.categorySwiper .item {
@@ -35,5 +35,14 @@
 	}
 	.rate {
 		@apply absolute top-0 left-0 w-5 h-5 bg-black/75 text-white text-center text-sm leading-6 rounded-br-md;
+	}
+	.dialogWrap {
+		@apply w-full max-w-3xl mx-auto;
+	}
+	.dialogBody {
+		@apply min-h-[calc(100vh-4.5rem)] bg-white overflow-auto;
+	}
+	.regionOverlay {
+		@apply absolute top-0 left-0 right-0 bottom-0 text-white flex flex-col justify-between p-5 bg-black/30;
 	}
 }

@@ -51,3 +51,12 @@ export const CATEGORY_SEOUL_DATA: ProductItem[] = [
 		price: 84000,
 	},
 ];
+
+export interface CategoryInnerProps {
+	handleOpen: () => void;
+}
+
+export interface ModalProps {
+	isOpen: boolean;
+	handleOpen: () => void;
+}
