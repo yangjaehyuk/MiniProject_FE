@@ -55,7 +55,7 @@ export default function PlaceDetail() {
 						<p className="text-title font-bold ">객실 선택</p>
 					</div>
 					{/* 모달들어갈 곳 */}
-					{/* 객실아이템 */}
+					<div>달력</div>
 					<RoomItem />
 					<SoldOutRoomItem />
 				</div>
