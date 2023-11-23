@@ -1,5 +1,5 @@
 import Header from 'components/placeDetail/Header';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import shop from '../../assets/images/shop.jpg';
 import banner from '../../assets/images/banner.png';
 import StarIcon from '@mui/icons-material/Star';
@@ -14,9 +14,20 @@ import SoldOutRoomItem from 'components/placeDetail/SoldOutRoomItem';
 import KakaoMap from 'components/placeDetail/KakaoMap';
 import RoomIcon from '@mui/icons-material/Room';
 import CalendarModal from 'components/common/CalendarModal';
+import formatFullDateRange  from 'utils/formatDate';
+import { useRecoilValue } from 'recoil';
+import { endDateState, startDateState } from 'recoil/atoms/dateAtom';
 
 export default function PlaceDetail() {
 	const [isModalOpen, setIsModalOpen] =useState(false);
+	const startDate = useRecoilValue<Date>(startDateState);
+	const endDate = useRecoilValue<Date>(endDateState);
+	const [formattingDate , setFormattingDate] = useState(formatFullDateRange(startDate,endDate));
+
+	useEffect(() => {
+		setFormattingDate(formatFullDateRange(startDate, endDate));
+
+	},[startDate,endDate]);
 
 	const handleCalendarClick = () => {
 		setIsModalOpen(!isModalOpen);
@@ -64,7 +75,9 @@ export default function PlaceDetail() {
 						<p className="text-title font-bold ">객실 선택</p>
 					</div>
 					{/* 모달들어갈 곳 */}
-					<div onClick={handleCalendarClick}>달력</div>
+					<div onClick={handleCalendarClick}>
+						{formattingDate}
+					</div>
 					<RoomItem />
 					<SoldOutRoomItem />
 				</div>
