@@ -1,0 +1,7 @@
+@tailwind components;
+
+@layer components {
+	.btnActive {
+		@apply mt-4 pt-3 pb-3 flex items-center justify-center bg-secondary hover:bg-hoverSecondary;
+	}
+}

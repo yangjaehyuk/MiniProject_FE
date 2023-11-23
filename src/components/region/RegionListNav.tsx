@@ -31,7 +31,7 @@ function RegionSearchBtns() {
 					</span>
 				</Button>
 			</div>
-			<div className="flex justify-between items-center bg-bgGray pl-3 pr-1 py-1">
+			<div className="flex justify-between items-center bg-bgGray pl-3 pr-1 py-1 ml-[-1rem] mr-[-1rem]">
 				<p className="text-sm">
 					<span className="text-secondaryTextGray">427</span>개의 숙소
 				</p>
