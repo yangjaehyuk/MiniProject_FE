@@ -1,4 +1,4 @@
-import { ProductItem } from './Category.type';
+import { ModalProps, ProductItem } from './Category.type';
 
 export interface ProductItemsProps {
 	title: string;
@@ -79,3 +79,70 @@ export const REGION_SEOUL_DATA: ProductItem[] = [
 		price: 227500,
 	},
 ];
+
+export interface RegionListItem {
+	name: string;
+	image: string;
+	link: string;
+	author: string;
+	right1: string;
+	right2: string;
+}
+
+export const REGION_LIST: RegionListItem[] = [
+	{
+		name: '서울',
+		image: '/region/region-seoul.jpg',
+		link: 'seoul',
+		author: `Ciaran O'Brien`,
+		right1:
+			'https://unsplash.com/ko/%EC%82%AC%EC%A7%84/%EB%B0%A4-%EB%8F%99%EC%95%88-%EB%8F%84%EC%8B%9C%EC%99%80-%EC%A7%80%EC%97%AD-%EB%B3%B4%EA%B8%B0-qegMLAiTBA4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+		right2:
+			'https://unsplash.com/ko/@icidius?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+	},
+	{
+		name: '제주',
+		image: '/region/region-jeju.jpg',
+		link: 'jeju',
+		author: `miram Oh`,
+		right1:
+			'https://unsplash.com/ko/%EC%82%AC%EC%A7%84/%EB%82%AE-%EB%8F%99%EC%95%88-%EB%B0%94%EB%8B%B7%EA%B0%80%EC%97%90-%EC%9E%88%EB%8A%94-%EA%B2%80%EC%9D%80-%EB%B0%94%EC%9C%84-sNxmBz_aJ_k?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+		right2:
+			'https://unsplash.com/ko/@talking_dolphin?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+	},
+	{
+		name: '부산',
+		image: '/region/region-busan.jpg',
+		link: 'busan',
+		author: `Minku Kang`,
+		right1:
+			'https://unsplash.com/ko/%EC%82%AC%EC%A7%84/%EB%B0%B0%EA%B2%BD%EC%97%90-%EA%B3%A0%EC%B8%B5-%EA%B1%B4%EB%AC%BC%EC%9D%B4-%EB%A7%8E%EC%9D%80-%ED%95%B4%EB%B3%80-ss2eCCSjSQo?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+		right2:
+			'https://unsplash.com/ko/@minkus?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+	},
+	{
+		name: '충청',
+		image: '/region/region-chungcheong.jpg',
+		link: 'chungcheong',
+		author: `rawkkim`,
+		right1:
+			'https://unsplash.com/ko/%EC%82%AC%EC%A7%84/edificio-a-torre-grigio-su-cielo-blu-MkXc9iEiJwM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+		right2:
+			'https://unsplash.com/ko/@rawkkim?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash',
+	},
+];
+
+export interface RegionListNavProps {
+	handleRegionOpen: () => void;
+	handleOptionOpen: () => void;
+}
+
+export enum CapacityAction {
+	COUNT_UP = 'ADD_STUDENT',
+	COUNT_DOWN = 'DEL_STUDENT',
+}
+
+export type RegionProdOptionModalProps = ModalProps & {
+	handleDateOpen: () => void;
+	handleCapaOpen: () => void;
+};
