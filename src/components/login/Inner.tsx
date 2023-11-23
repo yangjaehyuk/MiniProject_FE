@@ -9,6 +9,7 @@ import { Input } from '@material-tailwind/react';
 import { useNavigate } from 'react-router-dom';
 import SignUpModal from './SignUpModal';
 import styles from '../../components/login/Login.module.css';
+import { validationLoginSchema } from 'utils/validateSchema';
 
 const Inner = () => {
 	const navigate = useNavigate();
