@@ -13,7 +13,7 @@ module.exports = withMT({
 		},
 		extend: {
 			fontFamily: {
-				body: ['AppleSDGothicNeoL', 'Roboto', 'sans-serif'],
+				body: ['Malgun Gothic','AppleSDGothicNeoL', 'Roboto', 'sans-serif'],
 			},
 			colors: {
 				primary: '#FF3478',

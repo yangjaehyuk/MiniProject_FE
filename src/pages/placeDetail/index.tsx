@@ -19,7 +19,7 @@ import { useRecoilValue } from 'recoil';
 import { endDateState, startDateState } from 'recoil/atoms/dateAtom';
 
 export default function PlaceDetail() {
-	const [isModalOpen, setIsModalOpen] =useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const startDate = useRecoilValue<Date>(startDateState);
 	const endDate = useRecoilValue<Date>(endDateState);
 	const [formattingDate , setFormattingDate] = useState(formatFullDateRange(startDate,endDate));
@@ -32,11 +32,9 @@ export default function PlaceDetail() {
 	const handleCalendarClick = () => {
 		setIsModalOpen(!isModalOpen);
 	}
-	if (isModalOpen) {
-        return <CalendarModal handleModal={handleCalendarClick} />;
-    }
 	return (
 		<div className="justify-center m-auto text-content text-black">
+			{isModalOpen && <CalendarModal  handleModal={handleCalendarClick}/>}
 			<Header />
 			<div className="relative mt-[48px] flex-row">
 				<img
