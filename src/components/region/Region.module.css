@@ -1,0 +1,17 @@
+@tailwind components;
+
+@layer components {
+	.nav {
+		@apply h-[48px] fixed top-0 left-0 w-full shadow-sm z-10;
+		background: #fff;
+	}
+	.wrap {
+		@apply max-w-[768px] mx-auto h-full py-[2px] px-[12px] flex justify-between items-center text-center;
+	}
+	.leftWrap {
+		@apply w-16;
+	}
+	.rightWrap {
+		@apply w-16;
+	}
+}

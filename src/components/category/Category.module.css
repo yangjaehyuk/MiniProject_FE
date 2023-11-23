@@ -1,0 +1,39 @@
+@tailwind components;
+
+@layer components {
+	.nav {
+		@apply h-[48px] fixed top-0 left-0 w-full shadow-sm z-10;
+		background: #fff;
+	}
+	.wrap {
+		@apply max-w-[768px] mx-auto h-full py-[2px] px-[12px] flex justify-between items-center text-center;
+	}
+	.leftWrap {
+		@apply w-8;
+	}
+	.rightWrap {
+		@apply w-8;
+	}
+	.title {
+		@apply text-title text-center mt-5 mb-3;
+	}
+	.regionSelcBtnBox {
+		@apply flex justify-between items-center max-w-md mx-auto border-[1px] border-[#ccc] py-2 px-4 rounded-md;
+	}
+
+	.categorySwiper .item {
+		width: 140px;
+	}
+	.itemThumb {
+		@apply w-4/12 relative rounded-md overflow-hidden;
+	}
+	.itemImage {
+		@apply w-full h-full;
+	}
+	.itemImage img {
+		@apply w-full h-full object-cover;
+	}
+	.rate {
+		@apply absolute top-0 left-0 w-5 h-5 bg-black/75 text-white text-center text-sm leading-6 rounded-br-md;
+	}
+}
