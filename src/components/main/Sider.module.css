@@ -2,6 +2,6 @@
 
 @layer components {
 	.item {
-		@apply w-[92px];
+		@apply w-[80px];
 	}
 }

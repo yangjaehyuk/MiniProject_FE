@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
 	Drawer,
 	IconButton,
@@ -15,7 +16,6 @@ import poolVilla from '../../assets/images/poolVillaImg.svg';
 import { Logout, Person } from '@mui/icons-material';
 import { MainSiderProps } from 'types/MainPage.type';
 import SiderRegions from './SiderRegions';
-import { Link } from 'react-router-dom';
 
 function Sider({ isOpen, handleClose }: MainSiderProps) {
 	return (

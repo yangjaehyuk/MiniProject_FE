@@ -148,13 +148,13 @@ export type RegionProdOptionModalProps = ModalProps & {
 };
 
 export const REGIONS = [
-	{ name: '서울', image: '' },
-	{ name: '부산', image: '' },
-	{ name: '제주', image: '' },
-	{ name: '경기', image: '' },
-	{ name: '인천', image: '' },
-	{ name: '강원', image: '' },
-	{ name: '경상', image: '' },
-	{ name: '전라', image: '' },
-	{ name: '충청', image: '' },
+	{ name: '서울', image: '/region/region-seoul.jpg' },
+	{ name: '부산', image: '/region/region-busan.png' },
+	{ name: '제주', image: '/region/region-jeju.png' },
+	{ name: '경기', image: '/region/region-gyeonggi.jpg' },
+	{ name: '인천', image: '/region/region-incheon.jpg' },
+	{ name: '강원', image: '/region/region-gangwon.png' },
+	{ name: '경상', image: '/region/region-gyeongsang.png' },
+	{ name: '전라', image: '/region/region-jeonra.png' },
+	{ name: '충청', image: '/region/region-chungcheong.jpg' },
 ];
