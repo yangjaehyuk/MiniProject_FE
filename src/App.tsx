@@ -12,6 +12,7 @@ import RoomDetail from 'pages/roomDetail';
 import Layout from 'components/common/Layout';
 import SubLayout from 'components/common/SubLayout';
 import Orders from 'pages/orders';
+import Result from 'pages/result';
 
 function App() {
 	return (
@@ -25,12 +26,11 @@ function App() {
 				{/* <Route path="/mypage" element={} /> */}
 				<Route path="/places/:hotelId" element={<PlaceDetail />} />
 				<Route path="/places/:hotelId/:roomId" element={<RoomDetail />} />
-
-				{/*		 <Route path='/result' element={}/> */}
 			</Route>
 			<Route element={<SubLayout />}>
 				<Route path="/cart" element={<Cart />} />
 				<Route path="/orders" element={<Orders />} />
+				<Route path="/result" element={<Result />} />
 			</Route>
 		</Routes>
 	);
