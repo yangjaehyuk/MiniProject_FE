@@ -2,7 +2,7 @@ import React from 'react';
 import DehazeOutlinedIcon from '@mui/icons-material/DehazeOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-
+import { Link } from 'react-router-dom';
 const Header = () => {
 	return (
 		<div className=" bg-white fixed left-0 top-0 w-screen drop-shadow-sm ">
@@ -16,7 +16,9 @@ const Header = () => {
 						<SearchOutlinedIcon fontSize="small" />
 					</div>
 				</div>
-				<ShoppingCartOutlinedIcon fontSize="small" />
+				<Link to="/cart">
+					<ShoppingCartOutlinedIcon fontSize="small" />
+				</Link>
 			</div>
 		</div>
 	);
