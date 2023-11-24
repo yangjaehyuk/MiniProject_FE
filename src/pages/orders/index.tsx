@@ -5,9 +5,8 @@ import OrdersNotice from 'components/orders/OrdersNotice';
 import ReservationItem from 'components/orders/ReservationItem';
 import PaymentMethod from 'components/orders/PaymentMethod';
 import PaymentNotice from 'components/orders/PaymentNotice';
-// import { RevervetionInfo } from '../../types/Category.type';
 import { FormProvider, useForm } from 'react-hook-form';
-import { SubmitHandler } from 'react-hook-form';
+
 import UserInfo from 'components/orders/UserInfo';
 import TermsAgreement from 'components/orders/TermsAgreement';
 // ReservationInfo
@@ -27,8 +26,8 @@ export type ReservationInfo = {
 };
 
 const orders = () => {
-	const methods = useForm();
-	const onSubmit = (data: any) => console.log('ddd');
+	const methods = useForm({ mode: 'onChange' });
+	const onSubmit = () => console.log('ddd');
 
 	const [payment, setPayment] = useState('');
 	const [checkbox, setCheckbox] = useState(false);
