@@ -4,9 +4,9 @@ import CategorySwiper from './CategorySwiper';
 import { ProductItemsProps } from 'types/Region.type';
 import useQueryCategory from 'hooks/category/useQueryCategory';
 
-function CategoryItems({ title }: ProductItemsProps) {
+function CategoryItems({ title, region }: ProductItemsProps) {
 	const { category } = useParams();
-	const data = useQueryCategory(`${category}/${title}`);
+	const data = useQueryCategory(`${category?.toUpperCase()}/${region}`);
 
 	return (
 		<div className="py-5">

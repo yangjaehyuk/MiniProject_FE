@@ -18,10 +18,10 @@ function CategoryInner({ handleOpen }: CategoryInnerProps) {
 			</div>
 			<Suspense fallback={<>Loading...</>}>
 				<CategoryTopRated title="고객 평가 TOP 숙소" />
-				<CategoryItems title="서울 추천 상품" />
-				<CategoryItems title="제주 추천 상품" />
-				<CategoryItems title="부산 추천 상품" />
-				<CategoryItems title="충청 추천 상품" />
+				<CategoryItems title="서울 추천 상품" region="SEOUL" />
+				<CategoryItems title="제주 추천 상품" region="JEJU" />
+				<CategoryItems title="부산 추천 상품" region="BUSAN" />
+				<CategoryItems title="충청 추천 상품" region="CHUNGCHEONG" />
 			</Suspense>
 		</div>
 	);

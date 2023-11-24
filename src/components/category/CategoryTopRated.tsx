@@ -1,13 +1,13 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import { ProductItemsProps } from 'types/Region.type';
 import CategoryTopItem from './CategoryTopItem';
-import useQueryRegion from 'hooks/region/useQueryRegion';
+import { useQueryBestCategory } from 'hooks/category/useQueryCategory';
 
-function CategoryTopRated({ title }: ProductItemsProps) {
-	const { category } = useParams();
-	const data = useQueryRegion(`${category}/top-rating`);
-
+function CategoryTopRated({ title }: Pick<ProductItemsProps, 'title'>) {
+	const { data, isError } = useQueryBestCategory();
+	if (isError) {
+		return <div>There was an Error</div>;
+	}
 	return (
 		<div className="py-5 mt-5">
 			<div className="mb-4">
@@ -17,8 +17,8 @@ function CategoryTopRated({ title }: ProductItemsProps) {
 				</p>
 			</div>
 			<div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
-				{data
-					?.slice(0, 6)
+				{data?.data.results
+					.slice(0, 6)
 					.map((item, index) => (
 						<CategoryTopItem key={item.id} {...item} index={index} />
 					))}

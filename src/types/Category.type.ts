@@ -60,3 +60,23 @@ export interface ModalProps {
 	isOpen: boolean;
 	handleOpen: () => void;
 }
+
+export interface AccommodationsRoot {
+	success: boolean;
+	data: Accommodations;
+	error: string;
+}
+
+export interface Accommodations {
+	results: AccommodationsResult[];
+	totalElements: number;
+	totalPages: number;
+}
+
+export interface AccommodationsResult {
+	id: number;
+	name: string;
+	star: number;
+	price: number;
+	thumbnail: string;
+}

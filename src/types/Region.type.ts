@@ -2,6 +2,7 @@ import { ModalProps, ProductItem } from './Category.type';
 
 export interface ProductItemsProps {
 	title: string;
+	region: string;
 	// items: ProductItem[];
 }
 
