@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { validationSignUpSchema } from 'utils/validateSchema';
 import styles from '../../components/login/Login.module.css';
+import { postJoin } from 'apis/axios';
 
 const Inner = () => {
 	const navigate = useNavigate();
@@ -119,9 +120,10 @@ const Inner = () => {
 			checkPw: '',
 		},
 		validationSchema: validationSignUpSchema,
-		onSubmit: (values) => {
-			console.log(values);
+		onSubmit: async (values) => {
 			try {
+				await postJoin(values.mail, values.pw, values.name);
+				// console.log('회원가입 성공', res);
 				navigate('/login');
 			} catch (e) {
 				console.error(e);
@@ -248,7 +250,7 @@ const Inner = () => {
 							)}
 							<div className="pt-11 flex" ref={checkPwRef}>
 								<Input
-									type="password"
+									type={showCheckPw ? 'text' : 'password'}
 									variant="standard"
 									label="비밀번호 확인"
 									name="checkPw"
