@@ -21,9 +21,9 @@ const Inner = () => {
 	};
 	return (
 		<div className="pt-20 min-h-screen m-auto bg-white max-w-[768px] mx-auto">
-			<div className="pt-4.5 pl-6 pr-6">
+			<div className="pt-4.5 pl-6 pr-6 pb-7">
 				<div className="flex justify-between items-center">
-					<div className="text-content font-bold text-black">
+					<div className="text-content font-bold text-black cursor-default">
 						여기에 사용자 이름
 					</div>
 					<a
@@ -36,7 +36,9 @@ const Inner = () => {
 					</a>
 				</div>
 
-				<div className="text-md text-textGray pt-3">여기에 사용자 이메일</div>
+				<div className="text-md text-textGray pt-3 cursor-default">
+					여기에 사용자 이메일
+				</div>
 				<div className="mt-[48px]">
 					<img
 						src={bannerRed}
@@ -48,8 +50,11 @@ const Inner = () => {
 								'https://www.yanolja.com/promotion/nol-promotion?eventcode=NOYLN';
 						}}
 					/>
+					<div className="font-bold text-title pt-10 cursor-default">
+						예약 내역
+					</div>
 
-					<div className="flex pt-10">
+					<div className="flex pt-7">
 						<div
 							className="flex items-center w-1/2 h-9 border border-gray rounded-md cursor-pointer justify-between hover:bg-lightGray"
 							onClick={() => setShowCategoryModal(true)}

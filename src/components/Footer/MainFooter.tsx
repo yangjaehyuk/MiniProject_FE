@@ -23,7 +23,7 @@ import award08 from '../../assets/images/award-08.svg';
 import award09 from '../../assets/images/award-09.svg';
 import award10 from '../../assets/images/award-10.svg';
 import award11 from '../../assets/images/award-11.svg';
-import award12 from '../../assets/images/award-12.svg';
+import award12 from '../../assets/images/award-12.png';
 import award13 from '../../assets/images/award-13.svg';
 
 const MainFooter = () => {

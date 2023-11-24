@@ -4,6 +4,7 @@ import {
 	Visibility,
 	VisibilityOff,
 	ChevronRight,
+	Block,
 } from '@mui/icons-material';
 import { Input } from '@material-tailwind/react';
 import { useNavigate } from 'react-router-dom';
@@ -105,6 +106,11 @@ const Inner = () => {
 									error={touched.mail && Boolean(errors.mail)}
 									ref={mailRef}
 									crossOrigin={undefined}
+									className={`${
+										values.mail.length > 0 && errors.mail
+											? 'text-red border-b-1 border-red'
+											: 'text-green border-b-1 border-green'
+									}`}
 								/>
 								{values.mail && showMail && (
 									<Cancel
@@ -115,6 +121,12 @@ const Inner = () => {
 									></Cancel>
 								)}
 							</div>
+							{values.mail.length > 0 && errors.mail && (
+								<div className="text-sm text-red flex items-center">
+									<Block className="pr-1" />
+									{errors.mail}
+								</div>
+							)}
 							<div className="pt-11 flex" ref={pwRef}>
 								<Input
 									type={showPw ? 'text' : 'password'}
@@ -126,6 +138,11 @@ const Inner = () => {
 									onBlur={handleBlur}
 									error={touched.pw && Boolean(errors.pw)}
 									crossOrigin={undefined}
+									className={`${
+										values.pw.length > 0 && errors.pw
+											? 'text-red border-b-1 border-red'
+											: 'text-green border-b-1 border-green'
+									}`}
 								/>
 								{values.pw && !showPw && showPwVis && (
 									<Visibility
@@ -146,6 +163,12 @@ const Inner = () => {
 									></VisibilityOff>
 								)}
 							</div>
+							{values.pw.length > 0 && errors.pw && (
+								<div className="text-sm text-red flex items-center">
+									<Block className="pr-1" />
+									{errors.pw}
+								</div>
+							)}
 						</div>
 					</div>
 					{!(

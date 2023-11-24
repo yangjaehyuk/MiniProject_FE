@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Cancel, Visibility, VisibilityOff } from '@mui/icons-material';
+import { Cancel, Visibility, VisibilityOff, Block } from '@mui/icons-material';
 import { Input } from '@material-tailwind/react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -150,6 +150,11 @@ const Inner = () => {
 									error={touched.mail && Boolean(errors.mail)}
 									ref={mailRef}
 									crossOrigin={undefined}
+									className={`${
+										values.mail.length > 0 && errors.mail
+											? 'text-red border-b-1 border-red'
+											: 'text-green border-b-1 border-green'
+									}`}
 								/>
 								{values.mail && showMail && (
 									<Cancel
@@ -160,6 +165,12 @@ const Inner = () => {
 									></Cancel>
 								)}
 							</div>
+							{values.mail.length > 0 && errors.mail && (
+								<div className="text-sm text-red flex items-center">
+									<Block className="pr-1" />
+									{errors.mail}
+								</div>
+							)}
 							<div className="pt-11 flex">
 								<Input
 									type="text"
@@ -172,6 +183,11 @@ const Inner = () => {
 									error={touched.name && Boolean(errors.name)}
 									ref={nameRef}
 									crossOrigin={undefined}
+									className={`${
+										values.name.length > 0 && errors.name
+											? 'text-red border-b-1 border-red'
+											: 'text-green border-b-1 border-green'
+									}`}
 								/>
 								{values.name && showName && (
 									<Cancel
@@ -182,6 +198,12 @@ const Inner = () => {
 									></Cancel>
 								)}
 							</div>
+							{values.name.length > 0 && errors.name && (
+								<div className="text-sm text-red flex items-center">
+									<Block className="pr-1" />
+									{errors.name}
+								</div>
+							)}
 							<div className="pt-11 flex" ref={pwRef}>
 								<Input
 									type={showPw ? 'text' : 'password'}
@@ -193,6 +215,11 @@ const Inner = () => {
 									onBlur={handleBlur}
 									error={touched.pw && Boolean(errors.pw)}
 									crossOrigin={undefined}
+									className={`${
+										values.pw.length > 0 && errors.pw
+											? 'text-red border-b-1 border-red'
+											: 'text-green border-b-1 border-green'
+									}`}
 								/>
 								{values.pw && !showPw && showPwVis && (
 									<Visibility
@@ -213,9 +240,15 @@ const Inner = () => {
 									></VisibilityOff>
 								)}
 							</div>
+							{values.pw.length > 0 && errors.pw && (
+								<div className="text-sm text-red flex items-center">
+									<Block className="pr-1" />
+									{errors.pw}
+								</div>
+							)}
 							<div className="pt-11 flex" ref={checkPwRef}>
 								<Input
-									type={showCheckPw ? 'text' : 'password'}
+									type="password"
 									variant="standard"
 									label="비밀번호 확인"
 									name="checkPw"
@@ -224,6 +257,11 @@ const Inner = () => {
 									onBlur={handleBlur}
 									error={touched.checkPw && Boolean(errors.checkPw)}
 									crossOrigin={undefined}
+									className={`${
+										values.checkPw.length > 0 && errors.checkPw
+											? 'text-red border-b-1 border-red'
+											: 'text-green border-b-1 border-green'
+									}`}
 								/>
 
 								{values.checkPw && !showCheckPw && showCheckPwVis && (
@@ -245,6 +283,12 @@ const Inner = () => {
 									></VisibilityOff>
 								)}
 							</div>
+							{values.checkPw.length > 0 && errors.checkPw && (
+								<div className="text-sm text-red flex items-center">
+									<Block className="pr-1" />
+									{errors.checkPw}
+								</div>
+							)}
 						</div>
 					</div>
 
