@@ -12,7 +12,6 @@ const Inner = () => {
 	const [showDateModal, setShowDateModal] = useState(false);
 	const nowCategory = useRecoilValue(categoryState);
 	const nowDate = useRecoilValue(dateState);
-	console.log(nowCategory, nowDate);
 	const handleCategoryModalClose = () => {
 		setShowCategoryModal(false);
 	};
