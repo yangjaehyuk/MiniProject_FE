@@ -3,8 +3,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useRecoilState } from 'recoil';
-import { endDateState, startDateState } from 'recoil/atoms/dateAtom';
-import formatFullDateRange from 'utils/formatDate';
+import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
+import {formatFullDateRange }from 'utils/formatDate';
 import {
 	Button,
 	Dialog,
@@ -21,15 +21,16 @@ interface MyContainerProps {
 }
 
 export default function CalendarModal({ handleModal }: CalendarModalProps) {
-	const [startDate, setStartDate] = useRecoilState(startDateState);
-	const [endDate, setEndDate] = useRecoilState(endDateState);
+	const [checkInDate,setCheckInDate]= useRecoilState(checkInDateState);
+	const [checkOutDate,setCheckoutDate] = useRecoilState(checkOutDateState);
 
-	const [startDay, setStartDay] = useState<Date | null>(startDate);
-	const [endDay, setEndDay] = useState<Date | null>(endDate);
+
+	const [startDay, setStartDay] = useState<Date | null>(checkInDate);
+	const [endDay, setEndDay] = useState<Date | null>(checkOutDate);
 	const [formattingDate, setFormattingDate] = useState(
-		formatFullDateRange(startDate, endDate),
+		formatFullDateRange(checkInDate, checkOutDate),
 	);
-	const [lastStartDate, setLastStartDate] = useState(startDate);
+	const [lastStartDate, setLastStartDate] = useState(checkInDate);
 	const [isReset, setIsRest] = useState(false);
 
 	const handleOnChange = (dates: [Date, Date]) => {
@@ -42,8 +43,8 @@ export default function CalendarModal({ handleModal }: CalendarModalProps) {
 	const handleBtnClick = () => {
 		handleModal();
 		if (startDay !== null && endDay !== null) {
-			setStartDate(startDay);
-			setEndDate(endDay);
+			setCheckInDate(startDay);
+			setCheckoutDate(endDay);
 		}
 	};
 

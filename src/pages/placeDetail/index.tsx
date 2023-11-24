@@ -14,20 +14,22 @@ import SoldOutRoomItem from 'components/placeDetail/SoldOutRoomItem';
 import KakaoMap from 'components/placeDetail/KakaoMap';
 import RoomIcon from '@mui/icons-material/Room';
 import CalendarModal from 'components/common/CalendarModal';
-import formatFullDateRange  from 'utils/formatDate';
+import {formatFullDateRange } from 'utils/formatDate';
 import { useRecoilValue } from 'recoil';
-import { endDateState, startDateState } from 'recoil/atoms/dateAtom';
+import { checkInDateState, checkOutDateState} from 'recoil/atoms/dateAtom';
+import ImageSwiper from 'components/common/ImageSwiper';
+import { ImageItem } from 'types/ImageItem';
 
 export default function PlaceDetail() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const startDate = useRecoilValue<Date>(startDateState);
-	const endDate = useRecoilValue<Date>(endDateState);
-	const [formattingDate , setFormattingDate] = useState(formatFullDateRange(startDate,endDate));
+	const checkInDate = useRecoilValue<Date>(checkInDateState);
+	const checkOutDate = useRecoilValue<Date>(checkOutDateState);
+	const [formattingDate , setFormattingDate] = useState(formatFullDateRange(checkInDate,checkOutDate));
 
 	useEffect(() => {
-		setFormattingDate(formatFullDateRange(startDate, endDate));
+		setFormattingDate(formatFullDateRange(checkInDate, checkOutDate));
 
-	},[startDate,endDate]);
+	},[checkInDate,checkOutDate]);
 
 	const handleCalendarClick = () => {
 		setIsModalOpen(!isModalOpen);
@@ -37,11 +39,13 @@ export default function PlaceDetail() {
 			{isModalOpen && <CalendarModal  handleModal={handleCalendarClick}/>}
 			<Header />
 			<div className="relative mt-[48px] flex-row">
-				<img
+				{/* <img
 					src={shop}
 					alt="숙소사진"
 					className="max-w-none w-[768px] h-[507px] -ml-5"
-				/>
+				/> */}
+				<ImageSwiper items={ImageItem} />
+				
 				<div className="pt-3">
 					<span className="text-sm">일반 호텔</span>
 					<div className="flex w-full justify-between">

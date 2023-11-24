@@ -4,6 +4,9 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ImageSwiper from 'components/common/ImageSwiper';
+import { ImageItem } from 'types/ImageItem';
+import RoomImageSwiper from 'components/common/RoomImageSwiper';
 
 
 
@@ -11,7 +14,9 @@ export default function RoomItem() {
   return (
     <div className='flex py-5 justify-between border-b border-borderGray cursor-pointer'>
         <div>
-            <img src={room} alt='room image' className='w-[320px] h-[160px] rounded-lg'/>
+            <div className='w-[320px] h-[160px] rounded-lg'>
+                <RoomImageSwiper items={ImageItem} />
+            </div>
             <p className='text-title text-black font-bold mt-3'>보스코 프린스 트윈 / 빌리지뷰</p>
             <div className='flex gap-x-0.5 text-secondaryTextGray mt-2'>
                 <PersonOutlineIcon fontSize='small'/>
