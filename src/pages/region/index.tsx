@@ -2,7 +2,6 @@ import React, { Suspense, useEffect, useState } from 'react';
 import RegionHeader from 'components/region/RegionHeader';
 import RegionListNav from 'components/region/RegionListNav';
 import RegionItems from 'components/region/RegionItems';
-// import { REGION_SEOUL_DATA } from 'types/Region.type';
 import CategoryRegionModal from 'components/category/CategorySelcRegion';
 import { useParams } from 'react-router-dom';
 import RegionProdOptionModal from 'components/region/RegionProdOptionModal';
@@ -30,7 +29,7 @@ function Region() {
 	};
 
 	useEffect(() => {
-		console.log('region changed to:', region);
+		// console.log('region changed to:', region);
 		setRegionOpen(false);
 		setOptionOpen(false);
 	}, [region]);
@@ -43,7 +42,7 @@ function Region() {
 					handleRegionOpen={handleRegionOpen}
 					handleOptionOpen={handleOptionOpen}
 				/>
-				<Suspense fallback={<>loading...</>}>
+				<Suspense fallback={<div>loading...</div>}>
 					<RegionItems />
 				</Suspense>
 			</div>

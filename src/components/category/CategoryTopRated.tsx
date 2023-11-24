@@ -17,11 +17,9 @@ function CategoryTopRated({ title }: Pick<ProductItemsProps, 'title'>) {
 				</p>
 			</div>
 			<div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
-				{data?.data.results
-					.slice(0, 6)
-					.map((item, index) => (
-						<CategoryTopItem key={item.id} {...item} index={index} />
-					))}
+				{data?.data.results.map((item, index) => (
+					<CategoryTopItem key={item.id} {...item} index={index} />
+				))}
 			</div>
 		</div>
 	);
