@@ -102,7 +102,7 @@ export default function CalendarModal({ handleModal }: CalendarModalProps) {
 					</div>
 				</div>
 			</DialogHeader>
-			<DialogBody className='pt-[92px]'>
+			<DialogBody className='pt-[92px] flex justify-center'>
 				<DatePicker
 					selected={startDay}
 					onChange={handleOnChange}
