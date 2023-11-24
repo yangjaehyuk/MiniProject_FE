@@ -1,19 +1,28 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import {
 	Button,
 	Dialog,
 	DialogBody,
+	DialogFooter,
 	DialogHeader,
 	IconButton,
 } from '@material-tailwind/react';
 import { Add, Close, Remove } from '@mui/icons-material';
-import styles from '../category/Category.module.css';
 import { CapacityAction } from 'types/Region.type';
 import { capaReducer } from 'utils/capacityReducer';
 import { ModalProps } from 'types/Category.type';
+import { useSetRecoilState } from 'recoil';
+import { capacityState } from 'recoil/atoms/capacityAtom';
+import styles from '../category/Category.module.css';
 
 function RegionProdCapacityModal({ isOpen, handleOpen }: ModalProps) {
 	const [state, dispatch] = useReducer(capaReducer, 2);
+	const setCapacity = useSetRecoilState(capacityState);
+
+	const handleApply = () => {
+		handleOpen();
+		setCapacity(state);
+	};
 
 	return (
 		<Dialog open={isOpen} handler={handleOpen} size="xxl" className="bg-bgGray">
@@ -51,6 +60,18 @@ function RegionProdCapacityModal({ isOpen, handleOpen }: ModalProps) {
 					</div>
 				</div>
 			</DialogBody>
+			<DialogFooter className={`${styles.dialogWrap} bg-white`}>
+				<Button
+					fullWidth
+					variant="filled"
+					className="bg-primary"
+					onClick={handleApply}
+				>
+					<span className="text-content lg:text-title font-normal">
+						적용하기
+					</span>
+				</Button>
+			</DialogFooter>
 		</Dialog>
 	);
 }

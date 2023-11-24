@@ -25,3 +25,16 @@ const formatFullDateRange = (startDate: Date, endDate: Date | null): string => {
 };
 
 export default formatFullDateRange;
+
+export const formatMonthDate = (start: Date, end: Date | null): string => {
+  const startMonth = start.getMonth() + 1;
+  const startDay = start.getDate();
+
+  if(end !== null) {
+    const endMonth = end.getMonth() + 1;
+    const endDay = end.getDate();
+  
+    return `${startMonth}.${startDay} ~ ${endMonth}.${endDay}`;
+  }
+  else return `${startMonth}.${startDay}`;
+}

@@ -12,6 +12,7 @@ import {
 	DialogHeader,
 	IconButton,
 } from '@material-tailwind/react';
+import { ModalProps } from 'types/Category.type';
 interface CalendarModalProps {
 	handleModal: () => void;
 }
@@ -20,7 +21,7 @@ interface MyContainerProps {
 	className?: string;
 }
 
-export default function CalendarModal({ handleModal }: CalendarModalProps) {
+export default function CalendarModal({ isOpen, handleOpen }: ModalProps) {
 	const [startDate, setStartDate] = useRecoilState(startDateState);
 	const [endDate, setEndDate] = useRecoilState(endDateState);
 
@@ -40,7 +41,7 @@ export default function CalendarModal({ handleModal }: CalendarModalProps) {
 	};
 
 	const handleBtnClick = () => {
-		handleModal();
+		handleOpen();
 		if (startDay !== null && endDay !== null) {
 			setStartDate(startDay);
 			setEndDate(endDay);
@@ -68,13 +69,20 @@ export default function CalendarModal({ handleModal }: CalendarModalProps) {
 		}
 	}, [startDay, endDay, lastStartDate]);
 	return (
-		<Dialog open={true} handler={handleModal} size="xxl" className="bg-bgGray font-body">
+		<Dialog
+			open={isOpen}
+			handler={handleOpen}
+			size="xxl"
+			className="bg-bgGray font-body"
+		>
 			<DialogHeader>
 				<div className="fixed top-0 left-1/2 transform translate-x-[-50%] w-full bg-white shadow-md flex justify-center">
 					<div className="w-[768px] h-[92px] flex flex-col  justify-evenly ">
 						<div className="flex justify-between items-center px-5">
-							<CloseIcon onClick={handleModal} />
-							<span className="!text-title text-black font-bold">날짜 선택</span>
+							<CloseIcon onClick={handleOpen} />
+							<span className="!text-title text-black font-bold">
+								날짜 선택
+							</span>
 							<span
 								onClick={handleResetClick}
 								className="text-content text-blue cursor-pointer font-normal"
@@ -108,7 +116,7 @@ export default function CalendarModal({ handleModal }: CalendarModalProps) {
 					</div>
 				</div>
 			</DialogHeader>
-			<DialogBody className='pt-[92px]'>
+			<DialogBody className="pt-[92px]">
 				<DatePicker
 					selected={startDay}
 					onChange={handleOnChange}

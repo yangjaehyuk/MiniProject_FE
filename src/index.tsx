@@ -6,21 +6,26 @@ import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from '@material-tailwind/react';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import { QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import queryClient from 'utils/queryClient';
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement,
 );
 root.render(
-	<RecoilRoot>
-		<React.StrictMode>
-		<ThemeProvider>
-			<BrowserRouter>
-				<App />
-			</BrowserRouter>
-		</ThemeProvider>
-	</React.StrictMode>
-	</RecoilRoot>
-	,
+	<React.StrictMode>
+		<RecoilRoot>
+			<ThemeProvider>
+				<QueryClientProvider client={queryClient}>
+					<BrowserRouter>
+						<App />
+					</BrowserRouter>
+					<ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+				</QueryClientProvider>
+			</ThemeProvider>
+		</RecoilRoot>
+	</React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import RegionHeader from 'components/region/RegionHeader';
 import RegionListNav from 'components/region/RegionListNav';
 import RegionItems from 'components/region/RegionItems';
-import { REGION_SEOUL_DATA } from 'types/Region.type';
+// import { REGION_SEOUL_DATA } from 'types/Region.type';
 import CategoryRegionModal from 'components/category/CategorySelcRegion';
 import { useParams } from 'react-router-dom';
 import RegionProdOptionModal from 'components/region/RegionProdOptionModal';
 import RegionProdCapacityModal from 'components/region/RegionProdCapacityModal';
+import CalendarModal from 'components/common/CalendarModal';
 
 function Region() {
 	const { region } = useParams();
@@ -42,7 +43,9 @@ function Region() {
 					handleRegionOpen={handleRegionOpen}
 					handleOptionOpen={handleOptionOpen}
 				/>
-				<RegionItems items={REGION_SEOUL_DATA} />
+				<Suspense fallback={<>loading...</>}>
+					<RegionItems />
+				</Suspense>
 			</div>
 			<CategoryRegionModal isOpen={regionOpen} handleOpen={handleRegionOpen} />
 			<RegionProdOptionModal
@@ -51,6 +54,7 @@ function Region() {
 				handleCapaOpen={handleCapacityOpen}
 				handleDateOpen={handleDateOpen}
 			/>
+			<CalendarModal isOpen={dateOpen} handleOpen={handleDateOpen} />
 			<RegionProdCapacityModal
 				isOpen={capacityOpen}
 				handleOpen={handleCapacityOpen}

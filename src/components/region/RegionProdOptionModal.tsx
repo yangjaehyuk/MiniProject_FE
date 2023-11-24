@@ -1,9 +1,13 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
+import { endDateState, startDateState } from 'recoil/atoms/dateAtom';
 import { Button } from '@material-tailwind/react';
 import { Close, DateRange, Person } from '@mui/icons-material';
 import styles from '../category/Category.module.css';
 import { RegionProdOptionModalProps } from 'types/Region.type';
 import { AnimatePresence } from 'framer-motion';
+import { formatMonthDate } from 'utils/formatDate';
+import { capacityState } from 'recoil/atoms/capacityAtom';
 
 function RegionProdOptionModal({
 	isOpen,
@@ -11,6 +15,11 @@ function RegionProdOptionModal({
 	handleCapaOpen,
 	handleDateOpen,
 }: RegionProdOptionModalProps) {
+	const startDate = useRecoilValue(startDateState);
+	const endDate = useRecoilValue(endDateState);
+	const capacity = useRecoilValue(capacityState);
+	const formattingDate = formatMonthDate(startDate, endDate);
+
 	return (
 		<AnimatePresence>
 			{isOpen && (
@@ -36,7 +45,7 @@ function RegionProdOptionModal({
 							>
 								<DateRange />
 								<span className="text-content lg:text-title font-normal">
-									11.20 ~ 11.21
+									{formattingDate}
 								</span>
 							</Button>
 							<Button
@@ -48,11 +57,16 @@ function RegionProdOptionModal({
 							>
 								<Person />
 								<span className="text-content lg:text-title font-normal">
-									성인 2명
+									성인 {capacity}명
 								</span>
 							</Button>
 						</div>
-						<Button fullWidth variant="filled" className="bg-primary">
+						<Button
+							fullWidth
+							variant="filled"
+							className="bg-primary"
+							onClick={handleOpen}
+						>
 							<span className="text-content lg:text-title font-normal">
 								적용하기
 							</span>
