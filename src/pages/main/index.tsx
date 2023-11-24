@@ -21,6 +21,7 @@ import mainIcon4 from '../../assets/images/mainIcon4.svg';
 
 import GoodsList from '../../components/main/GoodsList';
 import Sider from 'components/main/Sider';
+import MainFooter from 'components/Footer/MainFooter';
 
 const main = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -177,6 +178,8 @@ const main = () => {
 			{/* 사이드바 추가 */}
 			<Sider isOpen={isOpen} handleClose={handleDrawerClose} />
 		</div>
+			<MainFooter></MainFooter>
+		</>
 	);
 };
 

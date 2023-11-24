@@ -1,7 +1,6 @@
 import React from 'react';
 import star from '../../assets/images/icon-star.svg';
 import item from '../../assets/images/item.svg';
-
 const GoodsList = () => {
 	return (
 		<>

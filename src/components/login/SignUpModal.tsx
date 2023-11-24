@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import { Close } from '@mui/icons-material';
 import { Typography, Box } from '@mui/material';
@@ -11,6 +11,16 @@ const SignUpModal = ({ open, onClose }: any) => {
 	const [optionalChecked1, setOptionalChecked1] = useState(false);
 	const [optionalChecked2, setOptionalChecked2] = useState(false);
 	const [optionalChecked3, setOptionalChecked3] = useState(false);
+
+	useEffect(() => {
+		const allOthersChecked =
+			essentialChecked &&
+			optionalChecked1 &&
+			optionalChecked2 &&
+			optionalChecked3;
+
+		setAllChecked(allOthersChecked);
+	}, [essentialChecked, optionalChecked1, optionalChecked2, optionalChecked3]);
 
 	const handleAllCheckboxChange = () => {
 		const newCheckedStatus = !allChecked;
@@ -57,7 +67,7 @@ const SignUpModal = ({ open, onClose }: any) => {
 					<label className="flex items-start mt-5 cursor-pointer">
 						<input
 							type="checkbox"
-							className="w-6 h-6 cursor-pointer"
+							className="cursor-pointer"
 							id="essentialCheckBox"
 							checked={essentialChecked}
 							onChange={() => setEssentialChecked(!essentialChecked)}
@@ -69,7 +79,7 @@ const SignUpModal = ({ open, onClose }: any) => {
 					<label className="flex items-start mt-5 cursor-pointer">
 						<input
 							type="checkbox"
-							className="w-5 h-5 cursor-pointer"
+							className="cursor-pointer"
 							id="optionalCheckBox1"
 							checked={optionalChecked1}
 							onChange={() => setOptionalChecked1(!optionalChecked1)}
@@ -81,7 +91,7 @@ const SignUpModal = ({ open, onClose }: any) => {
 					<label className="flex items-start mt-5 cursor-pointer">
 						<input
 							type="checkbox"
-							className="w-8 h-8 cursor-pointer"
+							className="cursor-pointer"
 							id="optionalCheckBox2"
 							checked={optionalChecked2}
 							onChange={() => setOptionalChecked2(!optionalChecked2)}
@@ -97,7 +107,7 @@ const SignUpModal = ({ open, onClose }: any) => {
 					<label className="flex items-start mt-5 cursor-pointer">
 						<input
 							type="checkbox"
-							className="w-5 h-5 cursor-pointer"
+							className="cursor-pointer"
 							id="optionalCheckBox3"
 							checked={optionalChecked3}
 							onChange={() => setOptionalChecked3(!optionalChecked3)}
