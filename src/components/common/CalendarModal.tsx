@@ -3,33 +3,29 @@ import CloseIcon from '@mui/icons-material/Close';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useRecoilState } from 'recoil';
-import { endDateState, startDateState } from 'recoil/atoms/dateAtom';
-import formatFullDateRange from 'utils/formatDate';
+import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
+import {formatFullDateRange }from 'utils/formatDate';
 import {
-	Button,
 	Dialog,
 	DialogBody,
 	DialogHeader,
-	IconButton,
 } from '@material-tailwind/react';
+import './CalendarModal.module.css';
 interface CalendarModalProps {
 	handleModal: () => void;
 }
 
-interface MyContainerProps {
-	className?: string;
-}
-
 export default function CalendarModal({ handleModal }: CalendarModalProps) {
-	const [startDate, setStartDate] = useRecoilState(startDateState);
-	const [endDate, setEndDate] = useRecoilState(endDateState);
+	const [checkInDate,setCheckInDate]= useRecoilState(checkInDateState);
+	const [checkOutDate,setCheckoutDate] = useRecoilState(checkOutDateState);
 
-	const [startDay, setStartDay] = useState<Date | null>(startDate);
-	const [endDay, setEndDay] = useState<Date | null>(endDate);
+
+	const [startDay, setStartDay] = useState<Date | null>(checkInDate);
+	const [endDay, setEndDay] = useState<Date | null>(checkOutDate);
 	const [formattingDate, setFormattingDate] = useState(
-		formatFullDateRange(startDate, endDate),
+		formatFullDateRange(checkInDate, checkOutDate),
 	);
-	const [lastStartDate, setLastStartDate] = useState(startDate);
+	const [lastStartDate, setLastStartDate] = useState(checkInDate);
 	const [isReset, setIsRest] = useState(false);
 
 	const handleOnChange = (dates: [Date, Date]) => {
@@ -42,8 +38,8 @@ export default function CalendarModal({ handleModal }: CalendarModalProps) {
 	const handleBtnClick = () => {
 		handleModal();
 		if (startDay !== null && endDay !== null) {
-			setStartDate(startDay);
-			setEndDate(endDay);
+			setCheckInDate(startDay);
+			setCheckoutDate(endDay);
 		}
 	};
 
@@ -54,19 +50,17 @@ export default function CalendarModal({ handleModal }: CalendarModalProps) {
 	};
 
 	useEffect(() => {
-		// startDay와 endDay가 동시에 변경되었는지 확인
 		if (startDay !== null && startDay !== lastStartDate && endDay !== null) {
 			setFormattingDate(formatFullDateRange(startDay, endDay));
 			setLastStartDate(startDay);
 		} else if (startDay !== null && startDay !== lastStartDate) {
-			// startDay만 변경되었을 때 원하는 포맷으로 문자열 설정
-			setFormattingDate(formatFullDateRange(startDay, null)); // 원하는 포맷으로 변경하세요.
+			setFormattingDate(formatFullDateRange(startDay, null)); 
 			setLastStartDate(startDay);
 		} else if (startDay !== null && endDay !== null) {
-			// endDay만 변경되었을 때도 포맷팅 로직을 실행하거나 다른 문자열 설정 가능
-			setFormattingDate(formatFullDateRange(startDay, endDay)); // 또는 다른 포맷
+			setFormattingDate(formatFullDateRange(startDay, endDay)); 
 		}
 	}, [startDay, endDay, lastStartDate]);
+
 	return (
 		<Dialog open={true} handler={handleModal} size="xxl" className="bg-bgGray font-body">
 			<DialogHeader>
@@ -108,7 +102,7 @@ export default function CalendarModal({ handleModal }: CalendarModalProps) {
 					</div>
 				</div>
 			</DialogHeader>
-			<DialogBody className='pt-[92px]'>
+			<DialogBody className='pt-[92px] flex justify-center'>
 				<DatePicker
 					selected={startDay}
 					onChange={handleOnChange}

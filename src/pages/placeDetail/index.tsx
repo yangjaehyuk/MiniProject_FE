@@ -14,20 +14,22 @@ import SoldOutRoomItem from 'components/placeDetail/SoldOutRoomItem';
 import KakaoMap from 'components/placeDetail/KakaoMap';
 import RoomIcon from '@mui/icons-material/Room';
 import CalendarModal from 'components/common/CalendarModal';
-import formatFullDateRange  from 'utils/formatDate';
+import {formatFullDateRangeWithoutYear } from 'utils/formatDate';
 import { useRecoilValue } from 'recoil';
-import { endDateState, startDateState } from 'recoil/atoms/dateAtom';
+import { checkInDateState, checkOutDateState} from 'recoil/atoms/dateAtom';
+import ImageSwiper from 'components/common/ImageSwiper';
+import { ImageItem } from 'types/ImageItem';
 
 export default function PlaceDetail() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const startDate = useRecoilValue<Date>(startDateState);
-	const endDate = useRecoilValue<Date>(endDateState);
-	const [formattingDate , setFormattingDate] = useState(formatFullDateRange(startDate,endDate));
+	const checkInDate = useRecoilValue<Date>(checkInDateState);
+	const checkOutDate = useRecoilValue<Date>(checkOutDateState);
+	const [formattingDate , setFormattingDate] = useState(formatFullDateRangeWithoutYear(checkInDate,checkOutDate));
 
 	useEffect(() => {
-		setFormattingDate(formatFullDateRange(startDate, endDate));
+		setFormattingDate(formatFullDateRangeWithoutYear(checkInDate, checkOutDate));
 
-	},[startDate,endDate]);
+	},[checkInDate,checkOutDate]);
 
 	const handleCalendarClick = () => {
 		setIsModalOpen(!isModalOpen);
@@ -37,11 +39,13 @@ export default function PlaceDetail() {
 			{isModalOpen && <CalendarModal  handleModal={handleCalendarClick}/>}
 			<Header />
 			<div className="relative mt-[48px] flex-row">
-				<img
+				{/* <img
 					src={shop}
 					alt="숙소사진"
 					className="max-w-none w-[768px] h-[507px] -ml-5"
-				/>
+				/> */}
+				<ImageSwiper items={ImageItem} />
+				
 				<div className="pt-3">
 					<span className="text-sm">일반 호텔</span>
 					<div className="flex w-full justify-between">
@@ -72,10 +76,16 @@ export default function PlaceDetail() {
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold ">객실 선택</p>
 					</div>
-					{/* 모달들어갈 곳 */}
-					<div onClick={handleCalendarClick}>
+					<div className='flex w-full text-content font-bold text-black'>
+					<button className='w-full flex items-start border border-borderGray rounded px-3 py-[11px]' onClick={handleCalendarClick}>
 						{formattingDate}
+					</button>
+					<button className='w-full flex items-start border border-borderGray rounded px-3 py-[11px]'onClick={handleCalendarClick}>
+						성인 2, 아동 0
+					</button>
+
 					</div>
+					
 					<RoomItem />
 					<SoldOutRoomItem />
 				</div>
@@ -154,15 +164,7 @@ export default function PlaceDetail() {
 						<tbody className="text-textGray">
 							<tr>
 								<td className="border-lightGray border px-4 py-2">
-									예약 완료 후 체크인 시간까지 10분 이상 남은 경우
-								</td>
-								<td className="border-lightGray border px-4 py-2">
-									예약 완료 시점부터 10분 이내
-								</td>
-							</tr>
-							<tr>
-								<td className="border-lightGray border px-4 py-2">
-									예약 완료 후 체크인 시간까지 10분 미만 남은 경우
+									예약 완료 후 체크인 시간까지 하루 전
 								</td>
 								<td className="border-lightGray border px-4 py-2">
 									체크인 시간 전까지

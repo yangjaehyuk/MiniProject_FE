@@ -1,12 +1,12 @@
 import { atom } from 'recoil';
 
-export const startDateState = atom({
-	key: 'startDateState',
+export const checkInDateState = atom({
+	key: 'checkInDateState',
 	default: new Date(),
 });
 
-export const endDateState = atom({
-	key: 'endDateState',
+export const checkOutDateState = atom({
+	key: 'checkOutDateState',
 	default: (() => {
 		const tomorrow = new Date();
 		tomorrow.setDate(tomorrow.getDate() + 1);
