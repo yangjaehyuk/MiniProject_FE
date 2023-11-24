@@ -177,9 +177,8 @@ const main = () => {
 			</div>
 			{/* 사이드바 추가 */}
 			<Sider isOpen={isOpen} handleClose={handleDrawerClose} />
-		</div>
 			<MainFooter></MainFooter>
-		</>
+		</div>
 	);
 };
 
