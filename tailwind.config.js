@@ -13,7 +13,7 @@ module.exports = withMT({
 		},
 		extend: {
 			fontFamily: {
-				body: ['AppleSDGothicNeoL', 'Roboto', 'sans-serif'],
+				body: ['Malgun Gothic','AppleSDGothicNeoL', 'Roboto', 'sans-serif'],
 			},
 			colors: {
 				primary: '#FF3478',
@@ -34,6 +34,7 @@ module.exports = withMT({
 				hoverSecondary: '#B1244C',
 				soldOut: '#CCCCCC',
 				bgOrange: '#FEF8F3',
+				red : '#DC0328'
 			},
 			fontSize: {
 				title: '18px',
