@@ -12,6 +12,8 @@ import SignUpModal from './SignUpModal';
 import styles from '../../components/login/Login.module.css';
 import { validationLoginSchema } from 'utils/validateSchema';
 import { useFormik } from 'formik';
+import { useRecoilState } from 'recoil';
+import { signUpModalState } from 'recoil/atoms/signUpModalAtom';
 
 const Inner = () => {
 	const navigate = useNavigate();
@@ -21,7 +23,10 @@ const Inner = () => {
 	const [showPw, setShowPw] = useState(false);
 	const [showMail, setShowMail] = useState(false);
 	const [showModal, setShowModal] = useState(false);
-
+	const [modalCheck, setModalCheck] = useRecoilState(signUpModalState);
+	useEffect(() => {
+		setModalCheck(false);
+	}, []);
 	const cancelCloseHandler = (event: MouseEvent) => {
 		if (mailRef.current && !mailRef.current.contains(event.target as Node)) {
 			setShowMail(false);
@@ -225,7 +230,10 @@ const Inner = () => {
 						<ChevronRight className="flex cursor-pointer m-2 justify-center items-center ml-1"></ChevronRight>
 					</span>
 				</div>
-				<SignUpModal open={showModal} onClose={handleOnClose}></SignUpModal>
+
+				{modalCheck === false && (
+					<SignUpModal open={showModal} onClose={handleOnClose}></SignUpModal>
+				)}
 			</div>
 		</div>
 	);

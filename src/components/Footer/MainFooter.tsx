@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-	Button,
-	Menu,
-	MenuHandler,
-	MenuItem,
-	MenuList,
-} from '@material-tailwind/react';
+import { Button, Menu, MenuHandler, MenuList } from '@material-tailwind/react';
 import { ArrowDropDown } from '@mui/icons-material';
 import logo from '../../assets/images/yanolja_gray.svg';
 import facebook from '../../assets/images/facebook.svg';
@@ -74,7 +68,14 @@ const MainFooter = () => {
 						</Button>
 					</MenuHandler>
 					<MenuList>
-						<MenuItem style={{ width: '200px', height: '34px' }}>
+						<div
+							style={{
+								display: 'flex',
+								width: '200px',
+								height: '34px',
+								alignItems: 'center',
+							}}
+						>
 							<a
 								rel="noreferrer"
 								target="_blank"
@@ -83,8 +84,15 @@ const MainFooter = () => {
 							>
 								비즈니스 사이트
 							</a>
-						</MenuItem>
-						<MenuItem style={{ width: '200px', height: '34px' }}>
+						</div>
+						<div
+							style={{
+								display: 'flex',
+								width: '200px',
+								height: '34px',
+								alignItems: 'center',
+							}}
+						>
 							<a
 								href="https://partner.yanolja.com/intro"
 								rel="noreferrer"
@@ -93,8 +101,15 @@ const MainFooter = () => {
 							>
 								파트너센터
 							</a>
-						</MenuItem>
-						<MenuItem style={{ width: '200px', height: '34px' }}>
+						</div>
+						<div
+							style={{
+								display: 'flex',
+								width: '200px',
+								height: '34px',
+								alignItems: 'center',
+							}}
+						>
 							<a
 								href="https://www.hotelup.com/"
 								rel="noreferrer"
@@ -103,8 +118,15 @@ const MainFooter = () => {
 							>
 								호텔업
 							</a>
-						</MenuItem>
-						<MenuItem style={{ width: '200px', height: '34px' }}>
+						</div>
+						<div
+							style={{
+								display: 'flex',
+								width: '200px',
+								height: '34px',
+								alignItems: 'center',
+							}}
+						>
 							<a
 								href="https://ad.yanolja.com/intro"
 								rel="noreferrer"
@@ -113,8 +135,15 @@ const MainFooter = () => {
 							>
 								야놀자 광고센터
 							</a>
-						</MenuItem>
-						<MenuItem style={{ width: '200px', height: '34px' }}>
+						</div>
+						<div
+							style={{
+								display: 'flex',
+								width: '200px',
+								height: '34px',
+								alignItems: 'center',
+							}}
+						>
 							<a
 								href="https://home.nowwaiting.co/"
 								rel="noreferrer"
@@ -123,8 +152,15 @@ const MainFooter = () => {
 							>
 								나우웨이팅
 							</a>
-						</MenuItem>
-						<MenuItem style={{ width: '200px', height: '34px' }}>
+						</div>
+						<div
+							style={{
+								display: 'flex',
+								width: '200px',
+								height: '34px',
+								alignItems: 'center',
+							}}
+						>
 							<a
 								rel="noreferrer"
 								target="_blank"
@@ -133,7 +169,7 @@ const MainFooter = () => {
 							>
 								도도포인트
 							</a>
-						</MenuItem>
+						</div>
 					</MenuList>
 				</Menu>
 			</div>
