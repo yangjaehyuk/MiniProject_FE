@@ -3,7 +3,7 @@ import bannerRed from '../../assets/images/bannerRed.png';
 import { ArrowDropDown } from '@mui/icons-material';
 import CategoryModal from './CategoryModal';
 import DateModal from './DateModal';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { categoryState, dateState } from 'recoil/atoms/myPageAtom';
 import ReservationCard from './ReservationCard';
 import { logout } from 'utils';
@@ -18,13 +18,15 @@ const Inner = () => {
 	const [email, setEmail] = useState('');
 	const nowCategory = useRecoilValue(categoryState);
 	const nowDate = useRecoilValue(dateState);
+	const [category, setCategory] = useRecoilState(categoryState);
+	const [date, setDate] = useRecoilState(dateState);
+
 	const handleCategoryModalClose = () => {
 		setShowCategoryModal(false);
 	};
 	const handleDateModalClose = () => {
 		setShowDateModal(false);
 	};
-
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -51,6 +53,8 @@ const Inner = () => {
 						className="text-xxsm text-textGray cursor-pointer"
 						onClick={() => {
 							logout();
+							setCategory('카테고리 전체');
+							setDate('최근 3개월');
 							navigate('/');
 						}}
 					>
