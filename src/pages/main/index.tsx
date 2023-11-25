@@ -4,9 +4,7 @@ import hotel from '../../assets/images/hotelImg.svg';
 import pension from '../../assets/images/pensionImg.svg';
 import poolVilla from '../../assets/images/poolVillaImg.svg';
 import resort from '../../assets/images/resortImg.svg';
-import carousel1 from '../../assets/images/carousel1.svg';
-import carousel2 from '../../assets/images/carousel2.svg';
-import carousel3 from '../../assets/images/carousel3.svg';
+
 import item from '../../assets/images/item.png';
 import Benefits1 from '../../assets/images/Benefits1.svg';
 import Benefits2 from '../../assets/images/Benefits2.svg';
@@ -22,6 +20,7 @@ import mainIcon4 from '../../assets/images/mainIcon4.svg';
 import GoodsList from '../../components/main/GoodsList';
 import Sider from 'components/main/Sider';
 import MainFooter from 'components/Footer/MainFooter';
+import MainCarousel from 'components/main/MainCarousel';
 
 const main = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -55,24 +54,9 @@ const main = () => {
 					<span> 풀빌라</span>
 				</div>
 			</div>
-			<div>캐러샐</div>
-			<div className="my-3 flex ">
-				<img
-					src={carousel1}
-					alt="carousel1"
-					className="h-[110px] mr-4 rounded-md"
-				/>
-				<img
-					src={carousel2}
-					alt="carousel2"
-					className="h-[110px] mr-4 rounded-md"
-				/>
-				<img
-					src={carousel3}
-					alt="carousel3"
-					className="h-[110px] mr-4 rounded-md"
-				/>
-			</div>
+			<div>캐러샐ff</div>
+
+			<MainCarousel />
 			<div className="flex text-xxsm px-20 py-5 mb-4 justify-between items-center">
 				<div className="flex flex-col items-center justify-center font-semibold">
 					<img src={mainIcon1} alt="mainIcon1" width={30} />
