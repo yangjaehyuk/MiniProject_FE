@@ -134,7 +134,7 @@ const Inner = () => {
 			} catch (e: any) {
 				let errorMessage = '';
 				if (e.message === 'Request failed with status code 401') {
-					errorMessage = '이미 가입된 아이디입니다.';
+					errorMessage = '이미 가입된 이메일입니다.';
 				}
 
 				swal({ title: errorMessage, icon: 'warning' });
@@ -171,11 +171,6 @@ const Inner = () => {
 										error={touched.mail && Boolean(errors.mail)}
 										ref={mailRef}
 										crossOrigin={undefined}
-										className={`${
-											values.mail.length > 0 && errors.mail
-												? 'text-red border-b-1 border-red'
-												: 'text-green border-b-1 border-green'
-										}`}
 									/>
 									{values.mail && showMail && (
 										<Cancel
@@ -187,7 +182,7 @@ const Inner = () => {
 									)}
 								</div>
 								{values.mail.length > 0 && errors.mail && (
-									<div className="text-sm text-red flex items-center">
+									<div className="text-sm flex text-red items-center">
 										<Block className="pr-1" />
 										{errors.mail}
 									</div>
@@ -204,11 +199,6 @@ const Inner = () => {
 										error={touched.name && Boolean(errors.name)}
 										ref={nameRef}
 										crossOrigin={undefined}
-										className={`${
-											values.name.length > 0 && errors.name
-												? 'text-red border-b-1 border-red'
-												: 'text-green border-b-1 border-green'
-										}`}
 									/>
 									{values.name && showName && (
 										<Cancel
@@ -220,7 +210,7 @@ const Inner = () => {
 									)}
 								</div>
 								{values.name.length > 0 && errors.name && (
-									<div className="text-sm text-red flex items-center">
+									<div className="text-sm  flex text-red items-center">
 										<Block className="pr-1" />
 										{errors.name}
 									</div>
@@ -236,11 +226,6 @@ const Inner = () => {
 										onBlur={handleBlur}
 										error={touched.pw && Boolean(errors.pw)}
 										crossOrigin={undefined}
-										className={`${
-											values.pw.length > 0 && errors.pw
-												? 'text-red border-b-1 border-red'
-												: 'text-green border-b-1 border-green'
-										}`}
 									/>
 									{values.pw && !showPw && showPwVis && (
 										<Visibility
@@ -278,11 +263,6 @@ const Inner = () => {
 										onBlur={handleBlur}
 										error={touched.checkPw && Boolean(errors.checkPw)}
 										crossOrigin={undefined}
-										className={`${
-											values.checkPw.length > 0 && errors.checkPw
-												? 'text-red border-b-1 border-red'
-												: 'text-green border-b-1 border-green'
-										}`}
 									/>
 
 									{values.checkPw && !showCheckPw && showCheckPwVis && (
