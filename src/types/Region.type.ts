@@ -1,4 +1,5 @@
-import { ModalProps, ProductItem } from './Category.type';
+import { InfiniteData } from 'react-query';
+import { AccommodationsRoot, ModalProps, ProductItem } from './Category.type';
 
 export interface ProductItemsProps {
 	title: string;
@@ -176,6 +177,7 @@ export const REGIONS: RegionListItem[] = [
 export interface RegionListNavProps {
 	handleRegionOpen: () => void;
 	handleOptionOpen: () => void;
+	totalElements?: number;
 }
 
 export enum CapacityAction {
@@ -187,3 +189,8 @@ export type RegionProdOptionModalProps = ModalProps & {
 	handleDateOpen: () => void;
 	handleCapaOpen: () => void;
 };
+
+export interface RegionInnerProps {
+	triggerRef: (node?: Element | null | undefined) => void;
+	data?: InfiniteData<AccommodationsRoot>;
+}

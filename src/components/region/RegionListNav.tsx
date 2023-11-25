@@ -16,6 +16,7 @@ import { capacityState } from 'recoil/atoms/capacityAtom';
 function RegionListNav({
 	handleRegionOpen,
 	handleOptionOpen,
+	totalElements,
 }: RegionListNavProps) {
 	const startDate = useRecoilValue(startDateState);
 	const endDate = useRecoilValue(endDateState);
@@ -48,7 +49,8 @@ function RegionListNav({
 			</div>
 			<div className="flex justify-between items-center bg-bgGray pl-3 pr-1 py-1 ml-[-1.25rem] mr-[-1.25rem]">
 				<p className="text-sm">
-					<span className="text-secondaryTextGray">427</span>개의 숙소
+					<span className="text-secondaryTextGray">{totalElements}</span>개의
+					숙소
 				</p>
 				<Menu>
 					<MenuHandler>

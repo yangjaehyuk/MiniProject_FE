@@ -1,12 +1,8 @@
 import React from 'react';
 import RegionItem from './RegionItem';
-import useQueryRegion from 'hooks/region/useQueryRegion';
-import { useInView } from 'react-intersection-observer';
+import { RegionInnerProps } from 'types/Region.type';
 
-function RegionItems() {
-	const { ref, inView } = useInView();
-	const data = useQueryRegion(inView);
-
+function RegionItems({ triggerRef, data }: RegionInnerProps) {
 	return (
 		<>
 			<div className="py-4">
@@ -20,7 +16,7 @@ function RegionItems() {
 					))}
 				</div>
 			</div>
-			<div ref={ref}>&nbsp;</div>
+			<div ref={triggerRef}>&nbsp;</div>
 		</>
 	);
 }

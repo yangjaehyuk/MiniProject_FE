@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import RegionProdOptionModal from 'components/region/RegionProdOptionModal';
 import RegionProdCapacityModal from 'components/region/RegionProdCapacityModal';
 import CalendarModal from 'components/common/CalendarModal';
+import RegionInner from 'components/region/RegionInner';
 
 function Region() {
 	const { region } = useParams();
@@ -37,15 +38,12 @@ function Region() {
 	return (
 		<main className="">
 			<RegionHeader />
-			<div className="pt-[48px]">
-				<RegionListNav
+			<Suspense fallback={<div>loading...</div>}>
+				<RegionInner
 					handleRegionOpen={handleRegionOpen}
 					handleOptionOpen={handleOptionOpen}
 				/>
-				<Suspense fallback={<div>loading...</div>}>
-					<RegionItems />
-				</Suspense>
-			</div>
+			</Suspense>
 			<CategoryRegionModal isOpen={regionOpen} handleOpen={handleRegionOpen} />
 			<RegionProdOptionModal
 				isOpen={optionOpen}
