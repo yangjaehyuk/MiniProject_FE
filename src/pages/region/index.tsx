@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import RegionHeader from 'components/region/RegionHeader';
-import RegionListNav from 'components/region/RegionListNav';
-import RegionItems from 'components/region/RegionItems';
-import { REGION_SEOUL_DATA } from 'types/Region.type';
 import CategoryRegionModal from 'components/category/CategorySelcRegion';
 import { useParams } from 'react-router-dom';
 import RegionProdOptionModal from 'components/region/RegionProdOptionModal';
 import RegionProdCapacityModal from 'components/region/RegionProdCapacityModal';
+import CalendarModal from 'components/common/CalendarModal';
+import RegionInner from 'components/region/RegionInner';
 
 function Region() {
 	const { region } = useParams();
@@ -29,7 +28,7 @@ function Region() {
 	};
 
 	useEffect(() => {
-		console.log('region changed to:', region);
+		// console.log('region changed to:', region);
 		setRegionOpen(false);
 		setOptionOpen(false);
 	}, [region]);
@@ -37,13 +36,12 @@ function Region() {
 	return (
 		<main className="">
 			<RegionHeader />
-			<div className="pt-[48px]">
-				<RegionListNav
+			<Suspense fallback={<div>loading...</div>}>
+				<RegionInner
 					handleRegionOpen={handleRegionOpen}
 					handleOptionOpen={handleOptionOpen}
 				/>
-				<RegionItems items={REGION_SEOUL_DATA} />
-			</div>
+			</Suspense>
 			<CategoryRegionModal isOpen={regionOpen} handleOpen={handleRegionOpen} />
 			<RegionProdOptionModal
 				isOpen={optionOpen}
@@ -51,6 +49,7 @@ function Region() {
 				handleCapaOpen={handleCapacityOpen}
 				handleDateOpen={handleDateOpen}
 			/>
+			{dateOpen && <CalendarModal handleModal={handleDateOpen} />}
 			<RegionProdCapacityModal
 				isOpen={capacityOpen}
 				handleOpen={handleCapacityOpen}

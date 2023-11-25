@@ -4,21 +4,16 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useRecoilState } from 'recoil';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
-import {formatFullDateRange }from 'utils/formatDate';
-import {
-	Dialog,
-	DialogBody,
-	DialogHeader,
-} from '@material-tailwind/react';
+import { formatFullDateRange } from 'utils/formatDate';
+import { Dialog, DialogBody, DialogHeader } from '@material-tailwind/react';
 import './CalendarModal.module.css';
 interface CalendarModalProps {
 	handleModal: () => void;
 }
 
 export default function CalendarModal({ handleModal }: CalendarModalProps) {
-	const [checkInDate,setCheckInDate]= useRecoilState(checkInDateState);
-	const [checkOutDate,setCheckoutDate] = useRecoilState(checkOutDateState);
-
+	const [checkInDate, setCheckInDate] = useRecoilState(checkInDateState);
+	const [checkOutDate, setCheckoutDate] = useRecoilState(checkOutDateState);
 
 	const [startDay, setStartDay] = useState<Date | null>(checkInDate);
 	const [endDay, setEndDay] = useState<Date | null>(checkOutDate);
@@ -54,21 +49,28 @@ export default function CalendarModal({ handleModal }: CalendarModalProps) {
 			setFormattingDate(formatFullDateRange(startDay, endDay));
 			setLastStartDate(startDay);
 		} else if (startDay !== null && startDay !== lastStartDate) {
-			setFormattingDate(formatFullDateRange(startDay, null)); 
+			setFormattingDate(formatFullDateRange(startDay, null));
 			setLastStartDate(startDay);
 		} else if (startDay !== null && endDay !== null) {
-			setFormattingDate(formatFullDateRange(startDay, endDay)); 
+			setFormattingDate(formatFullDateRange(startDay, endDay));
 		}
 	}, [startDay, endDay, lastStartDate]);
 
 	return (
-		<Dialog open={true} handler={handleModal} size="xxl" className="bg-bgGray font-body">
+		<Dialog
+			open={true}
+			handler={handleModal}
+			size="xxl"
+			className="bg-bgGray font-body"
+		>
 			<DialogHeader>
 				<div className="fixed top-0 left-1/2 transform translate-x-[-50%] w-full bg-white shadow-md flex justify-center">
 					<div className="w-[768px] h-[92px] flex flex-col  justify-evenly ">
 						<div className="flex justify-between items-center px-5">
 							<CloseIcon onClick={handleModal} />
-							<span className="!text-title text-black font-bold">날짜 선택</span>
+							<span className="!text-title text-black font-bold">
+								날짜 선택
+							</span>
 							<span
 								onClick={handleResetClick}
 								className="text-content text-blue cursor-pointer font-normal"
@@ -102,7 +104,7 @@ export default function CalendarModal({ handleModal }: CalendarModalProps) {
 					</div>
 				</div>
 			</DialogHeader>
-			<DialogBody className='pt-[92px] flex justify-center'>
+			<DialogBody className="pt-[92px] flex justify-center">
 				<DatePicker
 					selected={startDay}
 					onChange={handleOnChange}

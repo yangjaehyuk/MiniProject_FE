@@ -7,7 +7,7 @@ import {
 	DialogHeader,
 } from '@material-tailwind/react';
 import { Close } from '@mui/icons-material';
-import { REGION_LIST } from 'types/Region.type';
+import { REGIONS } from 'types/Region.type';
 import CategorySelcRegionItem from './CategorySelcRegionItem';
 import styles from './Category.module.css';
 
@@ -26,7 +26,7 @@ function CategoryRegionModal({ isOpen, handleOpen }: ModalProps) {
 			</DialogHeader>
 			<DialogBody className={`${styles.dialogWrap} ${styles.dialogBody}`}>
 				<div className="grid grid-cols-2 gap-3">
-					{REGION_LIST.map((region) => (
+					{REGIONS.map((region) => (
 						<CategorySelcRegionItem key={region.name} {...region} />
 					))}
 				</div>
