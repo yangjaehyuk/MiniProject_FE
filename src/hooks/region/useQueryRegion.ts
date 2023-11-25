@@ -3,7 +3,7 @@ import { AccommodationsRoot } from 'types/Category.type';
 import { useInfiniteQuery } from 'react-query';
 import { useParams } from 'react-router';
 import { useRecoilValue } from 'recoil';
-import { endDateState, startDateState } from 'recoil/atoms/dateAtom';
+import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { foramtYYYYMMDD } from 'utils/formatDate';
 import axiosInstance from 'apis/axios';
 
@@ -34,8 +34,8 @@ const getRegionMainProducts = async (query: QueryData, pageParam: number) => {
  */
 const useQueryRegion = (isInView: boolean) => {
 	const { category = '', region = '' } = useParams();
-	const startDate = useRecoilValue(startDateState);
-	const endDate = useRecoilValue(endDateState);
+	const startDate = useRecoilValue(checkInDateState);
+	const endDate = useRecoilValue(checkOutDateState);
 	const start = foramtYYYYMMDD(startDate);
 	const end = foramtYYYYMMDD(endDate);
 	const query = {

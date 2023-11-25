@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { endDateState, startDateState } from 'recoil/atoms/dateAtom';
+import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { Button } from '@material-tailwind/react';
 import { Close, DateRange, Person } from '@mui/icons-material';
 import styles from '../category/Category.module.css';
@@ -15,8 +15,8 @@ function RegionProdOptionModal({
 	handleCapaOpen,
 	handleDateOpen,
 }: RegionProdOptionModalProps) {
-	const startDate = useRecoilValue(startDateState);
-	const endDate = useRecoilValue(endDateState);
+	const startDate = useRecoilValue(checkInDateState);
+	const endDate = useRecoilValue(checkOutDateState);
 	const capacity = useRecoilValue(capacityState);
 	const formattingDate = formatMonthDate(startDate, endDate);
 

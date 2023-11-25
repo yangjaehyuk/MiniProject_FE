@@ -2,7 +2,7 @@ import axiosInstance from 'apis/axios';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
 import { useRecoilValue } from 'recoil';
-import { endDateState, startDateState } from 'recoil/atoms/dateAtom';
+import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import {
 	AccommodationsRoot,
 	CATEGORY_SEOUL_DATA,
@@ -62,8 +62,8 @@ const getBestAccommodations = async (
  */
 export const useQueryBestCategory = () => {
 	const { category } = useParams();
-	const startDate = useRecoilValue(startDateState);
-	const endDate = useRecoilValue(endDateState);
+	const startDate = useRecoilValue(checkInDateState);
+	const endDate = useRecoilValue(checkOutDateState);
 	const { data, isSuccess, isError } = useQuery(
 		[`${category?.toUpperCase()}/topRated`],
 		() => getBestAccommodations(category ?? '', startDate, endDate),

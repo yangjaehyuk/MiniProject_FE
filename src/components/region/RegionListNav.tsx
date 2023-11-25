@@ -9,7 +9,7 @@ import {
 import { DateRange, KeyboardArrowDown, LocationOn } from '@mui/icons-material';
 import { RegionListNavProps } from 'types/Region.type';
 import { useRecoilValue } from 'recoil';
-import { endDateState, startDateState } from 'recoil/atoms/dateAtom';
+import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { formatMonthDate } from 'utils/formatDate';
 import { capacityState } from 'recoil/atoms/capacityAtom';
 
@@ -18,8 +18,8 @@ function RegionListNav({
 	handleOptionOpen,
 	totalElements,
 }: RegionListNavProps) {
-	const startDate = useRecoilValue(startDateState);
-	const endDate = useRecoilValue(endDateState);
+	const startDate = useRecoilValue(checkInDateState);
+	const endDate = useRecoilValue(checkOutDateState);
 	const capacity = useRecoilValue(capacityState);
 
 	const formattingDate = formatMonthDate(startDate, endDate);

@@ -6,6 +6,20 @@ export interface ProductItem {
 	thumbnail: string;
 }
 
+export type ReservationInfo = {
+	reservationName: string;
+	reservationNumber: string;
+	userName: string;
+	userNumber: string;
+	paymentMethod: string;
+	requiredCheckbox1: boolean;
+	requiredCheckbox2: boolean;
+	requiredCheckbox3: boolean;
+	optionalCheckbox1?: boolean;
+	optionalCheckbox2?: boolean;
+	allAgreementCheckbox: boolean;
+};
+
 export interface ProductSwiperProps {
 	items: ProductItem[];
 }

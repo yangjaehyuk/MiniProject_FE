@@ -1,7 +1,5 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import RegionHeader from 'components/region/RegionHeader';
-import RegionListNav from 'components/region/RegionListNav';
-import RegionItems from 'components/region/RegionItems';
 import CategoryRegionModal from 'components/category/CategorySelcRegion';
 import { useParams } from 'react-router-dom';
 import RegionProdOptionModal from 'components/region/RegionProdOptionModal';
@@ -51,7 +49,7 @@ function Region() {
 				handleCapaOpen={handleCapacityOpen}
 				handleDateOpen={handleDateOpen}
 			/>
-			<CalendarModal isOpen={dateOpen} handleOpen={handleDateOpen} />
+			{dateOpen && <CalendarModal handleModal={handleDateOpen} />}
 			<RegionProdCapacityModal
 				isOpen={capacityOpen}
 				handleOpen={handleCapacityOpen}
