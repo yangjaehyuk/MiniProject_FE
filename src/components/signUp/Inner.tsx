@@ -9,6 +9,7 @@ import { postJoin } from 'apis/axios';
 import { useRecoilValue } from 'recoil';
 import { signUpModalState } from 'recoil/atoms/signUpModalAtom';
 import SignUpModal from 'components/login/SignUpModal';
+import swal from 'sweetalert';
 
 const Inner = () => {
 	const navigate = useNavigate();
@@ -128,10 +129,15 @@ const Inner = () => {
 		onSubmit: async (values) => {
 			try {
 				await postJoin(values.mail, values.pw, values.name);
-				// console.log('회원가입 성공', res);
+				swal({ title: '회원가입에 성공했습니다.', icon: 'success' });
 				navigate('/login');
-			} catch (e) {
-				console.error(e);
+			} catch (e: any) {
+				let errorMessage = '';
+				if (e.message === 'Request failed with status code 401') {
+					errorMessage = '이미 가입된 아이디입니다.';
+				}
+
+				swal({ title: errorMessage, icon: 'warning' });
 			}
 		},
 	});
