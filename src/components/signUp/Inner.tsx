@@ -6,6 +6,9 @@ import { useFormik } from 'formik';
 import { validationSignUpSchema } from 'utils/validateSchema';
 import styles from '../../components/login/Login.module.css';
 import { postJoin } from 'apis/axios';
+import { useRecoilValue } from 'recoil';
+import { signUpModalState } from 'recoil/atoms/signUpModalAtom';
+import SignUpModal from 'components/login/SignUpModal';
 
 const Inner = () => {
 	const navigate = useNavigate();
@@ -19,6 +22,8 @@ const Inner = () => {
 	const [showPwVis, setShowPwVis] = useState(false);
 	const [showCheckPwVis, setShowCheckPwVis] = useState(false);
 	const [showMail, setShowMail] = useState(false);
+	const [showModal, setShowModal] = useState(true);
+	const modalCheck = useRecoilValue(signUpModalState);
 
 	const cancelCloseMailHandler = (event: MouseEvent) => {
 		if (mailRef.current && !mailRef.current.contains(event.target as Node)) {
@@ -131,215 +136,224 @@ const Inner = () => {
 		},
 	});
 
+	const handleOnClose = () => {
+		setShowModal(false);
+	};
+
 	const { values, touched, errors, handleChange, handleBlur, handleSubmit } =
 		formik;
 
 	return (
-		<div className="pt-20 min-h-screen m-auto bg-white max-w-[768px] mx-auto">
-			<div className="pt-4.5 pl-8 pr-8">
-				<form className="m-0 p-0" onSubmit={handleSubmit}>
-					<div className="relative">
-						<div className="mb-8">
-							<div className="pt-11 flex">
-								<Input
-									type="text"
-									variant="standard"
-									label="이메일"
-									name="mail"
-									value={values.mail}
-									onChange={handleChange}
-									onBlur={handleBlur}
-									error={touched.mail && Boolean(errors.mail)}
-									ref={mailRef}
-									crossOrigin={undefined}
-									className={`${
-										values.mail.length > 0 && errors.mail
-											? 'text-red border-b-1 border-red'
-											: 'text-green border-b-1 border-green'
-									}`}
-								/>
-								{values.mail && showMail && (
-									<Cancel
-										className="cursor-pointer right-0 absolute"
-										onClick={() => {
-											formik.setFieldValue('mail', '');
-										}}
-									></Cancel>
-								)}
-							</div>
-							{values.mail.length > 0 && errors.mail && (
-								<div className="text-sm text-red flex items-center">
-									<Block className="pr-1" />
-									{errors.mail}
+		<>
+			{modalCheck === false && (
+				<SignUpModal open={showModal} onClose={handleOnClose}></SignUpModal>
+			)}
+			<div className="pt-20 min-h-screen m-auto bg-white max-w-[768px] mx-auto">
+				<div className="pt-4.5 pl-8 pr-8">
+					<form className="m-0 p-0" onSubmit={handleSubmit}>
+						<div className="relative">
+							<div className="mb-8">
+								<div className="pt-11 flex">
+									<Input
+										type="text"
+										variant="standard"
+										label="이메일"
+										name="mail"
+										value={values.mail}
+										onChange={handleChange}
+										onBlur={handleBlur}
+										error={touched.mail && Boolean(errors.mail)}
+										ref={mailRef}
+										crossOrigin={undefined}
+										className={`${
+											values.mail.length > 0 && errors.mail
+												? 'text-red border-b-1 border-red'
+												: 'text-green border-b-1 border-green'
+										}`}
+									/>
+									{values.mail && showMail && (
+										<Cancel
+											className="cursor-pointer right-0 absolute"
+											onClick={() => {
+												formik.setFieldValue('mail', '');
+											}}
+										></Cancel>
+									)}
 								</div>
-							)}
-							<div className="pt-11 flex">
-								<Input
-									type="text"
-									variant="standard"
-									label="이름"
-									name="name"
-									value={values.name}
-									onChange={handleChange}
-									onBlur={handleBlur}
-									error={touched.name && Boolean(errors.name)}
-									ref={nameRef}
-									crossOrigin={undefined}
-									className={`${
-										values.name.length > 0 && errors.name
-											? 'text-red border-b-1 border-red'
-											: 'text-green border-b-1 border-green'
-									}`}
-								/>
-								{values.name && showName && (
-									<Cancel
-										className="cursor-pointer right-0 absolute"
-										onClick={() => {
-											formik.setFieldValue('name', '');
-										}}
-									></Cancel>
+								{values.mail.length > 0 && errors.mail && (
+									<div className="text-sm text-red flex items-center">
+										<Block className="pr-1" />
+										{errors.mail}
+									</div>
 								)}
-							</div>
-							{values.name.length > 0 && errors.name && (
-								<div className="text-sm text-red flex items-center">
-									<Block className="pr-1" />
-									{errors.name}
+								<div className="pt-11 flex">
+									<Input
+										type="text"
+										variant="standard"
+										label="이름"
+										name="name"
+										value={values.name}
+										onChange={handleChange}
+										onBlur={handleBlur}
+										error={touched.name && Boolean(errors.name)}
+										ref={nameRef}
+										crossOrigin={undefined}
+										className={`${
+											values.name.length > 0 && errors.name
+												? 'text-red border-b-1 border-red'
+												: 'text-green border-b-1 border-green'
+										}`}
+									/>
+									{values.name && showName && (
+										<Cancel
+											className="cursor-pointer right-0 absolute"
+											onClick={() => {
+												formik.setFieldValue('name', '');
+											}}
+										></Cancel>
+									)}
 								</div>
-							)}
-							<div className="pt-11 flex" ref={pwRef}>
-								<Input
-									type={showPw ? 'text' : 'password'}
-									variant="standard"
-									label="비밀번호"
-									name="pw"
-									value={values.pw}
-									onChange={handleChange}
-									onBlur={handleBlur}
-									error={touched.pw && Boolean(errors.pw)}
-									crossOrigin={undefined}
-									className={`${
-										values.pw.length > 0 && errors.pw
-											? 'text-red border-b-1 border-red'
-											: 'text-green border-b-1 border-green'
-									}`}
-								/>
-								{values.pw && !showPw && showPwVis && (
-									<Visibility
-										className="cursor-pointer right-0 absolute"
-										onClick={(e) => {
-											e.stopPropagation();
-											setShowPw(!showPw);
-										}}
-									></Visibility>
+								{values.name.length > 0 && errors.name && (
+									<div className="text-sm text-red flex items-center">
+										<Block className="pr-1" />
+										{errors.name}
+									</div>
 								)}
-								{values.pw && showPw && showPwVis && (
-									<VisibilityOff
-										className="cursor-pointer right-0 absolute"
-										onClick={(e) => {
-											e.stopPropagation();
-											setShowPw(!showPw);
-										}}
-									></VisibilityOff>
-								)}
-							</div>
-							{values.pw.length > 0 && errors.pw && (
-								<div className="text-sm text-red flex items-center">
-									<Block className="pr-1" />
-									{errors.pw}
+								<div className="pt-11 flex" ref={pwRef}>
+									<Input
+										type={showPw ? 'text' : 'password'}
+										variant="standard"
+										label="비밀번호"
+										name="pw"
+										value={values.pw}
+										onChange={handleChange}
+										onBlur={handleBlur}
+										error={touched.pw && Boolean(errors.pw)}
+										crossOrigin={undefined}
+										className={`${
+											values.pw.length > 0 && errors.pw
+												? 'text-red border-b-1 border-red'
+												: 'text-green border-b-1 border-green'
+										}`}
+									/>
+									{values.pw && !showPw && showPwVis && (
+										<Visibility
+											className="cursor-pointer right-0 absolute"
+											onClick={(e) => {
+												e.stopPropagation();
+												setShowPw(!showPw);
+											}}
+										></Visibility>
+									)}
+									{values.pw && showPw && showPwVis && (
+										<VisibilityOff
+											className="cursor-pointer right-0 absolute"
+											onClick={(e) => {
+												e.stopPropagation();
+												setShowPw(!showPw);
+											}}
+										></VisibilityOff>
+									)}
 								</div>
-							)}
-							<div className="pt-11 flex" ref={checkPwRef}>
-								<Input
-									type={showCheckPw ? 'text' : 'password'}
-									variant="standard"
-									label="비밀번호 확인"
-									name="checkPw"
-									value={values.checkPw}
-									onChange={handleChange}
-									onBlur={handleBlur}
-									error={touched.checkPw && Boolean(errors.checkPw)}
-									crossOrigin={undefined}
-									className={`${
-										values.checkPw.length > 0 && errors.checkPw
-											? 'text-red border-b-1 border-red'
-											: 'text-green border-b-1 border-green'
-									}`}
-								/>
+								{values.pw.length > 0 && errors.pw && (
+									<div className="text-sm text-red flex items-center">
+										<Block className="pr-1" />
+										{errors.pw}
+									</div>
+								)}
+								<div className="pt-11 flex" ref={checkPwRef}>
+									<Input
+										type={showCheckPw ? 'text' : 'password'}
+										variant="standard"
+										label="비밀번호 확인"
+										name="checkPw"
+										value={values.checkPw}
+										onChange={handleChange}
+										onBlur={handleBlur}
+										error={touched.checkPw && Boolean(errors.checkPw)}
+										crossOrigin={undefined}
+										className={`${
+											values.checkPw.length > 0 && errors.checkPw
+												? 'text-red border-b-1 border-red'
+												: 'text-green border-b-1 border-green'
+										}`}
+									/>
 
-								{values.checkPw && !showCheckPw && showCheckPwVis && (
-									<Visibility
-										className="cursor-pointer right-0 absolute"
-										onClick={(e) => {
-											e.stopPropagation();
-											setShowCheckPw(!showCheckPw);
-										}}
-									></Visibility>
-								)}
-								{values.checkPw && showCheckPw && showCheckPwVis && (
-									<VisibilityOff
-										className="cursor-pointer right-0 absolute"
-										onClick={(e) => {
-											e.stopPropagation();
-											setShowCheckPw(!showCheckPw);
-										}}
-									></VisibilityOff>
+									{values.checkPw && !showCheckPw && showCheckPwVis && (
+										<Visibility
+											className="cursor-pointer right-0 absolute"
+											onClick={(e) => {
+												e.stopPropagation();
+												setShowCheckPw(!showCheckPw);
+											}}
+										></Visibility>
+									)}
+									{values.checkPw && showCheckPw && showCheckPwVis && (
+										<VisibilityOff
+											className="cursor-pointer right-0 absolute"
+											onClick={(e) => {
+												e.stopPropagation();
+												setShowCheckPw(!showCheckPw);
+											}}
+										></VisibilityOff>
+									)}
+								</div>
+								{values.checkPw.length > 0 && errors.checkPw && (
+									<div className="text-sm text-red flex items-center">
+										<Block className="pr-1" />
+										{errors.checkPw}
+									</div>
 								)}
 							</div>
-							{values.checkPw.length > 0 && errors.checkPw && (
-								<div className="text-sm text-red flex items-center">
-									<Block className="pr-1" />
-									{errors.checkPw}
-								</div>
-							)}
 						</div>
-					</div>
 
-					{!(
-						((touched.mail && Boolean(errors.mail) === false) ||
-							(touched.mail && Boolean(errors.mail) === undefined)) &&
-						((touched.name && Boolean(errors.name) === false) ||
-							(touched.name && Boolean(errors.name) === undefined)) &&
-						((touched.pw && Boolean(errors.pw) === false) ||
-							(touched.pw && Boolean(errors.pw) === undefined)) &&
-						((touched.checkPw && Boolean(errors.checkPw) === false) ||
-							(touched.checkPw && Boolean(errors.checkPw) === undefined))
-					) ? (
-						<div
-							style={{
-								width: '100%',
-								boxShadow: 'none',
-								fontFamily: 'AppleSDGothicNeoL',
-								color: 'white',
-								fontWeight: 700,
-								fontSize: '18px',
-								border: '1px solid #ccc',
-								borderRadius: '5px',
-							}}
-							className="mt-4 pt-3 pb-3 flex items-center justify-center bg-gray cursor-default"
-						>
-							완료
-						</div>
-					) : (
-						<button
-							type="submit"
-							style={{
-								width: '100%',
-								boxShadow: 'none',
-								fontFamily: 'AppleSDGothicNeoL',
-								color: 'white',
-								fontWeight: 700,
-								fontSize: '18px',
-								border: '1px solid #de2e5f',
-								borderRadius: '5px',
-							}}
-							className={styles.btnActive}
-						>
-							완료
-						</button>
-					)}
-				</form>
+						{!(
+							((touched.mail && Boolean(errors.mail) === false) ||
+								(touched.mail && Boolean(errors.mail) === undefined)) &&
+							((touched.name && Boolean(errors.name) === false) ||
+								(touched.name && Boolean(errors.name) === undefined)) &&
+							((touched.pw && Boolean(errors.pw) === false) ||
+								(touched.pw && Boolean(errors.pw) === undefined)) &&
+							((touched.checkPw && Boolean(errors.checkPw) === false) ||
+								(touched.checkPw && Boolean(errors.checkPw) === undefined))
+						) ? (
+							<div
+								style={{
+									width: '100%',
+									boxShadow: 'none',
+									fontFamily: 'AppleSDGothicNeoL',
+									color: 'white',
+									fontWeight: 700,
+									fontSize: '18px',
+									border: '1px solid #ccc',
+									borderRadius: '5px',
+								}}
+								className="mt-4 pt-3 pb-3 flex items-center justify-center bg-gray cursor-default"
+							>
+								완료
+							</div>
+						) : (
+							<button
+								type="submit"
+								style={{
+									width: '100%',
+									boxShadow: 'none',
+									fontFamily: 'AppleSDGothicNeoL',
+									color: 'white',
+									fontWeight: 700,
+									fontSize: '18px',
+									border: '1px solid #de2e5f',
+									borderRadius: '5px',
+								}}
+								className={styles.btnActive}
+							>
+								완료
+							</button>
+						)}
+					</form>
+				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 

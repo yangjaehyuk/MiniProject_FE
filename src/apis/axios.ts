@@ -20,4 +20,5 @@ export const postJoin = async (
 	});
 	return res.data;
 };
+
 export default instance;
