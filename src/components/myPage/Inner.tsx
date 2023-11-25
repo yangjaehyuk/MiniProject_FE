@@ -6,8 +6,11 @@ import DateModal from './DateModal';
 import { useRecoilValue } from 'recoil';
 import { categoryState, dateState } from 'recoil/atoms/myPageAtom';
 import ReservationCard from './ReservationCard';
+import { logout } from 'utils';
+import { useNavigate } from 'react-router-dom';
 
 const Inner = () => {
+	const navigate = useNavigate();
 	const [showCategoryModal, setShowCategoryModal] = useState(false);
 	const [showDateModal, setShowDateModal] = useState(false);
 	const nowCategory = useRecoilValue(categoryState);
@@ -25,16 +28,17 @@ const Inner = () => {
 					<div className="text-content font-bold text-black cursor-default">
 						여기에 사용자 이름
 					</div>
-					<a
-						className="pt-1 cursor-pointer"
-						rel="noreferrer"
-						href="/"
-						style={{ border: '1px solid #ccc', padding: 3 }}
-					>
-						<p className="text-xxsm text-textGray">로그아웃</p>
-					</a>
-				</div>
 
+					<div
+						className="text-xxsm text-textGray cursor-pointer"
+						onClick={() => {
+							logout();
+							navigate('/');
+						}}
+					>
+						로그아웃
+					</div>
+				</div>
 				<div className="text-md text-textGray pt-3 cursor-default">
 					여기에 사용자 이메일
 				</div>
