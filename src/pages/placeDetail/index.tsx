@@ -14,9 +14,9 @@ import SoldOutRoomItem from 'components/placeDetail/SoldOutRoomItem';
 import KakaoMap from 'components/placeDetail/KakaoMap';
 import RoomIcon from '@mui/icons-material/Room';
 import CalendarModal from 'components/common/CalendarModal';
-import {formatFullDateRangeWithoutYear } from 'utils/formatDate';
+import { formatFullDateRangeWithoutYear } from 'utils/formatDate';
 import { useRecoilValue } from 'recoil';
-import { checkInDateState, checkOutDateState} from 'recoil/atoms/dateAtom';
+import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import ImageSwiper from 'components/common/ImageSwiper';
 import { ImageItem } from 'types/ImageItem';
 
@@ -24,19 +24,22 @@ export default function PlaceDetail() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const checkInDate = useRecoilValue<Date>(checkInDateState);
 	const checkOutDate = useRecoilValue<Date>(checkOutDateState);
-	const [formattingDate , setFormattingDate] = useState(formatFullDateRangeWithoutYear(checkInDate,checkOutDate));
+	const [formattingDate, setFormattingDate] = useState(
+		formatFullDateRangeWithoutYear(checkInDate, checkOutDate),
+	);
 
 	useEffect(() => {
-		setFormattingDate(formatFullDateRangeWithoutYear(checkInDate, checkOutDate));
-
-	},[checkInDate,checkOutDate]);
+		setFormattingDate(
+			formatFullDateRangeWithoutYear(checkInDate, checkOutDate),
+		);
+	}, [checkInDate, checkOutDate]);
 
 	const handleCalendarClick = () => {
 		setIsModalOpen(!isModalOpen);
-	}
+	};
 	return (
 		<div className="justify-center m-auto text-content text-black">
-			{isModalOpen && <CalendarModal  handleModal={handleCalendarClick}/>}
+			{isModalOpen && <CalendarModal handleModal={handleCalendarClick} />}
 			<Header />
 			<div className="relative mt-[48px] flex-row">
 				{/* <img
@@ -45,7 +48,7 @@ export default function PlaceDetail() {
 					className="max-w-none w-[768px] h-[507px] -ml-5"
 				/> */}
 				<ImageSwiper items={ImageItem} />
-				
+
 				<div className="pt-3">
 					<span className="text-sm">일반 호텔</span>
 					<div className="flex w-full justify-between">
@@ -76,16 +79,21 @@ export default function PlaceDetail() {
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold ">객실 선택</p>
 					</div>
-					<div className='flex w-full text-content font-bold text-black'>
-					<button className='w-full flex items-start border border-borderGray rounded px-3 py-[11px]' onClick={handleCalendarClick}>
-						{formattingDate}
-					</button>
-					<button className='w-full flex items-start border border-borderGray rounded px-3 py-[11px]'onClick={handleCalendarClick}>
-						성인 2, 아동 0
-					</button>
-
+					<div className="flex w-full text-content font-bold text-black">
+						<button
+							className="w-full flex items-start border border-borderGray rounded px-3 py-[11px]"
+							onClick={handleCalendarClick}
+						>
+							{formattingDate}
+						</button>
+						<button
+							className="w-full flex items-start border border-borderGray rounded px-3 py-[11px]"
+							onClick={handleCalendarClick}
+						>
+							성인 2, 아동 0
+						</button>
 					</div>
-					
+
 					<RoomItem />
 					<SoldOutRoomItem />
 				</div>
@@ -94,11 +102,16 @@ export default function PlaceDetail() {
 						<p className="text-title font-bold">위치/교통</p>
 					</div>
 					<KakaoMap />
-					<div className='flex items-center py-3'>
-						<RoomIcon className='mr-1' sx={{ fill: '#cccccc', fontSize: '16px' }}/>
+					<div className="flex items-center py-3">
+						<RoomIcon
+							className="mr-1"
+							sx={{ fill: '#cccccc', fontSize: '16px' }}
+						/>
 						<p>제주특별자치도 제주시 도령로 27</p>
 					</div>
-					<button className='w-full border border-gray py-[6px] rounded-sm text-sm hover:bg-bgGray'>주소복사</button>
+					<button className="w-full border border-gray py-[6px] rounded-sm text-sm hover:bg-bgGray">
+						주소복사
+					</button>
 				</div>
 				<div className="pt-5">
 					<div className="min-h-[3rem] flex items-center">

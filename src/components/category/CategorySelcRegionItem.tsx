@@ -4,14 +4,7 @@ import { RegionListItem } from 'types/Region.type';
 import styles from './Category.module.css';
 import { Typography } from '@material-tailwind/react';
 
-function CategorySelcRegionItem({
-	name,
-	image,
-	link,
-	author,
-	right1,
-	right2,
-}: RegionListItem) {
+function CategorySelcRegionItem({ name, image, link, author }: RegionListItem) {
 	const params = useParams();
 
 	return (
@@ -25,9 +18,11 @@ function CategorySelcRegionItem({
 				</div>
 				<div className={styles.regionOverlay}>
 					<Typography variant="h5">{name}</Typography>
-					<Typography variant="small" className="">
-						사진 : <a href={right1}>Unsplash</a>의 <a href={right2}>{author}</a>
-					</Typography>
+					{author !== '' && (
+						<Typography variant="small" className="opacity-50">
+							사진 : Unsplash의 {author}
+						</Typography>
+					)}
 				</div>
 			</Link>
 		</div>
