@@ -65,7 +65,7 @@ const Inner = () => {
 			try {
 				const res = await postLogin(values.mail, values.pw);
 				swal({ title: '로그인에 성공했습니다.', icon: 'success' });
-				const { accessToken } = res.data;
+				const { accessToken } = res;
 				setCookie(accessToken);
 				navigate('/');
 			} catch (e: any) {
