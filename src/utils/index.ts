@@ -39,10 +39,9 @@ export const logout = () => {
 export const checkAccessToken = () => {
 	const accessToken = getCookie('accessToken');
 	if (!accessToken) {
-		removeCookie();
-		return true;
+		return false;
 	}
-	return false;
+	return true;
 };
 
 //mypage, orders, result
