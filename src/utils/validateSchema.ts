@@ -22,7 +22,10 @@ export const validationSignUpSchema = yup.object({
 		.required('이메일은 필수 입니다.'),
 	name: yup
 		.string()
-		.max(20, '이름은 최대 20자 까지 가능합니다.')
+		.matches(
+			/^[a-zA-Z가-힣]{2,16}$/,
+			'영문자 및 한글로 2자 이상 16자 이하로 입력해주세요.',
+		)
 		.required('이름은 필수 입니다.'),
 	pw: yup
 		.string()

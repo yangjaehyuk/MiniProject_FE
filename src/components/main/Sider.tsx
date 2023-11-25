@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
 	Drawer,
 	IconButton,
@@ -13,11 +13,14 @@ import resort from '../../assets/images/resortImg.svg';
 import pension from '../../assets/images/pensionImg.svg';
 import poolVilla from '../../assets/images/poolVillaImg.svg';
 
-import { Logout, Person } from '@mui/icons-material';
+import { Logout, Person, Login } from '@mui/icons-material';
 import { MainSiderProps } from 'types/MainPage.type';
 import SiderRegions from './SiderRegions';
+import { checkAccessToken, logout } from 'utils';
 
 function Sider({ isOpen, handleClose }: MainSiderProps) {
+	const isAccessToken = checkAccessToken();
+	const navigate = useNavigate();
 	return (
 		<Drawer
 			placement="left"
@@ -96,12 +99,29 @@ function Sider({ isOpen, handleClose }: MainSiderProps) {
 						마이페이지
 					</ListItem>
 				</Link>
-				<ListItem>
-					<ListItemPrefix>
-						<Logout />
-					</ListItemPrefix>
-					로그아웃
-				</ListItem>
+				{!isAccessToken ? (
+					<ListItem
+						onClick={() => {
+							logout();
+						}}
+					>
+						<ListItemPrefix>
+							<Logout />
+						</ListItemPrefix>
+						로그아웃
+					</ListItem>
+				) : (
+					<ListItem
+						onClick={() => {
+							navigate('/login');
+						}}
+					>
+						<ListItemPrefix>
+							<Login />
+						</ListItemPrefix>
+						로그인
+					</ListItem>
+				)}
 			</List>
 		</Drawer>
 	);
