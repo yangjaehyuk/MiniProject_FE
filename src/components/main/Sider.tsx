@@ -98,8 +98,28 @@ function Sider({ isOpen, handleClose }: MainSiderProps) {
 						const res = checkAccessToken();
 						if (res === false) {
 							removeCookie();
-							swal({ title: '로그인이 필요한 서비스입니다.', icon: 'warning' });
-							// 로그인 하시겠습니까? -> 확인 -> 로그인 페이지 / 취소 -> 메인페이지
+							swal({
+								title: '로그인이 필요한 서비스입니다.',
+								text: '로그인 하시겠습니까?',
+								icon: 'warning',
+								buttons: {
+									confirm: {
+										text: '확인',
+										value: true,
+									},
+									cancel: {
+										text: '취소',
+										value: false,
+										className: 'bg-red',
+									},
+								},
+							}).then((value) => {
+								if (value) {
+									navigate('/login');
+								} else {
+									navigate('/');
+								}
+							});
 						} else {
 							navigate('/mypage');
 						}
