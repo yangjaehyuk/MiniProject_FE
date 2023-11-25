@@ -6,6 +6,7 @@ import Cart from './pages/cart/index';
 import PlaceDetail from 'pages/placeDetail';
 import Login from 'pages/login';
 import SignUp from 'pages/signUp';
+import MyPage from 'pages/myPage';
 import Category from 'pages/category';
 import Region from 'pages/region';
 import RoomDetail from 'pages/roomDetail';
@@ -23,7 +24,7 @@ function App() {
 				<Route path="/:category/:region" element={<Region />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/signup" element={<SignUp />} />
-				{/* <Route path="/mypage" element={} /> */}
+				<Route path="/mypage" element={<MyPage />} />
 				<Route path="/places/:hotelId" element={<PlaceDetail />} />
 				<Route path="/places/:hotelId/:roomId" element={<RoomDetail />} />
 			</Route>
