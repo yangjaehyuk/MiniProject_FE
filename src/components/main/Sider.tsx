@@ -17,7 +17,7 @@ import { Logout, Person, Login } from '@mui/icons-material';
 import { MainSiderProps } from 'types/MainPage.type';
 import SiderRegions from './SiderRegions';
 import { checkAccessToken, logout, removeCookie } from 'utils';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 
 function Sider({ isOpen, handleClose }: MainSiderProps) {
 	const navigate = useNavigate();
@@ -98,26 +98,20 @@ function Sider({ isOpen, handleClose }: MainSiderProps) {
 						const res = checkAccessToken();
 						if (res === false) {
 							removeCookie();
-							swal({
+							Swal.fire({
 								title: '로그인이 필요한 서비스입니다.',
-								text: '로그인 하시겠습니까?',
+								text: '로그인 창으로 이동하시겠습니까?',
 								icon: 'warning',
-								buttons: {
-									confirm: {
-										text: '확인',
-										value: true,
-									},
-									cancel: {
-										text: '취소',
-										value: false,
-										className: 'bg-red',
-									},
-								},
-							}).then((value) => {
-								if (value) {
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: '확인',
+								cancelButtonText: '취소',
+							}).then((result) => {
+								if (result.isConfirmed) {
 									navigate('/login');
 								} else {
-									navigate('/');
+									Swal.close();
 								}
 							});
 						} else {
