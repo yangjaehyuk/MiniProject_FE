@@ -21,6 +21,8 @@ import GoodsList from '../../components/main/GoodsList';
 import Sider from 'components/main/Sider';
 import MainFooter from 'components/Footer/MainFooter';
 import MainCarousel from 'components/main/MainCarousel';
+import RegionItem from 'components/region/RegionItem';
+import MainRegionItem from 'components/main/MainRegionItem';
 
 const main = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -79,6 +81,8 @@ const main = () => {
 				<div className="font-semibold">야놀자 추천 숙소</div>
 				<GoodsList />
 			</div>
+
+			<MainRegionItem />
 
 			<div>
 				<div className="flex justify-between items-center">
