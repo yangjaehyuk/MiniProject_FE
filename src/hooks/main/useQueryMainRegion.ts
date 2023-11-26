@@ -3,7 +3,7 @@ import Instance from 'apis/axios';
 
 export const getSeoulDate = async (region: string) => {
 	const res = await Instance.get(
-		`accommodations?region=${region.toUpperCase()}`,
+		`accommodations?region=${region.toUpperCase()}&size=6`,
 	);
 	return res.data;
 };

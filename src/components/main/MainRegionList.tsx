@@ -6,8 +6,9 @@ export type Accommodation = {
 	id: string;
 	image: string;
 	name: string;
-	price: string;
+	price: number;
 	star: string;
+	index: string;
 };
 
 const MainRegionList = () => {
@@ -34,20 +35,41 @@ const MainRegionList = () => {
 				<div>Loading...</div>
 			) : (
 				<>
-					{' '}
 					{!data && <div>No data available</div>}
-					<button onClick={() => handleLocationClick('SEOUL')}>Seoul</button>
-					<button onClick={() => handleLocationClick('BUSAN')}>Busan</button>
-					<button onClick={() => handleLocationClick('INCHEON')}>
-						INCHEON
-					</button>
-					<button onClick={() => handleLocationClick('GYEONGSANG')}>
-						GYEONGSANG
-					</button>
-					<button onClick={() => handleLocationClick('CHUNGCHEONG')}>
-						CHUNGCHEONG
-					</button>
-					<MainRegionItem accommodations={accommodations} />{' '}
+					<div className="font-semibold text-title"> 겨울엔 이 숙소 </div>
+					<div className="my-2 ">
+						<button
+							className="bg-white border-2 border-bgGray rounded-full py-1 px-2 text-black w-[80px] mr-2"
+							onClick={() => handleLocationClick('SEOUL')}
+						>
+							서울
+						</button>
+						<button
+							className="bg-white border-2 border-bgGray rounded-full py-1 px-2 text-black w-[80px] mr-2"
+							onClick={() => handleLocationClick('BUSAN')}
+						>
+							부산
+						</button>
+						<button
+							className="bg-white border-2 border-bgGray rounded-full py-1 px-2 text-black w-[80px] mr-2"
+							onClick={() => handleLocationClick('INCHEON')}
+						>
+							인천
+						</button>
+						<button
+							className="bg-white border-2 border-bgGray rounded-full py-1 px-2 text-black w-[80px] mr-2"
+							onClick={() => handleLocationClick('GYEONGSANG')}
+						>
+							경상
+						</button>
+						<button
+							className="bg-white border-2 border-bgGray rounded-full py-1 px-2 text-black w-[80px] mr-2"
+							onClick={() => handleLocationClick('CHUNGCHEONG')}
+						>
+							충청
+						</button>
+					</div>
+					<MainRegionItem accommodations={accommodations} />
 				</>
 			)}
 		</>
