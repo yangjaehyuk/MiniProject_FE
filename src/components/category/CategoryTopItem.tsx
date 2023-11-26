@@ -3,8 +3,10 @@ import { Star } from '@mui/icons-material';
 import { TopRateItemProps } from 'types/Category.type';
 import { formatNumberWithCommas } from 'utils/numberComma';
 import styles from './Category.module.css';
+import { Link } from 'react-router-dom';
 
 function CategoryTopItem({
+	id,
 	image,
 	price,
 	star,
@@ -12,7 +14,7 @@ function CategoryTopItem({
 	index,
 }: TopRateItemProps) {
 	return (
-		<div className="">
+		<Link to={`/places/${id}`}>
 			<div className="flex">
 				<div className={styles.itemThumb}>
 					<div className={styles.itemImage}>
@@ -23,7 +25,7 @@ function CategoryTopItem({
 				<div className="w-8/12">
 					<div className="item-desc p-3">
 						<h4 className="text-sm lg:text-content h-10 leading-5">{name}</h4>
-						<p className="text-content font-semibold">
+						<p className="text-sm font-semibold">
 							<Star
 								sx={{
 									color: '#FFE500',
@@ -39,7 +41,7 @@ function CategoryTopItem({
 					</div>
 				</div>
 			</div>
-		</div>
+		</Link>
 	);
 }
 

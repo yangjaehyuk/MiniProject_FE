@@ -5,6 +5,7 @@ import styles from './Category.module.css';
 import { CategoryInnerProps } from 'types/Category.type';
 import CategoryTopRated from './CategoryTopRated';
 import CategorySkeleton from './skeleton/CategorySkeleton';
+import CategoryItemsSkeleton from './skeleton/CategoryItemsSkeleton';
 
 function CategoryInner({ handleOpen }: CategoryInnerProps) {
 	return (
@@ -20,9 +21,13 @@ function CategoryInner({ handleOpen }: CategoryInnerProps) {
 			<Suspense fallback={<CategorySkeleton />}>
 				<CategoryTopRated title="고객 평가 TOP 숙소" />
 				<CategoryItems title="서울 추천 상품" region="SEOUL" />
-				<CategoryItems title="제주 추천 상품" region="JEJU" />
+				{/* TODO: 데이터 추가후 밑에 코드로 변경 필요 */}
+				<CategoryItemsSkeleton title="강원 추천 상품" />
+				<CategoryItemsSkeleton title="부산 추천 상품" />
+				<CategoryItemsSkeleton title="충청 추천 상품" />
+				{/* <CategoryItems title="강원 추천 상품" region="GANGWON" />
 				<CategoryItems title="부산 추천 상품" region="BUSAN" />
-				<CategoryItems title="충청 추천 상품" region="CHUNGCHEONG" />
+				<CategoryItems title="충청 추천 상품" region="CHUNGCHEONG" /> */}
 			</Suspense>
 		</div>
 	);

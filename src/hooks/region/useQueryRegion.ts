@@ -19,10 +19,8 @@ interface QueryData {
  * @returns 상품 목록을 반환 합니다.
  */
 const getRegionMainProducts = async (query: QueryData, pageParam: number) => {
-	const cateUpper = query.category.toUpperCase();
-	const regionUpper = query.region.toUpperCase();
 	const { data } = await axiosInstance.get<AccommodationsRoot>(
-		`accommodations?type=${cateUpper}&region=${regionUpper}&from=${query.start}&to=${query.end}&page=${pageParam}&size=4`,
+		`accommodations?type=${query.category}&region=${query.region}&from=${query.start}&to=${query.end}&page=${pageParam}&size=4`,
 	);
 	return data;
 };
@@ -39,8 +37,8 @@ const useQueryRegion = (isInView: boolean) => {
 	const start = foramtYYYYMMDD(startDate);
 	const end = foramtYYYYMMDD(endDate);
 	const query = {
-		category,
-		region,
+		category: category.toUpperCase(),
+		region: region.toUpperCase(),
 		start,
 		end,
 	};
@@ -53,7 +51,7 @@ const useQueryRegion = (isInView: boolean) => {
 		fetchNextPage,
 		// isFetchingNextPage,
 	} = useInfiniteQuery(
-		[`${category}/${region}`],
+		[`${category.toUpperCase()}/${region.toUpperCase()}`],
 		({ pageParam = 1 }) => getRegionMainProducts(query, pageParam),
 		{
 			getNextPageParam: (lastPage, allPages) => {

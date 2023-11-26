@@ -13,12 +13,12 @@ function CategorySwiperSkeleton() {
 					key={index}
 					className={`${styles.item} animate-pulse mr-[12px] shrink-0`}
 				>
-					<div className="flex items-center justify-center aspect-square mb-5 bg-gray rounded">
+					<div className="flex items-center justify-center aspect-square mb-4 bg-gray rounded">
 						<Image className="text-lightGray" fontSize="large" />
 					</div>
 					<div className="h-4 bg-gray rounded-full w-full mb-2"></div>
 					<div className="h-4 bg-gray rounded-full w-20 mb-2"></div>
-					<div className="h-4 bg-gray rounded-full w-8 mb-2.5"></div>
+					<div className="h-4 bg-gray rounded-full w-8 mb-[5px]"></div>
 					<div className="h-4 bg-gray rounded-full w-24 ml-auto"></div>
 				</div>
 			))}

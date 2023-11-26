@@ -194,3 +194,15 @@ export interface RegionInnerProps {
 	triggerRef: (node?: Element | null | undefined) => void;
 	data?: InfiniteData<AccommodationsRoot>;
 }
+
+export enum RegionTitles {
+	SEOUL = 'SEOUL',
+	BUSAN = 'BUSAN',
+	GYEONGGI = 'GYEONGGI',
+	INCHEON = 'INCHEON',
+	GANGWON = 'GANGWON',
+	GYEONGSANG = 'GYEONGSANG',
+	JEOLLA = 'JEOLLA',
+	CHUNGCHEONG = 'CHUNGCHEONG',
+	JEJU = 'JEJU',
+}

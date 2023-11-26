@@ -12,12 +12,15 @@ import { useRecoilValue } from 'recoil';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { formatMonthDate } from 'utils/formatDate';
 import { capacityState } from 'recoil/atoms/capacityAtom';
+import { useParams } from 'react-router-dom';
+import { regionToKor } from 'utils/switchNameToKor';
 
 function RegionListNav({
 	handleRegionOpen,
 	handleOptionOpen,
 	totalElements,
 }: RegionListNavProps) {
+	const { region } = useParams();
 	const startDate = useRecoilValue(checkInDateState);
 	const endDate = useRecoilValue(checkOutDateState);
 	const capacity = useRecoilValue(capacityState);
@@ -33,7 +36,9 @@ function RegionListNav({
 					onClick={handleRegionOpen}
 				>
 					<LocationOn />
-					<span className="text-content lg:text-title font-normal">서울</span>
+					<span className="text-content lg:text-title font-normal">
+						{regionToKor(region ?? '')}
+					</span>
 				</Button>
 				<Button
 					variant="outlined"

@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import CategorySwiper from './CategorySwiper';
 import { ProductItemsProps } from 'types/Region.type';
 import useQueryCategory from 'hooks/category/useQueryCategory';
 
 function CategoryItems({ title, region }: ProductItemsProps) {
-	const { category } = useParams();
-	const data = useQueryCategory(`${category?.toUpperCase()}/${region}`);
+	const { data, category } = useQueryCategory(region);
 
 	return (
 		<div className="py-5">
@@ -16,7 +15,7 @@ function CategoryItems({ title, region }: ProductItemsProps) {
 					전체보기
 				</Link>
 			</div>
-			{data && <CategorySwiper items={data} />}
+			{data && <CategorySwiper items={data.data.accommodations} />}
 		</div>
 	);
 }
