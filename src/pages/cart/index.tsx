@@ -4,16 +4,40 @@ import { useNavigate } from 'react-router-dom';
 import CartList from 'components/cart/CartList';
 import CartBottom from 'components/cart/CartBottom';
 import { useQueryMainRegion } from 'hooks/cart/useQueryCart';
+import { Accommodation, RoomType, CartItem } from 'types/Cart.type';
+
 const Cart = () => {
-	const navigate = useNavigate();
-
 	const { data, isLoading } = useQueryMainRegion();
+	const navigate = useNavigate();
+	// 데이터 숙소 아이템
+	const [dataCartItems, setDataCartItems] = useState<CartItem[]>([]);
+	// 선택한 숙소 아이템
+	const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-	const cartItems = data.data.cartItems;
+	useEffect(() => {
+		if (!isLoading) {
+			setDataCartItems(data?.data?.cartItems || []);
+		}
+	}, [isLoading, data]);
 
-	console.log(data);
-	console.log('cartItems', data.data.cartItems);
-	// console.log('totalPrice', data.data.totalPrice);
+	const handleCheckbox = (ClickCartItem: CartItem) => {
+		console.log(ClickCartItem);
+		const index = cartItems.findIndex((item) => item.id === ClickCartItem.id);
+
+		if (index !== -1) {
+			// 이미 선택한 숙소라면 해당 숙소를 cartItems에서 제거
+			const updatedCartItems = [...cartItems];
+			updatedCartItems.splice(index, 1);
+			setCartItems(updatedCartItems);
+		} else {
+			// 선택하지 않은 숙소라면 cartItems에 추가
+			setCartItems([...cartItems, ClickCartItem]);
+		}
+	};
+
+	console.log('cartItems 선택된 ', cartItems);
+	// console.log('cartItems22', dataCartItems);
+
 	// 예약하기 버튼
 	const handleReservation = () => {
 		navigate('/orders');
@@ -47,7 +71,14 @@ const Cart = () => {
 					<div className="text-sm text-blue">전체 삭제</div>
 				</div>
 			</div>
-			<CartList cartItems={cartItems} />
+			{/* {data?.data?.cartItems ? (
+				// 데이터가 있을 때 보여줄 화면
+				
+			) : (
+				// 데이터가 없을 때 보여줄 화면
+				<div>다른 화면을 보여줄 내용</div>
+			)} */}
+			<CartList dataCartItems={dataCartItems} handleCheckbox={handleCheckbox} />
 			<CartBottom />
 			<div className="bg-white ${show ? 'h-[150px]' : 'h-[110px]'} shadow-inner w-screen fixed bottom-0  left-0">
 				<div className="w-[768px] m-auto top-0 left-0 pb-3">
@@ -58,7 +89,7 @@ const Cart = () => {
 							<div className="text-[16px] font-semibold ">870,000 원</div>
 						</div>
 					</div>
-					<div></div>
+
 					<button
 						onClick={handleReservation}
 						className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-secondary rounded-md h-[20px]  text-white"

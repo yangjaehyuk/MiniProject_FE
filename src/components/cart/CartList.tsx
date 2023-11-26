@@ -4,17 +4,20 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { Accommodation, RoomType, CartItem } from 'types/Cart.type';
 
 interface CartListProps {
-	cartItems: CartItem[];
+	dataCartItems: CartItem[];
+	handleCheckbox: (clickedCartItem: CartItem) => void;
 }
 
-const CartList: React.FC<CartListProps> = ({ cartItems }) => {
-	console.log(cartItems);
+const CartList: React.FC<CartListProps> = ({
+	dataCartItems,
+	handleCheckbox,
+}) => {
+	// console.log(dataCartItems);
 	return (
 		<>
-			{' '}
 			<div className={styles.wrap}>
 				{/* 예약 숙소 정보 */}
-				{cartItems.map((item) => (
+				{dataCartItems.map((item) => (
 					<div className="w-[screen] bg-pink-200" key={item.id}>
 						<div className="py-[12px]  bg-white ">
 							<div className="mt-4">
@@ -37,7 +40,10 @@ const CartList: React.FC<CartListProps> = ({ cartItems }) => {
 									</div>
 								</div>
 								<div className="flex">
-									<input type="checkbox" />
+									<input
+										type="checkbox"
+										onChange={() => handleCheckbox(item)}
+									/>
 									<img
 										className="h-[80px] w-[80px] mx-3 rounded-md"
 										src={item.accommodation.image}
@@ -55,7 +61,6 @@ const CartList: React.FC<CartListProps> = ({ cartItems }) => {
 							<div className="flex justify-end">
 								<span className="text-sm">연박 </span>
 								<span className="text-sm font-semibold">
-									{' '}
 									{item.roomType.price}원
 								</span>
 							</div>
