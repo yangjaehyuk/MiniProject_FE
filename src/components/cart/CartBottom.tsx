@@ -5,7 +5,6 @@ import BottomInfo from './BottomInfo';
 const CartBottom = () => {
 	return (
 		<div>
-			{' '}
 			<div className={styles.wrap}>
 				<div className="mt-[12px] px-[20px] py-[40px]  bg-white ">
 					<div className="text-content font-semibold mb-4">예약 상품</div>

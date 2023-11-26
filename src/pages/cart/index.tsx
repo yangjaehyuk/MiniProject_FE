@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/common/Header';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import carImage from '../../assets/images/cart-img.png';
-import styles from '../../components/cart/Cart.module.css';
 import { useNavigate } from 'react-router-dom';
 import CartList from 'components/cart/CartList';
 import CartBottom from 'components/cart/CartBottom';
-
+import { useQueryMainRegion } from 'hooks/cart/useQueryCart';
 const Cart = () => {
 	const navigate = useNavigate();
 
+	const { data, isLoading } = useQueryMainRegion();
+
+	const cartItems = data.data.cartItems;
+
+	console.log(data);
+	console.log('cartItems', data.data.cartItems);
+	// console.log('totalPrice', data.data.totalPrice);
 	// 예약하기 버튼
 	const handleReservation = () => {
 		navigate('/orders');
@@ -43,7 +47,7 @@ const Cart = () => {
 					<div className="text-sm text-blue">전체 삭제</div>
 				</div>
 			</div>
-			<CartList />
+			<CartList cartItems={cartItems} />
 			<CartBottom />
 			<div className="bg-white ${show ? 'h-[150px]' : 'h-[110px]'} shadow-inner w-screen fixed bottom-0  left-0">
 				<div className="w-[768px] m-auto top-0 left-0 pb-3">
