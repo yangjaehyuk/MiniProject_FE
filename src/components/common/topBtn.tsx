@@ -1,12 +1,22 @@
 import React from 'react';
-import TopSign from '../../assets/images/top.svg';
-import BtnForm from '../../assets/images/btn.svg';
+import { upScroll } from 'utils';
+import topSignal from '../../assets/images/top.svg';
+import './TopBtnAnimation.css';
 
-const TopBtn = () => {
+const TopBtn = ({ show }: any) => {
+	const handleClick = () => {
+		upScroll();
+	};
+
 	return (
-		<button>
-			<img src={TopSign} alt="Top Sign" />
-		</button>
+		<div
+			className={`fixed bottom-4 right-96 w-[44px] h-[44px] rounded-full bg-white flex justify-center items-center cursor-pointer border border-gray hover:bg-bgGray ${
+				show ? 'animate-ToTopButton_show' : 'animate-ToTopButton_hide'
+			}`}
+			onClick={handleClick}
+		>
+			<img src={topSignal} alt="Top Signal" className="w-[19.8px] h-[10.6px]" />
+		</div>
 	);
 };
 

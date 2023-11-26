@@ -26,7 +26,10 @@ function App() {
 				<Route path="/signup" element={<SignUp />} />
 				<Route path="/mypage" element={<MyPage />} />
 				<Route path="/places/:accommodationdId" element={<PlaceDetail />} />
-				<Route path="/places/:accommodationdId/:roomId" element={<RoomDetail />} />
+				<Route
+					path="/places/:accommodationdId/:roomId"
+					element={<RoomDetail />}
+				/>
 			</Route>
 			<Route element={<SubLayout />}>
 				<Route path="/cart" element={<Cart />} />
