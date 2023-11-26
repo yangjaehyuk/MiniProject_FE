@@ -21,7 +21,7 @@ function CategorySwiper({ items }: ProductSwiperProps) {
 			{items.map((item) => (
 				<SwiperSlide key={item.id} className={styles.item}>
 					<div>
-						<img src={item.thumbnail} alt="" />
+						<img src={item.image} alt="" />
 					</div>
 					<div className="pl-3">
 						<h4 className="h-12 mt-4">{item.name}</h4>

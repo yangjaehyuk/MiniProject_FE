@@ -17,14 +17,13 @@ function CategoryInner({ handleOpen }: CategoryInnerProps) {
 				</div>
 				<KeyboardArrowRight sx={{ fontSize: '1.5rem' }} />
 			</div>
-			<CategorySkeleton />
-			{/* <Suspense fallback={<CategorySkeleton />}>
+			<Suspense fallback={<CategorySkeleton />}>
 				<CategoryTopRated title="고객 평가 TOP 숙소" />
 				<CategoryItems title="서울 추천 상품" region="SEOUL" />
 				<CategoryItems title="제주 추천 상품" region="JEJU" />
 				<CategoryItems title="부산 추천 상품" region="BUSAN" />
 				<CategoryItems title="충청 추천 상품" region="CHUNGCHEONG" />
-			</Suspense> */}
+			</Suspense>
 		</div>
 	);
 }
