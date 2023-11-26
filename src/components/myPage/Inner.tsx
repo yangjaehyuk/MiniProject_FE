@@ -10,6 +10,9 @@ import { logout } from 'utils';
 import { useNavigate } from 'react-router-dom';
 import { getUserInfo } from 'apis/axios';
 
+import TopBtn from 'components/common/TopBtn';
+import useScrollToShow from 'hooks/common/handleScroll';
+
 const Inner = () => {
 	const navigate = useNavigate();
 	const [showCategoryModal, setShowCategoryModal] = useState(false);
@@ -20,6 +23,8 @@ const Inner = () => {
 	const nowDate = useRecoilValue(dateState);
 	const [category, setCategory] = useRecoilState(categoryState);
 	const [date, setDate] = useRecoilState(dateState);
+
+	const show = useScrollToShow(false, 200);
 
 	const handleCategoryModalClose = () => {
 		setShowCategoryModal(false);
@@ -104,7 +109,9 @@ const Inner = () => {
 				open={showDateModal}
 				onClose={handleDateModalClose}
 			></DateModal>
+			{show && <TopBtn show={show} />}
 			<ReservationCard />
+			<div className="p-3"></div>
 		</div>
 	);
 };

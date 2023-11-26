@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Header from '../../components/main/Header';
 import hotel from '../../assets/images/hotelImg.svg';
 import pension from '../../assets/images/pensionImg.svg';
@@ -23,6 +23,9 @@ import GoodsList from '../../components/main/GoodsList';
 import Sider from 'components/main/Sider';
 import MainFooter from 'components/Footer/MainFooter';
 
+import TopBtn from 'components/common/TopBtn';
+import useScrollToShow from 'hooks/common/handleScroll';
+
 const main = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -33,6 +36,8 @@ const main = () => {
 	const handleDrawerClose = useCallback(() => {
 		setIsOpen(false);
 	}, []);
+
+	const show = useScrollToShow(false, 200);
 
 	return (
 		<div className={isOpen ? 'h-screen overflow-hidden' : ''}>
@@ -177,6 +182,8 @@ const main = () => {
 			</div>
 			{/* 사이드바 추가 */}
 			<Sider isOpen={isOpen} handleClose={handleDrawerClose} />
+			{show && <TopBtn show={show} />}
+
 			<MainFooter></MainFooter>
 		</div>
 	);
