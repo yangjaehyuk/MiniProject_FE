@@ -24,8 +24,14 @@ import MainCarousel from 'components/main/MainCarousel';
 import RegionItem from 'components/region/RegionItem';
 import MainRegionItem from 'components/main/MainRegionItem';
 
+import { getSeoulDate } from '../../hooks/main/useQueryMainRegion';
+import MainRegionList from 'components/main/MainRegionList';
+// import { useQuery } from 'react-query';
+
 const main = () => {
 	const [isOpen, setIsOpen] = useState(false);
+
+	// const { data, isLoading } = useQuery('SEOUL', getSeoulDate);
 
 	const handleDrawerOpen = useCallback(() => {
 		setIsOpen(true);
@@ -35,6 +41,21 @@ const main = () => {
 		setIsOpen(false);
 	}, []);
 
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		try {
+	// 			const res = await getSeoulDate();
+	// 			console.log(res);
+	// 			console.log(res.data.accommodations);
+	// 		} catch (e) {
+	// 			console.log(e);
+	// 		}
+	// 	};
+
+	// 	fetchData();
+	// }, []);
+
+	// console.log(data);
 	return (
 		<div className={isOpen ? 'h-screen overflow-hidden' : ''}>
 			<Header handleOpen={handleDrawerOpen} />
@@ -45,7 +66,7 @@ const main = () => {
 				</div>
 				<div className="flex flex-col items-center justify-center font-semibold">
 					<img src={resort} alt="resort" className="h-[48px]" />
-					<span> 리조트</span>
+					<span> 리조트 </span>
 				</div>
 				<div className="flex flex-col items-center justify-center font-semibold">
 					<img src={pension} alt="pension" className="h-[48px]" />
@@ -82,7 +103,7 @@ const main = () => {
 				<GoodsList />
 			</div>
 
-			<MainRegionItem />
+			<MainRegionList />
 
 			<div>
 				<div className="flex justify-between items-center">

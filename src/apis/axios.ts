@@ -43,17 +43,4 @@ export const postLogin = async (email: string, password: string) => {
 	return res.data;
 };
 
-export const fetchSeoul = async () => {
-	try {
-		const res = axios.get(`${SERVER_URL}/accommodations`, {
-			params: {
-				region: 'SEOUL',
-			},
-		});
-	} catch (error) {
-		console.error('fetchSeoul 데이터 받아오기 실패:', error);
-		return null;
-	}
-};
-
 export default instance;
