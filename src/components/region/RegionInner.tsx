@@ -13,6 +13,7 @@ function RegionInner({
 	const { ref, inView } = useInView();
 	const data = useQueryRegion(inView);
 
+	if (!data?.pages[0]) return <></>;
 	return (
 		<div className={styles.regionInner}>
 			<RegionListNav

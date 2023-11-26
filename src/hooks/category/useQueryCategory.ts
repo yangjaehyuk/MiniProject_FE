@@ -1,4 +1,5 @@
 import axiosInstance from 'apis/axios';
+import { isAxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
 import { useRecoilValue } from 'recoil';
@@ -22,6 +23,16 @@ const getCategoryProducts = async (
 		`accommodations?type=${category}&region=${region}&from=${start}&to=${end}`,
 	);
 	return data;
+	// try {
+	// 	const { data } = await axiosInstance.get<AccommodationsRoot>(
+	// 		`accommodations?type=${category}&region=${region}&from=${start}&to=${end}`,
+	// 	);
+	// 	return data;
+	// } catch (error) {
+	// 	if (isAxiosError(error)) {
+	// 		console.error(error.message);
+	// 	}
+	// }
 };
 
 /**
@@ -34,12 +45,17 @@ const useQueryCategory = (region: string) => {
 	const startDate = useRecoilValue(checkInDateState);
 	const endDate = useRecoilValue(checkOutDateState);
 	// Queries
-	const { data } = useQuery<AccommodationsRoot>(
+	const { data } = useQuery(
 		[`${category?.toUpperCase()}/${region}/recommendations`],
 		() =>
 			getCategoryProducts(category?.toUpperCase(), region, startDate, endDate),
 		{
+			retry: 0,
 			suspense: true,
+			useErrorBoundary: true,
+			onError: (error) => {
+				if (isAxiosError(error)) console.error(error);
+			},
 		},
 	);
 	return { data, category };
@@ -64,6 +80,16 @@ const getBestAccommodations = async (
 		`accommodations?type=${cateUpper}&from=${start}&to=${end}&order=STAR_DESC&size=6`,
 	);
 	return data;
+	// try {
+	// 	const { data } = await axiosInstance.get<AccommodationsRoot>(
+	// 		`accommodations?type=${cateUpper}&from=${start}&to=${end}&order=STAR_DESC&size=6`,
+	// 	);
+	// 	return data;
+	// } catch (error) {
+	// 	if (isAxiosError(error)) {
+	// 		console.error(error.message);
+	// 	}
+	// }
 };
 
 /**
@@ -77,7 +103,14 @@ export const useQueryBestCategory = () => {
 	const { data, isSuccess, isError } = useQuery(
 		[`${category?.toUpperCase()}/topRated`],
 		() => getBestAccommodations(category, startDate, endDate),
-		{ suspense: true },
+		{
+			retry: 0,
+			suspense: true,
+			useErrorBoundary: true,
+			onError: (error) => {
+				if (isAxiosError(error)) console.error(error);
+			},
+		},
 	);
 	return { data, isSuccess, isError };
 };

@@ -55,13 +55,16 @@ const useQueryRegion = (isInView: boolean) => {
 		({ pageParam = 1 }) => getRegionMainProducts(query, pageParam),
 		{
 			getNextPageParam: (lastPage, allPages) => {
+				if (lastPage === undefined) return;
 				const nextPage =
 					lastPage.data.totalPages > allPages.length
 						? allPages.length + 1
 						: undefined;
 				return nextPage;
 			},
+			retry: 0,
 			suspense: true,
+			useErrorBoundary: true,
 		},
 	);
 

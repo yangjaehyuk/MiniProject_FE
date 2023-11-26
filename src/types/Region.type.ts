@@ -192,7 +192,7 @@ export type RegionProdOptionModalProps = ModalProps & {
 
 export interface RegionInnerProps {
 	triggerRef: (node?: Element | null | undefined) => void;
-	data?: InfiniteData<AccommodationsRoot>;
+	data?: InfiniteData<AccommodationsRoot | undefined>;
 }
 
 export enum RegionTitles {
