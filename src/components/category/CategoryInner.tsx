@@ -4,6 +4,7 @@ import CategoryItems from './CategoryItems';
 import styles from './Category.module.css';
 import { CategoryInnerProps } from 'types/Category.type';
 import CategoryTopRated from './CategoryTopRated';
+import CategorySkeleton from './skeleton/CategorySkeleton';
 
 function CategoryInner({ handleOpen }: CategoryInnerProps) {
 	return (
@@ -16,7 +17,7 @@ function CategoryInner({ handleOpen }: CategoryInnerProps) {
 				</div>
 				<KeyboardArrowRight sx={{ fontSize: '1.5rem' }} />
 			</div>
-			<Suspense fallback={<>Loading...</>}>
+			<Suspense fallback={<CategorySkeleton />}>
 				<CategoryTopRated title="고객 평가 TOP 숙소" />
 				<CategoryItems title="서울 추천 상품" region="SEOUL" />
 				<CategoryItems title="제주 추천 상품" region="JEJU" />

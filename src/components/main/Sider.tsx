@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
 	Drawer,
@@ -17,12 +17,15 @@ import { Logout, Person, Login } from '@mui/icons-material';
 import { MainSiderProps } from 'types/MainPage.type';
 import SiderRegions from './SiderRegions';
 import { checkAccessToken, logout, removeCookie } from 'utils';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
+import { useRecoilState } from 'recoil';
+import { categoryState, dateState } from 'recoil/atoms/myPageAtom';
 
 function Sider({ isOpen, handleClose }: MainSiderProps) {
 	const navigate = useNavigate();
 	const [isAccessToken, setIsAccessToken] = useState(checkAccessToken());
-
+	const [category, setCategory] = useRecoilState(categoryState);
+	const [date, setDate] = useRecoilState(dateState);
 	return (
 		<Drawer
 			placement="left"
@@ -98,26 +101,20 @@ function Sider({ isOpen, handleClose }: MainSiderProps) {
 						const res = checkAccessToken();
 						if (res === false) {
 							removeCookie();
-							swal({
+							Swal.fire({
 								title: '로그인이 필요한 서비스입니다.',
-								text: '로그인 하시겠습니까?',
+								text: '로그인 창으로 이동하시겠습니까?',
 								icon: 'warning',
-								buttons: {
-									confirm: {
-										text: '확인',
-										value: true,
-									},
-									cancel: {
-										text: '취소',
-										value: false,
-										className: 'bg-red',
-									},
-								},
-							}).then((value) => {
-								if (value) {
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: '확인',
+								cancelButtonText: '취소',
+							}).then((result) => {
+								if (result.isConfirmed) {
 									navigate('/login');
 								} else {
-									navigate('/');
+									Swal.close();
 								}
 							});
 						} else {
@@ -134,6 +131,8 @@ function Sider({ isOpen, handleClose }: MainSiderProps) {
 					<ListItem
 						onClick={() => {
 							logout();
+							setCategory('카테고리 전체');
+							setDate('최근 3개월');
 							setIsAccessToken(checkAccessToken());
 						}}
 					>

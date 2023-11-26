@@ -40,7 +40,16 @@ export const postLogin = async (email: string, password: string) => {
 		email: email,
 		password: password,
 	});
-	return res.data;
+	return res.data.data;
 };
 
+export const getUserInfo = async () => {
+	const res = await instance.get('members/mypage');
+	return res.data.data;
+};
+
+export const getUserOrderInfo = async () => {
+	const res = await instance.get('members/orders');
+	return res.data;
+};
 export default instance;

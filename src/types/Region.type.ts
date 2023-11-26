@@ -10,7 +10,7 @@ export interface ProductItemsProps {
 export const REGION_SEOUL_DATA: ProductItem[] = [
 	{
 		id: 1,
-		thumbnail:
+		image:
 			'https://yaimg.yanolja.com/v5/2023/03/23/15/640/641c76db5ab761.18136153.jpg',
 		name: '코트야드 메리어트 서울 보타닉 파크',
 		star: 4.9,
@@ -18,7 +18,7 @@ export const REGION_SEOUL_DATA: ProductItem[] = [
 	},
 	{
 		id: 2,
-		thumbnail:
+		image:
 			'https://yaimg.yanolja.com/v5/2022/10/14/14/640/63497128440156.45600411.jpg',
 		name: '호텔 스카이파크 킹스타운 동대문점',
 		star: 4.7,
@@ -26,7 +26,7 @@ export const REGION_SEOUL_DATA: ProductItem[] = [
 	},
 	{
 		id: 3,
-		thumbnail:
+		image:
 			'https://yaimg.yanolja.com/v5/2022/08/12/09/640/62f61a69ce4423.63495204.jpg',
 		name: '노보텔 앰배서더 서울 용산',
 		star: 4.6,
@@ -34,7 +34,7 @@ export const REGION_SEOUL_DATA: ProductItem[] = [
 	},
 	{
 		id: 4,
-		thumbnail:
+		image:
 			'https://yaimg.yanolja.com/v5/2023/03/28/17/640/64231e64d89196.05244324.png',
 		name: '콘래드 서울',
 		star: 4.9,
@@ -42,7 +42,7 @@ export const REGION_SEOUL_DATA: ProductItem[] = [
 	},
 	{
 		id: 5,
-		thumbnail:
+		image:
 			'https://yaimg.yanolja.com/v5/2022/08/31/17/640/630f9add990138.40317374.jpg',
 		name: '페어몬트 앰배서더 서울',
 		star: 4.8,
@@ -50,7 +50,7 @@ export const REGION_SEOUL_DATA: ProductItem[] = [
 	},
 	{
 		id: 6,
-		thumbnail:
+		image:
 			'https://yaimg.yanolja.com/v5/2022/09/13/22/640/632105e4e34489.56634271.jpg',
 		name: '호텔 리베라 청담',
 		star: 4.4,
@@ -58,7 +58,7 @@ export const REGION_SEOUL_DATA: ProductItem[] = [
 	},
 	{
 		id: 7,
-		thumbnail:
+		image:
 			'https://yaimg.yanolja.com/v5/2023/04/04/10/640/642bf73b755975.78717814.jpg',
 		name: '나인트리 프리미어 로카우스 호텔 서울 용산',
 		star: 4.7,
@@ -66,7 +66,7 @@ export const REGION_SEOUL_DATA: ProductItem[] = [
 	},
 	{
 		id: 8,
-		thumbnail:
+		image:
 			'https://yaimg.yanolja.com/v5/2022/08/25/15/640/6307957c193de7.66392039.jpg',
 		name: '노보텔 앰배서더 강남',
 		star: 4.6,
@@ -74,7 +74,7 @@ export const REGION_SEOUL_DATA: ProductItem[] = [
 	},
 	{
 		id: 9,
-		thumbnail:
+		image:
 			'https://yaimg.yanolja.com/v5/2022/08/12/09/640/62f619ab5c01b8.02896778.jpg',
 		name: '이비스 스타일 앰배서더 서울 용산',
 		star: 4.6,

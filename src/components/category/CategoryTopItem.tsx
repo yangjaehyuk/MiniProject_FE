@@ -5,7 +5,7 @@ import { formatNumberWithCommas } from 'utils/numberComma';
 import styles from './Category.module.css';
 
 function CategoryTopItem({
-	thumbnail,
+	image,
 	price,
 	star,
 	name,
@@ -16,7 +16,7 @@ function CategoryTopItem({
 			<div className="flex">
 				<div className={styles.itemThumb}>
 					<div className={styles.itemImage}>
-						<img src={thumbnail} alt={name} />
+						<img src={image} alt={name} />
 					</div>
 					<div className={styles.rate}>{index + 1}</div>
 				</div>

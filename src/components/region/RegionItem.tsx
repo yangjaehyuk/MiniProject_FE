@@ -4,12 +4,18 @@ import { ProductItem } from 'types/Category.type';
 import { formatNumberWithCommas } from 'utils/numberComma';
 import styles from './Region.module.css';
 import { Typography } from '@material-tailwind/react';
+import { useNavigate } from 'react-router';
 
-function RegionItem({ thumbnail, name, star, price }: ProductItem) {
+function RegionItem({id, image, name, star, price }: ProductItem) {
+	const navigate = useNavigate();
+
+	const handleItemClick = () => {
+		navigate(`/places/${id}`);
+	}
 	return (
-		<div className="border border-borderGray rounded-md overflow-hidden">
+		<div className="border border-borderGray rounded-md overflow-hidden" onClick={handleItemClick}>
 			<div className={styles.itemThumb}>
-				<img src={thumbnail} alt={name} />
+				<img src={image} alt={name} />
 			</div>
 			<div className={styles.itemDesc}>
 				<div>

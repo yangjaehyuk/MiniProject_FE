@@ -17,6 +17,7 @@ import { signUpModalState } from 'recoil/atoms/signUpModalAtom';
 import { postLogin } from 'apis/axios';
 import swal from 'sweetalert';
 import { removeCookie, setCookie } from 'utils';
+import { categoryState, dateState } from 'recoil/atoms/myPageAtom';
 
 const Inner = () => {
 	const navigate = useNavigate();
@@ -27,6 +28,8 @@ const Inner = () => {
 	const [showMail, setShowMail] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [modalCheck, setModalCheck] = useRecoilState(signUpModalState);
+	const [category, setCategory] = useRecoilState(categoryState);
+	const [date, setDate] = useRecoilState(dateState);
 	useEffect(() => {
 		setModalCheck(false);
 	}, []);
@@ -65,7 +68,9 @@ const Inner = () => {
 			try {
 				const res = await postLogin(values.mail, values.pw);
 				swal({ title: '로그인에 성공했습니다.', icon: 'success' });
-				const { accessToken } = res.data;
+				setCategory('카테고리 전체');
+				setDate('최근 3개월');
+				const { accessToken } = res;
 				setCookie(accessToken);
 				navigate('/');
 			} catch (e: any) {
