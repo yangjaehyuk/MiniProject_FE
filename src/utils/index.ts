@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
 
 export const handleArrowBackClick = () => {
@@ -33,6 +32,7 @@ export const removeCookie = async () => {
 
 export const logout = () => {
 	removeCookie();
+
 	swal({ title: '로그아웃에 성공했습니다.', icon: 'success' });
 };
 
