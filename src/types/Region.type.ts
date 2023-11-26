@@ -110,14 +110,14 @@ export const REGIONS: RegionListItem[] = [
 		right1: '',
 		right2: '',
 	},
-	{
-		name: '제주',
-		image: '/region/region-jeju.png',
-		link: 'jeju',
-		author: `miram Oh`,
-		right1: '',
-		right2: '',
-	},
+	// {
+	// 	name: '제주',
+	// 	image: '/region/region-jeju.png',
+	// 	link: 'jeju',
+	// 	author: `miram Oh`,
+	// 	right1: '',
+	// 	right2: '',
+	// },
 	{
 		name: '경기',
 		image: '/region/region-gyeonggi.jpg',
@@ -204,5 +204,5 @@ export enum RegionTitles {
 	GYEONGSANG = 'GYEONGSANG',
 	JEOLLA = 'JEOLLA',
 	CHUNGCHEONG = 'CHUNGCHEONG',
-	JEJU = 'JEJU',
+	// JEJU = 'JEJU',
 }

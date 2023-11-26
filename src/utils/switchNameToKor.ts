@@ -20,8 +20,8 @@ export function regionToKor(engRegionName: string): string {
 			return '전라';
 		case RegionTitles.CHUNGCHEONG:
 			return '충청';
-		case RegionTitles.JEJU:
-			return '제주';
+		// case RegionTitles.JEJU:
+		// 	return '제주';
 		default:
 			return '';
 	}
