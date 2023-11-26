@@ -5,11 +5,11 @@ import { formatNumberWithCommas } from 'utils/numberComma';
 import styles from './Region.module.css';
 import { Typography } from '@material-tailwind/react';
 
-function RegionItem({ thumbnail, name, star, price }: ProductItem) {
+function RegionItem({ image, name, star, price }: ProductItem) {
 	return (
 		<div className="border border-borderGray rounded-md overflow-hidden">
 			<div className={styles.itemThumb}>
-				<img src={thumbnail} alt={name} />
+				<img src={image} alt={name} />
 			</div>
 			<div className={styles.itemDesc}>
 				<div>

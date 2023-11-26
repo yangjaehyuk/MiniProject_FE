@@ -6,6 +6,7 @@ import RegionProdOptionModal from 'components/region/RegionProdOptionModal';
 import RegionProdCapacityModal from 'components/region/RegionProdCapacityModal';
 import CalendarModal from 'components/common/CalendarModal';
 import RegionInner from 'components/region/RegionInner';
+import RegionInnerSkeleton from 'components/region/skeleton/RegionInnerSkeleton';
 
 function Region() {
 	const { region } = useParams();
@@ -36,7 +37,14 @@ function Region() {
 	return (
 		<main className="">
 			<RegionHeader />
-			<Suspense fallback={<div>loading...</div>}>
+			<Suspense
+				fallback={
+					<RegionInnerSkeleton
+						handleRegionOpen={handleRegionOpen}
+						handleOptionOpen={handleOptionOpen}
+					/>
+				}
+			>
 				<RegionInner
 					handleRegionOpen={handleRegionOpen}
 					handleOptionOpen={handleOptionOpen}
