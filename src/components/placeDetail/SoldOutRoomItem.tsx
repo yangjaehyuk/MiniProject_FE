@@ -4,18 +4,19 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import RoomImageSwiper from 'components/common/RoomImageSwiper';
 import { ImageItem } from 'types/ImageItem';
+import { RoomProps } from 'types/Place';
 
-export default function SoldOutRoomItem() {
+export default function SoldOutRoomItem({roomItem} : RoomProps) {
   return (
     <div className='flex py-5 justify-between border-b border-borderGray cursor-pointer'>
         <div>
         <div className='w-[320px] h-[160px] rounded-lg'>
-                <RoomImageSwiper items={ImageItem} />
+                <RoomImageSwiper items={roomItem.images} />
             </div>
-            <p className='text-title text-black font-bold mt-3'>보스코 프린스 트윈 / 빌리지뷰</p>
+            <p className='text-title text-black font-bold mt-3'>{roomItem.name}</p>
             <div className='flex gap-x-0.5 text-secondaryTextGray mt-2'>
                 <PersonOutlineIcon fontSize='small'/>
-                <p>기준2인 / 최대 4인</p>
+                <p>기준2인 / 최대 {roomItem.capacity}인</p>
             </div>
         </div>
         <div className='p-4 w-[386px] h-fit border-borderGray border rounded-lg'>
@@ -30,7 +31,7 @@ export default function SoldOutRoomItem() {
                 <p className='text-sm text-textGray py-1'>체크인 <span className='font-semibold'>15:00</span> ~ 체크아웃 <span className='font-semibold'>15:00</span></p>
             </div>
             <div className='flex flex-col items-end'>
-            <p className='text-title font-bold text-soldOut'>76,200원</p>
+            <p className='text-title font-bold text-soldOut'>{roomItem.price}</p>
             <p className='font-bold text-secondaryTextGray text-content'>예약마감</p>
             </div>
 

@@ -22,3 +22,7 @@ export interface RoomDetailInfo {
     stock : number;
 
 }
+
+export interface RoomProps {
+    roomItem : RoomDetailInfo;
+}

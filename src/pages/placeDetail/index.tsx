@@ -1,6 +1,5 @@
 import Header from 'components/placeDetail/Header';
 import React, { useEffect, useState } from 'react';
-import shop from '../../assets/images/shop.jpg';
 import banner from '../../assets/images/banner.png';
 import StarIcon from '@mui/icons-material/Star';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -18,46 +17,62 @@ import { formatFullDateRangeWithoutYear } from 'utils/formatDate';
 import { useRecoilValue } from 'recoil';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import ImageSwiper from 'components/common/ImageSwiper';
-import { ImageItem } from 'types/ImageItem';
 import { useParams } from 'react-router';
-import { PlaceDetailInfo } from 'types/Place';
+import { PlaceDetailInfo, RoomDetailInfo } from 'types/Place';
 import accommodationAPI from 'apis/accommodationAPI';
 import CategorySwiperSkeleton from 'components/category/skeleton/CategorySwiperSkeleton';
 import Loading from 'components/placeDetail/Loading';
+import { capacityState } from 'recoil/atoms/capacityAtom';
 
 export default function PlaceDetail() {
 	const { accommodationdId } = useParams();
-	const [accommodationInfo,setAccommodationInfo] = useState<PlaceDetailInfo>();
+	const [accommodationInfo, setAccommodationInfo] = useState<PlaceDetailInfo>();
+	const [roomsInfo, setRoomsInfo] = useState<RoomDetailInfo[]>();
 	const [isLoading, setIsLoading] = useState(true);
-
-	const getAccommodationDetail = async () => {
-		if (accommodationdId !== undefined) {
-		  setIsLoading(true);
-		  try {
-			const id = +accommodationdId;
-			const response = await accommodationAPI.getPlaceDetail(id);
-			setAccommodationInfo(response.data.data); // response를 직접 저장합니다.
-		  } catch (error) {
-			console.error("Failed to load accommodation details:", error);
-		  }
-		  setIsLoading(false);
-		}
-	  }
-	  
-	useEffect(() => {
-		getAccommodationDetail();
-	},[accommodationdId]);
-
-	useEffect(() => {
-		console.log(accommodationInfo);
-	  }, [accommodationInfo]);
-
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const checkInDate = useRecoilValue<Date>(checkInDateState);
 	const checkOutDate = useRecoilValue<Date>(checkOutDateState);
 	const [formattingDate, setFormattingDate] = useState(
 		formatFullDateRangeWithoutYear(checkInDate, checkOutDate),
 	);
+	const capacityValue = useRecoilValue(capacityState);
+
+	const getAccommodationDetail = async () => {
+		if (accommodationdId !== undefined) {
+			setIsLoading(true);
+			try {
+				const id = +accommodationdId;
+				const response = await accommodationAPI.getPlaceDetail(id);
+				setAccommodationInfo(response.data.data); // response를 직접 저장합니다.
+			} catch (error) {
+				console.error('Failed to load accommodation details:', error);
+			}
+			setIsLoading(false);
+		}
+	};
+
+	const getRoomsInfo = async () => {
+		if (accommodationdId !== undefined) {
+			try {
+				const id = +accommodationdId;
+				const checkInDateString = checkInDate.toISOString().split('T')[0];
+				const checkOutDateString = checkOutDate.toISOString().split('T')[0];
+
+				const response = await accommodationAPI.getPlaceDetailRooms(id,checkInDateString, checkOutDateString,capacityValue);
+				setRoomsInfo(response.data.data);
+
+			}
+			catch (error) {
+				console.error('Failed to load roomtype information',error);
+			}
+		}
+
+	}
+
+	useEffect(() => {
+		getAccommodationDetail();
+		getRoomsInfo();
+	}, [accommodationdId]);
 
 	useEffect(() => {
 		setFormattingDate(
@@ -69,16 +84,16 @@ export default function PlaceDetail() {
 		setIsModalOpen(!isModalOpen);
 	};
 
-	if(isLoading) {
-		return <Loading />
+	if (isLoading) {
+		return <Loading />;
 	}
 
 	return (
 		<div className="justify-center m-auto text-content text-black">
 			{isModalOpen && <CalendarModal handleModal={handleCalendarClick} />}
-			<Header />
+			<Header name={accommodationInfo?.name}/>
 			<div className="relative mt-[48px] flex-row">
-			<ImageSwiper items={accommodationInfo?.images} />
+				<ImageSwiper items={accommodationInfo?.images} />
 				<div className="pt-3">
 					<span className="text-sm">일반 호텔</span>
 					<div className="flex w-full justify-between">
@@ -124,14 +139,21 @@ export default function PlaceDetail() {
 						</button>
 					</div>
 
-					<RoomItem />
-					<SoldOutRoomItem />
+					{roomsInfo?.map((roomItem,index) => (
+						roomItem.stock > 0 ? <RoomItem key = {index} roomItem={roomItem}/> : <SoldOutRoomItem key = {index} roomItem={roomItem}/>
+					))}
+
+					
+					
 				</div>
 				<div className="pt-5">
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold">위치/교통</p>
 					</div>
-					<KakaoMap lat={accommodationInfo?.location.latitude} log={accommodationInfo?.location.longitude}/>
+					<KakaoMap
+						lat={accommodationInfo?.location.latitude}
+						log={accommodationInfo?.location.longitude}
+					/>
 					<div className="flex items-center py-3">
 						<RoomIcon
 							className="mr-1"
@@ -156,12 +178,11 @@ export default function PlaceDetail() {
 					<div className="grid grid-cols-4 gap-4">
 						{accommodationInfo?.services.map((service, index) => (
 							<div key={index} className="flex items-center">
-							<CheckIcon />
-							<span>{service}</span>
-						</div>
-
+								<CheckIcon />
+								<span>{service}</span>
+							</div>
 						))}
-						
+
 						{/* <div className="flex items-center">
 							<CheckIcon />
 							<span>주차가능</span>
