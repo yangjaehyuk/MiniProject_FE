@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Header from '../../components/main/Header';
 import hotel from '../../assets/images/hotelImg.svg';
 import pension from '../../assets/images/pensionImg.svg';
@@ -7,7 +7,7 @@ import resort from '../../assets/images/resortImg.svg';
 import carousel1 from '../../assets/images/carousel1.svg';
 import carousel2 from '../../assets/images/carousel2.svg';
 import carousel3 from '../../assets/images/carousel3.svg';
-import item from '../../assets/images/item.svg';
+import item from '../../assets/images/item.png';
 import Benefits1 from '../../assets/images/Benefits1.svg';
 import Benefits2 from '../../assets/images/Benefits2.svg';
 import Benefits3 from '../../assets/images/Benefits3.svg';

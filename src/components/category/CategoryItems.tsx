@@ -1,18 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import CategorySwiper from './CategorySwiper';
 import { ProductItemsProps } from 'types/Region.type';
+import useQueryCategory from 'hooks/category/useQueryCategory';
 
-function CategoryItems({ title, items }: ProductItemsProps) {
+function CategoryItems({ title, region }: ProductItemsProps) {
+	const { category } = useParams();
+	const data = useQueryCategory(`${category?.toUpperCase()}/${region}`);
+
 	return (
 		<div className="py-5">
 			<div className="flex justify-between items-center mb-5">
 				<h3 className="text-title font-semibold">{title}</h3>
-				<Link to={'/hotel/seoul'} className="text-blue font-semibold">
+				<Link to={`/${category}/seoul`} className="text-blue font-semibold">
 					전체보기
 				</Link>
 			</div>
-			<CategorySwiper items={items} />
+			{data && <CategorySwiper items={data} />}
 		</div>
 	);
 }

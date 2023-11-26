@@ -24,7 +24,7 @@ function CategorySwiper({ items }: ProductSwiperProps) {
 						<img src={item.image} alt="" />
 					</div>
 					<div className="pl-3">
-						<h4 className="h-12 mt-4">{item.title}</h4>
+						<h4 className="h-12 mt-4">{item.name}</h4>
 						<p>
 							<Star
 								sx={{
@@ -33,7 +33,7 @@ function CategorySwiper({ items }: ProductSwiperProps) {
 									verticalAlign: 'initial',
 								}}
 							/>{' '}
-							{item.rating}
+							{item.star}
 						</p>
 						<div className="text-[16px] font-semibold text-right">
 							{formatNumberWithCommas(item.price)}원~

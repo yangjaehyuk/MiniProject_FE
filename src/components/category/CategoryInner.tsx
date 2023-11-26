@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { KeyboardArrowRight, LocationOn } from '@mui/icons-material';
 import CategoryItems from './CategoryItems';
 import styles from './Category.module.css';
-import { CATEGORY_SEOUL_DATA, CategoryInnerProps } from 'types/Category.type';
+import { CategoryInnerProps } from 'types/Category.type';
 import CategoryTopRated from './CategoryTopRated';
-import { REGION_SEOUL_DATA } from 'types/Region.type';
+import CategorySkeleton from './skeleton/CategorySkeleton';
 
 function CategoryInner({ handleOpen }: CategoryInnerProps) {
 	return (
@@ -17,11 +17,13 @@ function CategoryInner({ handleOpen }: CategoryInnerProps) {
 				</div>
 				<KeyboardArrowRight sx={{ fontSize: '1.5rem' }} />
 			</div>
-			<CategoryTopRated title="고객 평가 TOP 숙소" items={REGION_SEOUL_DATA} />
-			<CategoryItems title="서울 추천 상품" items={CATEGORY_SEOUL_DATA} />
-			<CategoryItems title="제주 추천 상품" items={CATEGORY_SEOUL_DATA} />
-			<CategoryItems title="부산 추천 상품" items={CATEGORY_SEOUL_DATA} />
-			<CategoryItems title="충청 추천 상품" items={CATEGORY_SEOUL_DATA} />
+			<Suspense fallback={<CategorySkeleton />}>
+				<CategoryTopRated title="고객 평가 TOP 숙소" />
+				<CategoryItems title="서울 추천 상품" region="SEOUL" />
+				<CategoryItems title="제주 추천 상품" region="JEJU" />
+				<CategoryItems title="부산 추천 상품" region="BUSAN" />
+				<CategoryItems title="충청 추천 상품" region="CHUNGCHEONG" />
+			</Suspense>
 		</div>
 	);
 }

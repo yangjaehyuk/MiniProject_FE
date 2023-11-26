@@ -2,6 +2,7 @@ import React from 'react';
 import DehazeOutlinedIcon from '@mui/icons-material/DehazeOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import { Link } from 'react-router-dom';
 import { MainHeaderProps } from 'types/MainPage.type';
 
 const Header = ({ handleOpen }: MainHeaderProps) => {
@@ -19,7 +20,9 @@ const Header = ({ handleOpen }: MainHeaderProps) => {
 						<SearchOutlinedIcon fontSize="small" />
 					</div>
 				</div>
-				<ShoppingCartOutlinedIcon fontSize="small" />
+				<Link to="/cart">
+					<ShoppingCartOutlinedIcon fontSize="small" />
+				</Link>
 			</div>
 		</div>
 	);

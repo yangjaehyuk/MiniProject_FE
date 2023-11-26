@@ -1,34 +1,48 @@
 import React, { useState } from 'react';
-import {
-	Button,
-	Menu,
-	MenuHandler,
-	MenuItem,
-	MenuList,
-} from '@material-tailwind/react';
+import { Button, Menu, MenuHandler, MenuList } from '@material-tailwind/react';
 import { ArrowDropDown } from '@mui/icons-material';
 import logo from '../../assets/images/yanolja_gray.svg';
 import facebook from '../../assets/images/facebook.svg';
+import facebookHover from '../../assets/images/facebookHover.svg';
 import instagram from '../../assets/images/instagram.svg';
+import instagramHover from '../../assets/images/instagramHover.png';
 import naverblog from '../../assets/images/naverblog.svg';
+import naverblogHover from '../../assets/images/naverblogHover.svg';
 import naverpost from '../../assets/images/naverpost.svg';
+import naverpostHover from '../../assets/images/naverpostHover.svg';
 import youtube from '../../assets/images/youtube.svg';
+import youtubeHover from '../../assets/images/youtubeHover.svg';
 import award07 from '../../assets/images/award-07.svg';
 import award08 from '../../assets/images/award-08.svg';
 import award09 from '../../assets/images/award-09.svg';
 import award10 from '../../assets/images/award-10.svg';
 import award11 from '../../assets/images/award-11.svg';
-import award12 from '../../assets/images/award-12.svg';
+import award12 from '../../assets/images/award-12.png';
 import award13 from '../../assets/images/award-13.svg';
 
 const MainFooter = () => {
 	const [openMenu, setOpenMenu] = useState(false);
+	const [hovered, setHovered] = useState({
+		instagram: false,
+		youtube: false,
+		facebook: false,
+		naverblog: false,
+		naverpost: false,
+	});
 	const handleMouseOver = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		(e.target as HTMLAnchorElement).style.borderColor = 'black';
 	};
 
 	const handleMouseOut = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		(e.target as HTMLAnchorElement).style.borderColor = '#ccc';
+	};
+
+	const handleImageOver = (key: string) => {
+		setHovered((prevHovered) => ({ ...prevHovered, [key]: true }));
+	};
+
+	const handleImageOut = (key: string) => {
+		setHovered((prevHovered) => ({ ...prevHovered, [key]: false }));
 	};
 
 	return (
@@ -54,7 +68,14 @@ const MainFooter = () => {
 						</Button>
 					</MenuHandler>
 					<MenuList>
-						<MenuItem style={{ width: '200px', height: '34px' }}>
+						<div
+							style={{
+								display: 'flex',
+								width: '200px',
+								height: '34px',
+								alignItems: 'center',
+							}}
+						>
 							<a
 								rel="noreferrer"
 								target="_blank"
@@ -63,8 +84,15 @@ const MainFooter = () => {
 							>
 								비즈니스 사이트
 							</a>
-						</MenuItem>
-						<MenuItem style={{ width: '200px', height: '34px' }}>
+						</div>
+						<div
+							style={{
+								display: 'flex',
+								width: '200px',
+								height: '34px',
+								alignItems: 'center',
+							}}
+						>
 							<a
 								href="https://partner.yanolja.com/intro"
 								rel="noreferrer"
@@ -73,8 +101,15 @@ const MainFooter = () => {
 							>
 								파트너센터
 							</a>
-						</MenuItem>
-						<MenuItem style={{ width: '200px', height: '34px' }}>
+						</div>
+						<div
+							style={{
+								display: 'flex',
+								width: '200px',
+								height: '34px',
+								alignItems: 'center',
+							}}
+						>
 							<a
 								href="https://www.hotelup.com/"
 								rel="noreferrer"
@@ -83,8 +118,15 @@ const MainFooter = () => {
 							>
 								호텔업
 							</a>
-						</MenuItem>
-						<MenuItem style={{ width: '200px', height: '34px' }}>
+						</div>
+						<div
+							style={{
+								display: 'flex',
+								width: '200px',
+								height: '34px',
+								alignItems: 'center',
+							}}
+						>
 							<a
 								href="https://ad.yanolja.com/intro"
 								rel="noreferrer"
@@ -93,8 +135,15 @@ const MainFooter = () => {
 							>
 								야놀자 광고센터
 							</a>
-						</MenuItem>
-						<MenuItem style={{ width: '200px', height: '34px' }}>
+						</div>
+						<div
+							style={{
+								display: 'flex',
+								width: '200px',
+								height: '34px',
+								alignItems: 'center',
+							}}
+						>
 							<a
 								href="https://home.nowwaiting.co/"
 								rel="noreferrer"
@@ -103,8 +152,15 @@ const MainFooter = () => {
 							>
 								나우웨이팅
 							</a>
-						</MenuItem>
-						<MenuItem style={{ width: '200px', height: '34px' }}>
+						</div>
+						<div
+							style={{
+								display: 'flex',
+								width: '200px',
+								height: '34px',
+								alignItems: 'center',
+							}}
+						>
 							<a
 								rel="noreferrer"
 								target="_blank"
@@ -113,7 +169,7 @@ const MainFooter = () => {
 							>
 								도도포인트
 							</a>
-						</MenuItem>
+						</div>
 					</MenuList>
 				</Menu>
 			</div>
@@ -279,8 +335,13 @@ const MainFooter = () => {
 							rel="noreferrer"
 							target="_blank"
 							href="https://www.instagram.com/yanolja.official/"
+							onMouseOver={() => handleImageOver('instagram')}
+							onMouseOut={() => handleImageOut('instagram')}
 						>
-							<img src={instagram} alt="instagram" />
+							<img
+								src={hovered.instagram ? instagramHover : instagram}
+								alt="instagram"
+							/>
 						</a>
 					</li>
 					<li style={{ paddingRight: '20px' }}>
@@ -289,8 +350,13 @@ const MainFooter = () => {
 							rel="noreferrer"
 							target="_blank"
 							href="https://www.youtube.com/user/yanoljamedia"
+							onMouseOver={() => handleImageOver('youtube')}
+							onMouseOut={() => handleImageOut('youtube')}
 						>
-							<img src={youtube} alt="youtube" />
+							<img
+								src={hovered.youtube ? youtubeHover : youtube}
+								alt="youtube"
+							/>
 						</a>
 					</li>
 					<li style={{ paddingRight: '20px' }}>
@@ -299,8 +365,13 @@ const MainFooter = () => {
 							rel="noreferrer"
 							target="_blank"
 							href="https://www.facebook.com/yanolja/?fref=ts"
+							onMouseOver={() => handleImageOver('facebook')}
+							onMouseOut={() => handleImageOut('facebook')}
 						>
-							<img src={facebook} alt="facebook" />
+							<img
+								src={hovered.facebook ? facebookHover : facebook}
+								alt="facebook"
+							/>
 						</a>
 					</li>
 					<li style={{ paddingRight: '20px' }}>
@@ -309,8 +380,13 @@ const MainFooter = () => {
 							rel="noreferrer"
 							target="_blank"
 							href="https://blog.naver.com/yanolog"
+							onMouseOver={() => handleImageOver('naverblog')}
+							onMouseOut={() => handleImageOut('naverblog')}
 						>
-							<img src={naverblog} alt="naverblog" />
+							<img
+								src={hovered.naverblog ? naverblogHover : naverblog}
+								alt="naverblog"
+							/>
 						</a>
 					</li>
 					<li style={{ paddingRight: '20px' }}>
@@ -319,8 +395,13 @@ const MainFooter = () => {
 							rel="noreferrer"
 							target="_blank"
 							href="https://post.naver.com/my.nhn?memberNo=2768780"
+							onMouseOver={() => handleImageOver('naverpost')}
+							onMouseOut={() => handleImageOut('naverpost')}
 						>
-							<img src={naverpost} alt="naverpost" />
+							<img
+								src={hovered.naverpost ? naverpostHover : naverpost}
+								alt="naverpost"
+							/>
 						</a>
 					</li>
 				</div>

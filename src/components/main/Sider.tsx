@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
 	Drawer,
 	IconButton,
@@ -13,11 +13,19 @@ import resort from '../../assets/images/resortImg.svg';
 import pension from '../../assets/images/pensionImg.svg';
 import poolVilla from '../../assets/images/poolVillaImg.svg';
 
-import { Logout, Person } from '@mui/icons-material';
+import { Logout, Person, Login } from '@mui/icons-material';
 import { MainSiderProps } from 'types/MainPage.type';
 import SiderRegions from './SiderRegions';
+import { checkAccessToken, logout, removeCookie } from 'utils';
+import Swal from 'sweetalert2';
+import { useRecoilState } from 'recoil';
+import { categoryState, dateState } from 'recoil/atoms/myPageAtom';
 
 function Sider({ isOpen, handleClose }: MainSiderProps) {
+	const navigate = useNavigate();
+	const [isAccessToken, setIsAccessToken] = useState(checkAccessToken());
+	const [category, setCategory] = useRecoilState(categoryState);
+	const [date, setDate] = useRecoilState(dateState);
 	return (
 		<Drawer
 			placement="left"
@@ -88,20 +96,63 @@ function Sider({ isOpen, handleClose }: MainSiderProps) {
 			<SiderRegions />
 			<hr className="border-bgGray mt-5" />
 			<List>
-				<Link to="/mypage">
-					<ListItem>
-						<ListItemPrefix>
-							<Person />
-						</ListItemPrefix>
-						마이페이지
-					</ListItem>
-				</Link>
-				<ListItem>
+				<ListItem
+					onClick={() => {
+						const res = checkAccessToken();
+						if (res === false) {
+							removeCookie();
+							Swal.fire({
+								title: '로그인이 필요한 서비스입니다.',
+								text: '로그인 창으로 이동하시겠습니까?',
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: '확인',
+								cancelButtonText: '취소',
+							}).then((result) => {
+								if (result.isConfirmed) {
+									navigate('/login');
+								} else {
+									Swal.close();
+								}
+							});
+						} else {
+							navigate('/mypage');
+						}
+					}}
+				>
 					<ListItemPrefix>
-						<Logout />
+						<Person />
 					</ListItemPrefix>
-					로그아웃
+					마이페이지
 				</ListItem>
+				{isAccessToken !== false ? (
+					<ListItem
+						onClick={() => {
+							logout();
+							setCategory('카테고리 전체');
+							setDate('최근 3개월');
+							setIsAccessToken(checkAccessToken());
+						}}
+					>
+						<ListItemPrefix>
+							<Logout />
+						</ListItemPrefix>
+						로그아웃
+					</ListItem>
+				) : (
+					<ListItem
+						onClick={() => {
+							navigate('/login');
+						}}
+					>
+						<ListItemPrefix>
+							<Login />
+						</ListItemPrefix>
+						로그인
+					</ListItem>
+				)}
 			</List>
 		</Drawer>
 	);
