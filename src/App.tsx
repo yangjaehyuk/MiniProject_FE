@@ -14,6 +14,7 @@ import Layout from 'components/common/Layout';
 import SubLayout from 'components/common/SubLayout';
 import Orders from 'pages/orders';
 import Result from 'pages/result';
+import NotFound from 'pages/notfound';
 
 function App() {
 	return (
@@ -27,6 +28,7 @@ function App() {
 				<Route path="/mypage" element={<MyPage />} />
 				<Route path="/places/:hotelId" element={<PlaceDetail />} />
 				<Route path="/places/:hotelId/:roomId" element={<RoomDetail />} />
+				<Route path="/404" element={<NotFound />} />
 			</Route>
 			<Route element={<SubLayout />}>
 				<Route path="/cart" element={<Cart />} />

@@ -9,6 +9,7 @@ import RegionInner from 'components/region/RegionInner';
 import RegionInnerSkeleton from 'components/region/skeleton/RegionInnerSkeleton';
 import CriticalErrorBoundary from 'components/common/CriticalErrorBoundary';
 import RetryErrorBoundary from 'components/common/RetryErrorBoundary';
+import regionCheckRouter from 'components/region/regionCheckRouter';
 
 function Region() {
 	const { region } = useParams();
@@ -72,4 +73,4 @@ function Region() {
 	);
 }
 
-export default Region;
+export default regionCheckRouter(Region);
