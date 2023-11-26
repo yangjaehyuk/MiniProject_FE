@@ -12,6 +12,11 @@ import SignUpModal from './SignUpModal';
 import styles from '../../components/login/Login.module.css';
 import { validationLoginSchema } from 'utils/validateSchema';
 import { useFormik } from 'formik';
+import { useRecoilState } from 'recoil';
+import { signUpModalState } from 'recoil/atoms/signUpModalAtom';
+import { postLogin } from 'apis/axios';
+import swal from 'sweetalert';
+import { removeCookie, setCookie } from 'utils';
 
 const Inner = () => {
 	const navigate = useNavigate();
@@ -21,7 +26,10 @@ const Inner = () => {
 	const [showPw, setShowPw] = useState(false);
 	const [showMail, setShowMail] = useState(false);
 	const [showModal, setShowModal] = useState(false);
-
+	const [modalCheck, setModalCheck] = useRecoilState(signUpModalState);
+	useEffect(() => {
+		setModalCheck(false);
+	}, []);
 	const cancelCloseHandler = (event: MouseEvent) => {
 		if (mailRef.current && !mailRef.current.contains(event.target as Node)) {
 			setShowMail(false);
@@ -52,12 +60,21 @@ const Inner = () => {
 			pw: '',
 		},
 		validationSchema: validationLoginSchema,
-		onSubmit: (values) => {
-			console.log(values);
+		onSubmit: async (values) => {
+			removeCookie();
 			try {
+				const res = await postLogin(values.mail, values.pw);
+				swal({ title: '로그인에 성공했습니다.', icon: 'success' });
+				const { accessToken } = res.data;
+				setCookie(accessToken);
 				navigate('/');
-			} catch (e) {
-				console.error(e);
+			} catch (e: any) {
+				let errorMessage = '';
+				if (e.message === 'Request failed with status code 401') {
+					errorMessage = '이메일과 비밀번호를 확인해주세요.';
+				}
+
+				swal({ title: errorMessage, icon: 'warning' });
 			}
 		},
 	});
@@ -106,11 +123,6 @@ const Inner = () => {
 									error={touched.mail && Boolean(errors.mail)}
 									ref={mailRef}
 									crossOrigin={undefined}
-									className={`${
-										values.mail.length > 0 && errors.mail
-											? 'text-red border-b-1 border-red'
-											: 'text-green border-b-1 border-green'
-									}`}
 								/>
 								{values.mail && showMail && (
 									<Cancel
@@ -122,7 +134,7 @@ const Inner = () => {
 								)}
 							</div>
 							{values.mail.length > 0 && errors.mail && (
-								<div className="text-sm text-red flex items-center">
+								<div className="text-sm flex text-red items-center">
 									<Block className="pr-1" />
 									{errors.mail}
 								</div>
@@ -138,11 +150,6 @@ const Inner = () => {
 									onBlur={handleBlur}
 									error={touched.pw && Boolean(errors.pw)}
 									crossOrigin={undefined}
-									className={`${
-										values.pw.length > 0 && errors.pw
-											? 'text-red border-b-1 border-red'
-											: 'text-green border-b-1 border-green'
-									}`}
 								/>
 								{values.pw && !showPw && showPwVis && (
 									<Visibility
@@ -164,7 +171,7 @@ const Inner = () => {
 								)}
 							</div>
 							{values.pw.length > 0 && errors.pw && (
-								<div className="text-sm text-red flex items-center">
+								<div className="text-sm flex text-red items-center">
 									<Block className="pr-1" />
 									{errors.pw}
 								</div>
@@ -225,7 +232,10 @@ const Inner = () => {
 						<ChevronRight className="flex cursor-pointer m-2 justify-center items-center ml-1"></ChevronRight>
 					</span>
 				</div>
-				<SignUpModal open={showModal} onClose={handleOnClose}></SignUpModal>
+
+				{modalCheck === false && (
+					<SignUpModal open={showModal} onClose={handleOnClose}></SignUpModal>
+				)}
 			</div>
 		</div>
 	);
