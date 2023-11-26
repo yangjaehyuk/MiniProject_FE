@@ -1,4 +1,4 @@
-export interface PlaceDetail {
+export interface PlaceDetailInfo {
     id : number;
     name : string;
     star : number;
@@ -13,7 +13,7 @@ export interface PlaceDetail {
 
 }
 
-export interface RoomDetail {
+export interface RoomDetailInfo {
     id : number;
     name : string;
     price : number;

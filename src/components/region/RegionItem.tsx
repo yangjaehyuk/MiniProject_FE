@@ -10,7 +10,6 @@ function RegionItem({id, image, name, star, price }: ProductItem) {
 	const navigate = useNavigate();
 
 	const handleItemClick = () => {
-		console.log('clicked', id);
 		navigate(`/places/${id}`);
 	}
 	return (

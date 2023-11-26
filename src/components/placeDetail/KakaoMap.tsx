@@ -7,7 +7,14 @@ declare global {
   }
 }
 
-export default function KakaoMap() {
+interface KakakMapProps {
+  lat : number | undefined;
+  log : number | undefined;
+}
+
+export default function KakaoMap({lat, log} : KakakMapProps) {
+
+  console.log(lat,log);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -18,7 +25,7 @@ export default function KakaoMap() {
       window.kakao.maps.load(() => {
         const container = document.getElementById('map');
         const options = {
-          center : new window.kakao.maps.LatLng(33.4482177, 126.3039055),
+          center : new window.kakao.maps.LatLng(lat, log),
           level : 3
         };
         const map = new window.kakao.maps.Map(container, options);
@@ -27,7 +34,7 @@ export default function KakaoMap() {
         const imageOption = { offset: new window.kakao.maps.Point(18, 44) };
 
         const markerImage = new window.kakao.maps.MarkerImage(image, imageSize, imageOption);
-        const markerPosition = new window.kakao.maps.LatLng(33.4482177, 126.3039055);
+        const markerPosition = new window.kakao.maps.LatLng(lat, log);
 
         const marker = new window.kakao.maps.Marker({
           position : markerPosition,

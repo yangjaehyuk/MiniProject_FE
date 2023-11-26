@@ -16,14 +16,14 @@ export default function RoomDetail() {
 		<div className="justify-center m-auto text-content text-black">
 			<Header />
 			<div className="relative mt-[48px] flex-row">
-				{/* <img
+				<img
 					src={room}
 					alt="숙소사진"
 					className="max-w-none w-[768px] h-[507px] -ml-5"
-				/> */}
-				<div className="max-w-none w-full h-[507px]">
+				/>
+				{/* <div className="max-w-none w-full h-[507px]">
 					<ImageSwiper items={ImageItem} />
-				</div>
+				</div> */}
 				<div className="pt-3">
 					<div className="flex w-full justify-between">
 						<div>
