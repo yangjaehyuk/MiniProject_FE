@@ -23,6 +23,7 @@ import accommodationAPI from 'apis/accommodationAPI';
 import Loading from 'components/placeDetail/Loading';
 import { capacityState } from 'recoil/atoms/capacityAtom';
 import RegionProdCapacityModal from 'components/region/RegionProdCapacityModal';
+import swal from 'sweetalert';
 
 export default function PlaceDetail() {
 	const { accommodationdId } = useParams();
@@ -95,6 +96,22 @@ export default function PlaceDetail() {
 	const handleCapacityClick = () => {
 		setIsCapacityModalOpen((prev) => !prev);
 
+	}
+
+	const handleCopyBtnClick = () => {
+		if(accommodationInfo?.location.address !== undefined) {
+			navigator.clipboard.writeText(accommodationInfo.location.address)
+		.then(() => {
+			swal("주소가 복사되었습니다.",{icon : "success"});
+		})
+		.catch(err => {
+			// This will be executed if the copying failed
+			swal("주소 복사에 실패했습니다.", { icon: "error" });
+			console.error('Error copying text: ', err);
+		  });
+
+		}
+		
 	}
 
 	
@@ -177,7 +194,7 @@ export default function PlaceDetail() {
 						/>
 						<p>{accommodationInfo?.location.address}</p>
 					</div>
-					<button className="w-full border border-gray py-[6px] rounded-sm text-sm hover:bg-bgGray">
+					<button className="w-full border border-gray py-[6px] rounded-sm text-sm hover:bg-bgGray" onClick={handleCopyBtnClick}>
 						주소복사
 					</button>
 				</div>
