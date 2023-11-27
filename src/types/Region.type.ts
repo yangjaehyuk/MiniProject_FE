@@ -178,6 +178,7 @@ export interface RegionListNavProps {
 	handleRegionOpen: () => void;
 	handleOptionOpen: () => void;
 	totalElements?: number;
+	refetch?: () => void;
 }
 
 export enum CapacityAction {
