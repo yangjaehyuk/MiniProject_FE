@@ -112,6 +112,13 @@ const Cart = () => {
 		navigate('/orders');
 	};
 
+	// 전체 금액 계산
+	const totalPrice = cartItems.reduce((acc, cur: dataCartItem) => {
+		return acc + cur.roomType.price;
+	}, 0);
+
+	console.log('전체 금액', totalPrice);
+	console.log('총 결제 건수', cartItems.length);
 	const [show, setShow] = useState(false);
 	const handleScroll = () => {
 		if (window.scrollY > 200) {
@@ -157,14 +164,16 @@ const Cart = () => {
 				handleCheckbox={handleCheckbox}
 				handleDeleteItem={handleDeleteItem}
 			/>
-			<CartBottom />
+			<CartBottom totalPrice={totalPrice} />
 			<div className="bg-white ${show ? 'h-[150px]' : 'h-[110px]'} shadow-inner w-screen fixed bottom-0  left-0">
 				<div className="w-[768px] m-auto top-0 left-0 pb-3">
 					<div className="flex justify-between items-center py-2">
-						<div className="font-semibold  text-sm"> 총 1건</div>
+						<div className="font-semibold  text-sm">
+							총 {cartItems.length}건
+						</div>
 						<div className="flex items-center">
 							<div className="text-textGray text-xxsm mr-4">결제 예상 금액</div>
-							<div className="text-[16px] font-semibold ">870,000 원</div>
+							<div className="text-[16px] font-semibold ">{totalPrice} 원</div>
 						</div>
 					</div>
 

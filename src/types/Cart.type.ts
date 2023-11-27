@@ -8,7 +8,7 @@ export interface Accommodation {
 export interface RoomType {
 	id: string;
 	name: string;
-	price: string;
+	price: number;
 	capacity: string;
 }
 
