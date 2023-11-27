@@ -17,8 +17,6 @@ import UserInfo from 'components/orders/UserInfo';
 import TermsAgreement from 'components/orders/TermsAgreement';
 import { isConstructorDeclaration } from 'typescript';
 
-import { dataCartItem, CartItem } from 'types/Cart.type';
-
 // ReservationInfo
 export type ReservationInfo = {
 	reservationName: string;
