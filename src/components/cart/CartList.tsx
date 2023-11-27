@@ -54,10 +54,9 @@ const CartList: React.FC<CartListProps> = ({
 									<input
 										type="checkbox"
 										onClick={() => {
-											item.isClicked = !item.isClicked; // isClicked 값을 반전시킴
-											handleCheckbox(item); // 변경된 값을 처리하는 함수 호출
+											item.isClicked = !item.isClicked;
 										}}
-										// onChange={() => handleCheckbox(item)}
+										onChange={() => handleCheckbox(item)}
 										checked={item.isClicked}
 									/>
 

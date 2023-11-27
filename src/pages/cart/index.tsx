@@ -4,34 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import CartList from 'components/cart/CartList';
 import CartBottom from 'components/cart/CartBottom';
 import { useQueryMainRegion } from 'hooks/cart/useQueryCart';
-import { Accommodation, dataCartItem, CartItem } from 'types/Cart.type';
+import { dataCartItem, CartItem } from 'types/Cart.type';
 import { deleteCartItem } from 'apis/cartApi';
-import { Spellcheck } from '@mui/icons-material';
 
 const Cart = () => {
 	const { data, isLoading } = useQueryMainRegion();
+
 	const navigate = useNavigate();
+
 	// 데이터 숙소 아이템
 	const [dataCartItems, setDataCartItems] = useState<dataCartItem[]>([]);
 	// 선택한 숙소 아이템
 	const [cartItems, setCartItems] = useState<dataCartItem[]>([]);
 	// 전체 선택 상태
 	const [selectAll, setSelectAll] = useState(true);
-
-	//  전체 선택버튼 클릭 시
-	const handleSelectAll = () => {
-		setSelectAll(!selectAll);
-
-		// 하위 버튼들의 상태 업데이트
-		// dataCartItems는 각 버튼에 대한 정보를 담고 있는 배열이라고 가정합니다.
-		const updatedDataCartItems: dataCartItem[] = dataCartItems.map((item) => {
-			return {
-				...item,
-				isChecked: !selectAll, // isChecked 상태를 전체 선택 상태와 동일하게 변경
-			};
-		});
-		setDataCartItems(updatedDataCartItems);
-	};
 
 	useEffect(() => {
 		if (!isLoading) {
@@ -47,13 +33,25 @@ const Cart = () => {
 			}
 			console.log(temp);
 			// setDataCartItems(data?.data?.cartItems || []);
-
-			console.log('dataCartItems111', dataCartItems);
-			console.log('시작시 전부 넣음cartItems111', cartItems);
 		}
 	}, [isLoading, data]);
 
-	// // 개별 체크박스 핸들링
+	//  전체선택 버튼 클릭
+	const handleSelectAll = () => {
+		const updatedDataCartItems: dataCartItem[] = dataCartItems.map((item) => ({
+			...item,
+			isClicked: !selectAll,
+		}));
+		setDataCartItems(updatedDataCartItems);
+		setSelectAll((prev) => !prev);
+		if (!selectAll == true) {
+			setCartItems(dataCartItems);
+		} else {
+			setCartItems([]);
+		}
+	};
+
+	// 개별선택 버튼 클릭
 	const handleCheckbox = (clickedCartItem: dataCartItem) => {
 		const updatedCartItems = cartItems.map((item) =>
 			item.id === clickedCartItem.id
@@ -75,9 +73,13 @@ const Cart = () => {
 			);
 			setCartItems(updatedCartItems);
 		}
+
+		// 모든 자식 체크박스 true시 전체 체크박스 true
+		const allChecked = dataCartItems.every((item) => item.isClicked);
+		setSelectAll(allChecked);
 	};
 
-	// 아이템 삭제
+	// 개별 삭제 버튼
 	const handleDeleteItem = async (itemId: string) => {
 		const res = await deleteCartItem(itemId);
 		const updatedCartItems = dataCartItems.filter((item) => item.id !== itemId);
@@ -85,7 +87,8 @@ const Cart = () => {
 	};
 
 	console.log('cartItems 선택된 ', cartItems);
-	// console.log('cartItems22', dataCartItems);
+	console.log('dataCartItems', dataCartItems);
+	console.log('시작시 전부 넣음cartItems', cartItems);
 
 	// 예약하기 버튼
 	const handleReservation = () => {
@@ -108,8 +111,6 @@ const Cart = () => {
 		};
 	}, [show]);
 
-	console.log('dataCartItems', dataCartItems);
-	console.log('시작시 전부 넣음cartItems', cartItems);
 	return (
 		<>
 			<Header title="장바구니" />
@@ -127,18 +128,10 @@ const Cart = () => {
 					<div className="text-sm text-blue">전체 삭제</div>
 				</div>
 			</div>
-			{/* {data?.data?.cartItems ? (
-				// 데이터가 있을 때 보여줄 화면
-				
-			) : (
-				// 데이터가 없을 때 보여줄 화면
-				<div>다른 화면을 보여줄 내용</div>
-			)} */}
 			<CartList
 				dataCartItems={dataCartItems}
 				handleCheckbox={handleCheckbox}
 				handleDeleteItem={handleDeleteItem}
-				// selectAll={selectAll}
 			/>
 			<CartBottom />
 			<div className="bg-white ${show ? 'h-[150px]' : 'h-[110px]'} shadow-inner w-screen fixed bottom-0  left-0">
