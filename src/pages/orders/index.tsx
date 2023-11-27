@@ -20,7 +20,7 @@ import { postOrder } from 'apis/cartAPI';
 import { PostOrderItem, PostClient, PostSubscriber } from 'types/Orders';
 import { orderItemState } from 'recoil/atoms/orderAtom';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
-
+import { orderIdState } from 'recoil/atoms/orderAtom';
 // ReservationInfo
 export type ReservationInfo = {
 	reservationName: string;
@@ -53,6 +53,9 @@ const orders = () => {
 	const StringCheckInDate = checkInDate.toISOString();
 	const StringCheckOutDate = checkOutDate.toISOString();
 
+	// 주문결과 id값 받는 recoil
+	const orderIdHandler = useSetRecoilState(orderIdState);
+
 	console.log('cartItem', cartItem);
 	const methods = useForm<ReservationInfo>({ mode: 'onChange' });
 
@@ -84,6 +87,9 @@ const orders = () => {
 		if (client && subscriber && payment && orderData) {
 			const res = await postOrder(client, subscriber, payment, orderData);
 			console.log('res', res);
+
+			// 리코일로 주문 id 값 넣어주기
+			orderIdHandler(res.orderId);
 		} else {
 			console.log('결제에 실패 했습니다');
 		}
