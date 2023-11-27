@@ -7,6 +7,8 @@ import { useQueryMainRegion } from 'hooks/cart/useQueryCart';
 import { dataCartItem, CartItem } from 'types/Cart.type';
 import { deleteCartItem, allDeleteItem } from 'apis/cartAPI';
 import useScrollToShow from 'hooks/common/handleScroll';
+import { cartItemState } from 'recoil/atoms/cartAtom';
+import { useSetRecoilState } from 'recoil';
 
 const Cart = () => {
 	const { data, isLoading } = useQueryMainRegion();
@@ -20,6 +22,8 @@ const Cart = () => {
 	const [cartItems, setCartItems] = useState<dataCartItem[]>([]);
 	// 전체 선택 상태
 	const [selectAll, setSelectAll] = useState(true);
+	// 리코일
+	const setItemState = useSetRecoilState(cartItemState);
 
 	useEffect(() => {
 		if (!isLoading) {
@@ -109,6 +113,8 @@ const Cart = () => {
 
 	// 예약하기 버튼
 	const handleReservation = () => {
+		setItemState(cartItems);
+		console.log('Recoil State Value:', cartItems);
 		navigate('/orders');
 	};
 
