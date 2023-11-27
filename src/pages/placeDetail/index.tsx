@@ -23,13 +23,17 @@ import accommodationAPI from 'apis/accommodationAPI';
 import CategorySwiperSkeleton from 'components/category/skeleton/CategorySwiperSkeleton';
 import Loading from 'components/placeDetail/Loading';
 import { capacityState } from 'recoil/atoms/capacityAtom';
+import RegionProdCapacityModal from 'components/region/RegionProdCapacityModal';
 
 export default function PlaceDetail() {
 	const { accommodationdId } = useParams();
 	const [accommodationInfo, setAccommodationInfo] = useState<PlaceDetailInfo>();
 	const [roomsInfo, setRoomsInfo] = useState<RoomDetailInfos[]>();
 	const [isLoading, setIsLoading] = useState(true);
+
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isCapacityModalOpen, setIsCapacityModalOpen] = useState(false);
+
 	const checkInDate = useRecoilValue<Date>(checkInDateState);
 	const checkOutDate = useRecoilValue<Date>(checkOutDateState);
 	const [formattingDate, setFormattingDate] = useState(
@@ -81,8 +85,13 @@ export default function PlaceDetail() {
 	}, [checkInDate, checkOutDate]);
 
 	const handleCalendarClick = () => {
-		setIsModalOpen(!isModalOpen);
+		setIsModalOpen((prev) => !prev);
 	};
+
+	const handleCapacityClick = () => {
+		setIsCapacityModalOpen((prev) => !prev);
+
+	}
 
 	if (isLoading) {
 		return <Loading />;
@@ -90,7 +99,8 @@ export default function PlaceDetail() {
 
 	return (
 		<div className="justify-center m-auto text-content text-black">
-			{isModalOpen && <CalendarModal handleModal={handleCalendarClick} />}
+			<CalendarModal isOpen={isModalOpen} handleOpen={handleCalendarClick} />
+			<RegionProdCapacityModal isOpen={isCapacityModalOpen} handleOpen={handleCapacityClick} />
 			<Header name={accommodationInfo?.name}/>
 			<div className="relative mt-[48px] flex-row">
 				<ImageSwiper items={accommodationInfo?.images} />
@@ -133,14 +143,14 @@ export default function PlaceDetail() {
 						</button>
 						<button
 							className="w-full flex items-start border border-borderGray rounded px-3 py-[11px]"
-							onClick={handleCalendarClick}
+							onClick={handleCapacityClick}
 						>
-							성인 2, 아동 0
+							성인 {capacityValue}
 						</button>
 					</div>
 
 					{roomsInfo?.map((roomItem,index) => (
-						roomItem.stock > 0 ? <RoomItem key = {index} roomItem={roomItem} name={accommodationInfo?.name}/> : <SoldOutRoomItem key = {index} roomItem={roomItem} name={accommodationInfo?.name}/>
+						roomItem.status !==  'NO_STOCK' ? <RoomItem key = {index} roomItem={roomItem} name={accommodationInfo?.name}/> : <SoldOutRoomItem key = {index} roomItem={roomItem} name={accommodationInfo?.name}/>
 					))}
 
 					

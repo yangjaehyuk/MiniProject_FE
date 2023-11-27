@@ -57,7 +57,7 @@ function Region() {
 				handleCapaOpen={handleCapacityOpen}
 				handleDateOpen={handleDateOpen}
 			/>
-			{dateOpen && <CalendarModal handleModal={handleDateOpen} />}
+			{dateOpen && <CalendarModal isOpen={dateOpen} handleOpen={handleDateOpen} />}
 			<RegionProdCapacityModal
 				isOpen={capacityOpen}
 				handleOpen={handleCapacityOpen}

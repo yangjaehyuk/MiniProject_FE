@@ -5,13 +5,10 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import RoomImageSwiper from 'components/common/RoomImageSwiper';
 import { RoomProps } from 'types/Place';
-import { useRecoilValue } from 'recoil';
-import { capacityState } from 'recoil/atoms/capacityAtom';
 import { useNavigate, useParams } from 'react-router';
 import { formatNumberWithCommas } from 'utils/numberComma';
 
 export default function RoomItem({ roomItem, name }: RoomProps) {
-	const capacityValue = useRecoilValue(capacityState);
 	const navigate = useNavigate();
 	const { accommodationdId } = useParams();
 	const handleItemClick = () => {
@@ -60,7 +57,7 @@ export default function RoomItem({ roomItem, name }: RoomProps) {
 						<ErrorOutlineIcon sx={{ fontSize: '16px' }} />
 					</div>
 
-					{capacityValue <= roomItem.capacity ? (
+					{roomItem.status === 'OK' ? (
 						<div className="flex items-center">
 							<p className="text-green text-sm font-bold ml-3">
 								무료취소 (12.04 (월) 17:00전까지)
@@ -80,7 +77,7 @@ export default function RoomItem({ roomItem, name }: RoomProps) {
 						</div>
 					)}
 				</div>
-				{capacityValue <= roomItem.capacity ? (
+				{roomItem.status === 'OK' ? (
 					<div className="flex justify-between mt-3 items-center">
 						<span className="text-orange text-sm font-bold">남은객실 {roomItem.stock}개</span>
 						<div className="flex gap-x-2">

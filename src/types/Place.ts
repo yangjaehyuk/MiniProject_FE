@@ -20,6 +20,7 @@ export interface RoomDetailInfos {
     capacity : number;
     images : string[];
     stock : number;
+    status : string;
 
 }
 
