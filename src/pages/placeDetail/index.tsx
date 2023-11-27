@@ -98,9 +98,11 @@ export default function PlaceDetail() {
 
 	}
 
-	if (isLoading) {
-		return <Loading />;
-	}
+	
+
+	// if (isLoading) {
+	// 	return <Loading />;
+	// }
 
 	return (
 		<div className="justify-center m-auto text-content text-black">

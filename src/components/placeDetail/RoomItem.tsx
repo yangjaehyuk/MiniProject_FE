@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
@@ -7,10 +7,19 @@ import RoomImageSwiper from 'components/common/RoomImageSwiper';
 import { RoomProps } from 'types/Place';
 import { useNavigate, useParams } from 'react-router';
 import { formatNumberWithCommas } from 'utils/numberComma';
+import { requireLogin } from 'hooks/common/isAcessToken';
+import cartAPI from 'apis/cartAPI';
+import { useRecoilValue } from 'recoil';
+import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
+import { getCookie } from 'utils';
+import swal from 'sweetalert';
 
 export default function RoomItem({ roomItem, name }: RoomProps) {
 	const navigate = useNavigate();
 	const { accommodationdId } = useParams();
+	const checkInDate = useRecoilValue(checkInDateState);
+	const checkOutDate = useRecoilValue(checkOutDateState)
+	;
 	const handleItemClick = () => {
 		if(name !== undefined) {
 			navigate(`/places/${accommodationdId}/${roomItem.id}?name=${name}`);
@@ -20,6 +29,36 @@ export default function RoomItem({ roomItem, name }: RoomProps) {
 	}
 
 	const formattedPrice = formatNumberWithCommas(roomItem.price);
+
+	const saveRoomtoCart = async () => {
+		try {
+			const checkInDateString = checkInDate.toISOString().split('T')[0];
+			const checkOutDateString = checkOutDate.toISOString().split('T')[0];
+			const response = await cartAPI.postRoomToCart(roomItem.id,checkInDateString,checkOutDateString);
+			if(response.status === 201) {
+				swal({ title: '장바구니 담기에 성공하였습니다.', icon: 'success' });
+			}
+			else {
+				swal({ title: '장바구니 담기에 실패하였습니다 .', icon: 'error' });
+
+			}
+		} catch (error) {
+			console.error('Failed to load accommodation details:', error);
+		}
+	};
+
+
+	const handleCartBtnClick = () => {
+		console.log('clicked');
+		
+		const accessToken = getCookie('accessToken');
+	
+			if (!accessToken) {
+				swal({ title: '로그인이 필요한 서비스입니다.', icon: 'warning' });
+				
+			}
+			else saveRoomtoCart();
+	}
 
 	return (
 		<div className="flex py-5 justify-between border-b border-borderGray cursor-pointer" >
@@ -81,8 +120,8 @@ export default function RoomItem({ roomItem, name }: RoomProps) {
 					<div className="flex justify-between mt-3 items-center">
 						<span className="text-orange text-sm font-bold">남은객실 {roomItem.stock}개</span>
 						<div className="flex gap-x-2">
-							<button className="border border-borderGray rounded w-[32px] h-[32px] cursor-pointer">
-								<ShoppingCartOutlinedIcon fontSize="small" />
+							<button className="border border-borderGray rounded w-[32px] h-[32px] cursor-pointer" >
+								<ShoppingCartOutlinedIcon fontSize="small" onClick={handleCartBtnClick}/>
 							</button>
 							<button className="bg-secondary text-white rounded text-sm w-[120px] py-2 cursor-pointer hover:bg-hoverSecondary">
 								예약하기
