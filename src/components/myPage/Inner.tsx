@@ -16,20 +16,26 @@ import useScrollToShow from 'hooks/common/handleScroll';
 import useQueryMyPage from 'hooks/myPage/useQueryMyPage';
 
 const Inner = () => {
-	const { data } = useQueryMyPage();
-
+	const [now, setNow] = useState(3);
 	const navigate = useNavigate();
 	const [showDateModal, setShowDateModal] = useState(false);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const nowDate = useRecoilValue(dateState);
 	const [date, setDate] = useRecoilState(dateState);
-
 	const show = useScrollToShow(false, 200);
+
+	useEffect(() => {
+		const localVal = date;
+		const numbersOnly =
+			localVal !== null ? parseInt(localVal.replace(/\D/g, ''), 10) : 0;
+		setNow(numbersOnly);
+	}, [date, setDate]);
 
 	const handleDateModalClose = () => {
 		setShowDateModal(false);
 	};
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -43,6 +49,9 @@ const Inner = () => {
 		};
 		fetchData();
 	}, []);
+
+	const { data } = useQueryMyPage(now);
+
 	if (!data) return <CategorySkeleton />;
 	return (
 		<div className="pt-20 min-h-screen m-auto bg-white max-w-[768px] mx-auto">
