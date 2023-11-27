@@ -77,6 +77,11 @@ export default function PlaceDetail() {
 		getAccommodationDetail();
 		getRoomsInfo();
 	}, [accommodationdId]);
+	
+	useEffect(() => {
+		getRoomsInfo();
+		
+	},[checkInDate,checkOutDate,capacityValue])
 
 	useEffect(() => {
 		setFormattingDate(
