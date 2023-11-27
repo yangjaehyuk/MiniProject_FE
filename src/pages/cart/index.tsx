@@ -4,22 +4,35 @@ import { useNavigate } from 'react-router-dom';
 import CartList from 'components/cart/CartList';
 import CartBottom from 'components/cart/CartBottom';
 import { useQueryMainRegion } from 'hooks/cart/useQueryCart';
-import { Accommodation, RoomType, CartItem } from 'types/Cart.type';
+import { Accommodation, dataCartItem, CartItem } from 'types/Cart.type';
+import { deleteCartItem } from 'apis/cartApi';
 
 const Cart = () => {
 	const { data, isLoading } = useQueryMainRegion();
 	const navigate = useNavigate();
 	// 데이터 숙소 아이템
-	const [dataCartItems, setDataCartItems] = useState<CartItem[]>([]);
+	const [dataCartItems, setDataCartItems] = useState<dataCartItem[]>([]);
 	// 선택한 숙소 아이템
 	const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
 	useEffect(() => {
 		if (!isLoading) {
-			setDataCartItems(data?.data?.cartItems || []);
+			const temp = data?.data?.cartItems;
+			if (temp.length > 0) {
+				const newData: dataCartItem[] = temp.map((item: CartItem) => {
+					const copy = { ...item, isClicked: true };
+					return copy;
+				});
+				console.log(newData);
+				setDataCartItems(newData || []);
+			}
+			console.log(temp);
+			// setDataCartItems(data?.data?.cartItems || []);
 		}
 	}, [isLoading, data]);
+	console.log(dataCartItems);
 
+	// 개별 체크박스 핸들링
 	const handleCheckbox = (ClickCartItem: CartItem) => {
 		console.log(ClickCartItem);
 		const index = cartItems.findIndex((item) => item.id === ClickCartItem.id);
@@ -33,6 +46,23 @@ const Cart = () => {
 			// 선택하지 않은 숙소라면 cartItems에 추가
 			setCartItems([...cartItems, ClickCartItem]);
 		}
+	};
+
+	// // 체크박스 전체 선택
+	// const handleAllCheck = (checked) => {
+	// 	if (checked) {
+	// 		// cartList에 있는 체크박스의 값이 동일하게 변경
+	// 		// dataCartItem에 있는 값들이 전부 cartItems에 저장
+	// 	} else {
+	// 		setCartItems([]);
+	// 	}
+	// };
+
+	// 아이템 삭제
+	const handleDeleteItem = async (itemId: string) => {
+		const res = await deleteCartItem(itemId);
+		const updatedCartItems = dataCartItems.filter((item) => item.id !== itemId);
+		setDataCartItems(updatedCartItems);
 	};
 
 	console.log('cartItems 선택된 ', cartItems);
@@ -51,6 +81,7 @@ const Cart = () => {
 			setShow(false);
 		}
 	};
+
 	useEffect(() => {
 		window.addEventListener('scroll', handleScroll);
 		return () => {
@@ -58,6 +89,7 @@ const Cart = () => {
 		};
 	}, [show]);
 
+	console.log('dataCartItems', dataCartItems);
 	return (
 		<>
 			<Header title="장바구니" />
@@ -78,7 +110,11 @@ const Cart = () => {
 				// 데이터가 없을 때 보여줄 화면
 				<div>다른 화면을 보여줄 내용</div>
 			)} */}
-			<CartList dataCartItems={dataCartItems} handleCheckbox={handleCheckbox} />
+			<CartList
+				dataCartItems={dataCartItems}
+				handleCheckbox={handleCheckbox}
+				handleDeleteItem={handleDeleteItem}
+			/>
 			<CartBottom />
 			<div className="bg-white ${show ? 'h-[150px]' : 'h-[110px]'} shadow-inner w-screen fixed bottom-0  left-0">
 				<div className="w-[768px] m-auto top-0 left-0 pb-3">

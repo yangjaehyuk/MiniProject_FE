@@ -1,22 +1,26 @@
 export interface Accommodation {
-	id: number;
+	id: string;
 	name: string;
 	address: string;
 	image: string;
 }
 
 export interface RoomType {
-	id: number;
+	id: string;
 	name: string;
-	price: number;
-	capacity: number;
+	price: string;
+	capacity: string;
 }
 
 export interface CartItem {
 	accommodation: Accommodation;
 	checkinDate: string;
 	checkoutDate: string;
-	id: number;
+	id: string;
 	roomType: RoomType;
-	stock: number;
+	stock: string;
 }
+
+export type dataCartItem = CartItem & {
+	isClicked: boolean;
+};

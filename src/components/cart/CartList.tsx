@@ -1,18 +1,26 @@
 import React from 'react';
 import styles from '../../components/cart/Cart.module.css';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { Accommodation, RoomType, CartItem } from 'types/Cart.type';
-
+import {
+	Accommodation,
+	RoomType,
+	CartItem,
+	dataCartItem,
+} from 'types/Cart.type';
+import { deleteCartItem } from 'apis/cartApi';
 interface CartListProps {
-	dataCartItems: CartItem[];
+	dataCartItems: dataCartItem[];
 	handleCheckbox: (clickedCartItem: CartItem) => void;
+	handleDeleteItem: (itemId: string) => Promise<void>;
 }
 
 const CartList: React.FC<CartListProps> = ({
 	dataCartItems,
 	handleCheckbox,
+	handleDeleteItem,
 }) => {
 	// console.log(dataCartItems);
+
 	return (
 		<>
 			<div className={styles.wrap}>
@@ -36,18 +44,23 @@ const CartList: React.FC<CartListProps> = ({
 										{item.roomType.name}
 									</div>
 									<div className="text-gray w-12 h-12">
-										<CloseOutlinedIcon fontSize="small" />
+										<CloseOutlinedIcon
+											fontSize="small"
+											onClick={() => handleDeleteItem(item.id)}
+										/>
 									</div>
 								</div>
 								<div className="flex">
 									<input
 										type="checkbox"
 										onChange={() => handleCheckbox(item)}
+										checked={item.isClicked}
 									/>
+
 									<img
 										className="h-[80px] w-[80px] mx-3 rounded-md"
 										src={item.accommodation.image}
-									></img>
+									/>
 									<div className="flex-col flex text-sm text-textGray ">
 										<span className="  text-[#1A1A1A] ">
 											{item.checkinDate} ~ {item.checkoutDate} (금) | 3박
