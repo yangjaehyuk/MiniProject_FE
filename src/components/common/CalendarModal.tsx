@@ -111,6 +111,7 @@ export default function CalendarModal({ isOpen, handleOpen }: ModalProps) {
 					endDate={endDay}
 					selectsRange
 					inline
+					minDate={new Date()}
 				/>
 			</DialogBody>
 			{/* 푸터 */}
