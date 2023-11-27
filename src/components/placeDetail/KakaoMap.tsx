@@ -14,8 +14,6 @@ interface KakakMapProps {
 
 export default function KakaoMap({latitude, longitude} : KakakMapProps) {
 
-  console.log(latitude, longitude);
-
   useEffect(() => {
     const script = document.createElement('script');
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_API_KEY}&autoload=false`;

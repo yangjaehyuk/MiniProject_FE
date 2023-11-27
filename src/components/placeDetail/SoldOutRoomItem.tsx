@@ -1,9 +1,7 @@
 import React from 'react'
-import room from '../../assets/images/room.jpg'
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import RoomImageSwiper from 'components/common/RoomImageSwiper';
-import { ImageItem } from 'types/ImageItem';
 import { RoomProps } from 'types/Place';
 import { useNavigate, useParams } from 'react-router';
 

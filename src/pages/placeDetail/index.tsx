@@ -20,7 +20,6 @@ import ImageSwiper from 'components/common/ImageSwiper';
 import { useParams } from 'react-router';
 import { PlaceDetailInfo, RoomDetailInfos } from 'types/Place';
 import accommodationAPI from 'apis/accommodationAPI';
-import CategorySwiperSkeleton from 'components/category/skeleton/CategorySwiperSkeleton';
 import Loading from 'components/placeDetail/Loading';
 import { capacityState } from 'recoil/atoms/capacityAtom';
 import RegionProdCapacityModal from 'components/region/RegionProdCapacityModal';
@@ -47,8 +46,7 @@ export default function PlaceDetail() {
 			try {
 				const id = +accommodationdId;
 				const response = await accommodationAPI.getPlaceDetail(id);
-				console.log(response.data.data);
-				setAccommodationInfo(response.data.data); // response를 직접 저장합니다.
+				setAccommodationInfo(response.data.data); 
 			} catch (error) {
 				console.error('Failed to load accommodation details:', error);
 			}

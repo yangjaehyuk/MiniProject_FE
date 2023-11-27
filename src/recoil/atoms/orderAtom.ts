@@ -1,4 +1,5 @@
 import { atom, selector } from 'recoil';
+import { OrderItem } from 'types/Orders';
 
 export enum OrderEnum {
 	STAR_DESC = 'STAR_DESC',
@@ -28,3 +29,8 @@ function orderToKor(key: OrderEnum) {
 			return '';
 	}
 }
+
+export const orderItemState = atom<OrderItem | null>({
+	key : 'orderItemState',
+	default : null,
+})
