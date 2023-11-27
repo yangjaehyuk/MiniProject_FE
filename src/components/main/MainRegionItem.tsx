@@ -14,7 +14,7 @@ const MainRegionItem: React.FC<MainRegionItemProps> = ({ accommodations }) => {
 		<div>
 			<div className="grid gap-4 grid-cols-1 lg:grid-cols-2 my-4">
 				{accommodations.map((item, index) => (
-					<div className="flex" key={item.id}>
+					<div className="flex" key={item.index}>
 						<div className={styles.itemThumb}>
 							<div className={styles.itemImage}>
 								<img src={item.image} alt={item.name} />
