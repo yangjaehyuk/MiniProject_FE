@@ -21,6 +21,7 @@ import { PostOrderItem, PostClient, PostSubscriber } from 'types/Orders';
 import { orderItemState } from 'recoil/atoms/orderAtom';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { orderIdState } from 'recoil/atoms/orderAtom';
+
 // ReservationInfo
 export type ReservationInfo = {
 	reservationName: string;

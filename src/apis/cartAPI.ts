@@ -42,4 +42,9 @@ export const postOrder = async (
 	return res.data;
 };
 
+// 주문 조희
+export const getOrderCheck = async (orderId: number) => {
+	const res = await instance.get(`orders/${orderId}`);
+	return res.data;
+};
 export default cartAPI;
