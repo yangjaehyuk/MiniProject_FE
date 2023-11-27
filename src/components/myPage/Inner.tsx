@@ -9,7 +9,6 @@ import ReservationCardHeader from './ReservationCardHeader';
 import { logout } from 'utils';
 import { useNavigate } from 'react-router-dom';
 import { getUserInfo } from 'apis/axios';
-import CategorySkeleton from 'components/category/skeleton/CategorySkeleton';
 
 import TopBtn from 'components/common/TopBtn';
 import useScrollToShow from 'hooks/common/handleScroll';
@@ -51,9 +50,7 @@ const Inner = () => {
 	}, []);
 
 	const { data } = useQueryMyPage(now);
-	console.log(data);
 
-	if (!data) return <CategorySkeleton />;
 	return (
 		<div className="pt-20 min-h-screen m-auto bg-white max-w-[768px] mx-auto">
 			<div className="pt-4.5 pl-6 pr-6 pb-7">
@@ -109,7 +106,7 @@ const Inner = () => {
 			></DateModal>
 			{show && <TopBtn show={show} />}
 
-			{data?.length > 0 && (
+			{data && data?.length > 0 && (
 				<div className="pr-6 pl-6">
 					{data?.map((order, index) => (
 						<React.Fragment key={index}>
