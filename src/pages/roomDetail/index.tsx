@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ShareIcon from '@mui/icons-material/Share';
 import CheckIcon from '@mui/icons-material/Check';
 import room from '../../assets/images/room.jpg';
@@ -9,33 +9,59 @@ import SmokeFreeIcon from '@mui/icons-material/SmokeFree';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import Footer from 'components/roomDetail/Footer';
 import ImageSwiper from 'components/common/ImageSwiper';
-import { ImageItem } from 'types/ImageItem';
+import { useLocation, useParams } from 'react-router';
+import accommodationAPI from 'apis/accommodationAPI';
+import { RoomDetailInfo } from 'types/Place';
+import { formatNumberWithCommas } from 'utils/numberComma';
 
 export default function RoomDetail() {
+
+	const { roomId } = useParams();
+	const [ roomInfo, setRoomInfo ] = useState<RoomDetailInfo>();
+	const location = useLocation();
+	const queryParams = new URLSearchParams(location.search);
+	const name = queryParams.get('name');
+
+	const getRoomDetail = async () => {
+		if(roomId !== undefined) {
+			try {
+				const id = +roomId;
+				const response = await accommodationAPI.getRoomDetail(id);
+				setRoomInfo(response.data.data);
+			}
+			catch (error) {
+				console.error('Failed to load Room detail info',error);
+
+			}
+		}
+	}
+
+	useEffect(()=>{
+		getRoomDetail();
+	},[roomId]);
+
+	const formattedPrice = formatNumberWithCommas(roomInfo?.price);
+
+
 	return (
 		<div className="justify-center m-auto text-content text-black">
 			<Header />
 			<div className="relative mt-[48px] flex-row">
-				<img
-					src={room}
-					alt="숙소사진"
-					className="max-w-none w-[768px] h-[507px] -ml-5"
-				/>
-				{/* <div className="max-w-none w-full h-[507px]">
-					<ImageSwiper items={ImageItem} />
-				</div> */}
+				<div className="max-w-none w-full h-[507px]">
+					<ImageSwiper items={roomInfo?.images} />
+				</div>
 				<div className="pt-3">
 					<div className="flex w-full justify-between">
 						<div>
-							<p className="text-lg font-bold text-black">스탠다드 트윈</p>
-							<p className="text-content">초특가★</p>
+							<p className="text-lg font-bold text-black">{roomInfo?.name}</p>
+							<p className="text-content">{roomInfo?.introduction}</p>
 						</div>
 						<ShareIcon fontSize="small" />
 					</div>
 
 					<div className="mt-[13px]">
 						<p className="text-sm">
-							베스턴 웨스턴 제주{' '}
+							{name}{' '}
 							<KeyboardArrowRightIcon sx={{ fontSize: '14px' }} />
 						</p>
 					</div>
@@ -44,7 +70,7 @@ export default function RoomDetail() {
 				<div className="py-3 flex flex-col gap-y-[0.6px]">
 					<div className="flex gap-x-0.5 text-secondaryTextGray mt-2">
 						<PersonOutlineIcon fontSize="small" />
-						<p>기준2인 / 최대 4인</p>
+						<p>기준2인 / 최대 {roomInfo?.capacity}인</p>
 					</div>
 					<div className="flex gap-x-0.5 text-secondaryTextGray mt-2">
 						<SmokeFreeIcon fontSize="small" />
@@ -56,26 +82,12 @@ export default function RoomDetail() {
 						<p className="text-content font-bold">주요 서비스 및 편의시설</p>
 					</div>
 					<div className="grid grid-cols-4 gap-4 text-secondaryTextGray">
-						<div className="flex items-center ">
-							<CheckIcon sx={{ fontSize: '16px' }} />
-							<span className="pl-1">무료 와이파이</span>
-						</div>
-						<div className="flex items-center">
-							<CheckIcon sx={{ fontSize: '16px' }} />
-							<span className="pl-1">주차가능</span>
-						</div>
-						<div className="flex items-center">
-							<CheckIcon sx={{ fontSize: '16px' }} />
-							<span className="pl-1">주차가능</span>
-						</div>
-						<div className="flex items-center">
-							<CheckIcon sx={{ fontSize: '16px' }} />
-							<span className="pl-1">주차가능</span>
-						</div>
-						<div className="flex items-center">
-							<CheckIcon sx={{ fontSize: '16px' }} />
-							<span className="pl-1">주차가능</span>
-						</div>
+						{roomInfo?.services.map((service,index) => (
+							<div className="flex items-center " key={index}>
+								<CheckIcon sx={{ fontSize: '16px' }} />
+								<span className="pl-1">{service}</span>
+							</div>
+						))}
 					</div>
 				</div>
 				<div className="border border-borderGray p-4 rounded-lg">
@@ -83,12 +95,12 @@ export default function RoomDetail() {
 						<span className="text-sm text-black font-bold">숙박</span>
 						<p className="text-sm text-textGray py-1">
 							체크인 <span className="font-semibold">15:00</span> ~ 체크아웃{' '}
-							<span className="font-semibold">15:00</span>
+							<span className="font-semibold">11:00</span>
 						</p>
 					</div>
 					<div className="flex flex-col items-end">
 						<div className="flex items-center">
-							<p className="text-title font-bold text-black">76,200원</p>
+							<p className="text-title font-bold text-black">{formattedPrice}원</p>
 							<ErrorOutlineIcon sx={{ fontSize: '16px' }} />
 						</div>
 						<div className="flex items-center">

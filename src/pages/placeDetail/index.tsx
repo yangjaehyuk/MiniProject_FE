@@ -18,18 +18,22 @@ import { useRecoilValue } from 'recoil';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import ImageSwiper from 'components/common/ImageSwiper';
 import { useParams } from 'react-router';
-import { PlaceDetailInfo, RoomDetailInfo } from 'types/Place';
+import { PlaceDetailInfo, RoomDetailInfos } from 'types/Place';
 import accommodationAPI from 'apis/accommodationAPI';
-import CategorySwiperSkeleton from 'components/category/skeleton/CategorySwiperSkeleton';
 import Loading from 'components/placeDetail/Loading';
 import { capacityState } from 'recoil/atoms/capacityAtom';
+import RegionProdCapacityModal from 'components/region/RegionProdCapacityModal';
+import swal from 'sweetalert';
 
 export default function PlaceDetail() {
 	const { accommodationdId } = useParams();
 	const [accommodationInfo, setAccommodationInfo] = useState<PlaceDetailInfo>();
-	const [roomsInfo, setRoomsInfo] = useState<RoomDetailInfo[]>();
+	const [roomsInfo, setRoomsInfo] = useState<RoomDetailInfos[]>();
 	const [isLoading, setIsLoading] = useState(true);
+
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isCapacityModalOpen, setIsCapacityModalOpen] = useState(false);
+
 	const checkInDate = useRecoilValue<Date>(checkInDateState);
 	const checkOutDate = useRecoilValue<Date>(checkOutDateState);
 	const [formattingDate, setFormattingDate] = useState(
@@ -43,7 +47,7 @@ export default function PlaceDetail() {
 			try {
 				const id = +accommodationdId;
 				const response = await accommodationAPI.getPlaceDetail(id);
-				setAccommodationInfo(response.data.data); // response를 직접 저장합니다.
+				setAccommodationInfo(response.data.data); 
 			} catch (error) {
 				console.error('Failed to load accommodation details:', error);
 			}
@@ -73,6 +77,11 @@ export default function PlaceDetail() {
 		getAccommodationDetail();
 		getRoomsInfo();
 	}, [accommodationdId]);
+	
+	useEffect(() => {
+		getRoomsInfo();
+		
+	},[checkInDate,checkOutDate,capacityValue])
 
 	useEffect(() => {
 		setFormattingDate(
@@ -81,8 +90,31 @@ export default function PlaceDetail() {
 	}, [checkInDate, checkOutDate]);
 
 	const handleCalendarClick = () => {
-		setIsModalOpen(!isModalOpen);
+		setIsModalOpen((prev) => !prev);
 	};
+
+	const handleCapacityClick = () => {
+		setIsCapacityModalOpen((prev) => !prev);
+
+	}
+
+	const handleCopyBtnClick = () => {
+		if(accommodationInfo?.location.address !== undefined) {
+			navigator.clipboard.writeText(accommodationInfo.location.address)
+		.then(() => {
+			swal("주소가 복사되었습니다.",{icon : "success"});
+		})
+		.catch(err => {
+			// This will be executed if the copying failed
+			swal("주소 복사에 실패했습니다.", { icon: "error" });
+			console.error('Error copying text: ', err);
+		  });
+
+		}
+		
+	}
+
+	
 
 	if (isLoading) {
 		return <Loading />;
@@ -90,7 +122,8 @@ export default function PlaceDetail() {
 
 	return (
 		<div className="justify-center m-auto text-content text-black">
-			{isModalOpen && <CalendarModal handleModal={handleCalendarClick} />}
+			<CalendarModal isOpen={isModalOpen} handleOpen={handleCalendarClick} />
+			<RegionProdCapacityModal isOpen={isCapacityModalOpen} handleOpen={handleCapacityClick} />
 			<Header name={accommodationInfo?.name}/>
 			<div className="relative mt-[48px] flex-row">
 				<ImageSwiper items={accommodationInfo?.images} />
@@ -133,14 +166,14 @@ export default function PlaceDetail() {
 						</button>
 						<button
 							className="w-full flex items-start border border-borderGray rounded px-3 py-[11px]"
-							onClick={handleCalendarClick}
+							onClick={handleCapacityClick}
 						>
-							성인 2, 아동 0
+							성인 {capacityValue}
 						</button>
 					</div>
 
 					{roomsInfo?.map((roomItem,index) => (
-						roomItem.stock > 0 ? <RoomItem key = {index} roomItem={roomItem}/> : <SoldOutRoomItem key = {index} roomItem={roomItem}/>
+						roomItem.status !==  'NO_STOCK' ? <RoomItem key = {index} roomItem={roomItem} name={accommodationInfo?.name}/> : <SoldOutRoomItem key = {index} roomItem={roomItem} name={accommodationInfo?.name}/>
 					))}
 
 					
@@ -151,8 +184,8 @@ export default function PlaceDetail() {
 						<p className="text-title font-bold">위치/교통</p>
 					</div>
 					<KakaoMap
-						lat={accommodationInfo?.location.latitude}
-						log={accommodationInfo?.location.longitude}
+						latitude={accommodationInfo?.location.latitude}
+						longitude={accommodationInfo?.location.longitude}
 					/>
 					<div className="flex items-center py-3">
 						<RoomIcon
@@ -161,7 +194,7 @@ export default function PlaceDetail() {
 						/>
 						<p>{accommodationInfo?.location.address}</p>
 					</div>
-					<button className="w-full border border-gray py-[6px] rounded-sm text-sm hover:bg-bgGray">
+					<button className="w-full border border-gray py-[6px] rounded-sm text-sm hover:bg-bgGray" onClick={handleCopyBtnClick}>
 						주소복사
 					</button>
 				</div>
@@ -182,23 +215,6 @@ export default function PlaceDetail() {
 								<span>{service}</span>
 							</div>
 						))}
-
-						{/* <div className="flex items-center">
-							<CheckIcon />
-							<span>주차가능</span>
-						</div>
-						<div className="flex items-center">
-							<CheckIcon />
-							<span>주차가능</span>
-						</div>
-						<div className="flex items-center">
-							<CheckIcon />
-							<span>주차가능</span>
-						</div>
-						<div className="flex items-center">
-							<CheckIcon />
-							<span>주차가능</span>
-						</div> */}
 					</div>
 				</div>
 				<div className="py-5">
