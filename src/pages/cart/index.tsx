@@ -1,19 +1,145 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/common/Header';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import carImage from '../../assets/images/cart-img.png';
-import styles from '../../components/cart/Cart.module.css';
 import { useNavigate } from 'react-router-dom';
+import CartList from 'components/cart/CartList';
+import CartBottom from 'components/cart/CartBottom';
+import { useQueryMainRegion } from 'hooks/cart/useQueryCart';
+import { dataCartItem, CartItem } from 'types/Cart.type';
+import { deleteCartItem, allDeleteItem } from 'apis/cartAPI';
 import useScrollToShow from 'hooks/common/handleScroll';
+import { cartItemState } from 'recoil/atoms/cartAtom';
+import { useSetRecoilState } from 'recoil';
 
 const Cart = () => {
+	const { data, isLoading } = useQueryMainRegion();
+
+	const scroll = useScrollToShow(false, 200);
 	const navigate = useNavigate();
 
+	// 데이터 숙소 아이템
+	const [dataCartItems, setDataCartItems] = useState<dataCartItem[]>([]);
+	// 선택한 숙소 아이템
+	const [cartItems, setCartItems] = useState<dataCartItem[]>([]);
+	// 전체 선택 상태
+	const [selectAll, setSelectAll] = useState(true);
+	// 리코일
+	const setItemState = useSetRecoilState(cartItemState);
+
+	useEffect(() => {
+		if (!isLoading) {
+			const temp = data?.data?.cartItems;
+			if (temp.length > 0) {
+				const newData: dataCartItem[] = temp.map((item: CartItem) => {
+					const copy = { ...item, isClicked: true };
+					return copy;
+				});
+				console.log(newData);
+				setDataCartItems(newData || []);
+				setCartItems(newData);
+			}
+			console.log(temp);
+			// setDataCartItems(data?.data?.cartItems || []);
+		}
+	}, [isLoading, data]);
+
+	//  전체선택 버튼 클릭
+	const handleSelectAll = () => {
+		const updatedDataCartItems: dataCartItem[] = dataCartItems.map((item) => ({
+			...item,
+			isClicked: !selectAll,
+		}));
+		setDataCartItems(updatedDataCartItems);
+		setSelectAll((prev) => !prev);
+		if (!selectAll == true) {
+			setCartItems(dataCartItems);
+		} else {
+			setCartItems([]);
+		}
+	};
+
+	// 개별선택 버튼 클릭
+	const handleCheckbox = (clickedCartItem: dataCartItem) => {
+		const updatedCartItems = cartItems.map((item) =>
+			item.id === clickedCartItem.id
+				? { ...item, isClicked: !item.isClicked }
+				: item,
+		);
+
+		setCartItems(updatedCartItems); // 상태 업데이트
+
+		const exists = cartItems.some((item) => item.id === clickedCartItem.id);
+
+		if (!exists) {
+			// cartItems에 ClickCartItem의 id와 동일한 값이 없으면 추가
+			setCartItems([...cartItems, clickedCartItem]);
+		} else {
+			// cartItems에 이미 ClickCartItem의 id와 동일한 값이 있으면 제거
+			const updatedCartItems = cartItems.filter(
+				(item) => item.id !== clickedCartItem.id,
+			);
+			setCartItems(updatedCartItems);
+		}
+
+		// 모든 자식 체크박스 true시 전체 체크박스 true
+		const allChecked = dataCartItems.every((item) => item.isClicked);
+		setSelectAll(allChecked);
+	};
+
+	// 개별 삭제 버튼
+	const handleDeleteItem = async (itemId: string) => {
+		const res = await deleteCartItem(itemId);
+		if (res.success) {
+			const updatedDataItems = dataCartItems.filter(
+				(item) => item.id !== itemId,
+			);
+			setDataCartItems(updatedDataItems);
+			// 선택된 item
+			const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
+			setCartItems(updatedCartItems);
+		}
+	};
+
+	// 전체 삭제 버튼
+	const AllDeleteItem = async () => {
+		const res = await allDeleteItem();
+		if (res.success) {
+			setDataCartItems([]);
+			setCartItems([]);
+		}
+	};
+	console.log('cartItems 선택된 ', cartItems);
+	console.log('dataCartItems', dataCartItems);
+	console.log('시작시 전부 넣음cartItems', cartItems);
+
 	// 예약하기 버튼
-	const show = useScrollToShow(false, 200);
 	const handleReservation = () => {
+		setItemState(cartItems);
+		console.log('Recoil State Value:', cartItems);
 		navigate('/orders');
 	};
+
+	// 전체 금액 계산
+	const totalPrice = cartItems.reduce((acc, cur: dataCartItem) => {
+		return acc + cur.roomType.price;
+	}, 0);
+
+	console.log('전체 금액', totalPrice);
+	console.log('총 결제 건수', cartItems.length);
+	const [show, setShow] = useState(false);
+	const handleScroll = () => {
+		if (window.scrollY > 200) {
+			setShow(true);
+		} else {
+			setShow(false);
+		}
+	};
+
+	useEffect(() => {
+		window.addEventListener('scroll', handleScroll);
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, [show]);
 
 	return (
 		<>
@@ -22,114 +148,41 @@ const Cart = () => {
 			<div className="bg-white fixed left-0 top-[48px] w-screen drop-shadow-sm">
 				<div className="flex h-[48px]  justify-between items-center px-4  w-[768px]  m-auto top-0   left-0">
 					<div className="flex ">
-						<input type="checkbox" />
+						<input
+							type="checkbox"
+							onChange={handleSelectAll}
+							checked={selectAll}
+						/>
 						<div className="ml-2 text-sm">전체선택</div>
 					</div>
-					<div className="text-sm text-blue">전체 삭제</div>
-				</div>
-			</div>
-			<div className={styles.wrap}>
-				<div className="w-[screen] bg-pink-200">
-					{/* 예약 숙소 정보 */}
-					<div className="w-[screen] bg-pink-200">
-						<div className="py-[12px]  bg-white ">
-							<div className="mt-4">
-								<div className="text-content font-semibold">
-									가평 도도키즈 풀필라
-								</div>
-								<div className="text-sm text-textGray ">
-									<span className="pr-1">숙소</span>
-									<span className="pr-1">|</span>
-									<span>경기도 가평군 상면 임초밤안골로 250-2, 1~3동</span>
-								</div>
-							</div>
-							<div>
-								<div className="flex justify-between items-center">
-									<div className="text-content font-semibold ">
-										방 이름 키즈패밀리 7 (수영장미보유/투룸)
-									</div>
-									<div className="text-gray w-12 h-12">
-										<CloseOutlinedIcon fontSize="small" />
-									</div>
-								</div>
-								<div className="flex">
-									<input type="checkbox" />
-									<img
-										className="h-[80px] w-[80px] mx-3 rounded-md"
-										src="https://yaimg.yanolja.com/v5/2023/11/04/09/654608a0ea9055.08741262.jpg"
-									></img>
-									<div className="flex-col flex text-sm text-textGray ">
-										<span className="  text-[#1A1A1A] ">
-											2023.12.26 (화) ~ 2023.12.29 (금) | 3박
-										</span>
-										<span>체크인 15:00 | 체크아웃 11:00</span>
-										<span>기준 2명 / 최대 10명</span>
-										<span> 선착순 2만원 마감 임박</span>
-									</div>
-								</div>
-							</div>
-							<div className="flex justify-end">
-								<span className="text-sm">연박 </span>
-								<span className="text-sm font-semibold"> 870,0000원</span>
-							</div>
-						</div>
+					<div
+						className="text-sm text-blue"
+						onClick={() => {
+							AllDeleteItem();
+						}}
+					>
+						전체 삭제
 					</div>
 				</div>
 			</div>
-			<div className={styles.wrap}>
-				<div className="mt-[12px] px-[20px] py-[40px]  bg-white ">
-					<div className="text-content font-semibold mb-4">예약 상품</div>
-					<div className=" text-sm text-text ">
-						<div className="flex justify-between items-center">
-							<div>상품금액</div>
-							<div>870,000 원</div>
-						</div>
-						<div className="flex justify-between items-center mt-3">
-							<div>결제 예상 금액</div>
-							<div className="text-[16px] font-semibold ">870,000 원</div>
-						</div>
-
-						<div className="my-5 p-2  bg-bgGray  rounded-md">
-							<span className="text-sm ">NOL 카드 결제 시,</span>
-							<span className="text-sm text-primary font-semibold">
-								10% 적립
-							</span>
-						</div>
-						<img src={carImage} className="rounded-md mb-2"></img>
-
-						<ul className="flex flex-col text-xxsm leading-5 text-textGray">
-							<li>
-								. 장바구니에 담긴 상품은 최대 30일간 보관되며 최대 20개의 상품을
-								담을 수 있습니다.
-							</li>
-
-							<li>
-								일부 상품의 경우, 장바구니에서 수량 및 상세 옵션 수정이
-								불가하므로 삭제 후 다시 담아주시기 바랍니다.
-							</li>
-							<li>쿠폰 및 포인트는 예약화면에서 적용할 수 있습니다.</li>
-							<li>
-								기차는 국내숙소와 묶음예약만 가능합니다. 숙소를 제외한 다른
-								상품은 기차와 함께 예약할 수 없습니다.
-							</li>
-							<li>
-								기차와 국내숙소를 묶음예약하면, 일부 상품만 취소할 수 없고 전체
-								취소만 가능합니다.
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
+			<CartList
+				dataCartItems={dataCartItems}
+				handleCheckbox={handleCheckbox}
+				handleDeleteItem={handleDeleteItem}
+			/>
+			<CartBottom totalPrice={totalPrice} />
 			<div className="bg-white ${show ? 'h-[150px]' : 'h-[110px]'} shadow-inner w-screen fixed bottom-0  left-0">
 				<div className="w-[768px] m-auto top-0 left-0 pb-3">
 					<div className="flex justify-between items-center py-2">
-						<div className="font-semibold  text-sm"> 총 1건</div>
+						<div className="font-semibold  text-sm">
+							총 {cartItems.length}건
+						</div>
 						<div className="flex items-center">
 							<div className="text-textGray text-xxsm mr-4">결제 예상 금액</div>
-							<div className="text-[16px] font-semibold ">870,000 원</div>
+							<div className="text-[16px] font-semibold ">{totalPrice} 원</div>
 						</div>
 					</div>
-					<div></div>
+
 					<button
 						onClick={handleReservation}
 						className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-secondary rounded-md h-[20px]  text-white"
