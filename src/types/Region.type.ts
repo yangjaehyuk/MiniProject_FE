@@ -110,14 +110,14 @@ export const REGIONS: RegionListItem[] = [
 		right1: '',
 		right2: '',
 	},
-	{
-		name: '제주',
-		image: '/region/region-jeju.png',
-		link: 'jeju',
-		author: `miram Oh`,
-		right1: '',
-		right2: '',
-	},
+	// {
+	// 	name: '제주',
+	// 	image: '/region/region-jeju.png',
+	// 	link: 'jeju',
+	// 	author: `miram Oh`,
+	// 	right1: '',
+	// 	right2: '',
+	// },
 	{
 		name: '경기',
 		image: '/region/region-gyeonggi.jpg',
@@ -178,6 +178,7 @@ export interface RegionListNavProps {
 	handleRegionOpen: () => void;
 	handleOptionOpen: () => void;
 	totalElements?: number;
+	refetch?: () => void;
 }
 
 export enum CapacityAction {
@@ -192,5 +193,17 @@ export type RegionProdOptionModalProps = ModalProps & {
 
 export interface RegionInnerProps {
 	triggerRef: (node?: Element | null | undefined) => void;
-	data?: InfiniteData<AccommodationsRoot>;
+	data?: InfiniteData<AccommodationsRoot | undefined>;
+}
+
+export enum RegionTitles {
+	SEOUL = 'SEOUL',
+	BUSAN = 'BUSAN',
+	GYEONGGI = 'GYEONGGI',
+	INCHEON = 'INCHEON',
+	GANGWON = 'GANGWON',
+	GYEONGSANG = 'GYEONGSANG',
+	JEOLLA = 'JEOLLA',
+	CHUNGCHEONG = 'CHUNGCHEONG',
+	// JEJU = 'JEJU',
 }

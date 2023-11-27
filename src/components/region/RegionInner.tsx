@@ -11,14 +11,16 @@ function RegionInner({
 	handleRegionOpen,
 }: RegionListNavProps) {
 	const { ref, inView } = useInView();
-	const data = useQueryRegion(inView);
+	const { data, refetch } = useQueryRegion(inView);
 
+	if (!data?.pages[0]) return null;
 	return (
 		<div className={styles.regionInner}>
 			<RegionListNav
 				handleRegionOpen={handleRegionOpen}
 				handleOptionOpen={handleOptionOpen}
 				totalElements={data?.pages[0].data.totalElements}
+				refetch={refetch}
 			/>
 			<RegionItems triggerRef={ref} data={data} />
 		</div>

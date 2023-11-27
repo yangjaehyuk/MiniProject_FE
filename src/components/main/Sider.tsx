@@ -79,7 +79,7 @@ function Sider({ isOpen, handleClose }: MainSiderProps) {
 						펜션
 					</ListItem>
 				</Link>
-				<Link to="/poolvilla">
+				<Link to="/pool_villa">
 					<ListItem>
 						<ListItemPrefix>
 							<img src={poolVilla} alt="PoolVilla" width={20} height={20} />
