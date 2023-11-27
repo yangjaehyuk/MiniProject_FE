@@ -77,6 +77,14 @@ const Inner = () => {
 				let errorMessage = '';
 				if (e.message === 'Request failed with status code 401') {
 					errorMessage = '이메일과 비밀번호를 확인해주세요.';
+				} else {
+					for (let i = 0; i < e.response.data.error.data.length; i++) {
+						if (e.response.data.error.data[i].field === 'email') {
+							errorMessage = '잘못된 이메일 형식입니다.';
+						} else if (e.response.data.error.data[i].field === 'password') {
+							errorMessage = '잘못된 비밀번호 형식입니다.';
+						}
+					}
 				}
 
 				swal({ title: errorMessage, icon: 'warning' });

@@ -8,7 +8,8 @@ import { categoryState, dateState } from 'recoil/atoms/myPageAtom';
 import ReservationCard from './ReservationCard';
 import { logout } from 'utils';
 import { useNavigate } from 'react-router-dom';
-import { getUserInfo } from 'apis/axios';
+import { getUserInfo, getUserOrderInfo } from 'apis/axios';
+import { useQuery } from 'react-query';
 
 import TopBtn from 'components/common/TopBtn';
 import useScrollToShow from 'hooks/common/handleScroll';
@@ -19,6 +20,7 @@ const Inner = () => {
 	const [showDateModal, setShowDateModal] = useState(false);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
+	const [list, setList] = useState(0);
 	const nowCategory = useRecoilValue(categoryState);
 	const nowDate = useRecoilValue(dateState);
 	const [category, setCategory] = useRecoilState(categoryState);
@@ -39,6 +41,21 @@ const Inner = () => {
 				const { email, name } = res;
 				setName(name);
 				setEmail(email);
+			} catch (e) {
+				console.log(e);
+			}
+		};
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const res = await getUserOrderInfo();
+				for (let i = 0; i < res.data.length; i++) {
+					const orderItems = res.data[i].orderItems;
+					// setList((prevList) => prevList.concat(orderItems));
+				}
 			} catch (e) {
 				console.log(e);
 			}
@@ -110,8 +127,16 @@ const Inner = () => {
 				onClose={handleDateModalClose}
 			></DateModal>
 			{show && <TopBtn show={show} />}
-			<ReservationCard />
-			<div className="p-3"></div>
+			{list > 0 && (
+				<div>
+					{Array.from({ length: list }, (_, index) => (
+						<React.Fragment key={index}>
+							<ReservationCard />
+							{index < list - 1 && <div className="pb-10"></div>}
+						</React.Fragment>
+					))}
+				</div>
+			)}
 		</div>
 	);
 };

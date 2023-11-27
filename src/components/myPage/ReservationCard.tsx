@@ -1,7 +1,6 @@
 import React from 'react';
 
 const ReservationCard = () => {
-	const reservationStatusText = '이용완료';
 	return (
 		<div className="w-full border-2 border-gray rounded-md cursor-pointer">
 			<div className="text-bold text-title w-full border-b-2 border-gray p-4">
