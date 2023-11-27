@@ -7,7 +7,7 @@ import { useQueryMainRegion } from 'hooks/cart/useQueryCart';
 import { dataCartItem, CartItem } from 'types/Cart.type';
 import { deleteCartItem, allDeleteItem } from 'apis/cartAPI';
 import useScrollToShow from 'hooks/common/handleScroll';
-import { cartItemState } from 'recoil/atoms/cartAtom';
+import { cartItemState, totalPriceState } from 'recoil/atoms/cartAtom';
 import { useSetRecoilState } from 'recoil';
 
 const Cart = () => {
@@ -24,6 +24,7 @@ const Cart = () => {
 	const [selectAll, setSelectAll] = useState(true);
 	// 리코일
 	const setItemState = useSetRecoilState(cartItemState);
+	const setTotalPrice = useSetRecoilState(totalPriceState);
 
 	useEffect(() => {
 		if (!isLoading) {
@@ -111,17 +112,18 @@ const Cart = () => {
 	console.log('dataCartItems', dataCartItems);
 	console.log('시작시 전부 넣음cartItems', cartItems);
 
-	// 예약하기 버튼
-	const handleReservation = () => {
-		setItemState(cartItems);
-		console.log('Recoil State Value:', cartItems);
-		navigate('/orders');
-	};
-
 	// 전체 금액 계산
 	const totalPrice = cartItems.reduce((acc, cur: dataCartItem) => {
 		return acc + cur.roomType.price;
 	}, 0);
+
+	// 예약하기 버튼
+	const handleReservation = () => {
+		setItemState(cartItems);
+		setTotalPrice(totalPrice);
+		console.log('Recoil State Value:', cartItems);
+		navigate('/orders');
+	};
 
 	console.log('전체 금액', totalPrice);
 	console.log('총 결제 건수', cartItems.length);

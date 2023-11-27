@@ -1,14 +1,24 @@
 import Header from 'components/common/Header';
 import React, { useState } from 'react';
-import styles from '../../components/cart/Cart.module.css';
+import styles from 'components/cart/Cart.module.css';
 import OrdersNotice from 'components/orders/OrdersNotice';
 import ReservationItem from 'components/orders/ReservationItem';
 import PaymentMethod from 'components/orders/PaymentMethod';
 import PaymentNotice from 'components/orders/PaymentNotice';
 import { FormProvider, useForm } from 'react-hook-form';
-
+import {
+	useRecoilState,
+	useRecoilValue,
+	useSetRecoilState,
+	useResetRecoilState,
+} from 'recoil';
+import { cartItemState, totalPriceState } from 'recoil/atoms/cartAtom';
 import UserInfo from 'components/orders/UserInfo';
 import TermsAgreement from 'components/orders/TermsAgreement';
+import { isConstructorDeclaration } from 'typescript';
+
+import { dataCartItem, CartItem } from 'types/Cart.type';
+
 // ReservationInfo
 export type ReservationInfo = {
 	reservationName: string;
@@ -25,8 +35,15 @@ export type ReservationInfo = {
 	allAgreementCheckbox?: boolean;
 };
 
+// type CartItemStateType = typeof cartItemState;
+
 const orders = () => {
 	const methods = useForm({ mode: 'onChange' });
+
+	const cartItem = useRecoilValue(cartItemState);
+	const totalPrice = useRecoilValue(totalPriceState);
+	console.log(cartItem);
+
 	const onSubmit = () => console.log('ddd');
 
 	const [payment, setPayment] = useState('');
@@ -48,7 +65,7 @@ const orders = () => {
 				<div className={styles.wrap}>
 					<div className="font-semibold text-md pb-2">숙소</div>
 					<OrdersNotice />
-					<ReservationItem />
+					<ReservationItem cartItem={cartItem} totalPrice={totalPrice} />
 				</div>
 				<UserInfo />
 
