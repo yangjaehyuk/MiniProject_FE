@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import { Close } from '@mui/icons-material';
 import { Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { signUpModalState } from 'recoil/atoms/signUpModalAtom';
 
 const SignUpModal = ({ open, onClose }: any) => {
 	const navigate = useNavigate();
@@ -11,6 +13,23 @@ const SignUpModal = ({ open, onClose }: any) => {
 	const [optionalChecked1, setOptionalChecked1] = useState(false);
 	const [optionalChecked2, setOptionalChecked2] = useState(false);
 	const [optionalChecked3, setOptionalChecked3] = useState(false);
+	const [now, setNow] = useState<string | undefined>(undefined);
+	const [modalCheck, setModalCheck] = useRecoilState(signUpModalState);
+	useEffect(() => {
+		const url = window.location.href;
+		const lastSegment = url.split('/').pop();
+		setNow(lastSegment);
+	}, []);
+
+	useEffect(() => {
+		const allOthersChecked =
+			essentialChecked &&
+			optionalChecked1 &&
+			optionalChecked2 &&
+			optionalChecked3;
+
+		setAllChecked(allOthersChecked);
+	}, [essentialChecked, optionalChecked1, optionalChecked2, optionalChecked3]);
 
 	const handleAllCheckboxChange = () => {
 		const newCheckedStatus = !allChecked;
@@ -57,7 +76,7 @@ const SignUpModal = ({ open, onClose }: any) => {
 					<label className="flex items-start mt-5 cursor-pointer">
 						<input
 							type="checkbox"
-							className="w-6 h-6 cursor-pointer"
+							className="cursor-pointer"
 							id="essentialCheckBox"
 							checked={essentialChecked}
 							onChange={() => setEssentialChecked(!essentialChecked)}
@@ -69,7 +88,7 @@ const SignUpModal = ({ open, onClose }: any) => {
 					<label className="flex items-start mt-5 cursor-pointer">
 						<input
 							type="checkbox"
-							className="w-5 h-5 cursor-pointer"
+							className="cursor-pointer"
 							id="optionalCheckBox1"
 							checked={optionalChecked1}
 							onChange={() => setOptionalChecked1(!optionalChecked1)}
@@ -81,7 +100,7 @@ const SignUpModal = ({ open, onClose }: any) => {
 					<label className="flex items-start mt-5 cursor-pointer">
 						<input
 							type="checkbox"
-							className="w-8 h-8 cursor-pointer"
+							className="cursor-pointer"
 							id="optionalCheckBox2"
 							checked={optionalChecked2}
 							onChange={() => setOptionalChecked2(!optionalChecked2)}
@@ -97,7 +116,7 @@ const SignUpModal = ({ open, onClose }: any) => {
 					<label className="flex items-start mt-5 cursor-pointer">
 						<input
 							type="checkbox"
-							className="w-5 h-5 cursor-pointer"
+							className="cursor-pointer"
 							id="optionalCheckBox3"
 							checked={optionalChecked3}
 							onChange={() => setOptionalChecked3(!optionalChecked3)}
@@ -111,7 +130,8 @@ const SignUpModal = ({ open, onClose }: any) => {
 					{essentialChecked ? (
 						<button
 							onClick={() => {
-								navigate('/signup');
+								setModalCheck(true);
+								if (now !== 'signup') navigate('/signup');
 							}}
 							style={{
 								width: '100%',

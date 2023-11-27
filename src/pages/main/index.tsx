@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import Header from '../../components/main/Header';
 import hotel from '../../assets/images/hotelImg.svg';
 import pension from '../../assets/images/pensionImg.svg';
@@ -7,7 +7,7 @@ import resort from '../../assets/images/resortImg.svg';
 import carousel1 from '../../assets/images/carousel1.svg';
 import carousel2 from '../../assets/images/carousel2.svg';
 import carousel3 from '../../assets/images/carousel3.svg';
-import item from '../../assets/images/item.svg';
+import item from '../../assets/images/item.png';
 import Benefits1 from '../../assets/images/Benefits1.svg';
 import Benefits2 from '../../assets/images/Benefits2.svg';
 import Benefits3 from '../../assets/images/Benefits3.svg';
@@ -20,11 +20,28 @@ import mainIcon3 from '../../assets/images/mainIcon3.svg';
 import mainIcon4 from '../../assets/images/mainIcon4.svg';
 
 import GoodsList from '../../components/main/GoodsList';
+import Sider from 'components/main/Sider';
+import MainFooter from 'components/Footer/MainFooter';
+
+import TopBtn from 'components/common/TopBtn';
+import useScrollToShow from 'hooks/common/handleScroll';
 
 const main = () => {
+	const [isOpen, setIsOpen] = useState(false);
+
+	const handleDrawerOpen = useCallback(() => {
+		setIsOpen(true);
+	}, []);
+
+	const handleDrawerClose = useCallback(() => {
+		setIsOpen(false);
+	}, []);
+
+	const show = useScrollToShow(false, 200);
+
 	return (
-		<>
-			<Header />
+		<div className={isOpen ? 'h-screen overflow-hidden' : ''}>
+			<Header handleOpen={handleDrawerOpen} />
 			<div className="flex text-xxsm px-20 py-5 justify-between items-center pt-[56px]">
 				<div className="flex flex-col items-center justify-center font-semibold">
 					<img src={hotel} alt="Hotel" width={40} height={40} />
@@ -163,7 +180,12 @@ const main = () => {
 					</div>
 				</div>
 			</div>
-		</>
+			{/* 사이드바 추가 */}
+			<Sider isOpen={isOpen} handleClose={handleDrawerClose} />
+			{show && <TopBtn show={show} />}
+
+			<MainFooter></MainFooter>
+		</div>
 	);
 };
 

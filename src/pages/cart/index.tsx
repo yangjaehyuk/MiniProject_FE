@@ -1,24 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Header from '../../components/common/Header';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import carImage from '../../assets/images/cart-img.png';
 import styles from '../../components/cart/Cart.module.css';
+import { useNavigate } from 'react-router-dom';
+import useScrollToShow from 'hooks/common/handleScroll';
 
 const Cart = () => {
-	const [show, setShow] = useState(false);
-	const handleScroll = () => {
-		if (window.scrollY > 200) {
-			setShow(true);
-		} else {
-			setShow(false);
-		}
+	const navigate = useNavigate();
+
+	// 예약하기 버튼
+	const show = useScrollToShow(false, 200);
+	const handleReservation = () => {
+		navigate('/orders');
 	};
-	useEffect(() => {
-		window.addEventListener('scroll', handleScroll);
-		return () => {
-			window.removeEventListener('scroll', handleScroll);
-		};
-	}, [show]);
 
 	return (
 		<>
@@ -125,8 +120,8 @@ const Cart = () => {
 					</div>
 				</div>
 			</div>
-			<div className="bg-white h-[110px] shadow-inner w-screen fixed bottom-0  left-0">
-				<div className="w-[768px] m-auto top-0 left-0">
+			<div className="bg-white ${show ? 'h-[150px]' : 'h-[110px]'} shadow-inner w-screen fixed bottom-0  left-0">
+				<div className="w-[768px] m-auto top-0 left-0 pb-3">
 					<div className="flex justify-between items-center py-2">
 						<div className="font-semibold  text-sm"> 총 1건</div>
 						<div className="flex items-center">
@@ -135,11 +130,14 @@ const Cart = () => {
 						</div>
 					</div>
 					<div></div>
-					<button className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-secondary rounded-md h-[20px]  text-white">
+					<button
+						onClick={handleReservation}
+						className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-secondary rounded-md h-[20px]  text-white"
+					>
 						예약하기
 					</button>
 					{show && (
-						<div className="text-textGray text-xxsm mt-2">
+						<div className="text-textGray text-xxsm mt-2 ">
 							(주)야놀자는 통신판매중개업자로서, 통신판매의 당사자가 아니라는
 							사실을 고지하며 상품의 예약, 이용 및 환불 등과 관련한 의무와
 							책임은 각 판매자에게 있습니다.

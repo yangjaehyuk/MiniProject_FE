@@ -1,6 +1,5 @@
 import Header from 'components/placeDetail/Header';
-import React from 'react';
-import shop from '../../assets/images/shop.jpg';
+import React, { useEffect, useState } from 'react';
 import banner from '../../assets/images/banner.png';
 import StarIcon from '@mui/icons-material/Star';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -13,21 +12,125 @@ import RoomItem from 'components/placeDetail/RoomItem';
 import SoldOutRoomItem from 'components/placeDetail/SoldOutRoomItem';
 import KakaoMap from 'components/placeDetail/KakaoMap';
 import RoomIcon from '@mui/icons-material/Room';
+import CalendarModal from 'components/common/CalendarModal';
+import { formatFullDateRangeWithoutYear } from 'utils/formatDate';
+import { useRecoilValue } from 'recoil';
+import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
+import ImageSwiper from 'components/common/ImageSwiper';
+import { useParams } from 'react-router';
+import { PlaceDetailInfo, RoomDetailInfos } from 'types/Place';
+import accommodationAPI from 'apis/accommodationAPI';
+import Loading from 'components/placeDetail/Loading';
+import { capacityState } from 'recoil/atoms/capacityAtom';
+import RegionProdCapacityModal from 'components/region/RegionProdCapacityModal';
+import swal from 'sweetalert';
 
 export default function PlaceDetail() {
+	const { accommodationdId } = useParams();
+	const [accommodationInfo, setAccommodationInfo] = useState<PlaceDetailInfo>();
+	const [roomsInfo, setRoomsInfo] = useState<RoomDetailInfos[]>();
+	const [isLoading, setIsLoading] = useState(true);
+
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isCapacityModalOpen, setIsCapacityModalOpen] = useState(false);
+
+	const checkInDate = useRecoilValue<Date>(checkInDateState);
+	const checkOutDate = useRecoilValue<Date>(checkOutDateState);
+	const [formattingDate, setFormattingDate] = useState(
+		formatFullDateRangeWithoutYear(checkInDate, checkOutDate),
+	);
+	const capacityValue = useRecoilValue(capacityState);
+
+	const getAccommodationDetail = async () => {
+		if (accommodationdId !== undefined) {
+			setIsLoading(true);
+			try {
+				const id = +accommodationdId;
+				const response = await accommodationAPI.getPlaceDetail(id);
+				setAccommodationInfo(response.data.data); 
+			} catch (error) {
+				console.error('Failed to load accommodation details:', error);
+			}
+			setIsLoading(false);
+		}
+	};
+
+	const getRoomsInfo = async () => {
+		if (accommodationdId !== undefined) {
+			try {
+				const id = +accommodationdId;
+				const checkInDateString = checkInDate.toISOString().split('T')[0];
+				const checkOutDateString = checkOutDate.toISOString().split('T')[0];
+
+				const response = await accommodationAPI.getPlaceDetailRooms(id,checkInDateString, checkOutDateString,capacityValue);
+				setRoomsInfo(response.data.data);
+
+			}
+			catch (error) {
+				console.error('Failed to load roomtype information',error);
+			}
+		}
+
+	}
+
+	useEffect(() => {
+		getAccommodationDetail();
+		getRoomsInfo();
+	}, [accommodationdId]);
+	
+	useEffect(() => {
+		getRoomsInfo();
+		
+	},[checkInDate,checkOutDate,capacityValue])
+
+	useEffect(() => {
+		setFormattingDate(
+			formatFullDateRangeWithoutYear(checkInDate, checkOutDate),
+		);
+	}, [checkInDate, checkOutDate]);
+
+	const handleCalendarClick = () => {
+		setIsModalOpen((prev) => !prev);
+	};
+
+	const handleCapacityClick = () => {
+		setIsCapacityModalOpen((prev) => !prev);
+
+	}
+
+	const handleCopyBtnClick = () => {
+		if(accommodationInfo?.location.address !== undefined) {
+			navigator.clipboard.writeText(accommodationInfo.location.address)
+		.then(() => {
+			swal("주소가 복사되었습니다.",{icon : "success"});
+		})
+		.catch(err => {
+			// This will be executed if the copying failed
+			swal("주소 복사에 실패했습니다.", { icon: "error" });
+			console.error('Error copying text: ', err);
+		  });
+
+		}
+		
+	}
+
+	
+
+	if (isLoading) {
+		return <Loading />;
+	}
+
 	return (
 		<div className="justify-center m-auto text-content text-black">
-			<Header />
+			<CalendarModal isOpen={isModalOpen} handleOpen={handleCalendarClick} />
+			<RegionProdCapacityModal isOpen={isCapacityModalOpen} handleOpen={handleCapacityClick} />
+			<Header name={accommodationInfo?.name}/>
 			<div className="relative mt-[48px] flex-row">
-				<img
-					src={shop}
-					alt="숙소사진"
-					className="max-w-none w-[768px] h-[507px] -ml-5"
-				/>
+				<ImageSwiper items={accommodationInfo?.images} />
 				<div className="pt-3">
 					<span className="text-sm">일반 호텔</span>
 					<div className="flex w-full justify-between">
-						<p className="text-lg font-bold">호텔 아길라</p>
+						<p className="text-lg font-bold">{accommodationInfo?.name}</p>
 						<div className="flex space-x-4">
 							<FavoriteBorderIcon fontSize="small" />
 							<ShareIcon fontSize="small" />
@@ -36,13 +139,13 @@ export default function PlaceDetail() {
 					<div className="flex items-center pt-[6px] pb-[2px]">
 						<LocationOnIcon sx={{ fill: '#0152cc' }} fontSize="small" />
 						<span className="text-blue font-bold text-content">
-							제주도에 위치
+							{accommodationInfo?.location.address}
 						</span>
 						<KeyboardArrowRightIcon sx={{ fill: '#0152cc' }} />
 					</div>
 					<div className="flex items-center pt-[2px] font-bold">
 						<StarIcon fontSize="small" sx={{ fill: '#FDBD00' }} />
-						4.5
+						{accommodationInfo?.star}
 					</div>
 				</div>
 				<img
@@ -54,53 +157,64 @@ export default function PlaceDetail() {
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold ">객실 선택</p>
 					</div>
-					{/* 모달들어갈 곳 */}
-					{/* 객실아이템 */}
-					<RoomItem />
-					<SoldOutRoomItem />
+					<div className="flex w-full text-content font-bold text-black">
+						<button
+							className="w-full flex items-start border border-borderGray rounded px-3 py-[11px]"
+							onClick={handleCalendarClick}
+						>
+							{formattingDate}
+						</button>
+						<button
+							className="w-full flex items-start border border-borderGray rounded px-3 py-[11px]"
+							onClick={handleCapacityClick}
+						>
+							성인 {capacityValue}
+						</button>
+					</div>
+
+					{roomsInfo?.map((roomItem,index) => (
+						roomItem.status !==  'NO_STOCK' ? <RoomItem key = {index} roomItem={roomItem} name={accommodationInfo?.name}/> : <SoldOutRoomItem key = {index} roomItem={roomItem} name={accommodationInfo?.name}/>
+					))}
+
+					
+					
 				</div>
 				<div className="pt-5">
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold">위치/교통</p>
 					</div>
-					<KakaoMap />
-					<div className='flex items-center py-3'>
-						<RoomIcon className='mr-1' sx={{ fill: '#cccccc', fontSize: '16px' }}/>
-						<p>제주특별자치도 제주시 도령로 27</p>
+					<KakaoMap
+						latitude={accommodationInfo?.location.latitude}
+						longitude={accommodationInfo?.location.longitude}
+					/>
+					<div className="flex items-center py-3">
+						<RoomIcon
+							className="mr-1"
+							sx={{ fill: '#cccccc', fontSize: '16px' }}
+						/>
+						<p>{accommodationInfo?.location.address}</p>
 					</div>
-					<button className='w-full border border-gray py-[6px] rounded-sm text-sm hover:bg-bgGray'>주소복사</button>
+					<button className="w-full border border-gray py-[6px] rounded-sm text-sm hover:bg-bgGray" onClick={handleCopyBtnClick}>
+						주소복사
+					</button>
 				</div>
 				<div className="pt-5">
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold">숙소소개</p>
 					</div>
-					<p>제주국제공항에서 차로 32분거리에 위치하고 있습니다.</p>
+					<p>{accommodationInfo?.introduction}</p>
 				</div>
 				<div className="pt-5">
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold">시실 및 서비스</p>
 					</div>
 					<div className="grid grid-cols-4 gap-4">
-						<div className="flex items-center">
-							<CheckIcon />
-							<span>주차가능</span>
-						</div>
-						<div className="flex items-center">
-							<CheckIcon />
-							<span>주차가능</span>
-						</div>
-						<div className="flex items-center">
-							<CheckIcon />
-							<span>주차가능</span>
-						</div>
-						<div className="flex items-center">
-							<CheckIcon />
-							<span>주차가능</span>
-						</div>
-						<div className="flex items-center">
-							<CheckIcon />
-							<span>주차가능</span>
-						</div>
+						{accommodationInfo?.services.map((service, index) => (
+							<div key={index} className="flex items-center">
+								<CheckIcon />
+								<span>{service}</span>
+							</div>
+						))}
 					</div>
 				</div>
 				<div className="py-5">
@@ -134,15 +248,7 @@ export default function PlaceDetail() {
 						<tbody className="text-textGray">
 							<tr>
 								<td className="border-lightGray border px-4 py-2">
-									예약 완료 후 체크인 시간까지 10분 이상 남은 경우
-								</td>
-								<td className="border-lightGray border px-4 py-2">
-									예약 완료 시점부터 10분 이내
-								</td>
-							</tr>
-							<tr>
-								<td className="border-lightGray border px-4 py-2">
-									예약 완료 후 체크인 시간까지 10분 미만 남은 경우
+									예약 완료 후 체크인 시간까지 하루 전
 								</td>
 								<td className="border-lightGray border px-4 py-2">
 									체크인 시간 전까지

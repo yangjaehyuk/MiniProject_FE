@@ -9,7 +9,7 @@
 		@apply max-w-[768px] mx-auto h-full py-[2px] px-[12px] flex justify-between items-center text-center;
 	}
 	.leftWrap {
-		@apply w-8;
+		@apply w-8 cursor-pointer;
 	}
 	.rightWrap {
 		@apply w-8;
@@ -18,11 +18,20 @@
 		@apply text-title text-center mt-5 mb-3;
 	}
 	.regionSelcBtnBox {
-		@apply flex justify-between items-center max-w-md mx-auto border-[1px] border-[#ccc] py-2 px-4 rounded-md;
+		@apply flex justify-between items-center max-w-md mx-auto border-[1px] border-[#ccc] py-2 px-4 rounded-md cursor-pointer;
 	}
 
 	.categorySwiper .item {
 		width: 140px;
+	}
+	.categorySwiper .swiper-button-next {
+		display: none;
+	}
+	.imageSquare {
+		@apply aspect-square rounded-md overflow-hidden;
+	}
+	.imageSquare img {
+		@apply w-full h-full object-cover;
 	}
 	.itemThumb {
 		@apply w-4/12 relative rounded-md overflow-hidden;
@@ -34,6 +43,15 @@
 		@apply w-full h-full object-cover;
 	}
 	.rate {
-		@apply absolute top-0 left-0 w-5 h-5 bg-black/75 text-white text-center text-sm leading-6 rounded-br-md;
+		@apply absolute top-0 left-0 w-5 h-5 bg-black/75 text-white text-center text-sm leading-5 rounded-br-md;
+	}
+	.dialogWrap {
+		@apply w-full max-w-3xl mx-auto;
+	}
+	.dialogBody {
+		@apply bg-white overflow-auto;
+	}
+	.regionOverlay {
+		@apply absolute top-0 left-0 right-0 bottom-0 text-white flex flex-col justify-between p-5 bg-black/30;
 	}
 }

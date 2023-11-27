@@ -1,80 +1,91 @@
-import React, { useState, useRef, ChangeEvent, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
 	Cancel,
 	Visibility,
 	VisibilityOff,
 	ChevronRight,
+	Block,
 } from '@mui/icons-material';
 import { Input } from '@material-tailwind/react';
 import { useNavigate } from 'react-router-dom';
 import SignUpModal from './SignUpModal';
 import styles from '../../components/login/Login.module.css';
+import { validationLoginSchema } from 'utils/validateSchema';
+import { useFormik } from 'formik';
+import { useRecoilState } from 'recoil';
+import { signUpModalState } from 'recoil/atoms/signUpModalAtom';
+import { postLogin } from 'apis/axios';
+import swal from 'sweetalert';
+import { removeCookie, setCookie } from 'utils';
+import { categoryState, dateState } from 'recoil/atoms/myPageAtom';
 
 const Inner = () => {
 	const navigate = useNavigate();
 	const mailRef = useRef<any>(null);
 	const pwRef = useRef<any>(null);
-	const [showVis, setShowVis] = useState(false);
-	const [pw, setPw] = useState('');
+	const [showPwVis, setShowPwVis] = useState(false);
 	const [showPw, setShowPw] = useState(false);
-	const [mail, setMail] = useState('');
 	const [showMail, setShowMail] = useState(false);
 	const [showModal, setShowModal] = useState(false);
-	const onChangeMail = (event: ChangeEvent<HTMLInputElement>) =>
-		setMail(event.target.value);
-	const onChangePw = (event: ChangeEvent<HTMLInputElement>) =>
-		setPw(event.target.value);
-	const handleLoginSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-		try {
-			navigate('/');
-		} catch (e: any) {
-			console.error(e);
-		}
-	};
+	const [modalCheck, setModalCheck] = useRecoilState(signUpModalState);
+	const [category, setCategory] = useRecoilState(categoryState);
+	const [date, setDate] = useRecoilState(dateState);
 	useEffect(() => {
-		if (mail.length > 0) {
-			setShowMail(true);
-		}
-	}, [mail]);
-
-	useEffect(() => {
-		if (pw.length > 0) {
-			setShowVis(true);
-		}
-	}, [pw]);
-
+		setModalCheck(false);
+	}, []);
 	const cancelCloseHandler = (event: MouseEvent) => {
-		if (
-			mail &&
-			mailRef.current &&
-			!mailRef.current.contains(event.target as Node)
-		) {
+		if (mailRef.current && !mailRef.current.contains(event.target as Node)) {
 			setShowMail(false);
 		}
 	};
 
 	const cancelOpenHandler = (event: MouseEvent) => {
-		if (
-			mail &&
-			mailRef.current &&
-			mailRef.current.contains(event.target as Node)
-		) {
+		if (mailRef.current && mailRef.current.contains(event.target as Node)) {
 			setShowMail(true);
 		}
 	};
 
 	const visCloseHandler = (event: MouseEvent) => {
-		if (pw && pwRef.current && !pwRef.current.contains(event.target as Node)) {
-			setShowVis(false);
+		if (pwRef.current && !pwRef.current.contains(event.target as Node)) {
+			setShowPwVis(false);
 		}
 	};
 
 	const visOpenHandler = (event: MouseEvent) => {
-		if (pw && pwRef.current && pwRef.current.contains(event.target as Node)) {
-			setShowVis(true);
+		if (pwRef.current && pwRef.current.contains(event.target as Node)) {
+			setShowPwVis(true);
 		}
 	};
+
+	const formik = useFormik({
+		initialValues: {
+			mail: '',
+			pw: '',
+		},
+		validationSchema: validationLoginSchema,
+		onSubmit: async (values) => {
+			removeCookie();
+			try {
+				const res = await postLogin(values.mail, values.pw);
+				swal({ title: '로그인에 성공했습니다.', icon: 'success' });
+				setCategory('카테고리 전체');
+				setDate('최근 3개월');
+				const { accessToken } = res;
+				setCookie(accessToken);
+				navigate('/');
+			} catch (e: any) {
+				let errorMessage = '';
+				if (e.message === 'Request failed with status code 401') {
+					errorMessage = '이메일과 비밀번호를 확인해주세요.';
+				}
+
+				swal({ title: errorMessage, icon: 'warning' });
+			}
+		},
+	});
+
+	const { values, touched, errors, handleChange, handleBlur, handleSubmit } =
+		formik;
 
 	useEffect(() => {
 		window.addEventListener('click', cancelCloseHandler);
@@ -93,7 +104,7 @@ const Inner = () => {
 			window.removeEventListener('click', visCloseHandler);
 			window.removeEventListener('click', visOpenHandler);
 		};
-	}, [showVis]);
+	}, [showPwVis]);
 
 	const handleOnClose = () => {
 		setShowModal(false);
@@ -102,7 +113,7 @@ const Inner = () => {
 	return (
 		<div className="pt-20 min-h-screen m-auto bg-white max-w-[768px] mx-auto">
 			<div className="pt-4.5 pl-8 pr-8">
-				<form className="m-0 p-0" onSubmit={handleLoginSubmit}>
+				<form className="m-0 p-0" onSubmit={handleSubmit}>
 					<div className="relative">
 						<div className="mb-8">
 							<div className="pt-11 flex">
@@ -110,30 +121,42 @@ const Inner = () => {
 									type="text"
 									variant="standard"
 									label="이메일"
-									value={mail}
-									onChange={onChangeMail}
-									crossOrigin={undefined}
+									name="mail"
+									value={values.mail}
+									onChange={handleChange}
+									onBlur={handleBlur}
+									error={touched.mail && Boolean(errors.mail)}
 									ref={mailRef}
+									crossOrigin={undefined}
 								/>
-								{mail && showMail && (
+								{values.mail && showMail && (
 									<Cancel
 										className="cursor-pointer right-0 absolute"
 										onClick={() => {
-											setMail('');
+											formik.setFieldValue('mail', '');
 										}}
 									></Cancel>
 								)}
 							</div>
+							{values.mail.length > 0 && errors.mail && (
+								<div className="text-sm flex text-red items-center">
+									<Block className="pr-1" />
+									{errors.mail}
+								</div>
+							)}
 							<div className="pt-11 flex" ref={pwRef}>
 								<Input
 									type={showPw ? 'text' : 'password'}
 									variant="standard"
 									label="비밀번호"
-									value={pw}
-									onChange={onChangePw}
+									name="pw"
+									value={values.pw}
+									onChange={handleChange}
+									onBlur={handleBlur}
+									error={touched.pw && Boolean(errors.pw)}
 									crossOrigin={undefined}
 								/>
-								{pw && !showPw && showVis && (
+								{values.pw && !showPw && showPwVis && (
 									<Visibility
 										className="cursor-pointer right-0 absolute"
 										onClick={(e) => {
@@ -142,7 +165,7 @@ const Inner = () => {
 										}}
 									></Visibility>
 								)}
-								{pw && showPw && showVis && (
+								{values.pw && showPw && showPwVis && (
 									<VisibilityOff
 										className="cursor-pointer right-0 absolute"
 										onClick={(e) => {
@@ -152,10 +175,20 @@ const Inner = () => {
 									></VisibilityOff>
 								)}
 							</div>
+							{values.pw.length > 0 && errors.pw && (
+								<div className="text-sm flex text-red items-center">
+									<Block className="pr-1" />
+									{errors.pw}
+								</div>
+							)}
 						</div>
 					</div>
-
-					{(mail.length === 0 || pw.length === 0) && (
+					{!(
+						((touched.mail && Boolean(errors.mail) === false) ||
+							(touched.mail && Boolean(errors.mail) === undefined)) &&
+						((touched.pw && Boolean(errors.pw) === false) ||
+							(touched.pw && Boolean(errors.pw) === undefined))
+					) ? (
 						<div
 							style={{
 								width: '100%',
@@ -167,12 +200,11 @@ const Inner = () => {
 								border: '1px solid #ccc',
 								borderRadius: '5px',
 							}}
-							className=" mt-4 pt-3 pb-3 flex items-center justify-center bg-gray cursor-default"
+							className="mt-4 pt-3 pb-3 flex items-center justify-center bg-gray cursor-default"
 						>
 							로그인
 						</div>
-					)}
-					{mail.length > 0 && pw.length > 0 && (
+					) : (
 						<button
 							type="submit"
 							style={{
@@ -205,7 +237,10 @@ const Inner = () => {
 						<ChevronRight className="flex cursor-pointer m-2 justify-center items-center ml-1"></ChevronRight>
 					</span>
 				</div>
-				<SignUpModal open={showModal} onClose={handleOnClose}></SignUpModal>
+
+				{modalCheck === false && (
+					<SignUpModal open={showModal} onClose={handleOnClose}></SignUpModal>
+				)}
 			</div>
 		</div>
 	);
