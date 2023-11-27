@@ -11,6 +11,7 @@ export interface Order {
 }
 
 export interface OrderItem {
+	orderDate: string | number | Date;
 	id: number;
 	code: string;
 	accommodation: Accommodation;

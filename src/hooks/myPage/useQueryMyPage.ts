@@ -13,8 +13,8 @@ const getMyPageData = async (i: number) => {
 		const { data } = await getUserOrderInfo();
 		const filteredData = data?.filter((order) => {
 			return order.orderItems?.some((item) => {
-				const checkinDate = new Date(item.checkinDate);
-				return checkinDate >= currentDate;
+				const criteria = new Date(order.orderDate);
+				return criteria >= currentDate;
 			});
 		});
 		return filteredData;

@@ -132,6 +132,34 @@ const Inner = () => {
 					))}
 				</div>
 			)}
+			{data?.length === 0 && (
+				<>
+					<div
+						style={{
+							display: 'flex',
+							flexDirection: 'column',
+							alignItems: 'center',
+							justifyContent: 'center',
+							height: '100vh',
+						}}
+					>
+						<div className="m-0 auto text-title pb-1">
+							조회조건에 맞는 내역이 없습니다.
+						</div>
+						<div className="text-content text-textGray pb-2">
+							상품을 예약해보세요
+						</div>
+						<div
+							className="p-3 border border-blue rounded-md cursor-pointer text-blue text-content pl-10 pr-10"
+							onClick={() => {
+								navigate('/');
+							}}
+						>
+							홈으로 가기
+						</div>
+					</div>
+				</>
+			)}
 		</div>
 	);
 };
