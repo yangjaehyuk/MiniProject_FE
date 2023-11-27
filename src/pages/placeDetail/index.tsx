@@ -47,6 +47,7 @@ export default function PlaceDetail() {
 			try {
 				const id = +accommodationdId;
 				const response = await accommodationAPI.getPlaceDetail(id);
+				console.log(response.data.data);
 				setAccommodationInfo(response.data.data); // response를 직접 저장합니다.
 			} catch (error) {
 				console.error('Failed to load accommodation details:', error);
@@ -100,9 +101,9 @@ export default function PlaceDetail() {
 
 	
 
-	// if (isLoading) {
-	// 	return <Loading />;
-	// }
+	if (isLoading) {
+		return <Loading />;
+	}
 
 	return (
 		<div className="justify-center m-auto text-content text-black">
@@ -168,8 +169,8 @@ export default function PlaceDetail() {
 						<p className="text-title font-bold">위치/교통</p>
 					</div>
 					<KakaoMap
-						lat={accommodationInfo?.location.latitude}
-						log={accommodationInfo?.location.longitude}
+						latitude={accommodationInfo?.location.latitude}
+						longitude={accommodationInfo?.location.longitude}
 					/>
 					<div className="flex items-center py-3">
 						<RoomIcon
