@@ -6,6 +6,7 @@ import CartBottom from 'components/cart/CartBottom';
 import { useQueryMainRegion } from 'hooks/cart/useQueryCart';
 import { Accommodation, dataCartItem, CartItem } from 'types/Cart.type';
 import { deleteCartItem } from 'apis/cartApi';
+import { Spellcheck } from '@mui/icons-material';
 
 const Cart = () => {
 	const { data, isLoading } = useQueryMainRegion();
@@ -13,7 +14,24 @@ const Cart = () => {
 	// 데이터 숙소 아이템
 	const [dataCartItems, setDataCartItems] = useState<dataCartItem[]>([]);
 	// 선택한 숙소 아이템
-	const [cartItems, setCartItems] = useState<CartItem[]>([]);
+	const [cartItems, setCartItems] = useState<dataCartItem[]>([]);
+	// 전체 선택 상태
+	const [selectAll, setSelectAll] = useState(true);
+
+	//  전체 선택버튼 클릭 시
+	const handleSelectAll = () => {
+		setSelectAll(!selectAll);
+
+		// 하위 버튼들의 상태 업데이트
+		// dataCartItems는 각 버튼에 대한 정보를 담고 있는 배열이라고 가정합니다.
+		const updatedDataCartItems: dataCartItem[] = dataCartItems.map((item) => {
+			return {
+				...item,
+				isChecked: !selectAll, // isChecked 상태를 전체 선택 상태와 동일하게 변경
+			};
+		});
+		setDataCartItems(updatedDataCartItems);
+	};
 
 	useEffect(() => {
 		if (!isLoading) {
@@ -25,38 +43,39 @@ const Cart = () => {
 				});
 				console.log(newData);
 				setDataCartItems(newData || []);
+				setCartItems(newData);
 			}
 			console.log(temp);
 			// setDataCartItems(data?.data?.cartItems || []);
+
+			console.log('dataCartItems111', dataCartItems);
+			console.log('시작시 전부 넣음cartItems111', cartItems);
 		}
 	}, [isLoading, data]);
-	console.log(dataCartItems);
 
-	// 개별 체크박스 핸들링
-	const handleCheckbox = (ClickCartItem: CartItem) => {
-		console.log(ClickCartItem);
-		const index = cartItems.findIndex((item) => item.id === ClickCartItem.id);
+	// // 개별 체크박스 핸들링
+	const handleCheckbox = (clickedCartItem: dataCartItem) => {
+		const updatedCartItems = cartItems.map((item) =>
+			item.id === clickedCartItem.id
+				? { ...item, isClicked: !item.isClicked }
+				: item,
+		);
 
-		if (index !== -1) {
-			// 이미 선택한 숙소라면 해당 숙소를 cartItems에서 제거
-			const updatedCartItems = [...cartItems];
-			updatedCartItems.splice(index, 1);
-			setCartItems(updatedCartItems);
+		setCartItems(updatedCartItems); // 상태 업데이트
+
+		const exists = cartItems.some((item) => item.id === clickedCartItem.id);
+
+		if (!exists) {
+			// cartItems에 ClickCartItem의 id와 동일한 값이 없으면 추가
+			setCartItems([...cartItems, clickedCartItem]);
 		} else {
-			// 선택하지 않은 숙소라면 cartItems에 추가
-			setCartItems([...cartItems, ClickCartItem]);
+			// cartItems에 이미 ClickCartItem의 id와 동일한 값이 있으면 제거
+			const updatedCartItems = cartItems.filter(
+				(item) => item.id !== clickedCartItem.id,
+			);
+			setCartItems(updatedCartItems);
 		}
 	};
-
-	// // 체크박스 전체 선택
-	// const handleAllCheck = (checked) => {
-	// 	if (checked) {
-	// 		// cartList에 있는 체크박스의 값이 동일하게 변경
-	// 		// dataCartItem에 있는 값들이 전부 cartItems에 저장
-	// 	} else {
-	// 		setCartItems([]);
-	// 	}
-	// };
 
 	// 아이템 삭제
 	const handleDeleteItem = async (itemId: string) => {
@@ -90,6 +109,7 @@ const Cart = () => {
 	}, [show]);
 
 	console.log('dataCartItems', dataCartItems);
+	console.log('시작시 전부 넣음cartItems', cartItems);
 	return (
 		<>
 			<Header title="장바구니" />
@@ -97,7 +117,11 @@ const Cart = () => {
 			<div className="bg-white fixed left-0 top-[48px] w-screen drop-shadow-sm">
 				<div className="flex h-[48px]  justify-between items-center px-4  w-[768px]  m-auto top-0   left-0">
 					<div className="flex ">
-						<input type="checkbox" />
+						<input
+							type="checkbox"
+							onChange={handleSelectAll}
+							checked={selectAll}
+						/>
 						<div className="ml-2 text-sm">전체선택</div>
 					</div>
 					<div className="text-sm text-blue">전체 삭제</div>
@@ -114,6 +138,7 @@ const Cart = () => {
 				dataCartItems={dataCartItems}
 				handleCheckbox={handleCheckbox}
 				handleDeleteItem={handleDeleteItem}
+				// selectAll={selectAll}
 			/>
 			<CartBottom />
 			<div className="bg-white ${show ? 'h-[150px]' : 'h-[110px]'} shadow-inner w-screen fixed bottom-0  left-0">

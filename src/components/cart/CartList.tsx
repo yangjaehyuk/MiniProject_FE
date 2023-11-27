@@ -10,7 +10,7 @@ import {
 import { deleteCartItem } from 'apis/cartApi';
 interface CartListProps {
 	dataCartItems: dataCartItem[];
-	handleCheckbox: (clickedCartItem: CartItem) => void;
+	handleCheckbox: (clickedCartItem: dataCartItem) => void;
 	handleDeleteItem: (itemId: string) => Promise<void>;
 }
 
@@ -53,7 +53,11 @@ const CartList: React.FC<CartListProps> = ({
 								<div className="flex">
 									<input
 										type="checkbox"
-										onChange={() => handleCheckbox(item)}
+										onClick={() => {
+											item.isClicked = !item.isClicked; // isClicked 값을 반전시킴
+											handleCheckbox(item); // 변경된 값을 처리하는 함수 호출
+										}}
+										// onChange={() => handleCheckbox(item)}
 										checked={item.isClicked}
 									/>
 
