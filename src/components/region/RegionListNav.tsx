@@ -12,7 +12,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { formatMonthDate } from 'utils/formatDate';
 import { capacityState } from 'recoil/atoms/capacityAtom';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { regionToKor } from 'utils/switchNameToKor';
 import { OrderEnum, orderState, orderTextState } from 'recoil/atoms/orderAtom';
 import isEnumValue from 'utils/isEnumValue';
@@ -22,9 +22,10 @@ function RegionListNav({
 	handleOptionOpen,
 	totalElements,
 	refetch,
+	searchParams,
+	handleChangeParams,
 }: RegionListNavProps) {
 	const { region } = useParams();
-	const [searchParams, setSearchParams] = useSearchParams();
 	const startDate = useRecoilValue(checkInDateState);
 	const endDate = useRecoilValue(checkOutDateState);
 	const capacity = useRecoilValue(capacityState);
@@ -32,15 +33,16 @@ function RegionListNav({
 	const orderText = useRecoilValue(orderTextState);
 	const orderParam = searchParams.get('order');
 
-	const handleChangeParams = useCallback(
-		(order: OrderEnum) => {
-			setSearchParams({ order });
-		},
-		[orderParam],
-	);
+	// const handleChangeParams = useCallback(
+	// 	(order: OrderEnum) => {
+	// 		searchParams?.set('order', order);
+	// 		console.log(searchParams);
+	// 		if (setSearchParams) setSearchParams(searchParams);
+	// 	},
+	// 	[orderParam],
+	// );
 
 	useEffect(() => {
-		// TODO: 데이터 다시 받아오기
 		if (isEnumValue(OrderEnum, orderParam)) {
 			setOrder(orderParam);
 		}
@@ -48,9 +50,10 @@ function RegionListNav({
 			setOrder(OrderEnum.STAR_DESC);
 		}
 		if (refetch) refetch();
-	}, [orderParam]);
+	}, [searchParams]);
 
 	const formattingDate = formatMonthDate(startDate, endDate);
+
 	return (
 		<div>
 			<div className="flex gap-3 justify-center py-6">
@@ -90,13 +93,15 @@ function RegionListNav({
 						</Button>
 					</MenuHandler>
 					<MenuList>
-						<MenuItem onClick={() => handleChangeParams(OrderEnum.STAR_DESC)}>
+						<MenuItem onClick={() => handleChangeParams?.(OrderEnum.STAR_DESC)}>
 							평점 높은 순
 						</MenuItem>
-						<MenuItem onClick={() => handleChangeParams(OrderEnum.PRICE_DESC)}>
+						<MenuItem
+							onClick={() => handleChangeParams?.(OrderEnum.PRICE_DESC)}
+						>
 							예약가 높은 순
 						</MenuItem>
-						<MenuItem onClick={() => handleChangeParams(OrderEnum.PRICE_ASC)}>
+						<MenuItem onClick={() => handleChangeParams?.(OrderEnum.PRICE_ASC)}>
 							예약가 낮은 순
 						</MenuItem>
 					</MenuList>
