@@ -45,3 +45,7 @@ export const checkAccessToken = () => {
 };
 
 //mypage, orders, result
+
+export const upScroll = () => {
+	window.scrollTo(0, 0);
+};

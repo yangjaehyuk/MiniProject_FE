@@ -1,32 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Header from '../../components/common/Header';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import carImage from '../../assets/images/cart-img.png';
 import styles from '../../components/cart/Cart.module.css';
 import { useNavigate } from 'react-router-dom';
+import useScrollToShow from 'hooks/common/handleScroll';
 
 const Cart = () => {
 	const navigate = useNavigate();
 
 	// 예약하기 버튼
+	const show = useScrollToShow(false, 200);
 	const handleReservation = () => {
 		navigate('/orders');
 	};
-
-	const [show, setShow] = useState(false);
-	const handleScroll = () => {
-		if (window.scrollY > 200) {
-			setShow(true);
-		} else {
-			setShow(false);
-		}
-	};
-	useEffect(() => {
-		window.addEventListener('scroll', handleScroll);
-		return () => {
-			window.removeEventListener('scroll', handleScroll);
-		};
-	}, [show]);
 
 	return (
 		<>
