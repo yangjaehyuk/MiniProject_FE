@@ -1,5 +1,5 @@
 import instance from './axios';
-
+import { PostOrderItem, PostClient, PostSubscriber } from 'types/Orders';
 const cartAPI = {
 	postRoomToCart(
 		roomTypeId: number,
@@ -23,6 +23,22 @@ export const deleteCartItem = async (itemId: string) => {
 // 장바구니 전체 삭제
 export const allDeleteItem = async () => {
 	const res = await instance.delete('carts');
+	return res.data;
+};
+
+// 주문하기
+export const postOrder = async (
+	client: PostClient,
+	subscriber: PostSubscriber,
+	paymentMethod: string,
+	orderItems: PostOrderItem[],
+) => {
+	const res = await instance.post('orders', {
+		client: client,
+		subscriber: subscriber,
+		paymentMethod: paymentMethod,
+		orderItems: orderItems,
+	});
 	return res.data;
 };
 

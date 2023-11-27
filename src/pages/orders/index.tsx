@@ -16,6 +16,10 @@ import { cartItemState, totalPriceState } from 'recoil/atoms/cartAtom';
 import UserInfo from 'components/orders/UserInfo';
 import TermsAgreement from 'components/orders/TermsAgreement';
 import { isConstructorDeclaration } from 'typescript';
+import { postOrder } from 'apis/cartAPI';
+import { PostOrderItem, PostClient, PostSubscriber } from 'types/Orders';
+import { orderItemState } from 'recoil/atoms/orderAtom';
+import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 
 // ReservationInfo
 export type ReservationInfo = {
@@ -36,14 +40,54 @@ export type ReservationInfo = {
 // type CartItemStateType = typeof cartItemState;
 
 const orders = () => {
-	const methods = useForm({ mode: 'onChange' });
-
+	// 장바구니에서 예약 데이터
 	const cartItem = useRecoilValue(cartItemState);
 	const totalPrice = useRecoilValue(totalPriceState);
-	console.log(cartItem);
 
-	const onSubmit = () => console.log('ddd');
+	// 객실 상세에서 예약 데이터
+	const orderItem = useRecoilValue(orderItemState);
+	const checkInDate = useRecoilValue(checkInDateState);
+	const checkOutDate = useRecoilValue(checkOutDateState);
 
+	const StringOrderItem = orderItem?.id.toString();
+	const StringCheckInDate = checkInDate.toISOString();
+	const StringCheckOutDate = checkOutDate.toISOString();
+
+	console.log('cartItem', cartItem);
+	const methods = useForm<ReservationInfo>({ mode: 'onChange' });
+
+	// 결제하기 버튼
+	const onSubmit = async (data: ReservationInfo) => {
+		const client = { name: data.userName, phoneNumber: data.userNumber };
+		const subscriber = {
+			name: data.reservationName,
+			phoneNumber: data.reservationNumber,
+		};
+		console.log('subscriber', subscriber);
+		console.log('client', client);
+		const orderData: PostOrderItem[] = orderItem
+			? [
+					{
+						roomTypeId: StringOrderItem || '',
+						checkinDate: StringCheckInDate,
+						checkoutDate: StringCheckOutDate,
+					},
+			  ]
+			: cartItem.map((cartItem) => ({
+					roomTypeId: cartItem.id.toString(),
+					checkinDate: cartItem.checkinDate,
+					checkoutDate: cartItem.checkoutDate,
+			  }));
+
+		console.log('orderData', orderData);
+
+		if (client && subscriber && payment && orderData) {
+			const res = await postOrder(client, subscriber, payment, orderData);
+			console.log('res', res);
+		} else {
+			console.log('결제에 실패 했습니다');
+		}
+	};
 	const [payment, setPayment] = useState('');
 	const [checkbox, setCheckbox] = useState(false);
 
@@ -63,7 +107,7 @@ const orders = () => {
 				<div className={styles.wrap}>
 					<div className="font-semibold text-md pb-2">숙소</div>
 					<OrdersNotice />
-					<ReservationItem cartItem={cartItem} totalPrice={totalPrice} />
+					<ReservationItem />
 				</div>
 				<UserInfo />
 
@@ -92,7 +136,10 @@ const orders = () => {
 						</div>
 						<form onSubmit={methods.handleSubmit(onSubmit)}>
 							{checkbox ? (
-								<button className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-secondary rounded-md h-[20px]  text-white">
+								<button
+									type="submit"
+									className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-secondary rounded-md h-[20px]  text-white"
+								>
 									870,000원 결제하기
 								</button>
 							) : (
