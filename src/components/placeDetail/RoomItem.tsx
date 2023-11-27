@@ -72,7 +72,7 @@ export default function RoomItem({ roomItem, name }: RoomProps) {
 					capacity: roomItem.capacity,
 					id: roomItem.id,
 				});
-				navigate('/cart');
+				navigate('/orders');
 			}
 		}
 	};
