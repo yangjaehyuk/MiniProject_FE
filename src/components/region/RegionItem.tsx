@@ -2,9 +2,9 @@ import React from 'react';
 import { Star } from '@mui/icons-material';
 import { ProductItem } from 'types/Category.type';
 import { formatNumberWithCommas } from 'utils/numberComma';
-import styles from './Region.module.css';
 import { Typography } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
+import styles from './Region.module.css';
 
 function RegionItem({ id, image, name, star, price }: ProductItem) {
 	return (

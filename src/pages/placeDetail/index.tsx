@@ -1,6 +1,5 @@
 import Header from 'components/placeDetail/Header';
 import React, { useEffect, useState } from 'react';
-import shop from '../../assets/images/shop.jpg';
 import banner from '../../assets/images/banner.png';
 import StarIcon from '@mui/icons-material/Star';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -18,15 +17,62 @@ import { formatFullDateRangeWithoutYear } from 'utils/formatDate';
 import { useRecoilValue } from 'recoil';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import ImageSwiper from 'components/common/ImageSwiper';
-import { ImageItem } from 'types/ImageItem';
+import { useParams } from 'react-router';
+import { PlaceDetailInfo, RoomDetailInfo } from 'types/Place';
+import accommodationAPI from 'apis/accommodationAPI';
+import CategorySwiperSkeleton from 'components/category/skeleton/CategorySwiperSkeleton';
+import Loading from 'components/placeDetail/Loading';
+import { capacityState } from 'recoil/atoms/capacityAtom';
 
 export default function PlaceDetail() {
+	const { accommodationdId } = useParams();
+	const [accommodationInfo, setAccommodationInfo] = useState<PlaceDetailInfo>();
+	const [roomsInfo, setRoomsInfo] = useState<RoomDetailInfo[]>();
+	const [isLoading, setIsLoading] = useState(true);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const checkInDate = useRecoilValue<Date>(checkInDateState);
 	const checkOutDate = useRecoilValue<Date>(checkOutDateState);
 	const [formattingDate, setFormattingDate] = useState(
 		formatFullDateRangeWithoutYear(checkInDate, checkOutDate),
 	);
+	const capacityValue = useRecoilValue(capacityState);
+
+	const getAccommodationDetail = async () => {
+		if (accommodationdId !== undefined) {
+			setIsLoading(true);
+			try {
+				const id = +accommodationdId;
+				const response = await accommodationAPI.getPlaceDetail(id);
+				setAccommodationInfo(response.data.data); // response를 직접 저장합니다.
+			} catch (error) {
+				console.error('Failed to load accommodation details:', error);
+			}
+			setIsLoading(false);
+		}
+	};
+
+	const getRoomsInfo = async () => {
+		if (accommodationdId !== undefined) {
+			try {
+				const id = +accommodationdId;
+				const checkInDateString = checkInDate.toISOString().split('T')[0];
+				const checkOutDateString = checkOutDate.toISOString().split('T')[0];
+
+				const response = await accommodationAPI.getPlaceDetailRooms(id,checkInDateString, checkOutDateString,capacityValue);
+				setRoomsInfo(response.data.data);
+
+			}
+			catch (error) {
+				console.error('Failed to load roomtype information',error);
+			}
+		}
+
+	}
+
+	useEffect(() => {
+		getAccommodationDetail();
+		getRoomsInfo();
+	}, [accommodationdId]);
 
 	useEffect(() => {
 		setFormattingDate(
@@ -37,22 +83,21 @@ export default function PlaceDetail() {
 	const handleCalendarClick = () => {
 		setIsModalOpen(!isModalOpen);
 	};
+
+	if (isLoading) {
+		return <Loading />;
+	}
+
 	return (
 		<div className="justify-center m-auto text-content text-black">
 			{isModalOpen && <CalendarModal handleModal={handleCalendarClick} />}
-			<Header />
+			<Header name={accommodationInfo?.name}/>
 			<div className="relative mt-[48px] flex-row">
-				{/* <img
-					src={shop}
-					alt="숙소사진"
-					className="max-w-none w-[768px] h-[507px] -ml-5"
-				/> */}
-				<ImageSwiper items={ImageItem} />
-
+				<ImageSwiper items={accommodationInfo?.images} />
 				<div className="pt-3">
 					<span className="text-sm">일반 호텔</span>
 					<div className="flex w-full justify-between">
-						<p className="text-lg font-bold">호텔 아길라</p>
+						<p className="text-lg font-bold">{accommodationInfo?.name}</p>
 						<div className="flex space-x-4">
 							<FavoriteBorderIcon fontSize="small" />
 							<ShareIcon fontSize="small" />
@@ -61,13 +106,13 @@ export default function PlaceDetail() {
 					<div className="flex items-center pt-[6px] pb-[2px]">
 						<LocationOnIcon sx={{ fill: '#0152cc' }} fontSize="small" />
 						<span className="text-blue font-bold text-content">
-							제주도에 위치
+							{accommodationInfo?.location.address}
 						</span>
 						<KeyboardArrowRightIcon sx={{ fill: '#0152cc' }} />
 					</div>
 					<div className="flex items-center pt-[2px] font-bold">
 						<StarIcon fontSize="small" sx={{ fill: '#FDBD00' }} />
-						4.5
+						{accommodationInfo?.star}
 					</div>
 				</div>
 				<img
@@ -94,20 +139,27 @@ export default function PlaceDetail() {
 						</button>
 					</div>
 
-					<RoomItem />
-					<SoldOutRoomItem />
+					{roomsInfo?.map((roomItem,index) => (
+						roomItem.stock > 0 ? <RoomItem key = {index} roomItem={roomItem}/> : <SoldOutRoomItem key = {index} roomItem={roomItem}/>
+					))}
+
+					
+					
 				</div>
 				<div className="pt-5">
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold">위치/교통</p>
 					</div>
-					<KakaoMap />
+					<KakaoMap
+						lat={accommodationInfo?.location.latitude}
+						log={accommodationInfo?.location.longitude}
+					/>
 					<div className="flex items-center py-3">
 						<RoomIcon
 							className="mr-1"
 							sx={{ fill: '#cccccc', fontSize: '16px' }}
 						/>
-						<p>제주특별자치도 제주시 도령로 27</p>
+						<p>{accommodationInfo?.location.address}</p>
 					</div>
 					<button className="w-full border border-gray py-[6px] rounded-sm text-sm hover:bg-bgGray">
 						주소복사
@@ -117,14 +169,21 @@ export default function PlaceDetail() {
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold">숙소소개</p>
 					</div>
-					<p>제주국제공항에서 차로 32분거리에 위치하고 있습니다.</p>
+					<p>{accommodationInfo?.introduction}</p>
 				</div>
 				<div className="pt-5">
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold">시실 및 서비스</p>
 					</div>
 					<div className="grid grid-cols-4 gap-4">
-						<div className="flex items-center">
+						{accommodationInfo?.services.map((service, index) => (
+							<div key={index} className="flex items-center">
+								<CheckIcon />
+								<span>{service}</span>
+							</div>
+						))}
+
+						{/* <div className="flex items-center">
 							<CheckIcon />
 							<span>주차가능</span>
 						</div>
@@ -139,11 +198,7 @@ export default function PlaceDetail() {
 						<div className="flex items-center">
 							<CheckIcon />
 							<span>주차가능</span>
-						</div>
-						<div className="flex items-center">
-							<CheckIcon />
-							<span>주차가능</span>
-						</div>
+						</div> */}
 					</div>
 				</div>
 				<div className="py-5">
