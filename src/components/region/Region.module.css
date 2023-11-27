@@ -9,7 +9,7 @@
 		@apply max-w-[768px] mx-auto h-full py-[2px] px-[12px] flex justify-between items-center text-center;
 	}
 	.leftWrap {
-		@apply w-16;
+		@apply w-16 cursor-pointer;
 	}
 	.rightWrap {
 		@apply w-16;

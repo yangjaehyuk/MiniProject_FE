@@ -7,6 +7,9 @@ import RegionProdCapacityModal from 'components/region/RegionProdCapacityModal';
 import CalendarModal from 'components/common/CalendarModal';
 import RegionInner from 'components/region/RegionInner';
 import RegionInnerSkeleton from 'components/region/skeleton/RegionInnerSkeleton';
+import CriticalErrorBoundary from 'components/common/CriticalErrorBoundary';
+import RetryErrorBoundary from 'components/common/RetryErrorBoundary';
+import regionCheckRouter from 'components/region/regionCheckRouter';
 
 function Region() {
 	const { region } = useParams();
@@ -37,19 +40,23 @@ function Region() {
 	return (
 		<main className="">
 			<RegionHeader />
-			<Suspense
-				fallback={
-					<RegionInnerSkeleton
-						handleRegionOpen={handleRegionOpen}
-						handleOptionOpen={handleOptionOpen}
-					/>
-				}
-			>
-				<RegionInner
-					handleRegionOpen={handleRegionOpen}
-					handleOptionOpen={handleOptionOpen}
-				/>
-			</Suspense>
+			<CriticalErrorBoundary>
+				<RetryErrorBoundary>
+					<Suspense
+						fallback={
+							<RegionInnerSkeleton
+								handleRegionOpen={handleRegionOpen}
+								handleOptionOpen={handleOptionOpen}
+							/>
+						}
+					>
+						<RegionInner
+							handleRegionOpen={handleRegionOpen}
+							handleOptionOpen={handleOptionOpen}
+						/>
+					</Suspense>
+				</RetryErrorBoundary>
+			</CriticalErrorBoundary>
 			<CategoryRegionModal isOpen={regionOpen} handleOpen={handleRegionOpen} />
 			<RegionProdOptionModal
 				isOpen={optionOpen}
@@ -66,4 +73,4 @@ function Region() {
 	);
 }
 
-export default Region;
+export default regionCheckRouter(Region);

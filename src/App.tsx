@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Main from './pages/main/index';
 import Cart from './pages/cart/index';
 import PlaceDetail from 'pages/placeDetail';
@@ -14,6 +14,7 @@ import Layout from 'components/common/Layout';
 import SubLayout from 'components/common/SubLayout';
 import Orders from 'pages/orders';
 import Result from 'pages/result';
+import NotFound from 'pages/notfound';
 
 function App() {
 	return (
@@ -30,6 +31,8 @@ function App() {
 					path="/places/:accommodationdId/:roomId"
 					element={<RoomDetail />}
 				/>
+        <Route path="/404" element={<NotFound />} />
+				<Route path="*" element={<Navigate to="/404" />} />
 			</Route>
 			<Route element={<SubLayout />}>
 				<Route path="/cart" element={<Cart />} />
