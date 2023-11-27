@@ -13,7 +13,7 @@ function RegionInner({
 	handleChangeParams,
 }: RegionListNavProps) {
 	const { ref, inView } = useInView();
-	const { data, refetch } = useQueryRegion(inView);
+	const { data, isFetchingNextPage, refetch } = useQueryRegion(inView);
 
 	if (!data?.pages[0]) return null;
 	return (
@@ -26,7 +26,11 @@ function RegionInner({
 				searchParams={searchParams}
 				handleChangeParams={handleChangeParams}
 			/>
-			<RegionItems triggerRef={ref} data={data} />
+			<RegionItems
+				triggerRef={ref}
+				data={data}
+				isFetchingNextPage={isFetchingNextPage}
+			/>
 		</div>
 	);
 }

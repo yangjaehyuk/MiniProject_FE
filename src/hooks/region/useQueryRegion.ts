@@ -54,7 +54,7 @@ const useQueryRegion = (isInView: boolean) => {
 		// isFetching,
 		// hasNextPage,
 		fetchNextPage,
-		// isFetchingNextPage,
+		isFetchingNextPage,
 	} = useInfiniteQuery(
 		[`${category.toUpperCase()}/${region.toUpperCase()}/${order}`],
 		({ pageParam = 1 }) => getRegionMainProducts(query, pageParam),
@@ -78,7 +78,7 @@ const useQueryRegion = (isInView: boolean) => {
 			fetchNextPage();
 		}
 	}, [isInView]);
-	return { data, refetch };
+	return { data, isFetchingNextPage, refetch };
 };
 
 export default useQueryRegion;

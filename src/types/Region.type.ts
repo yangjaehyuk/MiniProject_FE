@@ -209,6 +209,7 @@ export type RegionProdOptionModalProps = ModalProps & {
 export interface RegionInnerProps {
 	triggerRef: (node?: Element | null | undefined) => void;
 	data?: InfiniteData<AccommodationsRoot | undefined>;
+	isFetchingNextPage: boolean;
 }
 
 export enum RegionTitles {
