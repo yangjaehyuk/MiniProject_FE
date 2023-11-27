@@ -7,15 +7,28 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import ImageSwiper from 'components/common/ImageSwiper';
 import { ImageItem } from 'types/ImageItem';
 import RoomImageSwiper from 'components/common/RoomImageSwiper';
-import { RoomDetailInfo, RoomProps } from 'types/Place';
+import { RoomDetailInfos, RoomProps } from 'types/Place';
 import { useRecoilValue } from 'recoil';
 import { capacityState } from 'recoil/atoms/capacityAtom';
+import { useNavigate, useParams } from 'react-router';
+import { formatNumberWithCommas } from 'utils/numberComma';
 
-export default function RoomItem({ roomItem }: RoomProps) {
+export default function RoomItem({ roomItem, name }: RoomProps) {
 	const capacityValue = useRecoilValue(capacityState);
+	const navigate = useNavigate();
+	const { accommodationdId } = useParams();
+	const handleItemClick = () => {
+		if(name !== undefined) {
+			navigate(`/places/${accommodationdId}/${roomItem.id}?name=${name}`);
+
+		}
+		
+	}
+
+	const formattedPrice = formatNumberWithCommas(roomItem.price);
 
 	return (
-		<div className="flex py-5 justify-between border-b border-borderGray cursor-pointer">
+		<div className="flex py-5 justify-between border-b border-borderGray cursor-pointer" >
 			<div>
 				<div className="w-[320px] h-[160px] rounded-lg">
 					<RoomImageSwiper items={roomItem.images} />
@@ -29,7 +42,7 @@ export default function RoomItem({ roomItem }: RoomProps) {
 			<div className="p-4 w-[386px] h-fit border-borderGray border rounded-lg">
 				<div className="flex text-sm justify-between ">
 					<span className="text-black font-semibold">숙박</span>
-					<div className="flex items-center">
+					<div className="flex items-center" onClick={handleItemClick}>
 						<span className="text-blue font-bold ml-2">상세보기</span>
 						<KeyboardArrowRightIcon
 							sx={{ fill: '#0152cc', fontSize: '16px' }}
@@ -45,7 +58,7 @@ export default function RoomItem({ roomItem }: RoomProps) {
 				<div className="flex flex-col items-end">
 					<div className="flex items-center">
 						<p className="text-title font-bold text-black">
-							{roomItem.price}원
+							{formattedPrice}원
 						</p>
 						<ErrorOutlineIcon sx={{ fontSize: '16px' }} />
 					</div>

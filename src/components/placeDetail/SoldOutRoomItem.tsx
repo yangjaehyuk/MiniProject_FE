@@ -5,8 +5,15 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import RoomImageSwiper from 'components/common/RoomImageSwiper';
 import { ImageItem } from 'types/ImageItem';
 import { RoomProps } from 'types/Place';
+import { useNavigate, useParams } from 'react-router';
 
-export default function SoldOutRoomItem({roomItem} : RoomProps) {
+export default function SoldOutRoomItem({roomItem, name} : RoomProps) {
+    const navigate = useNavigate();
+	const { accommodationdId } = useParams();
+	const handleItemClick = () => {
+		navigate(`/places/${accommodationdId}/${roomItem.id}`);
+	}
+
   return (
     <div className='flex py-5 justify-between border-b border-borderGray cursor-pointer'>
         <div>
@@ -22,7 +29,7 @@ export default function SoldOutRoomItem({roomItem} : RoomProps) {
         <div className='p-4 w-[386px] h-fit border-borderGray border rounded-lg'>
             <div className ='flex text-sm justify-between '>
                 <span className='text-textGray font-semibold'>숙박</span>
-                <div className='flex items-center'>
+                <div className='flex items-center' onClick={handleItemClick}>
                     <span className='text-blue font-bold ml-2'>상세보기</span>
                     <KeyboardArrowRightIcon sx={{ fill: '#0152cc' ,fontSize: '16px'}}/>
                 </div>

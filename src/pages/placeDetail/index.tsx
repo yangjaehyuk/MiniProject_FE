@@ -18,7 +18,7 @@ import { useRecoilValue } from 'recoil';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import ImageSwiper from 'components/common/ImageSwiper';
 import { useParams } from 'react-router';
-import { PlaceDetailInfo, RoomDetailInfo } from 'types/Place';
+import { PlaceDetailInfo, RoomDetailInfos } from 'types/Place';
 import accommodationAPI from 'apis/accommodationAPI';
 import CategorySwiperSkeleton from 'components/category/skeleton/CategorySwiperSkeleton';
 import Loading from 'components/placeDetail/Loading';
@@ -27,7 +27,7 @@ import { capacityState } from 'recoil/atoms/capacityAtom';
 export default function PlaceDetail() {
 	const { accommodationdId } = useParams();
 	const [accommodationInfo, setAccommodationInfo] = useState<PlaceDetailInfo>();
-	const [roomsInfo, setRoomsInfo] = useState<RoomDetailInfo[]>();
+	const [roomsInfo, setRoomsInfo] = useState<RoomDetailInfos[]>();
 	const [isLoading, setIsLoading] = useState(true);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const checkInDate = useRecoilValue<Date>(checkInDateState);
@@ -140,7 +140,7 @@ export default function PlaceDetail() {
 					</div>
 
 					{roomsInfo?.map((roomItem,index) => (
-						roomItem.stock > 0 ? <RoomItem key = {index} roomItem={roomItem}/> : <SoldOutRoomItem key = {index} roomItem={roomItem}/>
+						roomItem.stock > 0 ? <RoomItem key = {index} roomItem={roomItem} name={accommodationInfo?.name}/> : <SoldOutRoomItem key = {index} roomItem={roomItem} name={accommodationInfo?.name}/>
 					))}
 
 					
@@ -182,23 +182,6 @@ export default function PlaceDetail() {
 								<span>{service}</span>
 							</div>
 						))}
-
-						{/* <div className="flex items-center">
-							<CheckIcon />
-							<span>주차가능</span>
-						</div>
-						<div className="flex items-center">
-							<CheckIcon />
-							<span>주차가능</span>
-						</div>
-						<div className="flex items-center">
-							<CheckIcon />
-							<span>주차가능</span>
-						</div>
-						<div className="flex items-center">
-							<CheckIcon />
-							<span>주차가능</span>
-						</div> */}
 					</div>
 				</div>
 				<div className="py-5">
