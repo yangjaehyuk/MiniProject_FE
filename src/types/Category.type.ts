@@ -94,3 +94,10 @@ export interface AccommodationsResult {
 	price: number;
 	image: string;
 }
+
+export enum CategoryTitles {
+	HOTEL = 'HOTEL',
+	RESORT = 'RESORT',
+	PENSION = 'PENSION',
+	POOL_VILLA = 'POOL_VILLA',
+}

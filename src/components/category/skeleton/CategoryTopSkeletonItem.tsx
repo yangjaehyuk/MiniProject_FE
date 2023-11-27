@@ -17,7 +17,7 @@ function CategoryTopSkeletonItem() {
 					<div className="item-desc p-3">
 						<div className="h-4 bg-gray rounded-full w-full mb-2"></div>
 						<div className="h-4 bg-gray rounded-full w-16 mb-2"></div>
-						<div className="h-4 bg-gray rounded-full w-8 mb-2"></div>
+						<div className="h-4 bg-gray rounded-full w-8 mb-[5px]"></div>
 						<div className="h-4 bg-gray rounded-full w-28 ml-auto"></div>
 					</div>
 				</div>
