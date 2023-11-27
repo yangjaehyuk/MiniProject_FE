@@ -75,17 +75,19 @@ const Inner = () => {
 								'https://www.yanolja.com/promotion/nol-promotion?eventcode=NOYLN';
 						}}
 					/>
-					<div className="font-bold text-title pt-10 cursor-default">
-						예약 내역
-					</div>
+					<div className="flex items-center justify-between">
+						<div className="font-bold text-title pt-10 cursor-default">
+							예약 내역
+						</div>
 
-					<div className="flex pt-7">
-						<div
-							className="flex items-center w-full h-9 border border-gray rounded-md cursor-pointer justify-between ml-3 hover:bg-lightGray"
-							onClick={() => setShowDateModal(true)}
-						>
-							{nowDate}
-							<ArrowDropDown />
+						<div className="pt-10 ">
+							<div
+								className="flex items-center w-full h-9 border border-gray rounded-md cursor-pointer justify-between ml-3 hover:bg-lightGray"
+								onClick={() => setShowDateModal(true)}
+							>
+								{nowDate}
+								<ArrowDropDown />
+							</div>
 						</div>
 					</div>
 				</div>
@@ -97,7 +99,7 @@ const Inner = () => {
 			></DateModal>
 			{show && <TopBtn show={show} />}
 			{data?.length > 0 && (
-				<div>
+				<div className="pr-6 pl-6">
 					{data?.map((order, index) => (
 						<React.Fragment key={index}>
 							<ReservationCardHeader orderDate={order.orderDate} />

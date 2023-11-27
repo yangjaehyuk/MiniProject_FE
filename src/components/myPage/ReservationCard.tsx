@@ -1,6 +1,7 @@
 import React from 'react';
 import { getDayOfWeek } from 'hooks/common/getDayOfWeek';
 import { getDateDifference } from 'hooks/common/getDateDifference';
+import { useNavigate } from 'react-router';
 const ReservationCard = ({
 	code,
 	accomodationName,
@@ -25,8 +26,12 @@ const ReservationCard = ({
 	const checkinDayOfWeek = getDayOfWeek(checkinDate);
 	const checkoutDayOfWeek = getDayOfWeek(checkoutDate);
 	const differenceInDays = getDateDifference(checkinDate, checkoutDate);
+	const navigate = useNavigate();
 	return (
-		<div className="w-full border-2 border-gray rounded-md cursor-pointer">
+		<div
+			className="w-full border-2 border-gray rounded-md cursor-pointer"
+			onClick={() => navigate(`/places/${accomodationId}`)}
+		>
 			<div className="pl-4 pt-3 pb-1 text-textGray text-content">
 				숙소 예약번호: {code}
 			</div>
