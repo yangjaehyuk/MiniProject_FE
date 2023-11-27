@@ -7,7 +7,7 @@ import {
 	CartItem,
 	dataCartItem,
 } from 'types/Cart.type';
-import { deleteCartItem } from 'apis/cartApi';
+
 interface CartListProps {
 	dataCartItems: dataCartItem[];
 	handleCheckbox: (clickedCartItem: dataCartItem) => void;
@@ -19,7 +19,7 @@ const CartList: React.FC<CartListProps> = ({
 	handleCheckbox,
 	handleDeleteItem,
 }) => {
-	// console.log(dataCartItems);
+	// console.log(dataCartItems)
 
 	return (
 		<>

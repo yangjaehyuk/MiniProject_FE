@@ -6,12 +6,14 @@ import { useRecoilValue } from 'recoil';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { foramtYYYYMMDD } from 'utils/formatDate';
 import axiosInstance from 'apis/axios';
+import { OrderEnum, orderState } from 'recoil/atoms/orderAtom';
 
 interface QueryData {
 	category: string;
 	region: string;
 	start: string;
 	end: string;
+	order: OrderEnum;
 }
 
 /**
@@ -19,10 +21,8 @@ interface QueryData {
  * @returns 상품 목록을 반환 합니다.
  */
 const getRegionMainProducts = async (query: QueryData, pageParam: number) => {
-	const cateUpper = query.category.toUpperCase();
-	const regionUpper = query.region.toUpperCase();
 	const { data } = await axiosInstance.get<AccommodationsRoot>(
-		`accommodations?type=${cateUpper}&region=${regionUpper}&from=${query.start}&to=${query.end}&page=${pageParam}&size=4`,
+		`accommodations?type=${query.category}&region=${query.region}&from=${query.start}&to=${query.end}&page=${pageParam}&order=${query.order}&size=4`,
 	);
 	return data;
 };
@@ -38,32 +38,38 @@ const useQueryRegion = (isInView: boolean) => {
 	const endDate = useRecoilValue(checkOutDateState);
 	const start = foramtYYYYMMDD(startDate);
 	const end = foramtYYYYMMDD(endDate);
+	const order = useRecoilValue(orderState);
 	const query = {
-		category,
-		region,
+		category: category.toUpperCase(),
+		region: region.toUpperCase(),
 		start,
 		end,
+		order,
 	};
 	// Queries
 	const {
 		data,
+		refetch,
 		// isLoading,
 		// isFetching,
 		// hasNextPage,
 		fetchNextPage,
-		// isFetchingNextPage,
+		isFetchingNextPage,
 	} = useInfiniteQuery(
-		[`${category}/${region}`],
+		[`${category.toUpperCase()}/${region.toUpperCase()}/${order}`],
 		({ pageParam = 1 }) => getRegionMainProducts(query, pageParam),
 		{
 			getNextPageParam: (lastPage, allPages) => {
+				if (lastPage === undefined) return;
 				const nextPage =
 					lastPage.data.totalPages > allPages.length
 						? allPages.length + 1
 						: undefined;
 				return nextPage;
 			},
+			retry: 0,
 			suspense: true,
+			useErrorBoundary: true,
 		},
 	);
 
@@ -72,7 +78,7 @@ const useQueryRegion = (isInView: boolean) => {
 			fetchNextPage();
 		}
 	}, [isInView]);
-	return data;
+	return { data, isFetchingNextPage, refetch };
 };
 
 export default useQueryRegion;

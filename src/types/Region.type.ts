@@ -1,5 +1,8 @@
 import { InfiniteData } from 'react-query';
 import { AccommodationsRoot, ModalProps, ProductItem } from './Category.type';
+import { URLSearchParams } from 'url';
+import { SetURLSearchParams } from 'react-router-dom';
+import { OrderEnum } from 'recoil/atoms/orderAtom';
 
 export interface ProductItemsProps {
 	title: string;
@@ -110,14 +113,14 @@ export const REGIONS: RegionListItem[] = [
 		right1: '',
 		right2: '',
 	},
-	{
-		name: '제주',
-		image: '/region/region-jeju.png',
-		link: 'jeju',
-		author: `miram Oh`,
-		right1: '',
-		right2: '',
-	},
+	// {
+	// 	name: '제주',
+	// 	image: '/region/region-jeju.png',
+	// 	link: 'jeju',
+	// 	author: `miram Oh`,
+	// 	right1: '',
+	// 	right2: '',
+	// },
 	{
 		name: '경기',
 		image: '/region/region-gyeonggi.jpg',
@@ -178,7 +181,18 @@ export interface RegionListNavProps {
 	handleRegionOpen: () => void;
 	handleOptionOpen: () => void;
 	totalElements?: number;
+	refetch?: () => void;
+	searchParams: URLSearchParams;
+	handleChangeParams: (order: OrderEnum) => void;
 }
+
+export type RegionListNavSkeletonProps = Pick<
+	RegionListNavProps,
+	| 'handleRegionOpen'
+	| 'handleOptionOpen'
+	| 'searchParams'
+	| 'handleChangeParams'
+>;
 
 export enum CapacityAction {
 	COUNT_UP = 'ADD_STUDENT',
@@ -188,9 +202,24 @@ export enum CapacityAction {
 export type RegionProdOptionModalProps = ModalProps & {
 	handleDateOpen: () => void;
 	handleCapaOpen: () => void;
+	searchParams: URLSearchParams;
+	setSearchParams: SetURLSearchParams;
 };
 
 export interface RegionInnerProps {
 	triggerRef: (node?: Element | null | undefined) => void;
-	data?: InfiniteData<AccommodationsRoot>;
+	data?: InfiniteData<AccommodationsRoot | undefined>;
+	isFetchingNextPage: boolean;
+}
+
+export enum RegionTitles {
+	SEOUL = 'SEOUL',
+	BUSAN = 'BUSAN',
+	GYEONGGI = 'GYEONGGI',
+	INCHEON = 'INCHEON',
+	GANGWON = 'GANGWON',
+	GYEONGSANG = 'GYEONGSANG',
+	JEOLLA = 'JEOLLA',
+	CHUNGCHEONG = 'CHUNGCHEONG',
+	// JEJU = 'JEJU',
 }

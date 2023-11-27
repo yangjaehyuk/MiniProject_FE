@@ -5,11 +5,13 @@ import CartList from 'components/cart/CartList';
 import CartBottom from 'components/cart/CartBottom';
 import { useQueryMainRegion } from 'hooks/cart/useQueryCart';
 import { dataCartItem, CartItem } from 'types/Cart.type';
-import { deleteCartItem } from 'apis/cartApi';
+import { deleteCartItem, allDeleteItem } from 'apis/cartAPI';
+import useScrollToShow from 'hooks/common/handleScroll';
 
 const Cart = () => {
 	const { data, isLoading } = useQueryMainRegion();
 
+	const scroll = useScrollToShow(false, 200);
 	const navigate = useNavigate();
 
 	// 데이터 숙소 아이템
@@ -82,10 +84,25 @@ const Cart = () => {
 	// 개별 삭제 버튼
 	const handleDeleteItem = async (itemId: string) => {
 		const res = await deleteCartItem(itemId);
-		const updatedCartItems = dataCartItems.filter((item) => item.id !== itemId);
-		setDataCartItems(updatedCartItems);
+		if (res.success) {
+			const updatedDataItems = dataCartItems.filter(
+				(item) => item.id !== itemId,
+			);
+			setDataCartItems(updatedDataItems);
+			// 선택된 item
+			const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
+			setCartItems(updatedCartItems);
+		}
 	};
 
+	// 전체 삭제 버튼
+	const AllDeleteItem = async () => {
+		const res = await allDeleteItem();
+		if (res.success) {
+			setDataCartItems([]);
+			setCartItems([]);
+		}
+	};
 	console.log('cartItems 선택된 ', cartItems);
 	console.log('dataCartItems', dataCartItems);
 	console.log('시작시 전부 넣음cartItems', cartItems);
@@ -125,7 +142,14 @@ const Cart = () => {
 						/>
 						<div className="ml-2 text-sm">전체선택</div>
 					</div>
-					<div className="text-sm text-blue">전체 삭제</div>
+					<div
+						className="text-sm text-blue"
+						onClick={() => {
+							AllDeleteItem();
+						}}
+					>
+						전체 삭제
+					</div>
 				</div>
 			</div>
 			<CartList

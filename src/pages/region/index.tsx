@@ -1,14 +1,19 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useCallback, useEffect, useState } from 'react';
 import RegionHeader from 'components/region/RegionHeader';
 import CategoryRegionModal from 'components/category/CategorySelcRegion';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import RegionProdOptionModal from 'components/region/RegionProdOptionModal';
 import RegionProdCapacityModal from 'components/region/RegionProdCapacityModal';
 import CalendarModal from 'components/common/CalendarModal';
 import RegionInner from 'components/region/RegionInner';
 import RegionInnerSkeleton from 'components/region/skeleton/RegionInnerSkeleton';
+import CriticalErrorBoundary from 'components/common/CriticalErrorBoundary';
+import RetryErrorBoundary from 'components/common/RetryErrorBoundary';
+import regionCheckRouter from 'components/region/regionCheckRouter';
+import { OrderEnum } from 'recoil/atoms/orderAtom';
 
 function Region() {
+	const [searchParams, setSearchParams] = useSearchParams();
 	const { region } = useParams();
 	const [regionOpen, setRegionOpen] = useState(false);
 	const [optionOpen, setOptionOpen] = useState(false);
@@ -28,6 +33,15 @@ function Region() {
 		setCapacityOpen((prev) => !prev);
 	};
 
+	const handleChangeParams = useCallback(
+		(order: OrderEnum) => {
+			const newSearchParams = searchParams;
+			newSearchParams.set('order', order);
+			setSearchParams(newSearchParams);
+		},
+		[searchParams],
+	);
+
 	useEffect(() => {
 		// console.log('region changed to:', region);
 		setRegionOpen(false);
@@ -37,27 +51,37 @@ function Region() {
 	return (
 		<main className="">
 			<RegionHeader />
-			<Suspense
-				fallback={
-					<RegionInnerSkeleton
-						handleRegionOpen={handleRegionOpen}
-						handleOptionOpen={handleOptionOpen}
-					/>
-				}
-			>
-				<RegionInner
-					handleRegionOpen={handleRegionOpen}
-					handleOptionOpen={handleOptionOpen}
-				/>
-			</Suspense>
+			<CriticalErrorBoundary>
+				<RetryErrorBoundary>
+					<Suspense
+						fallback={
+							<RegionInnerSkeleton
+								handleRegionOpen={handleRegionOpen}
+								handleOptionOpen={handleOptionOpen}
+								searchParams={searchParams}
+								handleChangeParams={handleChangeParams}
+							/>
+						}
+					>
+						<RegionInner
+							handleRegionOpen={handleRegionOpen}
+							handleOptionOpen={handleOptionOpen}
+							searchParams={searchParams}
+							handleChangeParams={handleChangeParams}
+						/>
+					</Suspense>
+				</RetryErrorBoundary>
+			</CriticalErrorBoundary>
 			<CategoryRegionModal isOpen={regionOpen} handleOpen={handleRegionOpen} />
 			<RegionProdOptionModal
 				isOpen={optionOpen}
 				handleOpen={handleOptionOpen}
 				handleCapaOpen={handleCapacityOpen}
 				handleDateOpen={handleDateOpen}
+				searchParams={searchParams}
+				setSearchParams={setSearchParams}
 			/>
-			{dateOpen && <CalendarModal handleModal={handleDateOpen} />}
+			{dateOpen && <CalendarModal isOpen={dateOpen} handleOpen={handleDateOpen} />}
 			<RegionProdCapacityModal
 				isOpen={capacityOpen}
 				handleOpen={handleCapacityOpen}
@@ -66,4 +90,4 @@ function Region() {
 	);
 }
 
-export default Region;
+export default regionCheckRouter(Region);

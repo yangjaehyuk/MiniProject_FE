@@ -9,18 +9,28 @@ import styles from './Region.module.css';
 function RegionInner({
 	handleOptionOpen,
 	handleRegionOpen,
+	searchParams,
+	handleChangeParams,
 }: RegionListNavProps) {
 	const { ref, inView } = useInView();
-	const data = useQueryRegion(inView);
+	const { data, isFetchingNextPage, refetch } = useQueryRegion(inView);
 
+	if (!data?.pages[0]) return null;
 	return (
 		<div className={styles.regionInner}>
 			<RegionListNav
 				handleRegionOpen={handleRegionOpen}
 				handleOptionOpen={handleOptionOpen}
 				totalElements={data?.pages[0].data.totalElements}
+				refetch={refetch}
+				searchParams={searchParams}
+				handleChangeParams={handleChangeParams}
 			/>
-			<RegionItems triggerRef={ref} data={data} />
+			<RegionItems
+				triggerRef={ref}
+				data={data}
+				isFetchingNextPage={isFetchingNextPage}
+			/>
 		</div>
 	);
 }

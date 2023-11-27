@@ -1,18 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Header from 'components/login/Header';
 import Inner from 'components/login/Inner';
-import { getCookie } from 'utils';
-import { useNavigate } from 'react-router-dom';
-import swal from 'sweetalert';
+import { alreadyLogin } from 'hooks/common/isAcessToken';
 const Login = () => {
-	const navigate = useNavigate();
-	useEffect(() => {
-		const accessToken = getCookie('accessToken');
-		if (accessToken) {
-			swal({ title: '로그인 상태입니다.', icon: 'warning' });
-			navigate('/');
-		}
-	}, []);
+	alreadyLogin();
 	return (
 		<div className="min-h-screen bg-bgGray">
 			<Header />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
 	Button,
 	Menu,
@@ -8,21 +8,52 @@ import {
 } from '@material-tailwind/react';
 import { DateRange, KeyboardArrowDown, LocationOn } from '@mui/icons-material';
 import { RegionListNavProps } from 'types/Region.type';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { formatMonthDate } from 'utils/formatDate';
 import { capacityState } from 'recoil/atoms/capacityAtom';
+import { useParams } from 'react-router-dom';
+import { regionToKor } from 'utils/switchNameToKor';
+import { OrderEnum, orderState, orderTextState } from 'recoil/atoms/orderAtom';
+import isEnumValue from 'utils/isEnumValue';
 
 function RegionListNav({
 	handleRegionOpen,
 	handleOptionOpen,
 	totalElements,
+	refetch,
+	searchParams,
+	handleChangeParams,
 }: RegionListNavProps) {
+	const { region } = useParams();
 	const startDate = useRecoilValue(checkInDateState);
 	const endDate = useRecoilValue(checkOutDateState);
 	const capacity = useRecoilValue(capacityState);
+	const setOrder = useSetRecoilState(orderState);
+	const orderText = useRecoilValue(orderTextState);
+	const orderParam = searchParams.get('order');
+
+	// const handleChangeParams = useCallback(
+	// 	(order: OrderEnum) => {
+	// 		searchParams?.set('order', order);
+	// 		console.log(searchParams);
+	// 		if (setSearchParams) setSearchParams(searchParams);
+	// 	},
+	// 	[orderParam],
+	// );
+
+	useEffect(() => {
+		if (isEnumValue(OrderEnum, orderParam)) {
+			setOrder(orderParam);
+		}
+		if (!orderParam) {
+			setOrder(OrderEnum.STAR_DESC);
+		}
+		if (refetch) refetch();
+	}, [searchParams]);
 
 	const formattingDate = formatMonthDate(startDate, endDate);
+
 	return (
 		<div>
 			<div className="flex gap-3 justify-center py-6">
@@ -33,7 +64,9 @@ function RegionListNav({
 					onClick={handleRegionOpen}
 				>
 					<LocationOn />
-					<span className="text-content lg:text-title font-normal">서울</span>
+					<span className="text-content lg:text-title font-normal">
+						{regionToKor(region ?? '')}
+					</span>
 				</Button>
 				<Button
 					variant="outlined"
@@ -55,14 +88,22 @@ function RegionListNav({
 				<Menu>
 					<MenuHandler>
 						<Button size="sm" variant="text">
-							<span className="text-sm">평점 높은 순</span>{' '}
+							<span className="text-sm">{orderText}</span>{' '}
 							<KeyboardArrowDown fontSize="small" />
 						</Button>
 					</MenuHandler>
 					<MenuList>
-						<MenuItem>평점 높은 순</MenuItem>
-						<MenuItem>예약가 높은 순</MenuItem>
-						<MenuItem>예약가 낮은 순</MenuItem>
+						<MenuItem onClick={() => handleChangeParams?.(OrderEnum.STAR_DESC)}>
+							평점 높은 순
+						</MenuItem>
+						<MenuItem
+							onClick={() => handleChangeParams?.(OrderEnum.PRICE_DESC)}
+						>
+							예약가 높은 순
+						</MenuItem>
+						<MenuItem onClick={() => handleChangeParams?.(OrderEnum.PRICE_ASC)}>
+							예약가 낮은 순
+						</MenuItem>
 					</MenuList>
 				</Menu>
 			</div>

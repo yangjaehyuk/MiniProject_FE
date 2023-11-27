@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Header from '../../components/main/Header';
 import hotel from '../../assets/images/hotelImg.svg';
 import pension from '../../assets/images/pensionImg.svg';
@@ -28,6 +28,9 @@ import { getSeoulDate } from '../../hooks/main/useQueryMainRegion';
 import MainRegionList from 'components/main/MainRegionList';
 // import { useQuery } from 'react-query';
 
+import TopBtn from 'components/common/TopBtn';
+import useScrollToShow from 'hooks/common/handleScroll';
+
 const main = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -40,6 +43,8 @@ const main = () => {
 	const handleDrawerClose = useCallback(() => {
 		setIsOpen(false);
 	}, []);
+
+	const show = useScrollToShow(false, 200);
 
 	// useEffect(() => {
 	// 	const fetchData = async () => {
@@ -186,6 +191,8 @@ const main = () => {
 			</div>
 			{/* 사이드바 추가 */}
 			<Sider isOpen={isOpen} handleClose={handleDrawerClose} />
+			{show && <TopBtn show={show} />}
+
 			<MainFooter></MainFooter>
 		</div>
 	);
