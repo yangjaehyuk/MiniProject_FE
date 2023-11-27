@@ -95,7 +95,7 @@ export default function RoomDetail() {
 						<span className="text-sm text-black font-bold">숙박</span>
 						<p className="text-sm text-textGray py-1">
 							체크인 <span className="font-semibold">15:00</span> ~ 체크아웃{' '}
-							<span className="font-semibold">15:00</span>
+							<span className="font-semibold">11:00</span>
 						</p>
 					</div>
 					<div className="flex flex-col items-end">

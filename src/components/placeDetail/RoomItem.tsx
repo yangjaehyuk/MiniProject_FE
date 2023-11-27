@@ -1,13 +1,10 @@
 import React from 'react';
-import room from '../../assets/images/room.jpg';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import ImageSwiper from 'components/common/ImageSwiper';
-import { ImageItem } from 'types/ImageItem';
 import RoomImageSwiper from 'components/common/RoomImageSwiper';
-import { RoomDetailInfos, RoomProps } from 'types/Place';
+import { RoomProps } from 'types/Place';
 import { useRecoilValue } from 'recoil';
 import { capacityState } from 'recoil/atoms/capacityAtom';
 import { useNavigate, useParams } from 'react-router';
@@ -52,7 +49,7 @@ export default function RoomItem({ roomItem, name }: RoomProps) {
 				<div>
 					<p className="text-sm text-textGray py-1">
 						체크인 <span className="font-semibold">15:00</span> ~ 체크아웃{' '}
-						<span className="font-semibold">15:00</span>
+						<span className="font-semibold">11:00</span>
 					</p>
 				</div>
 				<div className="flex flex-col items-end">
