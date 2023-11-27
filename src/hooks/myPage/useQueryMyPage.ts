@@ -25,7 +25,7 @@ const getMyPageData = async (i: number) => {
 
 const useQueryMyPage = (i: number) => {
 	const { data } = useQuery([`myPage/${i}`], () => getMyPageData(i), {
-		staleTime: Infinity,
+		staleTime: 0,
 	});
 	return { data };
 };

@@ -51,6 +51,7 @@ const Inner = () => {
 	}, []);
 
 	const { data } = useQueryMyPage(now);
+	console.log(data);
 
 	if (!data) return <CategorySkeleton />;
 	return (
@@ -107,6 +108,7 @@ const Inner = () => {
 				onClose={handleDateModalClose}
 			></DateModal>
 			{show && <TopBtn show={show} />}
+
 			{data?.length > 0 && (
 				<div className="pr-6 pl-6">
 					{data?.map((order, index) => (
