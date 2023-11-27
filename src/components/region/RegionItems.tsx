@@ -1,8 +1,13 @@
 import React from 'react';
 import RegionItem from './RegionItem';
 import { RegionInnerProps } from 'types/Region.type';
+import RegionItemSkeleton from './skeleton/RegionItemSkeleton';
 
-function RegionItems({ triggerRef, data }: RegionInnerProps) {
+function RegionItems({
+	triggerRef,
+	data,
+	isFetchingNextPage,
+}: RegionInnerProps) {
 	return (
 		<>
 			<div className="py-4">
@@ -14,6 +19,10 @@ function RegionItems({ triggerRef, data }: RegionInnerProps) {
 							))}
 						</React.Fragment>
 					))}
+					{isFetchingNextPage &&
+						new Array(4)
+							.fill(0)
+							.map((_, index) => <RegionItemSkeleton key={index} />)}
 				</div>
 			</div>
 			<div ref={triggerRef}>&nbsp;</div>

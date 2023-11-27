@@ -13,16 +13,28 @@ export interface PlaceDetailInfo {
 
 }
 
-export interface RoomDetailInfo {
+export interface RoomDetailInfos {
     id : number;
     name : string;
     price : number;
     capacity : number;
     images : string[];
     stock : number;
+    status : string;
 
 }
 
+export interface RoomDetailInfo {
+    id : number;
+    name : string;
+    price : number;
+    capacity : number;
+    introduction : string;
+    services : string[];
+    images : string[];
+}
+
 export interface RoomProps {
-    roomItem : RoomDetailInfo;
+    roomItem : RoomDetailInfos;
+    name : string | undefined;
 }

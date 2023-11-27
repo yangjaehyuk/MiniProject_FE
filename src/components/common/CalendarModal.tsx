@@ -7,11 +7,10 @@ import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { formatFullDateRange } from 'utils/formatDate';
 import { Dialog, DialogBody, DialogHeader } from '@material-tailwind/react';
 import './CalendarModal.module.css';
-interface CalendarModalProps {
-	handleModal: () => void;
-}
+import { ModalProps } from 'types/Category.type';
 
-export default function CalendarModal({ handleModal }: CalendarModalProps) {
+
+export default function CalendarModal({ isOpen, handleOpen }: ModalProps) {
 	const [checkInDate, setCheckInDate] = useRecoilState(checkInDateState);
 	const [checkOutDate, setCheckoutDate] = useRecoilState(checkOutDateState);
 
@@ -31,7 +30,7 @@ export default function CalendarModal({ handleModal }: CalendarModalProps) {
 	};
 
 	const handleBtnClick = () => {
-		handleModal();
+		handleOpen();
 		if (startDay !== null && endDay !== null) {
 			setCheckInDate(startDay);
 			setCheckoutDate(endDay);
@@ -58,8 +57,8 @@ export default function CalendarModal({ handleModal }: CalendarModalProps) {
 
 	return (
 		<Dialog
-			open={true}
-			handler={handleModal}
+			open={isOpen}
+			handler={handleOpen}
 			size="xxl"
 			className="bg-bgGray font-body"
 		>
@@ -67,7 +66,7 @@ export default function CalendarModal({ handleModal }: CalendarModalProps) {
 				<div className="fixed top-0 left-1/2 transform translate-x-[-50%] w-full bg-white shadow-md flex justify-center">
 					<div className="w-[768px] h-[92px] flex flex-col  justify-evenly ">
 						<div className="flex justify-between items-center px-5">
-							<CloseIcon onClick={handleModal} />
+							<CloseIcon onClick={handleOpen} />
 							<span className="!text-title text-black font-bold">
 								날짜 선택
 							</span>
@@ -112,6 +111,7 @@ export default function CalendarModal({ handleModal }: CalendarModalProps) {
 					endDate={endDay}
 					selectsRange
 					inline
+					minDate={new Date()}
 				/>
 			</DialogBody>
 			{/* 푸터 */}
