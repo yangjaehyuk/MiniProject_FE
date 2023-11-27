@@ -27,8 +27,11 @@ function App() {
 				<Route path="/signup" element={<SignUp />} />
 				<Route path="/mypage" element={<MyPage />} />
 				<Route path="/places/:accommodationdId" element={<PlaceDetail />} />
-				<Route path="/places/:accommodationdId/:roomId" element={<RoomDetail />} />
-				<Route path="/404" element={<NotFound />} />
+				<Route
+					path="/places/:accommodationdId/:roomId"
+					element={<RoomDetail />}
+				/>
+        <Route path="/404" element={<NotFound />} />
 				<Route path="*" element={<Navigate to="/404" />} />
 			</Route>
 			<Route element={<SubLayout />}>
