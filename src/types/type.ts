@@ -13,4 +13,3 @@ export type ReservationInfo = {
 	optionalCheckbox2?: boolean;
 	allAgreementCheckbox: boolean;
 };
-
