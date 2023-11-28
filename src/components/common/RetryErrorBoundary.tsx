@@ -10,13 +10,15 @@ const RetryErrorBoundary = ({ children }: PropsWithChildren<unknown>) => {
 	return (
 		<ErrorBoundary
 			onReset={reset}
-			fallbackRender={({ resetErrorBoundary }) => (
+			fallbackRender={({ error, resetErrorBoundary }) => (
 				<div className="pt-[100px] text-center">
 					<Typography variant="h3" className="mb-6">
 						죄송합니다.
 					</Typography>
 					<Typography variant="paragraph" className="mb-3">
-						네트워크에 문제가 있어 정보를 불러올 수 없습니다. <br />
+						에러 발생이유: {error.response.data.error.message}
+					</Typography>
+					<Typography variant="paragraph" className="mb-3">
 						서비스에 불편을 드려 죄송합니다.
 					</Typography>
 					<Button

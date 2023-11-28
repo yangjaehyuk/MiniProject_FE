@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
 	Button,
 	Menu,
@@ -8,7 +8,7 @@ import {
 } from '@material-tailwind/react';
 import { DateRange, KeyboardArrowDown, LocationOn } from '@mui/icons-material';
 import { RegionListNavProps } from 'types/Region.type';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { formatMonthDate } from 'utils/formatDate';
 import { capacityState } from 'recoil/atoms/capacityAtom';
@@ -26,12 +26,14 @@ function RegionListNav({
 	handleChangeParams,
 }: RegionListNavProps) {
 	const { region } = useParams();
-	const startDate = useRecoilValue(checkInDateState);
-	const endDate = useRecoilValue(checkOutDateState);
+	const [startDate, setStartDate] = useRecoilState(checkInDateState);
+	const [endDate, setEndDate] = useRecoilState(checkOutDateState);
 	const capacity = useRecoilValue(capacityState);
 	const setOrder = useSetRecoilState(orderState);
 	const orderText = useRecoilValue(orderTextState);
 	const orderParam = searchParams.get('order');
+	const fromParam = searchParams.get('from');
+	const toParam = searchParams.get('to');
 
 	// const handleChangeParams = useCallback(
 	// 	(order: OrderEnum) => {
@@ -49,6 +51,8 @@ function RegionListNav({
 		if (!orderParam) {
 			setOrder(OrderEnum.STAR_DESC);
 		}
+		if (fromParam) setStartDate(new Date(fromParam));
+		if (toParam) setEndDate(new Date(toParam));
 		if (refetch) refetch();
 	}, [searchParams]);
 
