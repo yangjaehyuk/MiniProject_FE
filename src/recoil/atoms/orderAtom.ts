@@ -31,6 +31,12 @@ function orderToKor(key: OrderEnum) {
 }
 
 export const orderItemState = atom<OrderItem | null>({
-	key : 'orderItemState',
-	default : null,
-})
+	key: 'orderItemState',
+	default: null,
+});
+
+// 주문결과 id
+export const orderIdState = atom({
+	key: 'orderIdState',
+	default: 0,
+});

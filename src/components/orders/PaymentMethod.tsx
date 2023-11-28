@@ -35,7 +35,7 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ handlePayment }) => {
 			<div className="font-semibold text-content pb-2 pb-5">결제 수단</div>
 			<div className="flex flex-col ">
 				<button
-					onClick={() => handlePaymentClick('카카오페이')}
+					onClick={() => handlePaymentClick('KAKAO_PAY')}
 					type="button"
 					className=" flex items-center justify-center border-solid border-[1px] h-[48px] border-gray rounded-sm "
 				>
@@ -44,73 +44,73 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ handlePayment }) => {
 				<div className="flex justify-between items-center ">
 					<div className="flex flex-col w-1/2 ">
 						<button
-							onClick={() => handlePaymentClick('네이버페이')}
+							onClick={() => handlePaymentClick('NAVER_PAY')}
 							type="button"
 							className=" mt-3 flex items-center justify-center mr-3  border-solid border-[1px] h-[48px] border-gray rounded-sm "
 						>
-							<img src={Naver} className="h-6" alt="Kakao Logo" />
+							<img src={Naver} className="h-6" alt="NAVER_PAY" />
 						</button>
 
 						<button
-							onClick={() => handlePaymentClick('카드')}
+							onClick={() => handlePaymentClick('CARD')}
 							type="button"
 							className=" mt-3 flex items-center justify-center mr-3 border-solid border-[1px] h-[48px] border-gray rounded-sm "
 						>
 							<div className="text-sm"> 카드 </div>
 						</button>
 						<button
-							onClick={() => handlePaymentClick('페이코')}
+							onClick={() => handlePaymentClick('PAYCO')}
 							type="button"
 							className="mt-3 flex items-center justify-center mr-3 border-solid border-[1px] h-[48px] border-gray rounded-sm "
 						>
-							<img src={Payco} className="h-5" alt="Kakao Logo" />
+							<img src={Payco} className="h-5" alt="PAYCO" />
 						</button>
 						<button
-							onClick={() => handlePaymentClick('스마일페이')}
+							onClick={() => handlePaymentClick('SMILE_PAY')}
 							type="button"
 							className="mt-3 flex items-center justify-center mr-3 border-solid border-[1px] h-[48px] border-gray rounded-sm "
 						>
-							<img src={Smile} className="h-6" alt="Kakao Logo" />
+							<img src={Smile} className="h-6" alt="SMILE_PAY" />
 						</button>
 						<button
-							onClick={() => handlePaymentClick('L.PAY')}
+							onClick={() => handlePaymentClick('L_PAY')}
 							type="button"
 							className="mt-3 flex items-center justify-center mr-3 border-solid border-[1px] h-[48px] border-gray rounded-sm "
 						>
-							<img src={Lpay} className="h-5" alt="Kakao Logo" />
+							<img src={Lpay} className="h-5" alt="L_PAY" />
 						</button>
 					</div>
 					<div className="flex flex-col w-1/2">
 						<button
-							onClick={() => handlePaymentClick('토스페이')}
+							onClick={() => handlePaymentClick('TOSS_PAY')}
 							type="button"
 							className="mt-3 flex items-center justify-center ml-3 border-solid border-[1px] h-[48px] border-gray rounded-sm "
 						>
-							<img src={Toss} className="h-5" alt="Kakao Logo" />
+							<img src={Toss} className="h-5" alt="TOSS_PAY" />
 						</button>
 						<button
-							onClick={() => handlePaymentClick('KB 페이')}
+							onClick={() => handlePaymentClick('KB_PAY')}
 							type="button"
 							className="mt-3 flex items-center justify-center ml-3 border-solid border-[1px] h-[48px] border-gray rounded-sm "
 						>
-							<img src={KB} className="h-6" alt="Kakao Logo" />
+							<img src={KB} className="h-6" alt="KB_PAY" />
 						</button>
 						<button
-							onClick={() => handlePaymentClick('휴대폰')}
+							onClick={() => handlePaymentClick('PHONE')}
 							type="button"
 							className="mt-3 flex items-center justify-center ml-3 border-solid border-[1px] h-[48px] border-gray rounded-sm "
 						>
 							<div className="text-sm"> 휴대폰 </div>
 						</button>
 						<button
-							onClick={() => handlePaymentClick('SSG페이')}
+							onClick={() => handlePaymentClick('SSG_PAY')}
 							type="button"
 							className="mt-3 flex items-center justify-center ml-3 border-solid border-[1px] h-[48px] border-gray rounded-sm "
 						>
-							<img src={Ssg} className="h-5" alt="Kakao Logo" />
+							<img src={Ssg} className="h-5" alt="SSG_PAY" />
 						</button>
 						<button
-							onClick={() => handlePaymentClick('실시간계좌이체')}
+							onClick={() => handlePaymentClick('ACCOUNT')}
 							type="button"
 							className="mt-3 flex items-center justify-center ml-3 border-solid border-[1px] h-[48px] border-gray rounded-sm "
 						>
