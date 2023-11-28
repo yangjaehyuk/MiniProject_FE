@@ -1,5 +1,5 @@
 // import Header from 'components/placeDetail/Header';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CommonHeader from 'components/common/CommonHeader';
 import banner from '../../assets/images/banner.png';
 import StarIcon from '@mui/icons-material/Star';
@@ -112,7 +112,18 @@ export default function PlaceDetail() {
 					console.error('Error copying text: ', err);
 				});
 		}
-	};
+		
+	}
+
+	const mapRef = useRef<HTMLDivElement | null>(null); // KakaoMap 컴포넌트에 대한 참조 생성
+
+    const handleAddressClick = () => {
+        // KakaoMap 컴포넌트로 스크롤
+        mapRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+
+	
 
 	if (isLoading) {
 		return <Loading />;
@@ -140,7 +151,7 @@ export default function PlaceDetail() {
 					</div>
 					<div className="flex items-center pt-[6px] pb-[2px]">
 						<LocationOnIcon sx={{ fill: '#0152cc' }} fontSize="small" />
-						<span className="text-blue font-bold text-content">
+						<span className="text-blue font-bold text-content cursor-pointer" onClick={handleAddressClick}>
 							{accommodationInfo?.location.address}
 						</span>
 						<KeyboardArrowRightIcon sx={{ fill: '#0152cc' }} />
@@ -190,7 +201,7 @@ export default function PlaceDetail() {
 						),
 					)}
 				</div>
-				<div className="pt-5">
+				<div className="pt-5" ref={mapRef}>
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold">위치/교통</p>
 					</div>

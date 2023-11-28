@@ -1,8 +1,10 @@
 import { useQuery } from 'react-query';
 import Instance from 'apis/axios';
+import { CartResponse } from 'types/Cart.type';
+import { AxiosResponse } from 'axios';
 
-export const getCart = async () => {
-	const res = await Instance.get(`carts`);
+export const getCart = async (): Promise<CartResponse> => {
+	const res: AxiosResponse<CartResponse> = await Instance.get(`carts`);
 	return res.data;
 };
 
