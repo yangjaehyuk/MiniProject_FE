@@ -24,10 +24,14 @@ const getMyPageData = async (i: number) => {
 };
 
 const useQueryMyPage = (i: number) => {
-	const { data } = useQuery([`myPage/${i}`], () => getMyPageData(i), {
-		staleTime: 0,
-	});
-	return { data };
+	const { data, isLoading } = useQuery(
+		[`myPage/${i}`],
+		() => getMyPageData(i),
+		{
+			staleTime: 60000,
+		},
+	);
+	return { data, isLoading };
 };
 
 export default useQueryMyPage;
