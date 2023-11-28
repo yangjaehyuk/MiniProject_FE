@@ -32,7 +32,7 @@ export const formatFullDateRange = (
 	} else return `${formatDate(startDate)} 체크인 검색`;
 };
 
-const formatDateWithoutYear = (date: Date): string => {
+export const formatDateWithoutYear = (date: Date): string => {
 	//월 일 박수 포함
 	const options: Intl.DateTimeFormatOptions = {
 		month: '2-digit',
