@@ -15,13 +15,9 @@ const UserInfo = () => {
 	const reservationName = watch('reservationName');
 	const reservationNumber = watch('reservationNumber');
 
-	console.log(reservationName);
-
 	const handleCheckboxChange = () => {
 		// const yourCheckboxFieldValue = watch('yourCheckboxFieldName');
 		setIsCheckAll((prev) => !prev);
-
-		console.log(isCheckAll);
 
 		if (isCheckAll) {
 			setValue('userName', reservationName);
@@ -33,10 +29,6 @@ const UserInfo = () => {
 	};
 
 	const isReservationInfoFilled = reservationName && reservationNumber;
-
-	console.log('34:', isReservationInfoFilled);
-	console.log('35:', !isReservationInfoFilled);
-	console.log('36:', !!isReservationInfoFilled);
 
 	return (
 		<>
@@ -50,11 +42,11 @@ const UserInfo = () => {
 						size="md"
 						{...register('reservationName', {
 							required: true,
-							pattern: /^[가-힣a-zA-Z]+$/,
+							pattern: /^[a-zA-Z가-힣]{2,16}$/,
 						})}
 						crossOrigin={'anonymous'}
 					/>
-					<div className="text-red-500 text-[10px] mt-2  ">
+					<div className="text-red text-[10px] mt-2  ">
 						{errors?.reservationName?.type === 'pattern' && 'required' && (
 							<div>예약자 이름은 한글, 영문만 입력 가능합니다.</div>
 						)}
@@ -71,7 +63,7 @@ const UserInfo = () => {
 							crossOrigin={'anonymous'}
 						/>
 					</div>
-					<div className="text-red-500 text-[10px] mt-2  ">
+					<div className="text text-[10px] mt-2  ">
 						{errors?.reservationNumber?.type === 'pattern' && 'required' && (
 							<div>010-1234-1234 형식으로 입력해주세요.</div>
 						)}
@@ -101,11 +93,11 @@ const UserInfo = () => {
 						size="md"
 						{...register('userName', {
 							required: true,
-							pattern: /^[가-힣a-zA-Z]+$/,
+							pattern: /^[a-zA-Z가-힣]{2,16}$/,
 						})}
 						crossOrigin={'anonymous'}
 					/>
-					<div className="text-red-500 text-[10px] mt-2  h-[10px]">
+					<div className="text-red text-[10px] mt-2  h-[10px]">
 						{errors?.userName?.type === 'pattern' && 'required' && (
 							<div>예약자 이름은 한글, 영문만 입력 가능합니다.</div>
 						)}
@@ -122,7 +114,7 @@ const UserInfo = () => {
 							crossOrigin={'anonymous'}
 						/>
 					</div>
-					<div className="text-red-500 text-[10px] mt-2  ">
+					<div className="text-red text-[10px] mt-2  ">
 						{errors?.userNumber?.type === 'pattern' && 'required' && (
 							<div>010-1234-1234 형식으로 입력해주세요.</div>
 						)}

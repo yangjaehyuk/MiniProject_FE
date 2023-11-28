@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { SERVER_URL } from './constants';
 import { getCookie } from 'utils';
+import { myOrder } from 'types/myPage.type';
 
 const instance = axios.create({
 	baseURL: SERVER_URL,
@@ -49,7 +50,7 @@ export const getUserInfo = async () => {
 };
 
 export const getUserOrderInfo = async () => {
-	const res = await instance.get('members/orders');
+	const res = await instance.get<myOrder>('members/orders');
 	return res.data;
 };
 export default instance;

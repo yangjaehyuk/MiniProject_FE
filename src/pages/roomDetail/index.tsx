@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ShareIcon from '@mui/icons-material/Share';
 import CheckIcon from '@mui/icons-material/Check';
-import room from '../../assets/images/room.jpg';
 import Header from 'components/roomDetail/Header';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
@@ -13,35 +12,60 @@ import { useLocation, useParams } from 'react-router';
 import accommodationAPI from 'apis/accommodationAPI';
 import { RoomDetailInfo } from 'types/Place';
 import { formatNumberWithCommas } from 'utils/numberComma';
+import { useRecoilValue } from 'recoil';
+import { checkInDateState } from 'recoil/atoms/dateAtom';
+import { formatDateWithoutYear } from 'utils/formatDate';
 
 export default function RoomDetail() {
-
 	const { roomId } = useParams();
-	const [ roomInfo, setRoomInfo ] = useState<RoomDetailInfo>();
+	const [roomInfo, setRoomInfo] = useState<RoomDetailInfo>();
 	const location = useLocation();
 	const queryParams = new URLSearchParams(location.search);
 	const name = queryParams.get('name');
+	const status = queryParams.get('status');
+	const checkInDate = useRecoilValue(checkInDateState);
+	const [freeCancle, setFreeCancle] = useState(false);
 
 	const getRoomDetail = async () => {
-		if(roomId !== undefined) {
+		if (roomId !== undefined) {
 			try {
 				const id = +roomId;
 				const response = await accommodationAPI.getRoomDetail(id);
 				setRoomInfo(response.data.data);
-			}
-			catch (error) {
-				console.error('Failed to load Room detail info',error);
-
+			} catch (error) {
+				console.error('Failed to load Room detail info', error);
 			}
 		}
-	}
+	};
 
-	useEffect(()=>{
+	useEffect(() => {
 		getRoomDetail();
-	},[roomId]);
+	}, [roomId]);
 
 	const formattedPrice = formatNumberWithCommas(roomInfo?.price);
 
+	const isFreeCancle = () => {
+		const date = new Date(checkInDate);
+		const today = new Date();
+		return (
+			date.getFullYear() !== today.getFullYear() ||
+			date.getMonth() !== today.getMonth() ||
+			date.getDate() !== today.getDate()
+		);
+	};
+
+	const getDayBeforCheckIn = () => {
+		const date = new Date(checkInDate);
+		date.setDate(date.getDate() - 1);
+
+		return date;
+	};
+
+	useEffect(() => {
+		setFreeCancle(isFreeCancle());
+	}, [checkInDate]);
+
+	const cancleDate = formatDateWithoutYear(getDayBeforCheckIn());
 
 	return (
 		<div className="justify-center m-auto text-content text-black">
@@ -61,8 +85,7 @@ export default function RoomDetail() {
 
 					<div className="mt-[13px]">
 						<p className="text-sm">
-							{name}{' '}
-							<KeyboardArrowRightIcon sx={{ fontSize: '14px' }} />
+							{name} <KeyboardArrowRightIcon sx={{ fontSize: '14px' }} />
 						</p>
 					</div>
 				</div>
@@ -82,7 +105,7 @@ export default function RoomDetail() {
 						<p className="text-content font-bold">주요 서비스 및 편의시설</p>
 					</div>
 					<div className="grid grid-cols-4 gap-4 text-secondaryTextGray">
-						{roomInfo?.services.map((service,index) => (
+						{roomInfo?.services.map((service, index) => (
 							<div className="flex items-center " key={index}>
 								<CheckIcon sx={{ fontSize: '16px' }} />
 								<span className="pl-1">{service}</span>
@@ -100,12 +123,16 @@ export default function RoomDetail() {
 					</div>
 					<div className="flex flex-col items-end">
 						<div className="flex items-center">
-							<p className="text-title font-bold text-black">{formattedPrice}원</p>
+							<p className="text-title font-bold text-black">
+								{formattedPrice}원
+							</p>
 							<ErrorOutlineIcon sx={{ fontSize: '16px' }} />
 						</div>
 						<div className="flex items-center">
 							<p className="text-green text-sm font-bold ml-3">
-								무료취소 (12.07 (목) 17:00전까지)
+								{freeCancle
+									? `무료취소 (${cancleDate} 17:00전까지)`
+									: `취소 및 환불 불가`}
 							</p>
 							<KeyboardArrowRightIcon
 								sx={{ fill: '#008161', fontSize: '16px' }}
@@ -193,7 +220,7 @@ export default function RoomDetail() {
 					</ul>
 				</div>
 			</div>
-			<Footer />
+			<Footer formattedPrice={formattedPrice} roomInfo={roomInfo} status={status} name={name} />
 		</div>
 	);
 }

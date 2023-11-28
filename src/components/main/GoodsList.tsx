@@ -1,71 +1,62 @@
 import React from 'react';
 import star from '../../assets/images/icon-star.svg';
-import item from '../../assets/images/item.png';
+import { useQueryMainCategory } from 'hooks/main/useQueryMainRegion';
+import { Link } from 'react-router-dom';
+import CategorySwiper from 'components/category/CategorySwiper';
+import CategorySwiperSkeleton from 'components/category/skeleton/CategorySwiperSkeleton';
 
-const GoodsList = () => {
+interface GoodsListProps {
+	type: string;
+	title: string;
+}
+
+interface DataItem {
+	id: number;
+	image: string;
+	name: string;
+	price: number;
+	star: number;
+}
+
+const GoodsList: React.FC<GoodsListProps> = ({ type, title }) => {
+	const { data, isLoading } = useQueryMainCategory(type);
+
 	return (
-		<>
-			<div className="flex text-xxsm px-1 py-2 justify-between items-center">
-				<div className="flex flex-col  w-[120px] h-[250px]  ">
-					<img src={item} alt="item" width={120} />
-					<span className="text-sm my-1 "> 호텔 베르누이 서울</span>
-					<div className="flex justify-start">
-						<img src={star}></img>
-						<div className="ml-1 font-semibold">4.5</div>
-					</div>
-					<div className="flex justify-end font-semibold text-content">
-						458,500원 ~
-					</div>
-				</div>
-				<div className="flex flex-col w-[120px] h-[250px] ">
-					<img src={item} alt="item" width={120} />
-					<span className="text-sm  break-words my-1">
-						가평 호호키즈풀빌라(미온수)
-					</span>
-					<div className="flex justify-start">
-						<img src={star}></img>
-						<div className="ml-1 font-semibold">4.5</div>
-					</div>
-					<div className="flex justify-end font-semibold text-content">
-						458,500원 ~
-					</div>
-				</div>
-				<div className="flex flex-col  w-[120px] h-[250px]  ">
-					<img src={item} alt="item" width={120} />
-					<span className="text-sm my-1"> 가평 로렌시아키즈풀</span>
-					<div className="flex justify-start">
-						<img src={star}></img>
-						<div className="ml-1 font-semibold">4.5</div>
-					</div>
-					<div className="flex justify-end font-semibold text-content">
-						458,500원 ~
-					</div>
-				</div>
-				<div className="flex flex-col   w-[120px] h-[250px] ">
-					<img src={item} alt="item" width={120} />
-					<span className="text-sm my-1"> 글래드 마포</span>
-					<div className="flex justify-start">
-						<img src={star}></img>
-						<div className="ml-1 font-semibold">4.5</div>
-					</div>
-					<div className="flex justify-end font-semibold text-content">
-						458,500원 ~
-					</div>
-				</div>
-				<div className="flex flex-col  w-[120px] h-[250px]  ">
-					<img src={item} alt="item" width={120} />
-					<span className="text-sm my-1">골드리버 호텔</span>
-					<div className="flex justify-start">
-						<img src={star}></img>
-						<div className="ml-1 font-semibold">4.5</div>
-					</div>
-					<div className="flex justify-end font-semibold text-content">
-						458,500원 ~
-					</div>
-				</div>
+		<div className="py-5">
+			<div className="flex justify-between items-center mb-5">
+				<h3 className="font-semibold">{title}</h3>
+				<Link to={`/${type}`} className="text-blue font-semibold">
+					전체보기
+				</Link>
 			</div>
-		</>
+			{isLoading && <CategorySwiperSkeleton />}
+			{data && <CategorySwiper items={data.data.accommodations} />}
+		</div>
 	);
+
+	// return (
+	// 	<>
+	// 		{isLoading ? (
+	// 			<div>로딩 중</div>
+	// 		) : (
+	// 			<div className="flex text-xxsm px-1 py-2 justify-between items-center">
+	// 				{data.data.accommodations.map((item: DataItem) => (
+	// 					<div className="flex flex-col w-[120px] h-[250px]" key={item.id}>
+	// 						<img src={item.image} alt="item" width={120} />
+	// 						<span className="text-sm my-1">{item.name}</span>
+	// 						<div className="flex justify-start">
+	// 							<img src={star} alt="star" />
+	// 							<div className="ml-1 font-semibold">{item.star}</div>
+	// 						</div>
+	// 						<div className="flex justify-end font-semibold text-content">
+	// 							{item.price}원 ~
+	// 						</div>
+	// 					</div>
+	// 				))}
+	// 			</div>
+	// 		)}
+	// 	</>
+	// );
 };
 
 export default GoodsList;

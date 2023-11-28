@@ -17,7 +17,7 @@ import { signUpModalState } from 'recoil/atoms/signUpModalAtom';
 import { postLogin } from 'apis/axios';
 import swal from 'sweetalert';
 import { removeCookie, setCookie } from 'utils';
-import { categoryState, dateState } from 'recoil/atoms/myPageAtom';
+import { dateState } from 'recoil/atoms/myPageAtom';
 
 const Inner = () => {
 	const navigate = useNavigate();
@@ -28,7 +28,6 @@ const Inner = () => {
 	const [showMail, setShowMail] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [modalCheck, setModalCheck] = useRecoilState(signUpModalState);
-	const [category, setCategory] = useRecoilState(categoryState);
 	const [date, setDate] = useRecoilState(dateState);
 	useEffect(() => {
 		setModalCheck(false);
@@ -68,7 +67,6 @@ const Inner = () => {
 			try {
 				const res = await postLogin(values.mail, values.pw);
 				swal({ title: '로그인에 성공했습니다.', icon: 'success' });
-				setCategory('카테고리 전체');
 				setDate('최근 3개월');
 				const { accessToken } = res;
 				setCookie(accessToken);
@@ -77,6 +75,14 @@ const Inner = () => {
 				let errorMessage = '';
 				if (e.message === 'Request failed with status code 401') {
 					errorMessage = '이메일과 비밀번호를 확인해주세요.';
+				} else {
+					for (let i = 0; i < e.response.data.error.data.length; i++) {
+						if (e.response.data.error.data[i].field === 'email') {
+							errorMessage = '잘못된 이메일 형식입니다.';
+						} else if (e.response.data.error.data[i].field === 'password') {
+							errorMessage = '잘못된 비밀번호 형식입니다.';
+						}
+					}
 				}
 
 				swal({ title: errorMessage, icon: 'warning' });

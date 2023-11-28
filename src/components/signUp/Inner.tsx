@@ -133,10 +133,25 @@ const Inner = () => {
 				navigate('/login');
 			} catch (e: any) {
 				let errorMessage = '';
-				if (e.message === 'Request failed with status code 401') {
+				if (e.response.data.error.message === '이미 존재하는 이메일') {
 					errorMessage = '이미 가입된 이메일입니다.';
+				} else {
+					for (let i = 0; i < e.response.data.error.data.length; i++) {
+						if (
+							e.response.data.error.data[i].message ===
+							'이메일이 올바르지 않습니다.'
+						) {
+							errorMessage = '잘못된 이메일 형식입니다.';
+						} else if (
+							e.response.data.error.data[i].message ===
+							'"^[a-zA-Z가-힣]{2,16}$"와 일치해야 합니다'
+						) {
+							errorMessage = '잘못된 이름 형식입니다.';
+						} else {
+							errorMessage = '잘못된 비밀번호 형식입니다.';
+						}
+					}
 				}
-
 				swal({ title: errorMessage, icon: 'warning' });
 			}
 		},

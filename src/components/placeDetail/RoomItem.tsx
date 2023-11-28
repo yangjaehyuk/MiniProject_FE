@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
@@ -13,6 +13,7 @@ import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { getCookie } from 'utils';
 import swal from 'sweetalert';
 import { orderItemState } from 'recoil/atoms/orderAtom';
+import { formatDateWithoutYear } from 'utils/formatDate';
 
 export default function RoomItem({ roomItem, name }: RoomProps) {
 	const navigate = useNavigate();
@@ -20,10 +21,11 @@ export default function RoomItem({ roomItem, name }: RoomProps) {
 	const checkInDate = useRecoilValue(checkInDateState);
 	const checkOutDate = useRecoilValue(checkOutDateState);
 	const [, setOrderItem] = useRecoilState(orderItemState);
+	const [freeCancle, setFreeCancle] =  useState(false);
 
 	const handleItemClick = () => {
 		if (name !== undefined) {
-			navigate(`/places/${accommodationdId}/${roomItem.id}?name=${name}`);
+			navigate(`/places/${accommodationdId}/${roomItem.id}?name=${name}&status=${roomItem.status}`);
 		}
 	};
 
@@ -77,6 +79,30 @@ export default function RoomItem({ roomItem, name }: RoomProps) {
 		}
 	};
 
+	const isFreeCancle = () => {
+		const date = new Date(checkInDate);
+		const today = new Date();
+		return (
+			date.getFullYear() !== today.getFullYear() ||
+			date.getMonth() !== today.getMonth() ||
+			date.getDate() !== today.getDate()
+		  );
+	}
+
+	const getDayBeforCheckIn = () => {
+		const date = new Date(checkInDate);
+		date.setDate(date.getDate() - 1);
+		
+		return date;
+	}
+
+	useEffect(() => {
+		setFreeCancle(isFreeCancle());
+	},[checkInDate])
+
+	const cancleDate = formatDateWithoutYear(getDayBeforCheckIn());	
+	
+
 	return (
 		<div className="flex py-5 justify-between border-b border-borderGray cursor-pointer">
 			<div>
@@ -116,7 +142,8 @@ export default function RoomItem({ roomItem, name }: RoomProps) {
 					{roomItem.status === 'OK' ? (
 						<div className="flex items-center">
 							<p className="text-green text-sm font-bold ml-3">
-								무료취소 (12.04 (월) 17:00전까지)
+								{freeCancle ? `무료취소 (${cancleDate} 17:00전까지)` : `취소 및 환불 불가` }
+								
 							</p>
 							<KeyboardArrowRightIcon
 								sx={{ fill: '#008161', fontSize: '16px' }}
