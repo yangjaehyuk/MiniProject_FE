@@ -15,12 +15,14 @@ import SubLayout from 'components/common/SubLayout';
 import Orders from 'pages/orders';
 import Result from 'pages/result';
 import NotFound from 'pages/notfound';
+import Search from 'pages/search';
 
 function App() {
 	return (
 		<Routes>
 			<Route element={<Layout />}>
 				<Route path="/" element={<Main />} />
+				<Route path="/search" element={<Search />} />
 				<Route path="/:category" element={<Category />} />
 				<Route path="/:category/:region" element={<Region />} />
 				<Route path="/login" element={<Login />} />
