@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import CategoryHeader from 'components/category/CategoryHeader';
 import CategoryInner from 'components/category/CategoryInner';
 import CategoryRegionModal from 'components/category/CategorySelcRegion';
 import categoryCheckRouter from 'components/category/CategoryCheckRouter';
+import CommonHeader from 'components/common/CommonHeader';
 
 function Category() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +12,7 @@ function Category() {
 
 	return (
 		<main>
-			<CategoryHeader />
+			<CommonHeader type="category" isCartIcon />
 			<CategoryInner handleOpen={handleOpen} />
 			<CategoryRegionModal isOpen={isOpen} handleOpen={handleOpen} />
 		</main>
