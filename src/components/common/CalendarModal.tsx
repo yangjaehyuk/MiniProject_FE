@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import DatePicker from 'react-datepicker';
+import './CalendarModal.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useRecoilState } from 'recoil';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { formatFullDateRange } from 'utils/formatDate';
 import { Dialog, DialogBody, DialogHeader } from '@material-tailwind/react';
-import './CalendarModal.module.css';
 import { ModalProps } from 'types/Category.type';
 
 
@@ -21,6 +21,11 @@ export default function CalendarModal({ isOpen, handleOpen }: ModalProps) {
 	);
 	const [lastStartDate, setLastStartDate] = useState(checkInDate);
 	const [isReset, setIsRest] = useState(false);
+
+	useEffect(() => {
+		setStartDay(checkInDate);
+		setEndDay(checkOutDate);
+	},[checkInDate,checkOutDate]);
 
 	const handleOnChange = (dates: [Date, Date]) => {
 		setIsRest(false);
@@ -42,6 +47,13 @@ export default function CalendarModal({ isOpen, handleOpen }: ModalProps) {
 		setEndDay(null);
 		setIsRest(true);
 	};
+
+	const handleExitBtnClick = () => {
+		setStartDay(checkInDate);
+		setEndDay(checkOutDate);
+		handleOpen();
+
+	}
 
 	useEffect(() => {
 		if (startDay !== null && startDay !== lastStartDate && endDay !== null) {
@@ -66,7 +78,7 @@ export default function CalendarModal({ isOpen, handleOpen }: ModalProps) {
 				<div className="fixed top-0 left-1/2 transform translate-x-[-50%] w-full bg-white shadow-md flex justify-center">
 					<div className="w-[768px] h-[92px] flex flex-col  justify-evenly ">
 						<div className="flex justify-between items-center px-5">
-							<CloseIcon onClick={handleOpen} />
+							<CloseIcon onClick={handleExitBtnClick} />
 							<span className="!text-title text-black font-bold">
 								날짜 선택
 							</span>
@@ -105,6 +117,7 @@ export default function CalendarModal({ isOpen, handleOpen }: ModalProps) {
 			</DialogHeader>
 			<DialogBody className="pt-[92px] flex justify-center">
 				<DatePicker
+				wrapperClassName="datePicker"
 					selected={startDay}
 					onChange={handleOnChange}
 					startDate={startDay}
@@ -112,6 +125,7 @@ export default function CalendarModal({ isOpen, handleOpen }: ModalProps) {
 					selectsRange
 					inline
 					minDate={new Date()}
+					className='custom-datePicker'
 				/>
 			</DialogBody>
 			{/* 푸터 */}
