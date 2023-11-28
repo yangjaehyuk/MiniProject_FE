@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Header from 'components/common/Header';
-import styles from '../../components/cart/Cart.module.css';
-
+// import Header from 'components/common/Header';
+import CommonHeader from 'components/common/CommonHeader';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import ResultFooter from 'components/Footer/ResultFooter';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +10,8 @@ import { orderIdState } from 'recoil/atoms/orderAtom';
 import { OrderData, OrderItems } from 'types/Orders';
 import swal from 'sweetalert';
 import { requireLogin } from 'hooks/common/isAcessToken';
+import styles from '../../components/cart/Cart.module.css';
+
 const result = () => {
 	requireLogin();
 	const navigate = useNavigate();
@@ -50,7 +51,8 @@ const result = () => {
 		<>
 			{orderData && orderItem && (
 				<div>
-					<Header title="주문 결과" />
+					<CommonHeader name="주문 결과" isHomeIcon />
+					{/* <Header title="주문 결과" /> */}
 					<div className="bg-white fixed left-0 top-[48px] w-screen drop-shadow-sm">
 						<div className="flex h-[48px] justify-center items-center px-4  w-[768px]  m-auto top-0   left-0">
 							<div className="flex flex-col justify-center items-center ">

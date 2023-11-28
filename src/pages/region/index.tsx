@@ -1,5 +1,5 @@
 import React, { Suspense, useCallback, useEffect, useState } from 'react';
-import RegionHeader from 'components/region/RegionHeader';
+import CommonHeader from 'components/common/CommonHeader';
 import CategoryRegionModal from 'components/category/CategorySelcRegion';
 import { useParams, useSearchParams } from 'react-router-dom';
 import RegionProdOptionModal from 'components/region/RegionProdOptionModal';
@@ -50,7 +50,7 @@ function Region() {
 
 	return (
 		<main className="">
-			<RegionHeader />
+			<CommonHeader type="category" isHomeIcon isCartIcon />
 			<CriticalErrorBoundary>
 				<RetryErrorBoundary>
 					<Suspense
