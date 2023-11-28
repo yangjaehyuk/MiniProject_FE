@@ -11,6 +11,8 @@ import { orderIdState } from 'recoil/atoms/orderAtom';
 import { OrderData, OrderItems } from 'types/Orders';
 import swal from 'sweetalert';
 import { requireLogin } from 'hooks/common/isAcessToken';
+import { formatNumberWithCommas } from 'utils/numberComma';
+
 const result = () => {
 	requireLogin();
 	const navigate = useNavigate();
@@ -156,14 +158,17 @@ const result = () => {
 
 						<div className="flex justify-between items-center py-1">
 							<div className="text-md">상품 금액</div>
-							<div className="text-md"> {orderData.totalPrice} 원</div>
+							<div className="text-md">
+								{' '}
+								{formatNumberWithCommas(orderData.totalPrice)} 원
+							</div>
 						</div>
 					</div>
 					<div className={styles.subWrap}>
 						<div className="flex justify-between items-center py-1">
 							<div className="text-md">총 결제 금액</div>
 							<div className="text-title font-semibold py-3 ">
-								{orderData.totalPrice} 원
+								{formatNumberWithCommas(orderData.totalPrice)} 원
 							</div>
 						</div>
 					</div>

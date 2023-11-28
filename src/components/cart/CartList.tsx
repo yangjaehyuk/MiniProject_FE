@@ -1,14 +1,10 @@
 import React from 'react';
 import styles from '../../components/cart/Cart.module.css';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import {
-	Accommodation,
-	RoomType,
-	CartItem,
-	dataCartItem,
-} from 'types/Cart.type';
+import { dataCartItem } from 'types/Cart.type';
 import { getDateDifference } from 'hooks/common/getDateDifference';
 import { getDayOfWeek } from 'hooks/common/getDayOfWeek';
+import { formatNumberWithCommas } from 'utils/numberComma';
 
 interface CartListProps {
 	dataCartItems: dataCartItem[];
@@ -80,10 +76,11 @@ const CartList: React.FC<CartListProps> = ({
 							</div>
 							<div className="flex justify-end">
 								<span className="text-sm">
-									연박 {getDateDifference(item.checkinDate, item.checkoutDate)}
+									{getDateDifference(item.checkinDate, item.checkoutDate)}일
 								</span>
-								<span className="text-sm font-semibold">
-									{item.roomType.price}원
+
+								<span className="text-sm font-semibold pl-3">
+									{formatNumberWithCommas(item.roomType.price)}원
 								</span>
 							</div>
 						</div>

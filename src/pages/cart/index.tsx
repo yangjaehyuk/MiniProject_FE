@@ -3,7 +3,7 @@ import Header from '../../components/common/Header';
 import { useNavigate } from 'react-router-dom';
 import CartList from 'components/cart/CartList';
 import CartBottom from 'components/cart/CartBottom';
-import { getCart, useQueryMainRegion } from 'hooks/cart/useQueryCart';
+import { getCart } from 'hooks/cart/useQueryCart';
 import { dataCartItem, CartItem } from 'types/Cart.type';
 import { deleteCartItem, allDeleteItem } from 'apis/cartAPI';
 import useScrollToShow from 'hooks/common/handleScroll';
@@ -11,6 +11,7 @@ import { cartItemState, totalPriceState } from 'recoil/atoms/cartAtom';
 import { useSetRecoilState } from 'recoil';
 import { requireLogin } from 'hooks/common/isAcessToken';
 import { CartResponse } from 'types/Cart.type';
+import { formatNumberWithCommas } from 'utils/numberComma';
 
 const Cart = () => {
 	requireLogin();
@@ -24,9 +25,6 @@ const Cart = () => {
 		fetchData();
 		// console.log('res', cart);
 	}, []);
-	console.log('res222', cart && cart.data && cart.data.cartItems);
-
-	const { data, isLoading } = useQueryMainRegion();
 
 	const show = useScrollToShow(false, 200);
 
@@ -177,7 +175,10 @@ const Cart = () => {
 						</div>
 						<div className="flex items-center">
 							<div className="text-textGray text-xxsm mr-4">결제 예상 금액</div>
-							<div className="text-[16px] font-semibold ">{totalPrice} 원</div>
+							<div className="text-[16px] font-semibold ">
+								{' '}
+								{formatNumberWithCommas(totalPrice)} 원
+							</div>
 						</div>
 					</div>
 
