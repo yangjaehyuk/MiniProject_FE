@@ -30,7 +30,7 @@ function CommonHeader({
 						</div>
 					)}
 				</div>
-				<h2 className="text-title font-semibold">
+				<h2 className="text-content lg:text-title font-semibold">
 					{name}
 					{type === 'category' && categoryToKor(category ?? '')}
 					{type === 'region' && regionToKor(region ?? '')}

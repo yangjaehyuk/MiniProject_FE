@@ -162,11 +162,17 @@ export default function PlaceDetail() {
 						{accommodationInfo?.star}
 					</div>
 				</div>
-				<img
-					src={banner}
-					alt="숙소사진"
-					className="w-[728px] mx-auto rounded-md pt-2"
-				/>
+				<a
+					href="https://www.yanolja.com/promotion/nol-promotion?eventcode=NOYHH"
+					target="_blank"
+					rel="noreferrer"
+				>
+					<img
+						src={banner}
+						alt="배너 이미지"
+						className="w-full mx-auto rounded-md pt-2"
+					/>
+				</a>
 				<div className="pt-5">
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold ">객실 선택</p>
