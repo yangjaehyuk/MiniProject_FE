@@ -4,4 +4,7 @@
 	.item {
 		@apply w-[80px];
 	}
+	.itemBig {
+		@apply w-[120px];
+	}
 }
