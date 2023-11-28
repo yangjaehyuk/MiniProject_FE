@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { footerFormatFullDateRange } from 'utils/formatDate';
+import { getCookie } from 'utils';
+import swal from 'sweetalert';
+import cartAPI from 'apis/cartAPI';
+import { RoomDetailInfo } from 'types/Place';
+import { useNavigate } from 'react-router-dom';
+import { orderItemState } from 'recoil/atoms/orderAtom';
 
 interface FooterProps {
 	formattedPrice: string;
-	status: string | null;
+	roomInfo: RoomDetailInfo | undefined;
+	status : string | null;
+	name : string | null;
 }
 
-export default function Footer({ formattedPrice, status }: FooterProps) {
+export default function Footer({ formattedPrice, roomInfo, status, name }: FooterProps) {
 	const checkInDate = useRecoilValue<Date>(checkInDateState);
 	const checkOutDate = useRecoilValue<Date>(checkOutDateState);
 
 	const formattingDate = footerFormatFullDateRange(checkInDate, checkOutDate);
 	const [freeCancle, setFreeCancle] = useState(false);
 
-	console.log(status);
+	const navigate = useNavigate();
+	const [, setOrderItem] = useRecoilState(orderItemState);
+
 
 	const isFreeCancle = () => {
 		const date = new Date(checkInDate);
@@ -28,9 +38,64 @@ export default function Footer({ formattedPrice, status }: FooterProps) {
 		);
 	};
 
+	const saveRoomtoCart = async () => {
+		try {
+			const checkInDateString = checkInDate.toISOString().split('T')[0];
+			const checkOutDateString = checkOutDate.toISOString().split('T')[0];
+
+			if(roomInfo !== undefined) {
+				const response = await cartAPI.postRoomToCart(
+					roomInfo.id,
+					checkInDateString,
+					checkOutDateString,
+				);
+				if (response.status === 201) {
+					swal({ title: '장바구니 담기에 성공하였습니다.', icon: 'success' });
+				} else {
+					swal({ title: '장바구니 담기에 실패하였습니다 .', icon: 'error' });
+				}
+
+			}
+			
+		} catch (error) {
+			console.error('Failed to load accommodation details:', error);
+		}
+	};
+
+
 	useEffect(() => {
 		setFreeCancle(isFreeCancle());
 	}, [checkInDate]);
+
+	const handleCartBtnClick = () => {
+		const accessToken = getCookie('accessToken');
+
+		if (!accessToken) {
+			swal({ title: '로그인이 필요한 서비스입니다.', icon: 'warning' });
+			navigate('/login');
+		} else saveRoomtoCart();
+	};
+
+	const handleOrderBtnClick = () => {
+		const accessToken = getCookie('accessToken');
+
+		if (!accessToken) {
+			swal({ title: '로그인이 필요한 서비스입니다.', icon: 'warning' });
+			navigate('/login');
+		} else {
+
+			if (roomInfo !== undefined && name !== null) {
+				setOrderItem({
+					accommodationName: name,
+					roomTypeName: roomInfo.name,
+					price: roomInfo.price,
+					capacity: roomInfo.capacity,
+					id: roomInfo.id,
+				});
+				navigate('/orders');
+			}
+		}
+	};
 
 	return (
 		<div className="fixed h-[68px] bottom-0 left-1/2 transform translate-x-[-50%] bg-white w-[768px] px-5 py-3 shadow-xl ">
@@ -50,10 +115,10 @@ export default function Footer({ formattedPrice, status }: FooterProps) {
 				</div>
 				<div className="flex gap-x-2">
 					<button className="border border-borderGray rounded w-[44px] h-[44px] cursor-pointer">
-						<ShoppingCartOutlinedIcon fontSize="small" />
+						<ShoppingCartOutlinedIcon fontSize="small" onClick={handleCartBtnClick}/>
 					</button>
 					{status !== undefined && status === 'OK' ? (
-						<button className="bg-secondary w-[364px] h-[44px] text-white rounded text-[16px] font-bold cursor-pointer hover:bg-hoverSecondary">
+						<button onClick={handleOrderBtnClick} className="bg-secondary w-[364px] h-[44px] text-white rounded text-[16px] font-bold cursor-pointer hover:bg-hoverSecondary">
 							예약하기
 						</button>
 					) : (

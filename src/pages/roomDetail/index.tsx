@@ -220,7 +220,7 @@ export default function RoomDetail() {
 					</ul>
 				</div>
 			</div>
-			<Footer formattedPrice={formattedPrice} status={status} />
+			<Footer formattedPrice={formattedPrice} roomInfo={roomInfo} status={status} name={name} />
 		</div>
 	);
 }
