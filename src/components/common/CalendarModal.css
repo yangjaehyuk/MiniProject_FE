@@ -60,33 +60,3 @@
   color : white !important;
 }
 
-
-
-
-/* .react-datepicker__day:hover {
-  margin : 10px;
-  font-size : 17px;
-  border-radius : 50%;
-  background-color : #de2e5f;
-}
-
-
-
-.react-datepicker__day--today {
-  color : #FF3478;
-  background-color : #de2e5f;
-
-}
-.react-datepicker__day--selected {
-  background-color : white;
-  border : 1px solid #FF3478;
-  color : #FF3478;
-  border-radius : 50%;
-
-
-}
-.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range){
-  border-radius : 50%;
-  background-color : #de2e5f;
-  
-} */
