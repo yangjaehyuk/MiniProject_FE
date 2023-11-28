@@ -10,11 +10,13 @@ const ReservationItem = () => {
 	const cartItem = useRecoilValue(cartItemState);
 	const totalPrice = useRecoilValue(totalPriceState);
 
+	// 상세 페이지 -> 결제하기
 	const orderItem = useRecoilValue(orderItemState);
 	const checkInDate = useRecoilValue(checkInDateState);
 	const checkOutDate = useRecoilValue(checkOutDateState);
 
 	console.log(orderItem);
+
 	return (
 		<>
 			{orderItem ? (
