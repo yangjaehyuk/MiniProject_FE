@@ -11,8 +11,11 @@ import CriticalErrorBoundary from 'components/common/CriticalErrorBoundary';
 import RetryErrorBoundary from 'components/common/RetryErrorBoundary';
 import regionCheckRouter from 'components/region/regionCheckRouter';
 import { OrderEnum } from 'recoil/atoms/orderAtom';
+import { requireLogin } from 'hooks/common/isAcessToken';
 
 function Region() {
+	requireLogin();
+
 	const [searchParams, setSearchParams] = useSearchParams();
 	const { region } = useParams();
 	const [regionOpen, setRegionOpen] = useState(false);
@@ -81,7 +84,9 @@ function Region() {
 				searchParams={searchParams}
 				setSearchParams={setSearchParams}
 			/>
-			{dateOpen && <CalendarModal isOpen={dateOpen} handleOpen={handleDateOpen} />}
+			{dateOpen && (
+				<CalendarModal isOpen={dateOpen} handleOpen={handleDateOpen} />
+			)}
 			<RegionProdCapacityModal
 				isOpen={capacityOpen}
 				handleOpen={handleCapacityOpen}

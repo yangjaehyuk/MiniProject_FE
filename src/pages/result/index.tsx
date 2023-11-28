@@ -10,8 +10,9 @@ import { useRecoilValue } from 'recoil';
 import { orderIdState } from 'recoil/atoms/orderAtom';
 import { OrderData, OrderItems } from 'types/Orders';
 import swal from 'sweetalert';
-
+import { requireLogin } from 'hooks/common/isAcessToken';
 const result = () => {
+	requireLogin();
 	const navigate = useNavigate();
 
 	// recoil로 id 받아오기
