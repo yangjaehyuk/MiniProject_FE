@@ -19,12 +19,11 @@ import SiderRegions from './SiderRegions';
 import { checkAccessToken, logout, removeCookie } from 'utils';
 import Swal from 'sweetalert2';
 import { useRecoilState } from 'recoil';
-import { categoryState, dateState } from 'recoil/atoms/myPageAtom';
+import { dateState } from 'recoil/atoms/myPageAtom';
 
 function Sider({ isOpen, handleClose }: MainSiderProps) {
 	const navigate = useNavigate();
 	const [isAccessToken, setIsAccessToken] = useState(checkAccessToken());
-	const [category, setCategory] = useRecoilState(categoryState);
 	const [date, setDate] = useRecoilState(dateState);
 	return (
 		<Drawer
@@ -131,7 +130,6 @@ function Sider({ isOpen, handleClose }: MainSiderProps) {
 					<ListItem
 						onClick={() => {
 							logout();
-							setCategory('카테고리 전체');
 							setDate('최근 3개월');
 							setIsAccessToken(checkAccessToken());
 						}}

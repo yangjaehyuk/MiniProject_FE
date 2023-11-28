@@ -1,37 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import bannerRed from '../../assets/images/bannerRed.png';
 import { ArrowDropDown } from '@mui/icons-material';
-import CategoryModal from './CategoryModal';
 import DateModal from './DateModal';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { categoryState, dateState } from 'recoil/atoms/myPageAtom';
+import { dateState } from 'recoil/atoms/myPageAtom';
 import ReservationCard from './ReservationCard';
+import ReservationCardHeader from './ReservationCardHeader';
 import { logout } from 'utils';
 import { useNavigate } from 'react-router-dom';
 import { getUserInfo } from 'apis/axios';
 
 import TopBtn from 'components/common/TopBtn';
 import useScrollToShow from 'hooks/common/handleScroll';
+import useQueryMyPage from 'hooks/myPage/useQueryMyPage';
 
 const Inner = () => {
+	const [now, setNow] = useState(3);
 	const navigate = useNavigate();
-	const [showCategoryModal, setShowCategoryModal] = useState(false);
 	const [showDateModal, setShowDateModal] = useState(false);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
-	const nowCategory = useRecoilValue(categoryState);
 	const nowDate = useRecoilValue(dateState);
-	const [category, setCategory] = useRecoilState(categoryState);
 	const [date, setDate] = useRecoilState(dateState);
-
 	const show = useScrollToShow(false, 200);
 
-	const handleCategoryModalClose = () => {
-		setShowCategoryModal(false);
-	};
+	useEffect(() => {
+		const localVal = date;
+		const numbersOnly =
+			localVal !== null ? parseInt(localVal.replace(/\D/g, ''), 10) : 0;
+		setNow(numbersOnly);
+	}, [date, setDate]);
+
 	const handleDateModalClose = () => {
 		setShowDateModal(false);
 	};
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -46,6 +49,8 @@ const Inner = () => {
 		fetchData();
 	}, []);
 
+	const { data } = useQueryMyPage(now);
+
 	return (
 		<div className="pt-20 min-h-screen m-auto bg-white max-w-[768px] mx-auto">
 			<div className="pt-4.5 pl-6 pr-6 pb-7">
@@ -58,7 +63,6 @@ const Inner = () => {
 						className="text-xxsm text-textGray cursor-pointer"
 						onClick={() => {
 							logout();
-							setCategory('카테고리 전체');
 							setDate('최근 3개월');
 							navigate('/');
 						}}
@@ -78,40 +82,83 @@ const Inner = () => {
 								'https://www.yanolja.com/promotion/nol-promotion?eventcode=NOYLN';
 						}}
 					/>
-					<div className="font-bold text-title pt-10 cursor-default">
-						예약 내역
-					</div>
-
-					<div className="flex pt-7">
-						<div
-							className="flex items-center w-1/2 h-9 border border-gray rounded-md cursor-pointer justify-between hover:bg-lightGray"
-							onClick={() => setShowCategoryModal(true)}
-						>
-							{nowCategory}
-							<ArrowDropDown />
+					<div className="flex items-center justify-between">
+						<div className="font-bold text-title pt-10 cursor-default">
+							예약 내역
 						</div>
 
-						<div
-							className="flex items-center w-1/2 h-9 border border-gray rounded-md cursor-pointer justify-between ml-3 hover:bg-lightGray"
-							onClick={() => setShowDateModal(true)}
-						>
-							{nowDate}
-							<ArrowDropDown />
+						<div className="pt-10 ">
+							<div
+								className="flex items-center w-full h-9 border border-gray rounded-md cursor-pointer justify-between ml-3 hover:bg-lightGray"
+								onClick={() => setShowDateModal(true)}
+							>
+								{nowDate}
+								<ArrowDropDown />
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<CategoryModal
-				open={showCategoryModal}
-				onClose={handleCategoryModalClose}
-			></CategoryModal>
+
 			<DateModal
 				open={showDateModal}
 				onClose={handleDateModalClose}
 			></DateModal>
 			{show && <TopBtn show={show} />}
-			<ReservationCard />
-			<div className="p-3"></div>
+
+			{data && data?.length > 0 && (
+				<div className="pr-6 pl-6">
+					{data?.map((order, index) => (
+						<React.Fragment key={index}>
+							<ReservationCardHeader orderDate={order.orderDate} />
+							{order.orderItems?.map((item, itemIndex) => (
+								<React.Fragment key={itemIndex}>
+									<ReservationCard
+										code={item.code}
+										accomodationName={item.accommodation.name}
+										accomodationImage={item.accommodation.image}
+										checkinDate={item.checkinDate}
+										checkoutDate={item.checkoutDate}
+										isUsed={item.isUsed}
+										accomodationId={item.accommodation.id}
+										capacity={item.roomType.capacity}
+										roomName={item.roomType.name}
+									/>
+								</React.Fragment>
+							))}
+							<div className="pb-16"></div>
+						</React.Fragment>
+					))}
+				</div>
+			)}
+			{data?.length === 0 && (
+				<>
+					<div
+						style={{
+							display: 'flex',
+							flexDirection: 'column',
+							alignItems: 'center',
+							justifyContent: 'center',
+							height: '100vh',
+						}}
+					>
+						<div className="m-0 auto text-title pb-1">
+							조회조건에 맞는 내역이 없습니다.
+						</div>
+						<div className="text-content text-textGray pb-2">
+							상품을 예약해보세요
+						</div>
+						<div
+							className="p-3 border border-blue rounded-md cursor-pointer text-blue text-content pl-10 pr-10"
+							onClick={() => {
+								navigate('/');
+							}}
+						>
+							홈으로 가기
+						</div>
+					</div>
+				</>
+			)}
 		</div>
 	);
 };
