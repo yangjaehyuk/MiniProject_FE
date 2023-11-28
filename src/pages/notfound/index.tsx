@@ -1,12 +1,13 @@
 import { Button } from '@material-tailwind/react';
-import RegionHeader from 'components/region/RegionHeader';
+import CommonHeader from 'components/common/CommonHeader';
+// import RegionHeader from 'components/region/RegionHeader';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 function NotFound() {
 	return (
 		<div className="px-4 pt-20">
-			<RegionHeader />
+			<CommonHeader isCartIcon />
 			<div className="mb-12">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

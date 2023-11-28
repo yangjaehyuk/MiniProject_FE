@@ -223,3 +223,11 @@ export enum RegionTitles {
 	CHUNGCHEONG = 'CHUNGCHEONG',
 	// JEJU = 'JEJU',
 }
+
+export interface RegionHeaderProps {
+	type?: string;
+	name?: string;
+	isHomeIcon?: boolean;
+	isBackIcon?: boolean;
+	isCartIcon?: boolean;
+}

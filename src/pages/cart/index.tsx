@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../../components/common/Header';
+// import Header from '../../components/common/Header';
 import { useNavigate } from 'react-router-dom';
 import CartList from 'components/cart/CartList';
 import CartBottom from 'components/cart/CartBottom';
@@ -10,8 +10,12 @@ import useScrollToShow from 'hooks/common/handleScroll';
 import { cartItemState, totalPriceState } from 'recoil/atoms/cartAtom';
 import { useSetRecoilState } from 'recoil';
 import { requireLogin } from 'hooks/common/isAcessToken';
+
 import { CartResponse } from 'types/Cart.type';
 import { formatNumberWithCommas } from 'utils/numberComma';
+
+
+import CommonHeader from 'components/common/CommonHeader';
 
 const Cart = () => {
 	requireLogin();
@@ -139,7 +143,8 @@ const Cart = () => {
 
 	return (
 		<>
-			<Header title="장바구니" />
+			<CommonHeader name="장바구니" isHomeIcon />
+			{/* <Header title="장바구니" /> */}
 
 			<div className="bg-white fixed left-0 top-[48px] w-screen drop-shadow-sm">
 				<div className="flex h-[48px]  justify-between items-center px-4  w-[768px]  m-auto top-0   left-0">

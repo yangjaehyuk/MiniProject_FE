@@ -6,12 +6,12 @@ import {
 } from '@mui/icons-material';
 import { useParams } from 'react-router-dom';
 import { categoryToKor, regionToKor } from 'utils/switchNameToKor';
-import styles from './Region.module.css';
 import { handleArrowBackClick } from 'utils';
 import { Link } from 'react-router-dom';
 import { RegionHeaderProps } from 'types/Region.type';
+import styles from './Common.module.css';
 
-function RegionHeader({
+function CommonHeader({
 	type,
 	name,
 	isHomeIcon = false,
@@ -58,4 +58,4 @@ function RegionHeader({
 	);
 }
 
-export default RegionHeader;
+export default CommonHeader;

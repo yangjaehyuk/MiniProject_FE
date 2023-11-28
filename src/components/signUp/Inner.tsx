@@ -128,8 +128,9 @@ const Inner = () => {
 		validationSchema: validationSignUpSchema,
 		onSubmit: async (values) => {
 			try {
-				await postJoin(values.mail, values.pw, values.name);
 				swal({ title: '회원가입에 성공했습니다.', icon: 'success' });
+
+				await postJoin(values.mail, values.pw, values.name);
 				navigate('/login');
 			} catch (e: any) {
 				let errorMessage = '';
