@@ -17,7 +17,7 @@ function CategoryTopItem({
 		<Link to={`/places/${id}`}>
 			<div className="flex">
 				<div className={styles.itemThumb}>
-					<div className={styles.itemImage}>
+					<div className={styles.imageSquare}>
 						<img src={image} alt={name} />
 					</div>
 					<div className={styles.rate}>{index + 1}</div>

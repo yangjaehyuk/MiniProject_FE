@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../../components/common/Header';
+// import Header from '../../components/common/Header';
 import { useNavigate } from 'react-router-dom';
 import CartList from 'components/cart/CartList';
 import CartBottom from 'components/cart/CartBottom';
@@ -15,6 +15,8 @@ import { formatNumberWithCommas } from 'utils/numberComma';
 import styles from '../../components/cart/Cart.module.css';
 import { ShoppingCartOutlined } from '@mui/icons-material';
 import BottomInfo from 'components/cart/BottomInfo';
+
+import CommonHeader from 'components/common/CommonHeader';
 
 const Cart = () => {
 	requireLogin();
@@ -142,7 +144,7 @@ const Cart = () => {
 
 	return (
 		<>
-			<Header title="장바구니" />
+			<CommonHeader />
 			{(cart && cart?.data?.cartItems.length === 0) ||
 			dataCartItems.length === 0 ? (
 				<div className={styles.wrap}>
