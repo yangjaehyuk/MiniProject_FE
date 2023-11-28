@@ -13,6 +13,7 @@ import { getUserInfo } from 'apis/axios';
 import TopBtn from 'components/common/TopBtn';
 import useScrollToShow from 'hooks/common/handleScroll';
 import useQueryMyPage from 'hooks/myPage/useQueryMyPage';
+import MyPageSkeleton from './skeleton/MyPageSkeleton';
 
 const Inner = () => {
 	const [now, setNow] = useState(3);
@@ -49,8 +50,7 @@ const Inner = () => {
 		fetchData();
 	}, []);
 
-	const { data } = useQueryMyPage(now);
-
+	const { data, isLoading } = useQueryMyPage(now);
 	return (
 		<div className="pt-20 min-h-screen m-auto bg-white max-w-[768px] mx-auto">
 			<div className="pt-4.5 pl-6 pr-6 pb-7">
@@ -105,7 +105,7 @@ const Inner = () => {
 				onClose={handleDateModalClose}
 			></DateModal>
 			{show && <TopBtn show={show} />}
-
+			<MyPageSkeleton />
 			{data && data?.length > 0 && (
 				<div className="pr-6 pl-6">
 					{data?.map((order, index) => (
