@@ -3,6 +3,7 @@ import { orderItemState } from 'recoil/atoms/orderAtom';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { useRecoilValue } from 'recoil';
 import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
+import { formatNumberWithCommas } from 'utils/numberComma';
 
 // 상세 페이지 -> 결제하기
 const orderItem = useRecoilValue(orderItemState);
@@ -49,7 +50,7 @@ const DetailOrderItem = () => {
 							<div className="flex justify-end items-center content-center">
 								<div className="text-sm text-textGray pr-1">연박 / 3박</div>
 								<div className="font-semibold text-content">
-									{orderItem.price} 원
+									{formatNumberWithCommas(orderItem.price)} 원
 								</div>
 							</div>
 						</div>

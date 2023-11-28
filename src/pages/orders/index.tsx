@@ -7,24 +7,19 @@ import ReservationItem from 'components/orders/ReservationItem';
 import PaymentMethod from 'components/orders/PaymentMethod';
 import PaymentNotice from 'components/orders/PaymentNotice';
 import { FormProvider, useForm } from 'react-hook-form';
-import {
-	useRecoilState,
-	useRecoilValue,
-	useSetRecoilState,
-	useResetRecoilState,
-} from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { cartItemState, totalPriceState } from 'recoil/atoms/cartAtom';
 import UserInfo from 'components/orders/UserInfo';
 import TermsAgreement from 'components/orders/TermsAgreement';
-import { isConstructorDeclaration } from 'typescript';
 import { postOrder } from 'apis/cartAPI';
-import { PostOrderItem, PostClient, PostSubscriber } from 'types/Orders';
+import { PostOrderItem } from 'types/Orders';
 import { orderItemState } from 'recoil/atoms/orderAtom';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { orderIdState } from 'recoil/atoms/orderAtom';
 import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
 import { requireLogin } from 'hooks/common/isAcessToken';
+import { formatNumberWithCommas } from 'utils/numberComma';
 
 // ReservationInfo
 export type ReservationInfo = {
@@ -158,13 +153,19 @@ const orders = () => {
 					<div className="flex justify-between items-center text-textGray text-sm pt-2 pb-5 border-dashed  border-b-2 border-borderGray">
 						<div>상품 금액</div>
 						<div className="text-secondaryTextGray">
-							{orderItem ? orderItem.price : totalPrice}원
+							{orderItem
+								? formatNumberWithCommas(orderItem.price)
+								: formatNumberWithCommas(totalPrice)}
+							원
 						</div>
 					</div>
 					<div className="flex justify-between items-center py-2">
 						<div className="font-semibold text-content"> 총 결제 금액</div>
 						<div className="font-semibold text-title text-secondary">
-							{orderItem ? orderItem.price : totalPrice}원
+							{orderItem
+								? formatNumberWithCommas(orderItem.price)
+								: formatNumberWithCommas(totalPrice)}
+							원
 						</div>
 					</div>
 				</div>
@@ -184,14 +185,20 @@ const orders = () => {
 									type="submit"
 									className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-secondary rounded-md h-[20px]  text-white"
 								>
-									{orderItem ? orderItem.price : totalPrice}원 결제하기
+									{orderItem
+										? formatNumberWithCommas(orderItem.price)
+										: formatNumberWithCommas(totalPrice)}
+									원 결제하기
 								</button>
 							) : (
 								<button
 									disabled
 									className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-textGray rounded-md h-[20px]  text-white"
 								>
-									{orderItem ? orderItem.price : totalPrice}원 결제하기
+									{orderItem
+										? formatNumberWithCommas(orderItem.price)
+										: formatNumberWithCommas(totalPrice)}
+									원 결제하기
 								</button>
 							)}
 						</form>
