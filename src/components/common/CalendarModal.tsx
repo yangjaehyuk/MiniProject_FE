@@ -48,6 +48,13 @@ export default function CalendarModal({ isOpen, handleOpen }: ModalProps) {
 		setIsRest(true);
 	};
 
+	const handleExitBtnClick = () => {
+		setStartDay(checkInDate);
+		setEndDay(checkOutDate);
+		handleOpen();
+
+	}
+
 	useEffect(() => {
 		if (startDay !== null && startDay !== lastStartDate && endDay !== null) {
 			setFormattingDate(formatFullDateRange(startDay, endDay));
@@ -71,7 +78,7 @@ export default function CalendarModal({ isOpen, handleOpen }: ModalProps) {
 				<div className="fixed top-0 left-1/2 transform translate-x-[-50%] w-full bg-white shadow-md flex justify-center">
 					<div className="w-[768px] h-[92px] flex flex-col  justify-evenly ">
 						<div className="flex justify-between items-center px-5">
-							<CloseIcon onClick={handleOpen} />
+							<CloseIcon onClick={handleExitBtnClick} />
 							<span className="!text-title text-black font-bold">
 								날짜 선택
 							</span>
