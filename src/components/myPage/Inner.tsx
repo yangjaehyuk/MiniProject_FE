@@ -105,7 +105,7 @@ const Inner = () => {
 				onClose={handleDateModalClose}
 			></DateModal>
 			{show && <TopBtn show={show} />}
-			<MyPageSkeleton />
+			{isLoading && <MyPageSkeleton />}
 			{data && data?.length > 0 && (
 				<div className="pr-6 pl-6">
 					{data?.map((order, index) => (
