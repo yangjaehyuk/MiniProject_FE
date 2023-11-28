@@ -42,11 +42,9 @@ export default function RoomItem({ roomItem, name }: RoomProps) {
 			);
 			if (response.status === 201) {
 				swal({ title: '장바구니 담기에 성공하였습니다.', icon: 'success' });
-			} else {
-				swal({ title: '장바구니 담기에 실패하였습니다 .', icon: 'error' });
-			}
+			} 
 		} catch (error) {
-			console.error('Failed to load accommodation details:', error);
+			swal({ title: '실패', text :"장바구니에 담을 수 있는 개수를 초과하였습니다.", icon: 'error' });
 		}
 	};
 
