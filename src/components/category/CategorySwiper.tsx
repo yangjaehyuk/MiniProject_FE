@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { Star } from '@mui/icons-material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -10,6 +10,7 @@ import styles from './Category.module.css';
 import { Link } from 'react-router-dom';
 
 function CategorySwiper({ items }: ProductSwiperProps) {
+	const id = useId();
 	return (
 		<Swiper
 			slidesPerView={'auto'}
@@ -20,7 +21,7 @@ function CategorySwiper({ items }: ProductSwiperProps) {
 			className={styles.categorySwiper}
 		>
 			{items.map((item) => (
-				<SwiperSlide key={item.id} className={styles.item}>
+				<SwiperSlide key={`${id}/${item.id}`} className={styles.item}>
 					<Link to={`/places/${item.id}`}>
 						<div className={styles.imageSquare}>
 							<img src={item.image} alt={item.name} />

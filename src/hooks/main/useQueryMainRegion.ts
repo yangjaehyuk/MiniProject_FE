@@ -17,12 +17,12 @@ export const useQueryMainRegion = (region: string) => {
 
 // 카테고리 별 숙소 받기
 export const getCategory = async (type: string) => {
-	const res = await Instance.get(`accommodations?type=${type}&size=5`);
+	const res = await Instance.get(`accommodations?type=${type}&size=8`);
 	return res.data;
 };
 
 export const useQueryMainCategory = (type: string) => {
-	const { data, isLoading } = useQuery(type.toUpperCase(), () =>
+	const { data, isLoading } = useQuery([`MAIN/${type.toUpperCase()}`], () =>
 		getCategory(type),
 	);
 	return { data, isLoading };

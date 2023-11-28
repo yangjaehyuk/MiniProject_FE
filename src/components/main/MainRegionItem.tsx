@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { useQueryMainRegion } from 'hooks/main/useQueryMainRegion';
 import { Accommodation } from './MainRegionList';
 import { formatNumberWithCommas } from 'utils/numberComma';
@@ -10,11 +10,12 @@ interface MainRegionItemProps {
 }
 
 const MainRegionItem: React.FC<MainRegionItemProps> = ({ accommodations }) => {
+	const id = useId();
 	return (
 		<div>
 			<div className="grid gap-4 grid-cols-1 lg:grid-cols-2 my-4">
 				{accommodations.map((item, index) => (
-					<div className="flex" key={item.index}>
+					<div className="flex" key={`${id}/${item.id}`}>
 						<div className={styles.itemThumb}>
 							<div className={styles.itemImage}>
 								<img src={item.image} alt={item.name} />
