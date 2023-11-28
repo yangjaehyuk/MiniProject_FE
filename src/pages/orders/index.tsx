@@ -1,14 +1,27 @@
 import Header from 'components/common/Header';
 import React, { useState } from 'react';
-import styles from '../../components/cart/Cart.module.css';
+import styles from 'components/cart/Cart.module.css';
 import OrdersNotice from 'components/orders/OrdersNotice';
 import ReservationItem from 'components/orders/ReservationItem';
 import PaymentMethod from 'components/orders/PaymentMethod';
 import PaymentNotice from 'components/orders/PaymentNotice';
 import { FormProvider, useForm } from 'react-hook-form';
-
+import {
+	useRecoilState,
+	useRecoilValue,
+	useSetRecoilState,
+	useResetRecoilState,
+} from 'recoil';
+import { cartItemState, totalPriceState } from 'recoil/atoms/cartAtom';
 import UserInfo from 'components/orders/UserInfo';
 import TermsAgreement from 'components/orders/TermsAgreement';
+import { isConstructorDeclaration } from 'typescript';
+import { postOrder } from 'apis/cartAPI';
+import { PostOrderItem, PostClient, PostSubscriber } from 'types/Orders';
+import { orderItemState } from 'recoil/atoms/orderAtom';
+import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
+import { orderIdState } from 'recoil/atoms/orderAtom';
+
 // ReservationInfo
 export type ReservationInfo = {
 	reservationName: string;
@@ -25,10 +38,87 @@ export type ReservationInfo = {
 	allAgreementCheckbox?: boolean;
 };
 
-const orders = () => {
-	const methods = useForm({ mode: 'onChange' });
-	const onSubmit = () => console.log('ddd');
+// type CartItemStateType = typeof cartItemState;
 
+const orders = () => {
+	// 장바구니에서 예약 데이터
+	const cartItem = useRecoilValue(cartItemState);
+	const totalPrice = useRecoilValue(totalPriceState);
+
+	// 객실 상세에서 예약 데이터
+	const orderItem = useRecoilValue(orderItemState);
+	const checkInDate = useRecoilValue(checkInDateState);
+	const checkOutDate = useRecoilValue(checkOutDateState);
+
+	const StringOrderItem = orderItem?.id.toString();
+	const StringCheckInDate = checkInDate.toISOString();
+	const StringCheckOutDate = checkOutDate.toISOString();
+
+	// 주문결과 id값 받는 recoil
+	const orderIdHandler = useSetRecoilState(orderIdState);
+
+	console.log('cartItem', cartItem);
+	const methods = useForm<ReservationInfo>({ mode: 'onChange' });
+
+	// console.log('payment', payment);
+	// console.log('payment', payment);
+
+	const orderData: PostOrderItem[] = orderItem
+		? [
+				{
+					roomTypeId: StringOrderItem || '',
+					checkinDate: StringCheckInDate,
+					checkoutDate: StringCheckOutDate,
+				},
+		  ]
+		: cartItem.map((cartItem) => ({
+				roomTypeId: cartItem.roomType.id.toString(),
+				checkinDate: cartItem.checkinDate,
+				checkoutDate: cartItem.checkoutDate,
+		  }));
+
+	// 결제하기 버튼
+	const onSubmit = async (data: ReservationInfo) => {
+		const client = { name: data.userName, phoneNumber: data.userNumber };
+		const subscriber = {
+			name: data.reservationName,
+			phoneNumber: data.reservationNumber,
+		};
+		// console.log('cartItem', cartItem.roomType.id);
+		console.log('orderItem', orderItem);
+
+		// console.log('orderData', orderData);
+		console.log(
+			'payment',
+			payment,
+			'client',
+			client,
+			'subscriber',
+			subscriber,
+			'orderData',
+			orderData,
+		);
+		if (client && subscriber && payment && orderData) {
+			console.log(
+				'payment2',
+				payment,
+				'client2',
+				client,
+				'subscriber2',
+				subscriber,
+				'orderData2',
+				orderData,
+			);
+			const res = await postOrder(client, subscriber, payment, orderData);
+			console.log('res', res);
+			console.log('res.orderId', res.data.orderId);
+
+			// 리코일로 주문 id 값 넣어주기
+			// orderIdHandler(res.orderId);
+		} else {
+			console.log('결제에 실패 했습니다');
+		}
+	};
 	const [payment, setPayment] = useState('');
 	const [checkbox, setCheckbox] = useState(false);
 
@@ -77,7 +167,10 @@ const orders = () => {
 						</div>
 						<form onSubmit={methods.handleSubmit(onSubmit)}>
 							{checkbox ? (
-								<button className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-secondary rounded-md h-[20px]  text-white">
+								<button
+									type="submit"
+									className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-secondary rounded-md h-[20px]  text-white"
+								>
 									870,000원 결제하기
 								</button>
 							) : (
