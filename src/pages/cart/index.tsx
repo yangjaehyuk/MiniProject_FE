@@ -12,6 +12,9 @@ import { useSetRecoilState } from 'recoil';
 import { requireLogin } from 'hooks/common/isAcessToken';
 import { CartResponse } from 'types/Cart.type';
 import { formatNumberWithCommas } from 'utils/numberComma';
+import styles from '../../components/cart/Cart.module.css';
+import { ShoppingCartOutlined } from '@mui/icons-material';
+import BottomInfo from 'components/cart/BottomInfo';
 
 const Cart = () => {
 	requireLogin();
@@ -140,63 +143,86 @@ const Cart = () => {
 	return (
 		<>
 			<Header title="장바구니" />
-
-			<div className="bg-white fixed left-0 top-[48px] w-screen drop-shadow-sm">
-				<div className="flex h-[48px]  justify-between items-center px-4  w-[768px]  m-auto top-0   left-0">
-					<div className="flex ">
-						<input
-							type="checkbox"
-							onChange={handleSelectAll}
-							checked={selectAll}
-						/>
-						<div className="ml-2 text-sm">전체선택</div>
-					</div>
-					<div
-						className="text-sm text-blue"
-						onClick={() => {
-							AllDeleteItem();
-						}}
-					>
-						전체 삭제
+			{(cart && cart?.data?.cartItems.length === 0) ||
+			dataCartItems.length === 0 ? (
+				<div className={styles.wrap}>
+					<div className=" flex flex-col justify-center items-center py-4">
+						<ShoppingCartOutlined />
+						<div>장바구니에 담긴 상품이 없습니다. </div>
+						<div>원하는 상품을 담아보세요</div>
+						<div
+							className="p-3 border  border-blue rounded-md cursor-pointer text-blue text-content pl-10 pr-10"
+							onClick={() => {
+								navigate('/');
+							}}
+						>
+							홈으로 가기
+						</div>
+						<BottomInfo />
 					</div>
 				</div>
-			</div>
-			<CartList
-				dataCartItems={dataCartItems}
-				handleCheckbox={handleCheckbox}
-				handleDeleteItem={handleDeleteItem}
-			/>
-			<CartBottom totalPrice={totalPrice} />
-			<div className="bg-white ${show ? 'h-[150px]' : 'h-[110px]'} shadow-inner w-screen fixed bottom-0  left-0">
-				<div className="w-[768px] m-auto top-0 left-0 pb-3">
-					<div className="flex justify-between items-center py-2">
-						<div className="font-semibold  text-sm">
-							총 {cartItems.length}건
-						</div>
-						<div className="flex items-center">
-							<div className="text-textGray text-xxsm mr-4">결제 예상 금액</div>
-							<div className="text-[16px] font-semibold ">
-								{' '}
-								{formatNumberWithCommas(totalPrice)} 원
+			) : (
+				<>
+					<div className="bg-white fixed left-0 top-[48px] w-screen drop-shadow-sm">
+						<div className="flex h-[48px]  justify-between items-center px-4  w-[768px]  m-auto top-0   left-0">
+							<div className="flex ">
+								<input
+									type="checkbox"
+									onChange={handleSelectAll}
+									checked={selectAll}
+								/>
+								<div className="ml-2 text-sm">전체선택</div>
+							</div>
+							<div
+								className="text-sm text-blue"
+								onClick={() => {
+									AllDeleteItem();
+								}}
+							>
+								전체 삭제
 							</div>
 						</div>
 					</div>
+					<CartList
+						dataCartItems={dataCartItems}
+						handleCheckbox={handleCheckbox}
+						handleDeleteItem={handleDeleteItem}
+					/>
+					<CartBottom totalPrice={totalPrice} />
+					<div className="bg-white ${show ? 'h-[150px]' : 'h-[110px]'} shadow-inner w-screen fixed bottom-0  left-0">
+						<div className="w-[768px] m-auto top-0 left-0 pb-3">
+							<div className="flex justify-between items-center py-2">
+								<div className="font-semibold  text-sm">
+									총 {cartItems.length}건
+								</div>
+								<div className="flex items-center">
+									<div className="text-textGray text-xxsm mr-4">
+										결제 예상 금액
+									</div>
+									<div className="text-[16px] font-semibold ">
+										{' '}
+										{formatNumberWithCommas(totalPrice)} 원
+									</div>
+								</div>
+							</div>
 
-					<button
-						onClick={handleReservation}
-						className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-secondary rounded-md h-[20px]  text-white"
-					>
-						예약하기
-					</button>
-					{show && (
-						<div className="text-textGray text-xxsm mt-2 ">
-							(주)야놀자는 통신판매중개업자로서, 통신판매의 당사자가 아니라는
-							사실을 고지하며 상품의 예약, 이용 및 환불 등과 관련한 의무와
-							책임은 각 판매자에게 있습니다.
+							<button
+								onClick={handleReservation}
+								className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-secondary rounded-md h-[20px]  text-white"
+							>
+								예약하기
+							</button>
+							{show && (
+								<div className="text-textGray text-xxsm mt-2 ">
+									(주)야놀자는 통신판매중개업자로서, 통신판매의 당사자가
+									아니라는 사실을 고지하며 상품의 예약, 이용 및 환불 등과 관련한
+									의무와 책임은 각 판매자에게 있습니다.
+								</div>
+							)}
 						</div>
-					)}
-				</div>
-			</div>
+					</div>
+				</>
+			)}
 		</>
 	);
 };
