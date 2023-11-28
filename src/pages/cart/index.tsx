@@ -3,15 +3,28 @@ import Header from '../../components/common/Header';
 import { useNavigate } from 'react-router-dom';
 import CartList from 'components/cart/CartList';
 import CartBottom from 'components/cart/CartBottom';
-import { useQueryMainRegion } from 'hooks/cart/useQueryCart';
+import { getCart, useQueryMainRegion } from 'hooks/cart/useQueryCart';
 import { dataCartItem, CartItem } from 'types/Cart.type';
 import { deleteCartItem, allDeleteItem } from 'apis/cartAPI';
 import useScrollToShow from 'hooks/common/handleScroll';
 import { cartItemState, totalPriceState } from 'recoil/atoms/cartAtom';
 import { useSetRecoilState } from 'recoil';
 import { requireLogin } from 'hooks/common/isAcessToken';
+import { CartResponse } from 'types/Cart.type';
+
 const Cart = () => {
 	requireLogin();
+	const [cart, setCart] = useState<CartResponse>();
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const res = await getCart();
+			setCart(res);
+		};
+		fetchData();
+		// console.log('res', cart);
+	}, []);
+	console.log('res222', cart && cart.data && cart.data.cartItems);
 
 	const { data, isLoading } = useQueryMainRegion();
 
@@ -30,19 +43,20 @@ const Cart = () => {
 	const setTotalPrice = useSetRecoilState(totalPriceState);
 
 	useEffect(() => {
-		if (!isLoading) {
-			const temp = data?.data?.cartItems;
-			if (temp.length > 0) {
-				const newData: dataCartItem[] = temp.map((item: CartItem) => {
-					const copy = { ...item, isClicked: true };
-					return copy;
-				});
-				setDataCartItems(newData || []);
-				setCartItems(newData);
-			}
-			// setDataCartItems(data?.data?.cartItems || []);
+		const temp = cart?.data?.cartItems;
+
+		if (temp && temp.length > 0) {
+			const newData: dataCartItem[] = temp.map((item: CartItem) => {
+				const copy = { ...item, isClicked: true };
+				return copy;
+			});
+			setDataCartItems(newData || []);
+			setCartItems(newData);
 		}
-	}, [isLoading, data]);
+
+		// setDataCartItems(data?.data?.cartItems || []);
+		console.log('temp', temp);
+	}, [cart]);
 
 	//  전체선택 버튼 클릭
 	const handleSelectAll = () => {
