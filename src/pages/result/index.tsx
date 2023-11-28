@@ -8,12 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { getOrderCheck } from 'apis/cartAPI';
 import { useRecoilValue } from 'recoil';
 import { orderIdState } from 'recoil/atoms/orderAtom';
-import {
-	PostClient,
-	PostSubscriber,
-	OrderData,
-	OrderItems,
-} from 'types/Orders';
+import { OrderData, OrderItems } from 'types/Orders';
 import swal from 'sweetalert';
 
 const result = () => {
@@ -32,8 +27,7 @@ const result = () => {
 		const fetchData = async () => {
 			try {
 				const res = await getOrderCheck(orderId);
-				console.log(res);
-				console.log(res.data);
+
 				// setData(result);
 				setOrderData(res.data);
 				setOrderItem(res.data.orderItems);
@@ -48,8 +42,8 @@ const result = () => {
 
 	// 예약 날짜 시간
 
-	console.log(orderData);
-	console.log(orderItem);
+	// console.log(orderData);
+	// console.log(orderItem);
 
 	return (
 		<>

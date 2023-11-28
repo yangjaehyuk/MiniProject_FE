@@ -153,12 +153,14 @@ const orders = () => {
 					<div className="font-semibold text-md pb-2">결제 금액</div>
 					<div className="flex justify-between items-center text-textGray text-sm pt-2 pb-5 border-dashed  border-b-2 border-borderGray">
 						<div>상품 금액</div>
-						<div className="text-secondaryTextGray">870,000원</div>
+						<div className="text-secondaryTextGray">
+							{orderItem ? orderItem.price : totalPrice}원
+						</div>
 					</div>
 					<div className="flex justify-between items-center py-2">
 						<div className="font-semibold text-content"> 총 결제 금액</div>
 						<div className="font-semibold text-title text-secondary">
-							870,000 원
+							{orderItem ? orderItem.price : totalPrice}원
 						</div>
 					</div>
 				</div>
@@ -178,14 +180,14 @@ const orders = () => {
 									type="submit"
 									className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-secondary rounded-md h-[20px]  text-white"
 								>
-									870,000원 결제하기
+									{orderItem ? orderItem.price : totalPrice}원 결제하기
 								</button>
 							) : (
 								<button
 									disabled
 									className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-textGray rounded-md h-[20px]  text-white"
 								>
-									870,000원 결제하기
+									{orderItem ? orderItem.price : totalPrice}원 결제하기
 								</button>
 							)}
 						</form>

@@ -7,6 +7,8 @@ import {
 	CartItem,
 	dataCartItem,
 } from 'types/Cart.type';
+import { getDateDifference } from 'hooks/common/getDateDifference';
+import { getDayOfWeek } from 'hooks/common/getDayOfWeek';
 
 interface CartListProps {
 	dataCartItems: dataCartItem[];
@@ -66,7 +68,9 @@ const CartList: React.FC<CartListProps> = ({
 									/>
 									<div className="flex-col flex text-sm text-textGray ">
 										<span className="  text-[#1A1A1A] ">
-											{item.checkinDate} ~ {item.checkoutDate} (금) | 3박
+											{item.checkinDate}({getDayOfWeek(item.checkinDate)}) ~
+											{item.checkoutDate} ({getDayOfWeek(item.checkoutDate)})
+											{getDateDifference(item.checkinDate, item.checkoutDate)}박
 										</span>
 										<span>체크인 15:00 | 체크아웃 11:00</span>
 										<span>기준 2명 / 최대 {item.roomType.capacity}명</span>
@@ -75,7 +79,9 @@ const CartList: React.FC<CartListProps> = ({
 								</div>
 							</div>
 							<div className="flex justify-end">
-								<span className="text-sm">연박 </span>
+								<span className="text-sm">
+									연박 {getDateDifference(item.checkinDate, item.checkoutDate)}
+								</span>
 								<span className="text-sm font-semibold">
 									{item.roomType.price}원
 								</span>

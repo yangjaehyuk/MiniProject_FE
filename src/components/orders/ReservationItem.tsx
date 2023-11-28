@@ -5,6 +5,9 @@ import { useRecoilValue } from 'recoil';
 import { cartItemState, totalPriceState } from 'recoil/atoms/cartAtom';
 import { orderItemState } from 'recoil/atoms/orderAtom';
 import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
+import { formatFullDateRange } from 'utils/formatDate';
+import { getDateDifference } from 'hooks/common/getDateDifference';
+import { getDayOfWeek } from 'hooks/common/getDayOfWeek';
 
 const ReservationItem = () => {
 	const cartItem = useRecoilValue(cartItemState);
@@ -16,6 +19,13 @@ const ReservationItem = () => {
 	const checkOutDate = useRecoilValue(checkOutDateState);
 
 	console.log(orderItem);
+
+	const checkDate = formatFullDateRange(checkInDate, checkOutDate);
+
+	// 데이터에서 필요한 부분을 추출
+	const checkIn = checkDate.split('~')[0];
+	const checkOut = checkDate.split('~')[1].split(',')[0].trim();
+	const nights = checkDate.split('~')[1].split(',')[1].trim();
 
 	return (
 		<>
@@ -33,16 +43,12 @@ const ReservationItem = () => {
 						<div className="flex ">
 							<div className="flex flex-col w-1/2">
 								<div className="text-xxsm text-textGray">체크인</div>
-								<div className="font-semibold text-content ">
-									<>{checkInDate}(화)</>
-								</div>
+								<div className="font-semibold text-content ">{checkIn}</div>
 								<div className="text-sm">15: 00</div>
 							</div>
 							<div className="flex flex-col w-1/2 ">
 								<div className="text-xxsm text-textGray">체크아웃</div>
-								<div className="font-semibold text-content ">
-									<>{checkOutDate} (금)</>
-								</div>
+								<div className="font-semibold text-content ">{checkOut}</div>
 								<div className="text-sm">19: 00</div>
 							</div>
 						</div>
@@ -53,7 +59,9 @@ const ReservationItem = () => {
 						</div>
 						<div>
 							<div className="flex justify-end items-center content-center">
-								<div className="text-sm text-textGray pr-1">연박 / 3박</div>
+								<div className="text-sm text-textGray pr-1">
+									연박 / {nights}
+								</div>
 								<div className="font-semibold text-content">
 									{orderItem.price} 원
 								</div>
@@ -75,14 +83,14 @@ const ReservationItem = () => {
 								<div className="flex flex-col w-1/2">
 									<div className="text-xxsm text-textGray">체크인</div>
 									<div className="font-semibold text-content ">
-										{item.checkinDate}(화)
+										{item.checkinDate}({getDayOfWeek(item.checkinDate)})
 									</div>
 									<div className="text-sm">15: 00</div>
 								</div>
 								<div className="flex flex-col w-1/2 ">
 									<div className="text-xxsm text-textGray">체크아웃</div>
 									<div className="font-semibold text-content ">
-										{item.checkoutDate} (금)
+										{item.checkoutDate} ({getDayOfWeek(item.checkoutDate)})
 									</div>
 									<div className="text-sm">19: 00</div>
 								</div>
@@ -94,7 +102,10 @@ const ReservationItem = () => {
 							</div>
 							<div>
 								<div className="flex justify-end items-center content-center">
-									<div className="text-sm text-textGray pr-1">연박 / 3박</div>
+									<div className="text-sm text-textGray pr-1">
+										연박 /{' '}
+										{getDateDifference(item.checkinDate, item.checkoutDate)} 박
+									</div>
 									<div className="font-semibold text-content">
 										{item.roomType.price} 원
 									</div>
