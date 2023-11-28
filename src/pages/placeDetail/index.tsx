@@ -112,18 +112,14 @@ export default function PlaceDetail() {
 					console.error('Error copying text: ', err);
 				});
 		}
-		
-	}
+	};
 
 	const mapRef = useRef<HTMLDivElement | null>(null); // KakaoMap 컴포넌트에 대한 참조 생성
 
-    const handleAddressClick = () => {
-        // KakaoMap 컴포넌트로 스크롤
-        mapRef.current?.scrollIntoView({ behavior: 'smooth' });
-    };
-
-
-	
+	const handleAddressClick = () => {
+		// KakaoMap 컴포넌트로 스크롤
+		mapRef.current?.scrollIntoView({ behavior: 'smooth' });
+	};
 
 	if (isLoading) {
 		return <Loading />;
@@ -139,7 +135,9 @@ export default function PlaceDetail() {
 			<CommonHeader name={accommodationInfo?.name} isHomeIcon isCartIcon />
 			{/* <Header name={accommodationInfo?.name} /> */}
 			<div className="relative mt-[48px] flex-row">
-				<ImageSwiper items={accommodationInfo?.images} />
+				<div className="ml-[-1.25rem] mr-[-1.25rem]">
+					<ImageSwiper items={accommodationInfo?.images} />
+				</div>
 				<div className="pt-3">
 					<span className="text-sm">일반 호텔</span>
 					<div className="flex w-full justify-between">
@@ -151,7 +149,10 @@ export default function PlaceDetail() {
 					</div>
 					<div className="flex items-center pt-[6px] pb-[2px]">
 						<LocationOnIcon sx={{ fill: '#0152cc' }} fontSize="small" />
-						<span className="text-blue font-bold text-content cursor-pointer" onClick={handleAddressClick}>
+						<span
+							className="text-blue font-bold text-content cursor-pointer"
+							onClick={handleAddressClick}
+						>
 							{accommodationInfo?.location.address}
 						</span>
 						<KeyboardArrowRightIcon sx={{ fill: '#0152cc' }} />
@@ -246,7 +247,7 @@ export default function PlaceDetail() {
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold ">취소 안내</p>
 					</div>
-					<ul className="list-disc">
+					<ul className="list-disc pl-5">
 						<li className="pb-2">
 							{' '}
 							취소 및 환불이 불가한 숙소 상품을 예약한 경우도 예약 완료 후 일정

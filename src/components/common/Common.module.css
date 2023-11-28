@@ -23,7 +23,4 @@
 	.itemDesc {
 		@apply flex flex-col justify-between h-28 p-3;
 	}
-	.regionInner {
-		@apply pt-[48px];
-	}
 }
