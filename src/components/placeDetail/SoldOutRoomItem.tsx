@@ -4,6 +4,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import RoomImageSwiper from 'components/common/RoomImageSwiper';
 import { RoomProps } from 'types/Place';
 import { useNavigate, useParams } from 'react-router';
+import { formatNumberWithCommas } from 'utils/numberComma';
 
 export default function SoldOutRoomItem({ roomItem, name }: RoomProps) {
 	const navigate = useNavigate();
@@ -11,6 +12,8 @@ export default function SoldOutRoomItem({ roomItem, name }: RoomProps) {
 	const handleItemClick = () => {
 		navigate(`/places/${accommodationdId}/${roomItem.id}`);
 	};
+	const formattedPrice = formatNumberWithCommas(roomItem.price);
+
 
 	return (
 		<div className="flex py-5 justify-between border-b border-borderGray cursor-pointer">
@@ -41,7 +44,7 @@ export default function SoldOutRoomItem({ roomItem, name }: RoomProps) {
 					</p>
 				</div>
 				<div className="flex flex-col items-end">
-					<p className="text-title font-bold text-soldOut">{roomItem.price}</p>
+					<p className="text-title font-bold text-soldOut">{formattedPrice}원</p>
 					<p className="font-bold text-secondaryTextGray text-content">
 						예약마감
 					</p>

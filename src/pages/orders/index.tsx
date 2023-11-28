@@ -1,5 +1,6 @@
-import Header from 'components/common/Header';
+// import Header from 'components/common/Header';
 import React, { useState } from 'react';
+import CommonHeader from 'components/common/CommonHeader';
 import styles from 'components/cart/Cart.module.css';
 import OrdersNotice from 'components/orders/OrdersNotice';
 import ReservationItem from 'components/orders/ReservationItem';
@@ -142,7 +143,8 @@ const orders = () => {
 	return (
 		<>
 			<FormProvider {...methods}>
-				<Header title="예약" />
+				<CommonHeader name="예약" isHomeIcon />
+				{/* <Header title="예약" /> */}
 
 				<div className={styles.wrap}>
 					<div className="font-semibold text-md pb-2">숙소</div>
