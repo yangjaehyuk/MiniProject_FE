@@ -60,6 +60,23 @@ const orders = () => {
 	console.log('cartItem', cartItem);
 	const methods = useForm<ReservationInfo>({ mode: 'onChange' });
 
+	// console.log('payment', payment);
+	// console.log('payment', payment);
+
+	const orderData: PostOrderItem[] = orderItem
+		? [
+				{
+					roomTypeId: StringOrderItem || '',
+					checkinDate: StringCheckInDate,
+					checkoutDate: StringCheckOutDate,
+				},
+		  ]
+		: cartItem.map((cartItem) => ({
+				roomTypeId: cartItem.roomType.id.toString(),
+				checkinDate: cartItem.checkinDate,
+				checkoutDate: cartItem.checkoutDate,
+		  }));
+
 	// 결제하기 버튼
 	const onSubmit = async (data: ReservationInfo) => {
 		const client = { name: data.userName, phoneNumber: data.userNumber };
@@ -67,30 +84,37 @@ const orders = () => {
 			name: data.reservationName,
 			phoneNumber: data.reservationNumber,
 		};
-		console.log('subscriber', subscriber);
-		console.log('client', client);
-		const orderData: PostOrderItem[] = orderItem
-			? [
-					{
-						roomTypeId: StringOrderItem || '',
-						checkinDate: StringCheckInDate,
-						checkoutDate: StringCheckOutDate,
-					},
-			  ]
-			: cartItem.map((cartItem) => ({
-					roomTypeId: cartItem.id.toString(),
-					checkinDate: cartItem.checkinDate,
-					checkoutDate: cartItem.checkoutDate,
-			  }));
+		// console.log('cartItem', cartItem.roomType.id);
+		console.log('orderItem', orderItem);
 
-		console.log('orderData', orderData);
-
+		// console.log('orderData', orderData);
+		console.log(
+			'payment',
+			payment,
+			'client',
+			client,
+			'subscriber',
+			subscriber,
+			'orderData',
+			orderData,
+		);
 		if (client && subscriber && payment && orderData) {
+			console.log(
+				'payment2',
+				payment,
+				'client2',
+				client,
+				'subscriber2',
+				subscriber,
+				'orderData2',
+				orderData,
+			);
 			const res = await postOrder(client, subscriber, payment, orderData);
 			console.log('res', res);
+			console.log('res.orderId', res.data.orderId);
 
 			// 리코일로 주문 id 값 넣어주기
-			orderIdHandler(res.orderId);
+			// orderIdHandler(res.orderId);
 		} else {
 			console.log('결제에 실패 했습니다');
 		}
