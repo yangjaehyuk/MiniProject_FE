@@ -29,10 +29,10 @@ const ReservationCard = ({
 	const navigate = useNavigate();
 	return (
 		<div
-			className="w-full border-2 border-gray rounded-md cursor-pointer"
+			className="cursor-pointer py-4"
 			onClick={() => navigate(`/places/${accomodationId}`)}
 		>
-			<div className="pl-4 pt-3 pb-1 text-textGray text-content">
+			<div className="pl-4 pb-1 text-textGray text-content">
 				숙소 예약번호: {code}
 			</div>
 			<div></div>
@@ -44,18 +44,12 @@ const ReservationCard = ({
 				<div>
 					<div className="pl-4">
 						{isUsed && (
-							<div
-								className="p-1 border border-gray bg-gray text-white rounded-sm text-sm"
-								style={{ width: '57.6px' }}
-							>
+							<div className="w-16 text-center p-1 border border-gray bg-gray text-white rounded-sm text-sm">
 								이용완료
 							</div>
 						)}
 						{!isUsed && (
-							<div
-								className="p-1 border border-green bg-white text-green rounded-sm text-sm"
-								style={{ width: '57.6px' }}
-							>
+							<div className="w-16 text-center p-1 border border-green bg-white text-green rounded-sm text-sm">
 								예약확정
 							</div>
 						)}

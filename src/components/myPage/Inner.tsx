@@ -89,7 +89,7 @@ const Inner = () => {
 
 						<div className="pt-10 ">
 							<div
-								className="flex items-center w-full h-9 border border-gray rounded-md cursor-pointer justify-between ml-3 hover:bg-lightGray"
+								className="flex items-center w-full h-9 border border-gray rounded-md cursor-pointer justify-between ml-3 hover:bg-lightGray pl-4"
 								onClick={() => setShowDateModal(true)}
 							>
 								{nowDate}
@@ -109,7 +109,10 @@ const Inner = () => {
 			{data && data?.length > 0 && (
 				<div className="pr-6 pl-6">
 					{data?.map((order, index) => (
-						<React.Fragment key={index}>
+						<div
+							key={index}
+							className="border border-gray rounded-lg mb-8 shadow-md overflow-hidden"
+						>
 							<ReservationCardHeader orderDate={order.orderDate} />
 							{order.orderItems?.map((item, itemIndex) => (
 								<React.Fragment key={itemIndex}>
@@ -126,8 +129,7 @@ const Inner = () => {
 									/>
 								</React.Fragment>
 							))}
-							<div className="pb-16"></div>
-						</React.Fragment>
+						</div>
 					))}
 				</div>
 			)}
