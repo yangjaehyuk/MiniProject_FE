@@ -4,7 +4,7 @@ import styles from '../../components/cart/Cart.module.css';
 
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import ResultFooter from 'components/Footer/ResultFooter';
-
+import { useNavigate } from 'react-router-dom';
 import { getOrderCheck } from 'apis/cartAPI';
 import { useRecoilValue } from 'recoil';
 import { orderIdState } from 'recoil/atoms/orderAtom';
@@ -14,11 +14,13 @@ import {
 	OrderData,
 	OrderItems,
 } from 'types/Orders';
+import swal from 'sweetalert';
 
 const result = () => {
-	// recoil로 id 받아오기 대체
+	const navigate = useNavigate();
+
+	// recoil로 id 받아오기
 	const orderId = useRecoilValue(orderIdState);
-	const id = 23;
 
 	// 주문 결과 데이터
 	const [orderData, setOrderData] = useState<OrderData>();
@@ -29,7 +31,7 @@ const result = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await getOrderCheck(id);
+				const res = await getOrderCheck(orderId);
 				console.log(res);
 				console.log(res.data);
 				// setData(result);
@@ -37,6 +39,7 @@ const result = () => {
 				setOrderItem(res.data.orderItems);
 			} catch (error) {
 				console.error('Error fetching data:', error);
+				swal({ title: '예상치 못한 오류가 발생했습니다.', icon: 'error' });
 			}
 		};
 
@@ -47,7 +50,7 @@ const result = () => {
 
 	console.log(orderData);
 	console.log(orderItem);
-	// console.log(orderData.id);
+
 	return (
 		<>
 			{orderData && orderItem && (
@@ -171,7 +174,12 @@ const result = () => {
 					</div>
 
 					<div className="w-[768px] m-auto top-0 left-0 py-5">
-						<button className="flex font-semibold text-content justify-center items-center w-full py-5 px-3 text-center bg-secondary rounded-md h-[20px]  text-white">
+						<button
+							onClick={() => {
+								navigate('/');
+							}}
+							className="flex font-semibold text-content justify-center items-center w-full py-5 px-3 text-center bg-secondary rounded-md h-[20px]  text-white"
+						>
 							홈으로
 						</button>
 					</div>
