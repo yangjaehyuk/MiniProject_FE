@@ -10,10 +10,10 @@ import { orderIdState } from 'recoil/atoms/orderAtom';
 import { OrderData, OrderItems } from 'types/Orders';
 import swal from 'sweetalert';
 import { requireLogin } from 'hooks/common/isAcessToken';
-
 import { formatNumberWithCommas } from 'utils/numberComma';
 
 import styles from '../../components/cart/Cart.module.css';
+import { getDayOfWeek } from 'hooks/common/getDayOfWeek';
 
 
 const result = () => {
@@ -33,8 +33,6 @@ const result = () => {
 		const fetchData = async () => {
 			try {
 				const res = await getOrderCheck(orderId);
-
-				// setData(result);
 				setOrderData(res.data);
 				setOrderItem(res.data.orderItems);
 			} catch (error) {
@@ -45,11 +43,6 @@ const result = () => {
 
 		fetchData();
 	}, []);
-
-	// 예약 날짜 시간
-
-	// console.log(orderData);
-	// console.log(orderItem);
 
 	return (
 		<>
@@ -63,13 +56,10 @@ const result = () => {
 								<div className=" font-semibold text-content">
 									예약이 완료되었습니다.
 								</div>
-								<div className=" text-sm">
-									예약 일시:{orderData.orderTime} (화) 11:34
-								</div>
+								<div className=" text-sm">예약 일시:{orderData.orderTime}</div>
 							</div>
 						</div>
 					</div>
-
 					<div className={styles.subWrap}>
 						<div>
 							<div className="flex justify-between items-center">
@@ -99,7 +89,9 @@ const result = () => {
 													객실 정보 {item.roomType.name}
 												</div>
 												<div className="text-xs ">
-													{item.checkinDate}(수) ~ {item.checkoutDate}(목) | 1박
+													{item.checkinDate}({getDayOfWeek(item.checkinDate)}) ~{' '}
+													{item.checkoutDate}({getDayOfWeek(item.checkoutDate)})
+													| 1박
 												</div>
 												<div className="text-xxsm text-textGray pb-3">
 													체크인 15:00 | 체크아웃 11:00
