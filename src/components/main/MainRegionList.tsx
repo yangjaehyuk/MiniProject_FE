@@ -21,13 +21,10 @@ const MainRegionList = () => {
 	};
 
 	useEffect(() => {
-		console.log(data); // 데이터 확인을 위한 콘솔 출력
 		if (data?.data?.accommodations) {
 			setAccommodations(data.data.accommodations);
 		}
 	}, [data]);
-
-	console.log('accommodations', accommodations);
 
 	return (
 		<>

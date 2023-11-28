@@ -16,7 +16,7 @@ function CategoryInner({ handleOpen }: CategoryInnerProps) {
 			<div className={styles.regionSelcBtnBox} onClick={handleOpen}>
 				<div className="flex items-center">
 					<LocationOn />
-					<span className="text-title">지역 선택</span>
+					<span>지역 선택</span>
 				</div>
 				<KeyboardArrowRight sx={{ fontSize: '1.5rem' }} />
 			</div>

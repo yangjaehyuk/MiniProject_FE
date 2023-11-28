@@ -10,7 +10,7 @@ function CategoryItems({ title, region }: ProductItemsProps) {
 	return (
 		<div className="py-5">
 			<div className="flex justify-between items-center mb-5">
-				<h3 className="text-title font-semibold">{title}</h3>
+				<h3 className="font-semibold">{title}</h3>
 				<Link to={`/${category}/seoul`} className="text-blue font-semibold">
 					전체보기
 				</Link>

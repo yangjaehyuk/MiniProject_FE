@@ -6,3 +6,7 @@ export interface MainSiderProps {
 	isOpen: boolean;
 	handleClose: () => void;
 }
+
+export interface SiderRegionsProps {
+	isMain?: boolean;
+}

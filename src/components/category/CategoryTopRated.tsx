@@ -11,7 +11,7 @@ function CategoryTopRated({ title }: Pick<ProductItemsProps, 'title'>) {
 	return (
 		<div className="py-5 mt-5">
 			<div className="mb-4">
-				<h2 className="text-title font-semibold">{title}</h2>
+				<h3 className="font-semibold">{title}</h3>
 				<p className="text-content text-textGray">
 					고객분들의 좋은 평점 후기를 받은 순으로 추천 드립니다
 				</p>

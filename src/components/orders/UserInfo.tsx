@@ -15,13 +15,9 @@ const UserInfo = () => {
 	const reservationName = watch('reservationName');
 	const reservationNumber = watch('reservationNumber');
 
-	console.log(reservationName);
-
 	const handleCheckboxChange = () => {
 		// const yourCheckboxFieldValue = watch('yourCheckboxFieldName');
 		setIsCheckAll((prev) => !prev);
-
-		console.log(isCheckAll);
 
 		if (isCheckAll) {
 			setValue('userName', reservationName);
@@ -33,10 +29,6 @@ const UserInfo = () => {
 	};
 
 	const isReservationInfoFilled = reservationName && reservationNumber;
-
-	console.log('34:', isReservationInfoFilled);
-	console.log('35:', !isReservationInfoFilled);
-	console.log('36:', !!isReservationInfoFilled);
 
 	return (
 		<>

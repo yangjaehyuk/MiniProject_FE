@@ -34,11 +34,11 @@ const Cart = () => {
 					const copy = { ...item, isClicked: true };
 					return copy;
 				});
-				console.log(newData);
+
 				setDataCartItems(newData || []);
 				setCartItems(newData);
 			}
-			console.log(temp);
+
 			// setDataCartItems(data?.data?.cartItems || []);
 		}
 	}, [isLoading, data]);
@@ -110,7 +110,6 @@ const Cart = () => {
 	};
 	console.log('cartItems 선택된 ', cartItems);
 	console.log('dataCartItems', dataCartItems);
-	console.log('시작시 전부 넣음cartItems', cartItems);
 
 	// 전체 금액 계산
 	const totalPrice = cartItems.reduce((acc, cur: dataCartItem) => {
@@ -125,8 +124,6 @@ const Cart = () => {
 		navigate('/orders');
 	};
 
-	console.log('전체 금액', totalPrice);
-	console.log('총 결제 건수', cartItems.length);
 	const [show, setShow] = useState(false);
 	const handleScroll = () => {
 		if (window.scrollY > 200) {
