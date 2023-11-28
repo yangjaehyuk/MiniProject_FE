@@ -18,8 +18,6 @@ const ReservationItem = () => {
 	const checkInDate = useRecoilValue(checkInDateState);
 	const checkOutDate = useRecoilValue(checkOutDateState);
 
-	console.log(orderItem);
-
 	const checkDate = formatFullDateRange(checkInDate, checkOutDate);
 
 	// 데이터에서 필요한 부분을 추출

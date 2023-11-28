@@ -23,6 +23,7 @@ import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { orderIdState } from 'recoil/atoms/orderAtom';
 import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
+import { requireLogin } from 'hooks/common/isAcessToken';
 
 // ReservationInfo
 export type ReservationInfo = {
@@ -43,6 +44,7 @@ export type ReservationInfo = {
 // type CartItemStateType = typeof cartItemState;
 
 const orders = () => {
+	requireLogin();
 	const navigate = useNavigate();
 
 	// 장바구니에서 예약 데이터

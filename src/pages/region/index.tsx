@@ -81,7 +81,9 @@ function Region() {
 				searchParams={searchParams}
 				setSearchParams={setSearchParams}
 			/>
-			{dateOpen && <CalendarModal isOpen={dateOpen} handleOpen={handleDateOpen} />}
+			{dateOpen && (
+				<CalendarModal isOpen={dateOpen} handleOpen={handleDateOpen} />
+			)}
 			<RegionProdCapacityModal
 				isOpen={capacityOpen}
 				handleOpen={handleCapacityOpen}

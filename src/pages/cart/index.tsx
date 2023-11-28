@@ -9,11 +9,14 @@ import { deleteCartItem, allDeleteItem } from 'apis/cartAPI';
 import useScrollToShow from 'hooks/common/handleScroll';
 import { cartItemState, totalPriceState } from 'recoil/atoms/cartAtom';
 import { useSetRecoilState } from 'recoil';
-
+import { requireLogin } from 'hooks/common/isAcessToken';
 const Cart = () => {
+	requireLogin();
+
 	const { data, isLoading } = useQueryMainRegion();
 
 	const show = useScrollToShow(false, 200);
+
 	const navigate = useNavigate();
 
 	// 데이터 숙소 아이템
