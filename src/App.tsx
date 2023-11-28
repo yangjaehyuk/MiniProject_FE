@@ -15,6 +15,7 @@ import SubLayout from 'components/common/SubLayout';
 import Orders from 'pages/orders';
 import Result from 'pages/result';
 import NotFound from 'pages/notfound';
+import RegionAllProducts from 'pages/regionProd';
 
 function App() {
 	return (
@@ -23,6 +24,7 @@ function App() {
 				<Route path="/" element={<Main />} />
 				<Route path="/:category" element={<Category />} />
 				<Route path="/:category/:region" element={<Region />} />
+				<Route path="/region/:region" element={<RegionAllProducts />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/signup" element={<SignUp />} />
 				<Route path="/mypage" element={<MyPage />} />
@@ -31,7 +33,7 @@ function App() {
 					path="/places/:accommodationdId/:roomId"
 					element={<RoomDetail />}
 				/>
-        <Route path="/404" element={<NotFound />} />
+				<Route path="/404" element={<NotFound />} />
 				<Route path="*" element={<Navigate to="/404" />} />
 			</Route>
 			<Route element={<SubLayout />}>
