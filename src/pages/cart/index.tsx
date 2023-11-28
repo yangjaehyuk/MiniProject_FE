@@ -13,7 +13,7 @@ import { useSetRecoilState } from 'recoil';
 const Cart = () => {
 	const { data, isLoading } = useQueryMainRegion();
 
-	const scroll = useScrollToShow(false, 200);
+	const show = useScrollToShow(false, 200);
 	const navigate = useNavigate();
 
 	// 데이터 숙소 아이템
@@ -34,11 +34,9 @@ const Cart = () => {
 					const copy = { ...item, isClicked: true };
 					return copy;
 				});
-
 				setDataCartItems(newData || []);
 				setCartItems(newData);
 			}
-
 			// setDataCartItems(data?.data?.cartItems || []);
 		}
 	}, [isLoading, data]);
@@ -123,22 +121,6 @@ const Cart = () => {
 		console.log('Recoil State Value:', cartItems);
 		navigate('/orders');
 	};
-
-	const [show, setShow] = useState(false);
-	const handleScroll = () => {
-		if (window.scrollY > 200) {
-			setShow(true);
-		} else {
-			setShow(false);
-		}
-	};
-
-	useEffect(() => {
-		window.addEventListener('scroll', handleScroll);
-		return () => {
-			window.removeEventListener('scroll', handleScroll);
-		};
-	}, [show]);
 
 	return (
 		<>
