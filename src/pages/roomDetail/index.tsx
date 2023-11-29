@@ -15,6 +15,8 @@ import { formatNumberWithCommas } from 'utils/numberComma';
 import { useRecoilValue } from 'recoil';
 import { checkInDateState } from 'recoil/atoms/dateAtom';
 import { formatDateWithoutYear, getDaysBeforeCheckIn } from 'utils/formatDate';
+import TopBtn from 'components/common/TopBtn';
+import useScrollToShow from 'hooks/common/handleScroll';
 
 export default function RoomDetail() {
 	const { roomId } = useParams();
@@ -28,6 +30,8 @@ export default function RoomDetail() {
 	const [freeCancle, setFreeCancle] = useState(false);
 	const [formattedPrice, setFormattedPrice] = useState<string>('');
 	const [datesBeforeCheckIn, setDatesBeforeCheckIn] = useState<string[]>([]);
+
+	const show = useScrollToShow(false, 200);
 
 	useEffect(() => {
 		const dates = [];
@@ -51,13 +55,10 @@ export default function RoomDetail() {
 
 	useEffect(() => {
 		getRoomDetail();
-		if( price !== null) {
+		if (price !== null) {
 			setFormattedPrice(formatNumberWithCommas(parseInt(price)));
 		}
 	}, [roomId]);
-
-	
-
 
 	const isFreeCancle = () => {
 		const date = new Date(checkInDate);
@@ -171,7 +172,7 @@ export default function RoomDetail() {
 						<tbody className="text-textGray">
 							<tr>
 								<td className="border-lightGray border px-4 py-2">
-								{datesBeforeCheckIn[4]} 17:00전까지
+									{datesBeforeCheckIn[4]} 17:00전까지
 								</td>
 								<td className="border-lightGray border px-4 py-2">
 									총 판매가의 0%
@@ -179,7 +180,7 @@ export default function RoomDetail() {
 							</tr>
 							<tr>
 								<td className="border-lightGray border px-4 py-2">
-								{datesBeforeCheckIn[3]} 17:00전까지
+									{datesBeforeCheckIn[3]} 17:00전까지
 								</td>
 								<td className="border-lightGray border px-4 py-2">
 									총 판매가의 30%
@@ -187,7 +188,7 @@ export default function RoomDetail() {
 							</tr>
 							<tr>
 								<td className="border-lightGray border px-4 py-2">
-								{datesBeforeCheckIn[2]} 17:00전까지
+									{datesBeforeCheckIn[2]} 17:00전까지
 								</td>
 								<td className="border-lightGray border px-4 py-2">
 									총 판매가의 50%
@@ -195,7 +196,7 @@ export default function RoomDetail() {
 							</tr>
 							<tr>
 								<td className="border-lightGray border px-4 py-2">
-								{datesBeforeCheckIn[1]} 17:00전까지
+									{datesBeforeCheckIn[1]} 17:00전까지
 								</td>
 								<td className="border-lightGray border px-4 py-2">
 									총 판매가의 100%
@@ -241,6 +242,7 @@ export default function RoomDetail() {
 				status={status}
 				name={name}
 			/>
+			{show && <TopBtn show={show} />}
 		</div>
 	);
 }
