@@ -33,7 +33,10 @@ const UserInfo = () => {
 	return (
 		<>
 			<div className={styles.wrap}>
-				<div className="font-semibold text-md pb-2 mb-3">예약자 정보</div>
+				<div className="font-semibold text-md pb-2 mb-3">
+					예약자 정보
+					<span className="text-primary  pl-2">*</span>
+				</div>
 				<div className="flex flex-col ">
 					<Input
 						variant="static"
@@ -63,7 +66,7 @@ const UserInfo = () => {
 							crossOrigin={'anonymous'}
 						/>
 					</div>
-					<div className="text text-[10px] mt-2  ">
+					<div className="text-red  text-[10px] mt-2  ">
 						{errors?.reservationNumber?.type === 'pattern' && 'required' && (
 							<div>010-1234-1234 형식으로 입력해주세요.</div>
 						)}
@@ -71,7 +74,9 @@ const UserInfo = () => {
 				</div>
 			</div>
 			<div className={styles.wrap}>
-				<div className="font-semibold text-md pb-2">이용자 정보</div>
+				<div className="font-semibold text-md pb-2">
+					이용자 정보 <span className="text-primary  pl-2">*</span>
+				</div>
 				<div className="bg-bgGray text-xs h-8 text-textGray pl-3 flex items-center">
 					상품 이용 시 필요한 필수 정보입니다.
 				</div>
@@ -83,7 +88,7 @@ const UserInfo = () => {
 						disabled={!isReservationInfoFilled}
 					/>
 
-					<div className="text-md"> 예약자 정보와 동일합니다.</div>
+					<div className="text-md pl-2"> 예약자 정보와 동일합니다.</div>
 				</div>
 				<div className="flex flex-col mt-6">
 					<Input
