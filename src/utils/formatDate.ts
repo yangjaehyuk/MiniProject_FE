@@ -108,3 +108,16 @@ export const foramtYYYYMMDD = (dateData: Date): string => {
 	const day = dateData.getDate().toString().padStart(2, '0');
 	return `${year}-${month}-${day}`;
 };
+
+
+const formatDateToMMDD = (date : Date) => {
+	const month = date.getMonth() + 1; // getMonth()는 0부터 시작
+	const day = date.getDate();
+	return `${month.toString().padStart(2, '0')}.${day.toString().padStart(2, '0')}`;
+  };
+  
+export const getDaysBeforeCheckIn = (checkInDate : Date, daysBefore : number) => {
+	const date = new Date(checkInDate);
+	date.setDate(date.getDate() - daysBefore);
+	return formatDateToMMDD(date);
+};

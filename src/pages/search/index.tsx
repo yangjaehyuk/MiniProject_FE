@@ -12,6 +12,7 @@ import SiderRegions from 'components/main/SiderRegions';
 import CalendarModal from 'components/common/CalendarModal';
 import RegionProdCapacityModal from 'components/region/RegionProdCapacityModal';
 import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 export default function Search() {
     const navigate = useNavigate();
@@ -48,9 +49,33 @@ export default function Search() {
 
     const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if(searchInput !== '') {
-            navigate('/');
+        if(searchInput === '서울') {
+            navigate('/region/seoul');
         }
+		else if(searchInput === '부산') {
+            navigate('/region/busan');
+        }
+		else if(searchInput === '경기') {
+            navigate('/region/gyeonggi');
+        }
+		else if(searchInput === '인천') {
+            navigate('/region/incheon');
+        }
+		else if(searchInput === '강원') {
+            navigate('/region/gangwon');
+        }
+		else if(searchInput === '경상') {
+            navigate('/region/gyeongsang');
+        }
+		else if(searchInput === '전라') {
+            navigate('/region/jeolla');
+        }
+		else if(searchInput === '충청') {
+            navigate('/region/chungcheong');
+        }
+		else {
+			swal('Error','해당 단어는 찾을 수 없습니다.','error');
+		}
         
     }
 	return (
@@ -92,43 +117,7 @@ export default function Search() {
 						</div>
 					</div>
 				</div>
-                <div>
-                    <div className='py-5'>
-                        <p className='text-black text-title font-bold'>인기 검색어</p>
-                    </div>
-                    <div>
-                        <div>
-                            <span className='text-primary font-bold mr-2'>1</span>
-                            <RemoveIcon  sx={{ fill: '#cccccc', fontSize:'14px' }}/>
-                            <span className='ml-2'>서울</span>
-
-                        </div>
-                        <div className='pt-2'>
-                            <span className='text-primary font-bold mr-2'>2</span>
-                            <RemoveIcon sx={{ fill: '#cccccc' , fontSize:'14px' }}/>
-                            <span className='ml-2'>부산</span>
-
-                        </div>
-                        <div className='pt-2'>
-                            <span className='text-primary font-bold mr-2'>3</span>
-                            <RemoveIcon sx={{ fill: '#cccccc' , fontSize:'14px' }}/>
-                            <span className='ml-2'>강원</span>
-
-                        </div>
-                        <div className='pt-2'>
-                            <span className='text-black font-bold mr-2'>4</span>
-                            <RemoveIcon sx={{ fill: '#cccccc' , fontSize:'14px' }}/>
-                            <span className='ml-2'>경상</span>
-
-                        </div>
-                        <div className='pt-2'>
-                            <span className='text-black font-bold mr-2'>5</span>
-                            <RemoveIcon sx={{ fill: '#cccccc' , fontSize:'14px' }}/>
-                            <span className='ml-2'>전라</span>
-
-                        </div>
-                    </div>
-                </div>
+                
                 <div>
                 <div className='py-8'>
                         <p className='text-black text-title font-bold'>지금 사랑받는 여행지</p>

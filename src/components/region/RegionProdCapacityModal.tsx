@@ -11,13 +11,13 @@ import { Add, Close, Remove } from '@mui/icons-material';
 import { CapacityAction } from 'types/Region.type';
 import { capaReducer } from 'utils/capacityReducer';
 import { ModalProps } from 'types/Category.type';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { capacityState } from 'recoil/atoms/capacityAtom';
 import styles from '../category/Category.module.css';
 
 function RegionProdCapacityModal({ isOpen, handleOpen }: ModalProps) {
-	const [state, dispatch] = useReducer(capaReducer, 2);
-	const setCapacity = useSetRecoilState(capacityState);
+	const [capacity, setCapacity] = useRecoilState(capacityState);
+	const [state, dispatch] = useReducer(capaReducer, capacity);
 
 	const handleApply = () => {
 		handleOpen();
