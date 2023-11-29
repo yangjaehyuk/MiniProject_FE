@@ -8,7 +8,7 @@ export interface Accommodation {
 export interface RoomType {
 	id: string;
 	name: string;
-	price: number;
+
 	capacity: string;
 }
 
@@ -19,6 +19,7 @@ export interface CartItem {
 	id: string;
 	roomType: RoomType;
 	stock: string;
+	price: number;
 }
 
 export type dataCartItem = CartItem & {
