@@ -71,7 +71,7 @@ export default function RoomDetail() {
 		<div className="justify-center m-auto text-content text-black">
 			<Header />
 			<div className="relative mt-[48px] flex-row">
-				<div className="max-w-none w-full h-[507px]">
+				<div className="max-w-none h-[507px] ml-[-1.25rem] mr-[-1.25rem]">
 					<ImageSwiper items={roomInfo?.images} />
 				</div>
 				<div className="pt-3">
@@ -196,7 +196,7 @@ export default function RoomDetail() {
 							</tr>
 						</tbody>
 					</table>
-					<ul className="list-disc my-2 pb-[70px]">
+					<ul className="list-disc my-2 pb-[70px] pl-5">
 						<li className="pb-2">
 							{' '}
 							연박(2일 이상의 숙박) 예약 시, 예약하신 각 투숙일 별 최소
@@ -220,7 +220,12 @@ export default function RoomDetail() {
 					</ul>
 				</div>
 			</div>
-			<Footer formattedPrice={formattedPrice} roomInfo={roomInfo} status={status} name={name} />
+			<Footer
+				formattedPrice={formattedPrice}
+				roomInfo={roomInfo}
+				status={status}
+				name={name}
+			/>
 		</div>
 	);
 }
