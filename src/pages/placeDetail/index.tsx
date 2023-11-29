@@ -139,13 +139,9 @@ export default function PlaceDetail() {
 					<ImageSwiper items={accommodationInfo?.images} />
 				</div>
 				<div className="pt-3">
-					<span className="text-sm">일반 호텔</span>
 					<div className="flex w-full justify-between">
 						<p className="text-lg font-bold">{accommodationInfo?.name}</p>
-						<div className="flex space-x-4">
-							<FavoriteBorderIcon fontSize="small" />
-							<ShareIcon fontSize="small" />
-						</div>
+						
 					</div>
 					<div className="flex items-center pt-[6px] pb-[2px]">
 						<LocationOnIcon sx={{ fill: '#0152cc' }} fontSize="small" />

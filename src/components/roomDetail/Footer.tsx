@@ -123,7 +123,7 @@ export default function Footer({ formattedPrice, roomInfo, status, name }: Foote
 						</button>
 					) : (
 						<button className="bg-soldOut w-[364px] h-[44px] text-white rounded text-[16px] font-bold cursor-pointer">
-							예약마감
+							예약불가
 						</button>
 					)}
 				</div>
