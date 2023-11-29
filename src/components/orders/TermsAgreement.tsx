@@ -62,7 +62,7 @@ const TermsAgreement = ({ setCheckbox }: setCheckboxProps) => {
 						className="
       font-semibold pl-2 "
 					>
-						필수 약관 전체 동의
+						필수 약관 전체 동의 <span className="text-primary  pl-1">*</span>
 					</div>
 				</div>
 				{requiredData.map((item) => (
