@@ -10,6 +10,8 @@ import { handleArrowBackClick } from 'utils';
 import { Link } from 'react-router-dom';
 import { RegionHeaderProps } from 'types/Region.type';
 import styles from './Common.module.css';
+import { useQueryCartCount } from 'hooks/common/useQueryCartCount';
+import { Badge } from '@material-tailwind/react';
 
 function CommonHeader({
 	type,
@@ -19,6 +21,7 @@ function CommonHeader({
 	isCartIcon = false,
 }: RegionHeaderProps) {
 	const { category, region } = useParams();
+	const { data: cartCount } = useQueryCartCount();
 
 	return (
 		<nav className={styles.nav}>
@@ -47,7 +50,16 @@ function CommonHeader({
 						{isCartIcon && (
 							<div className="w-8">
 								<Link to="/cart">
-									<ShoppingCartOutlined />
+									{cartCount && cartCount > 0 ? (
+										<Badge
+											content={cartCount}
+											className="bg-primary p-0 w-4 min-w-0 h-4 min-h-0"
+										>
+											<ShoppingCartOutlined />
+										</Badge>
+									) : (
+										<ShoppingCartOutlined />
+									)}
 								</Link>
 							</div>
 						)}
