@@ -18,6 +18,7 @@ import { postLogin } from 'apis/axios';
 import swal from 'sweetalert';
 import { removeCookie, setCookie } from 'utils';
 import { dateState } from 'recoil/atoms/myPageAtom';
+import { error } from 'console';
 
 const Inner = () => {
 	const navigate = useNavigate();
@@ -117,6 +118,8 @@ const Inner = () => {
 		setShowModal(false);
 	};
 
+	console.log(errors.mail, errors.pw, values.mail, values.pw);
+
 	return (
 		<div className="pt-20 min-h-screen m-auto bg-white max-w-[768px] mx-auto">
 			<div className="pt-4.5 pl-8 pr-8">
@@ -145,12 +148,7 @@ const Inner = () => {
 									></Cancel>
 								)}
 							</div>
-							{values.mail.length > 0 && errors.mail && (
-								<div className="text-sm flex text-red items-center">
-									<Block className="pr-1" />
-									{errors.mail}
-								</div>
-							)}
+
 							<div className="pt-11 flex" ref={pwRef}>
 								<Input
 									type={showPw ? 'text' : 'password'}
@@ -182,36 +180,12 @@ const Inner = () => {
 									></VisibilityOff>
 								)}
 							</div>
-							{values.pw.length > 0 && errors.pw && (
-								<div className="text-sm flex text-red items-center">
-									<Block className="pr-1" />
-									{errors.pw}
-								</div>
-							)}
 						</div>
 					</div>
-					{!(
-						((touched.mail && Boolean(errors.mail) === false) ||
-							(touched.mail && Boolean(errors.mail) === undefined)) &&
-						((touched.pw && Boolean(errors.pw) === false) ||
-							(touched.pw && Boolean(errors.pw) === undefined))
-					) ? (
-						<div
-							style={{
-								width: '100%',
-								boxShadow: 'none',
-								fontFamily: 'AppleSDGothicNeoL',
-								color: 'white',
-								fontWeight: 700,
-								fontSize: '18px',
-								border: '1px solid #ccc',
-								borderRadius: '5px',
-							}}
-							className="mt-4 pt-3 pb-3 flex items-center justify-center bg-gray cursor-default"
-						>
-							로그인
-						</div>
-					) : (
+					{!errors.mail &&
+					!errors.pw &&
+					values.mail.length > 0 &&
+					values.pw.length > 0 ? (
 						<button
 							type="submit"
 							style={{
@@ -228,6 +202,22 @@ const Inner = () => {
 						>
 							로그인
 						</button>
+					) : (
+						<div
+							style={{
+								width: '100%',
+								boxShadow: 'none',
+								fontFamily: 'AppleSDGothicNeoL',
+								color: 'white',
+								fontWeight: 700,
+								fontSize: '18px',
+								border: '1px solid #ccc',
+								borderRadius: '5px',
+							}}
+							className="mt-4 pt-3 pb-3 flex items-center justify-center bg-gray cursor-default"
+						>
+							로그인
+						</div>
 					)}
 				</form>
 				<div
