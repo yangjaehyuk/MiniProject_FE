@@ -164,6 +164,16 @@ const Inner = () => {
 
 	const { values, touched, errors, handleChange, handleBlur, handleSubmit } =
 		formik;
+	console.log(
+		errors.mail,
+		errors.pw,
+		errors.name,
+		errors.checkPw,
+		values.mail,
+		values.pw,
+		values.name,
+		values.checkPw,
+	);
 
 	return (
 		<>
@@ -309,32 +319,14 @@ const Inner = () => {
 							</div>
 						</div>
 
-						{!(
-							((touched.mail && Boolean(errors.mail) === false) ||
-								(touched.mail && Boolean(errors.mail) === undefined)) &&
-							((touched.name && Boolean(errors.name) === false) ||
-								(touched.name && Boolean(errors.name) === undefined)) &&
-							((touched.pw && Boolean(errors.pw) === false) ||
-								(touched.pw && Boolean(errors.pw) === undefined)) &&
-							((touched.checkPw && Boolean(errors.checkPw) === false) ||
-								(touched.checkPw && Boolean(errors.checkPw) === undefined))
-						) ? (
-							<div
-								style={{
-									width: '100%',
-									boxShadow: 'none',
-									fontFamily: 'AppleSDGothicNeoL',
-									color: 'white',
-									fontWeight: 700,
-									fontSize: '18px',
-									border: '1px solid #ccc',
-									borderRadius: '5px',
-								}}
-								className="mt-4 pt-3 pb-3 flex items-center justify-center bg-gray cursor-default"
-							>
-								완료
-							</div>
-						) : (
+						{!errors.mail &&
+						!errors.pw &&
+						!errors.name &&
+						!errors.checkPw &&
+						values.mail.length > 0 &&
+						values.pw.length > 0 &&
+						values.name.length > 0 &&
+						values.checkPw.length > 0 ? (
 							<button
 								type="submit"
 								style={{
@@ -351,6 +343,22 @@ const Inner = () => {
 							>
 								완료
 							</button>
+						) : (
+							<div
+								style={{
+									width: '100%',
+									boxShadow: 'none',
+									fontFamily: 'AppleSDGothicNeoL',
+									color: 'white',
+									fontWeight: 700,
+									fontSize: '18px',
+									border: '1px solid #ccc',
+									borderRadius: '5px',
+								}}
+								className="mt-4 pt-3 pb-3 flex items-center justify-center bg-gray cursor-default"
+							>
+								완료
+							</div>
 						)}
 					</form>
 				</div>
