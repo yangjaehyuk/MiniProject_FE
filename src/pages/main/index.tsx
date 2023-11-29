@@ -116,32 +116,19 @@ const main = () => {
 				</a>
 			</div>
 			<div>
-				{/* <div className="font-semibold">야놀자 추천 숙소</div> */}
 				<GoodsList type={'PENSION'} title="야놀자 추천 숙소" />
 			</div>
 
 			<div>
-				{/* <div className="flex justify-between items-center">
-					<div className="font-semibold">크리스마스 호캉스 예약하기</div>
-					<div className="font-semibold text-blue text-sm">전체 보기 </div>
-				</div> */}
 				<GoodsList type={'HOTEL'} title="크리스마스 호캉스 예약하기" />
 			</div>
 
 			<MainRegionList />
 
 			<div>
-				{/* <div className="flex justify-between items-center">
-					<div className="font-semibold">내가 관심 있을 만한 풀빌라</div>
-					<div className="font-semibold text-blue text-sm">전체 보기 </div>
-				</div> */}
 				<GoodsList type={'POOL_VILLA'} title="내가 관심 있을 만한 풀빌라" />
 			</div>
 			<div>
-				{/* <div className="flex justify-between items-center">
-					<div className="font-semibold">선선한 가을 추천 리조트</div>
-					<div className="font-semibold text-blue text-sm">전체 보기 </div>
-				</div> */}
 				<GoodsList type={'RESORT'} title="선선한 가을 추천 리조트" />
 			</div>
 

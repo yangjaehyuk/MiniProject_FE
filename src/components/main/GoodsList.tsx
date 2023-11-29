@@ -34,29 +34,6 @@ const GoodsList: React.FC<GoodsListProps> = ({ type, title }) => {
 		</div>
 	);
 
-	// return (
-	// 	<>
-	// 		{isLoading ? (
-	// 			<div>로딩 중</div>
-	// 		) : (
-	// 			<div className="flex text-xxsm px-1 py-2 justify-between items-center">
-	// 				{data.data.accommodations.map((item: DataItem) => (
-	// 					<div className="flex flex-col w-[120px] h-[250px]" key={item.id}>
-	// 						<img src={item.image} alt="item" width={120} />
-	// 						<span className="text-sm my-1">{item.name}</span>
-	// 						<div className="flex justify-start">
-	// 							<img src={star} alt="star" />
-	// 							<div className="ml-1 font-semibold">{item.star}</div>
-	// 						</div>
-	// 						<div className="flex justify-end font-semibold text-content">
-	// 							{item.price}원 ~
-	// 						</div>
-	// 					</div>
-	// 				))}
-	// 			</div>
-	// 		)}
-	// 	</>
-	// );
 };
 
 export default GoodsList;
