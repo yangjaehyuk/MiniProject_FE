@@ -14,7 +14,7 @@ import { RoomDetailInfo } from 'types/Place';
 import { formatNumberWithCommas } from 'utils/numberComma';
 import { useRecoilValue } from 'recoil';
 import { checkInDateState } from 'recoil/atoms/dateAtom';
-import { formatDateWithoutYear } from 'utils/formatDate';
+import { formatDateWithoutYear, getDaysBeforeCheckIn } from 'utils/formatDate';
 
 export default function RoomDetail() {
 	const { roomId } = useParams();
@@ -27,6 +27,15 @@ export default function RoomDetail() {
 	const checkInDate = useRecoilValue(checkInDateState);
 	const [freeCancle, setFreeCancle] = useState(false);
 	const [formattedPrice, setFormattedPrice] = useState<string>('');
+	const [datesBeforeCheckIn, setDatesBeforeCheckIn] = useState<string[]>([]);
+
+	useEffect(() => {
+		const dates = [];
+		for (let i = 0; i <= 5; i++) {
+			dates.push(getDaysBeforeCheckIn(checkInDate, i));
+		}
+		setDatesBeforeCheckIn(dates);
+	}, [checkInDate]);
 
 	const getRoomDetail = async () => {
 		if (roomId !== undefined) {
@@ -162,7 +171,7 @@ export default function RoomDetail() {
 						<tbody className="text-textGray">
 							<tr>
 								<td className="border-lightGray border px-4 py-2">
-									12.07 17:00전까지
+								{datesBeforeCheckIn[4]} 17:00전까지
 								</td>
 								<td className="border-lightGray border px-4 py-2">
 									총 판매가의 0%
@@ -170,7 +179,7 @@ export default function RoomDetail() {
 							</tr>
 							<tr>
 								<td className="border-lightGray border px-4 py-2">
-									12.07 17:00전까지
+								{datesBeforeCheckIn[3]} 17:00전까지
 								</td>
 								<td className="border-lightGray border px-4 py-2">
 									총 판매가의 30%
@@ -178,7 +187,7 @@ export default function RoomDetail() {
 							</tr>
 							<tr>
 								<td className="border-lightGray border px-4 py-2">
-									12.07 17:00전까지
+								{datesBeforeCheckIn[2]} 17:00전까지
 								</td>
 								<td className="border-lightGray border px-4 py-2">
 									총 판매가의 50%
@@ -186,7 +195,7 @@ export default function RoomDetail() {
 							</tr>
 							<tr>
 								<td className="border-lightGray border px-4 py-2">
-									12.07 17:00전까지
+								{datesBeforeCheckIn[1]} 17:00전까지
 								</td>
 								<td className="border-lightGray border px-4 py-2">
 									총 판매가의 100%
@@ -194,7 +203,7 @@ export default function RoomDetail() {
 							</tr>
 							<tr>
 								<td className="border-lightGray border px-4 py-2">
-									12.07 17:00전까지
+									{datesBeforeCheckIn[0]} 17:00전까지
 								</td>
 								<td className="border-lightGray border px-4 py-2">
 									취소 및 환불 불가
