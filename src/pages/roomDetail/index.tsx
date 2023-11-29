@@ -86,7 +86,6 @@ export default function RoomDetail() {
 							<p className="text-lg font-bold text-black">{roomInfo?.name}</p>
 							<p className="text-content">{roomInfo?.introduction}</p>
 						</div>
-						<ShareIcon fontSize="small" />
 					</div>
 
 					<div className="mt-[13px]">

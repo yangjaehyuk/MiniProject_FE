@@ -108,6 +108,7 @@ export default function RoomItem({ roomItem, name }: RoomProps) {
 					<RoomImageSwiper items={roomItem.images} />
 				</div>
 				<p className="text-title text-black font-bold mt-3">{roomItem.name}</p>
+				<span></span>
 				<div className="flex gap-x-0.5 text-secondaryTextGray mt-2">
 					<PersonOutlineIcon fontSize="small" />
 					<p>기준2인 / 최대 {roomItem.capacity}인</p>
