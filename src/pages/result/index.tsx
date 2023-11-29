@@ -14,7 +14,7 @@ import { formatNumberWithCommas } from 'utils/numberComma';
 
 import styles from '../../components/cart/Cart.module.css';
 import { getDayOfWeek } from 'hooks/common/getDayOfWeek';
-
+import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
 
 const result = () => {
 	requireLogin();
@@ -28,6 +28,10 @@ const result = () => {
 
 	// 주문 객실 상품 데이터
 	const [orderItem, setOrderItem] = useState<OrderItems>();
+
+	const [item, setItem] = useState(true);
+	const [subscriber, setSubscriber] = useState(true);
+	const [user, setUser] = useState(true);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -44,6 +48,28 @@ const result = () => {
 		fetchData();
 	}, []);
 
+	const formattedTime = (time: string) => {
+		return new Date(time).toLocaleString('ko-KR', {
+			year: 'numeric',
+			month: 'numeric',
+			day: 'numeric',
+			hour: 'numeric',
+			minute: 'numeric',
+		});
+	};
+
+	const toggleItem = () => {
+		setItem((prevState) => !prevState);
+	};
+
+	const toggleSubscriber = () => {
+		setSubscriber((prevState) => !prevState);
+	};
+
+	const toggleUser = () => {
+		setUser((prevState) => !prevState);
+	};
+
 	return (
 		<>
 			{orderData && orderItem && (
@@ -56,83 +82,116 @@ const result = () => {
 								<div className=" font-semibold text-content">
 									예약이 완료되었습니다.
 								</div>
-								<div className=" text-sm">예약 일시:{orderData.orderTime}</div>
+								<div className=" text-sm">
+									예약 일시 : {formattedTime(orderData.orderTime)}
+								</div>
 							</div>
 						</div>
 					</div>
 					<div className={styles.subWrap}>
 						<div>
-							<div className="flex justify-between items-center">
-								<div className="text-content font-semibold">
+							<div className="flex justify-between items-center border-b border-bgGray ">
+								<div className="text-content font-semibold pb-1 ">
 									상품 정보 {orderData.orderItems.length}건
 								</div>
-								<ExpandMoreOutlinedIcon />
+								{item ? (
+									<ExpandLessRoundedIcon onClick={toggleItem} />
+								) : (
+									<ExpandMoreOutlinedIcon onClick={toggleItem} />
+								)}
 							</div>
-							{orderData.orderItems.map((item) => (
-								<div key={item.id} className="border-b border-bgGray  mb-2">
-									<div className="text-xxsm text-textGray py-2">
-										숙소 예약 번호
-									</div>
-									<div>
-										<div className="text-content font-semibold">
-											{item.accommodation.name}
-										</div>
-										<div className="flex">
+							{item
+								? orderData.orderItems.map((item) => (
+										<div key={item.id} className=" mb-2">
 											<div>
-												<img
-													className="h-20 w-20  rounded-sm"
-													src={item.accommodation.image}
-												></img>
-											</div>
-											<div className="flex flex-col pl-3">
-												<div className="text-md">
-													객실 정보 {item.roomType.name}
+												<div className="text-content font-semibold py-1">
+													{item.accommodation.name}
 												</div>
-												<div className="text-xs ">
-													{item.checkinDate}({getDayOfWeek(item.checkinDate)}) ~{' '}
-													{item.checkoutDate}({getDayOfWeek(item.checkoutDate)})
-													| 1박
-												</div>
-												<div className="text-xxsm text-textGray pb-3">
-													체크인 15:00 | 체크아웃 11:00
+												<div className="flex">
+													<div>
+														<img
+															className="h-20 w-20  rounded-sm"
+															src={item.accommodation.image}
+														></img>
+													</div>
+													<div className="flex flex-col pl-3 gap-1">
+														<div className="text-md">{item.roomType.name}</div>
+														<div className="text-xs ">
+															{item.checkinDate}(
+															{getDayOfWeek(item.checkinDate)}) ~{' '}
+															{item.checkoutDate}(
+															{getDayOfWeek(item.checkoutDate)}) | 1박
+														</div>
+														<div className="text-xxsm text-textGray ">
+															체크인 15:00 | 체크아웃 11:00
+														</div>
+														<div className="flex items-center ">
+															<div className="text-xxsm text-textGray ">
+																숙소 예약 번호 :
+															</div>
+															<div className="text-xxsm text-textGray pl-1">
+																{item.code}
+															</div>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-							))}
+								  ))
+								: null}
 						</div>
 					</div>
 
 					<div className={styles.subWrap}>
-						<div className="flex justify-between items-center py-3">
+						<div className="flex justify-between items-center py-3 ">
 							<div className="text-content font-semibold "> 예약자 정보</div>
-							<ExpandMoreOutlinedIcon />
-						</div>
 
-						<div className="flex justify-between items-center py-1">
-							<div className="text-md">이름</div>
-							<div className="text-md"> {orderData.subscriber.name}</div>
+							{subscriber ? (
+								<ExpandLessRoundedIcon onClick={toggleSubscriber} />
+							) : (
+								<ExpandMoreOutlinedIcon onClick={toggleSubscriber} />
+							)}
 						</div>
-						<div className="flex justify-between items-center py-2">
-							<div className="text-md">휴대폰 번호</div>
-							<div className="text-md"> {orderData.subscriber.phoneNumber}</div>
-						</div>
+						{subscriber ? (
+							<>
+								{' '}
+								<div className="flex justify-between items-center py-1">
+									<div className="text-md">이름</div>
+									<div className="text-md"> {orderData.subscriber.name}</div>
+								</div>
+								<div className="flex justify-between items-center py-2">
+									<div className="text-md">휴대폰 번호</div>
+									<div className="text-md">
+										{' '}
+										{orderData.subscriber.phoneNumber}
+									</div>
+								</div>{' '}
+							</>
+						) : null}
 					</div>
 					<div className={styles.subWrap}>
-						<div className="flex justify-between items-center py-3">
+						<div className="flex justify-between items-center py-3 ">
 							<div className="text-content font-semibold "> 이용자 정보</div>
-							<ExpandMoreOutlinedIcon />
-						</div>
 
-						<div className="flex justify-between items-center py-1">
-							<div className="text-md">이름</div>
-							<div className="text-md"> {orderData.client.name}</div>
+							{user ? (
+								<ExpandLessRoundedIcon onClick={toggleUser} />
+							) : (
+								<ExpandMoreOutlinedIcon onClick={toggleUser} />
+							)}
 						</div>
-						<div className="flex justify-between items-center py-2">
-							<div className="text-md">휴대폰 번호</div>
-							<div className="text-md"> {orderData.client.phoneNumber}</div>
-						</div>
+						{user ? (
+							<>
+								{' '}
+								<div className="flex justify-between items-center py-1">
+									<div className="text-md">이름</div>
+									<div className="text-md"> {orderData.client.name}</div>
+								</div>
+								<div className="flex justify-between items-center py-2">
+									<div className="text-md">휴대폰 번호</div>
+									<div className="text-md"> {orderData.client.phoneNumber}</div>
+								</div>
+							</>
+						) : null}
 					</div>
 					<div className={styles.subWrap}>
 						<div className="text-content font-semibold py-3 "> 예약 정보</div>
@@ -174,7 +233,7 @@ const result = () => {
 							onClick={() => {
 								navigate('/');
 							}}
-							className="flex font-semibold text-content justify-center items-center w-full py-5 px-3 text-center bg-secondary rounded-md h-[20px]  text-white"
+							className="flex font-semibold text-content justify-center items-center w-full py-5 px-3 text-center bg-secondary rounded-md h-[20px]  text-white hover:bg-hoverSecondary"
 						>
 							홈으로
 						</button>
