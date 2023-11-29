@@ -27,6 +27,144 @@
 
 <br/>
 
+## :clap: 7조 Contributors
+
+ <table align="center">
+    <tr>
+        <td align="center"><img alt="avatar" src="https://github.com/moana16.png" width="100"></td>
+        <td align="center"><img alt="avatar" src="https://github.com/yangjaehyuk.png" width="100"></td>
+        <td align="center"><img alt="avatar" src="https://github.com/hhjs2.png" width="100"></td>
+        <td align="center"><img alt="avatar" src="https://github.com/skyeome.png" width="100"></td>
+    </tr>
+    <tr>
+        <td align="center"><a href="https://github.com/moana16">김지민</a></td>
+        <td align="center"><a href="https://github.com/yangjaehyuk">양재혁</a></td>
+        <td align="center"><a href="https://github.com/hhjs2">정효주</a></td>
+        <td align="center"><a href="https://github.com/skyeome">김성겸</a></td>
+    </tr>
+ </table>
+
+<br/>
+
+## ✍️ 개인별 작업 내용
+
+
+<details>
+<summary>김지민</summary>
+
+## 주요 기능
+
+|                           소켓 연결, 채팅 보내기, 채팅 받기 이전 채팅 가져오기                            |                                                채팅 나가기                                                |
+| :-------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: |
+| ![chatting](https://github.com/Toy2-team10/Talkhaja/assets/65649035/8d137c4a-2935-47d8-a07d-6c864546ac40) | ![chat_out](https://github.com/Toy2-team10/Talkhaja/assets/65649035/9fb496ad-8287-428e-addf-c5772d06d7f0) |
+|       처음 채팅방에 들어오면 이전 대화 목록들을 모두 받습니다. 소켓 연결로 실시간 채팅이 가능합니다       |                   채탱방 나가기 버튼을 누르면 해당 방에서 나가지고 목록으로 돌아갑니다                    |
+
+
+## :bomb: 트러블 슈팅
+
+#### :x:오류
+
+
+#### :heavy_check_mark: 해결
+
+
+--
+
+
+## 회고
+
+
+
+</details>
+
+<details>
+<summary>김성겸</summary>
+  
+## 주요 기능
+
+
+|                           소켓 연결, 채팅 보내기, 채팅 받기 이전 채팅 가져오기                            |                                                채팅 나가기                                                |
+| :-------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: |
+| ![chatting](https://github.com/Toy2-team10/Talkhaja/assets/65649035/8d137c4a-2935-47d8-a07d-6c864546ac40) | ![chat_out](https://github.com/Toy2-team10/Talkhaja/assets/65649035/9fb496ad-8287-428e-addf-c5772d06d7f0) |
+|       처음 채팅방에 들어오면 이전 대화 목록들을 모두 받습니다. 소켓 연결로 실시간 채팅이 가능합니다       |                   채탱방 나가기 버튼을 누르면 해당 방에서 나가지고 목록으로 돌아갑니다                    |
+
+
+## :bomb: 트러블 슈팅
+
+#### :x:오류
+
+
+#### :heavy_check_mark: 해결
+
+
+--
+
+
+## 회고
+
+
+</details>
+
+
+<details>
+<summary>양재혁</summary>.
+
+## 주요 기능
+
+|                           소켓 연결, 채팅 보내기, 채팅 받기 이전 채팅 가져오기                            |                                                채팅 나가기                                                |
+| :-------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: |
+| ![chatting](https://github.com/Toy2-team10/Talkhaja/assets/65649035/8d137c4a-2935-47d8-a07d-6c864546ac40) | ![chat_out](https://github.com/Toy2-team10/Talkhaja/assets/65649035/9fb496ad-8287-428e-addf-c5772d06d7f0) |
+|       처음 채팅방에 들어오면 이전 대화 목록들을 모두 받습니다. 소켓 연결로 실시간 채팅이 가능합니다       |                   채탱방 나가기 버튼을 누르면 해당 방에서 나가지고 목록으로 돌아갑니다                    |
+
+
+## :bomb: 트러블 슈팅
+
+#### :x:오류
+
+
+#### :heavy_check_mark: 해결
+
+
+--
+
+
+## 회고
+
+
+
+</details>
+
+
+<details>
+<summary>정효주</summary>
+
+## 주요 기능
+
+|                           소켓 연결, 채팅 보내기, 채팅 받기 이전 채팅 가져오기                            |                                                채팅 나가기                                                |
+| :-------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: |
+| ![chatting](https://github.com/Toy2-team10/Talkhaja/assets/65649035/8d137c4a-2935-47d8-a07d-6c864546ac40) | ![chat_out](https://github.com/Toy2-team10/Talkhaja/assets/65649035/9fb496ad-8287-428e-addf-c5772d06d7f0) |
+|       처음 채팅방에 들어오면 이전 대화 목록들을 모두 받습니다. 소켓 연결로 실시간 채팅이 가능합니다       |                   채탱방 나가기 버튼을 누르면 해당 방에서 나가지고 목록으로 돌아갑니다                    |
+
+
+## :bomb: 트러블 슈팅
+
+#### :x:오류
+
+
+#### :heavy_check_mark: 해결
+
+
+--
+
+
+## 회고
+
+
+
+</details>
+
+<br/>
+
 ## 🛢️ Stack
 
 ### Language
@@ -130,137 +268,4 @@
 ```
 <br/>
 
-## :clap: 7조 Contributors
-
- <table align="center">
-    <tr>
-        <td align="center"><img alt="avatar" src="https://github.com/moana16.png" width="100"></td>
-        <td align="center"><img alt="avatar" src="https://github.com/yangjaehyuk.png" width="100"></td>
-        <td align="center"><img alt="avatar" src="https://github.com/hhjs2.png" width="100"></td>
-        <td align="center"><img alt="avatar" src="https://github.com/skyeome.png" width="100"></td>
-    </tr>
-    <tr>
-        <td align="center"><a href="https://github.com/moana16">김지민</a></td>
-        <td align="center"><a href="https://github.com/yangjaehyuk">양재혁</a></td>
-        <td align="center"><a href="https://github.com/hhjs2">정효주</a></td>
-        <td align="center"><a href="https://github.com/skyeome">김성겸</a></td>
-    </tr>
- </table>
-
-<br/>
-
-## ✍️: 개인별 작업 내용
-
-
-<details>
-<summary>김지민</summary>
-
-## 주요 기능
-
-|                           소켓 연결, 채팅 보내기, 채팅 받기 이전 채팅 가져오기                            |                                                채팅 나가기                                                |
-| :-------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: |
-| ![chatting](https://github.com/Toy2-team10/Talkhaja/assets/65649035/8d137c4a-2935-47d8-a07d-6c864546ac40) | ![chat_out](https://github.com/Toy2-team10/Talkhaja/assets/65649035/9fb496ad-8287-428e-addf-c5772d06d7f0) |
-|       처음 채팅방에 들어오면 이전 대화 목록들을 모두 받습니다. 소켓 연결로 실시간 채팅이 가능합니다       |                   채탱방 나가기 버튼을 누르면 해당 방에서 나가지고 목록으로 돌아갑니다                    |
-
-
-## :bomb: 트러블 슈팅
-
-#### :x:오류
-
-
-#### :heavy_check_mark: 해결
-
-
---
-
-
-## 회고
-
-
-
-</details>
-
-<details>
-<summary>김성겸</summary>
-## 주요 기능
-
-|                           소켓 연결, 채팅 보내기, 채팅 받기 이전 채팅 가져오기                            |                                                채팅 나가기                                                |
-| :-------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: |
-| ![chatting](https://github.com/Toy2-team10/Talkhaja/assets/65649035/8d137c4a-2935-47d8-a07d-6c864546ac40) | ![chat_out](https://github.com/Toy2-team10/Talkhaja/assets/65649035/9fb496ad-8287-428e-addf-c5772d06d7f0) |
-|       처음 채팅방에 들어오면 이전 대화 목록들을 모두 받습니다. 소켓 연결로 실시간 채팅이 가능합니다       |                   채탱방 나가기 버튼을 누르면 해당 방에서 나가지고 목록으로 돌아갑니다                    |
-
-
-## :bomb: 트러블 슈팅
-
-#### :x:오류
-
-
-#### :heavy_check_mark: 해결
-
-
---
-
-
-## 회고
-
-
-</details>
-
-
-<details>
-<summary>양재혁</summary>.
-
-## 주요 기능
-
-|                           소켓 연결, 채팅 보내기, 채팅 받기 이전 채팅 가져오기                            |                                                채팅 나가기                                                |
-| :-------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: |
-| ![chatting](https://github.com/Toy2-team10/Talkhaja/assets/65649035/8d137c4a-2935-47d8-a07d-6c864546ac40) | ![chat_out](https://github.com/Toy2-team10/Talkhaja/assets/65649035/9fb496ad-8287-428e-addf-c5772d06d7f0) |
-|       처음 채팅방에 들어오면 이전 대화 목록들을 모두 받습니다. 소켓 연결로 실시간 채팅이 가능합니다       |                   채탱방 나가기 버튼을 누르면 해당 방에서 나가지고 목록으로 돌아갑니다                    |
-
-
-## :bomb: 트러블 슈팅
-
-#### :x:오류
-
-
-#### :heavy_check_mark: 해결
-
-
---
-
-
-## 회고
-
-
-
-</details>
-
-
-<details>
-<summary>정효주</summary>
-
-## 주요 기능
-
-|                           소켓 연결, 채팅 보내기, 채팅 받기 이전 채팅 가져오기                            |                                                채팅 나가기                                                |
-| :-------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------: |
-| ![chatting](https://github.com/Toy2-team10/Talkhaja/assets/65649035/8d137c4a-2935-47d8-a07d-6c864546ac40) | ![chat_out](https://github.com/Toy2-team10/Talkhaja/assets/65649035/9fb496ad-8287-428e-addf-c5772d06d7f0) |
-|       처음 채팅방에 들어오면 이전 대화 목록들을 모두 받습니다. 소켓 연결로 실시간 채팅이 가능합니다       |                   채탱방 나가기 버튼을 누르면 해당 방에서 나가지고 목록으로 돌아갑니다                    |
-
-
-## :bomb: 트러블 슈팅
-
-#### :x:오류
-
-
-#### :heavy_check_mark: 해결
-
-
---
-
-
-## 회고
-
-
-
-</details>
 
