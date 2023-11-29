@@ -1,11 +1,10 @@
 import React, { useCallback, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../../components/main/Header';
 import hotel from '../../assets/images/hotelImg.svg';
 import pension from '../../assets/images/pensionImg.svg';
 import poolVilla from '../../assets/images/poolVillaImg.svg';
 import resort from '../../assets/images/resortImg.svg';
-
-import item from '../../assets/images/item.png';
 
 import mainIcon1 from '../../assets/images/mainIcon1.svg';
 import mainIcon2 from '../../assets/images/mainIcon2.svg';
@@ -47,10 +46,12 @@ const main = () => {
 		<div className={isOpen ? 'h-screen overflow-hidden' : ''}>
 			<Header handleOpen={handleDrawerOpen} />
 			<div className="flex text-xxsm px-20 py-5 justify-between items-center pt-24">
-				<div className="flex flex-col items-center justify-center font-semibold">
-					<img src={hotel} alt="Hotel" width={40} height={40} />
-					<span> 호텔</span>
-				</div>
+				<Link to="https://www.yanolja.com/raffle-deal/YADRAW">
+					<div className="flex flex-col items-center justify-center font-semibold">
+						<img src={hotel} alt="Hotel" width={40} height={40} />
+						<span> 호텔</span>
+					</div>
+				</Link>
 				<div className="flex flex-col items-center justify-center font-semibold">
 					<img src={resort} alt="resort" className="h-[48px]" />
 					<span> 리조트 </span>
