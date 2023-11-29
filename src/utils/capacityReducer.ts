@@ -6,7 +6,7 @@ export const capaReducer = (
 ): number => {
 	switch (action.type) {
 		case CapacityAction.COUNT_UP:
-			return state >= 4 ? state : state + 1;
+			return state >= 20 ? state : state + 1;
 		case CapacityAction.COUNT_DOWN:
 			return state <= 2 ? state : state - 1;
 		default:
