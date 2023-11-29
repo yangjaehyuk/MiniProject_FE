@@ -23,8 +23,10 @@ export default function RoomDetail() {
 	const queryParams = new URLSearchParams(location.search);
 	const name = queryParams.get('name');
 	const status = queryParams.get('status');
+	const price = queryParams.get('price');
 	const checkInDate = useRecoilValue(checkInDateState);
 	const [freeCancle, setFreeCancle] = useState(false);
+	const [formattedPrice, setFormattedPrice] = useState<string>('');
 
 	const getRoomDetail = async () => {
 		if (roomId !== undefined) {
@@ -40,9 +42,13 @@ export default function RoomDetail() {
 
 	useEffect(() => {
 		getRoomDetail();
+		if( price !== null) {
+			setFormattedPrice(formatNumberWithCommas(parseInt(price)));
+		}
 	}, [roomId]);
 
-	const formattedPrice = formatNumberWithCommas(roomInfo?.price);
+	
+
 
 	const isFreeCancle = () => {
 		const date = new Date(checkInDate);
