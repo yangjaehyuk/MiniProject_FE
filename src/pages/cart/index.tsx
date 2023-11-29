@@ -20,6 +20,7 @@ import CommonHeader from 'components/common/CommonHeader';
 
 const Cart = () => {
 	requireLogin();
+
 	const [cart, setCart] = useState<CartResponse>();
 
 	useEffect(() => {

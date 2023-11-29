@@ -6,10 +6,34 @@ import { Link, useNavigate } from 'react-router-dom';
 import { MainHeaderProps } from 'types/MainPage.type';
 import { useQueryCartCount } from 'hooks/common/useQueryCartCount';
 import { Badge } from '@material-tailwind/react';
+import { getCookie } from 'utils';
+import Swal from 'sweetalert2';
 
 const Header = ({ handleOpen }: MainHeaderProps) => {
+	const accessToken = getCookie('accessToken');
 	const navigate = useNavigate();
 	const { data: cartCount } = useQueryCartCount();
+
+	const handelBtnClick = () => {
+		if (!accessToken) {
+			Swal.fire({
+				title: '로그인이 필요한 서비스입니다.',
+				text: '로그인 창으로 이동하시겠습니까 ?',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: '확인',
+				cancelButtonText: '취소', // 취소 버튼 텍스트 추가
+			}).then((result: any) => {
+				if (result.isConfirmed) {
+					navigate('/login');
+				}
+			});
+		} else {
+			navigate('/cart');
+		}
+	};
 
 	const handleInputBtn = () => {
 		navigate('/search');
@@ -28,18 +52,19 @@ const Header = ({ handleOpen }: MainHeaderProps) => {
 						<SearchOutlinedIcon fontSize="small" />
 					</div>
 				</div>
-				<Link to="/cart">
-					{cartCount && cartCount > 0 ? (
-						<Badge
-							content={cartCount}
-							className="bg-primary p-0 w-4 min-w-0 h-4 min-h-0"
-						>
-							<ShoppingCartOutlinedIcon fontSize="small" />
-						</Badge>
-					) : (
-						<ShoppingCartOutlinedIcon fontSize="small" />
-					)}
-				</Link>
+				{cartCount && cartCount > 0 ? (
+					<Badge
+						content={cartCount}
+						className="bg-primary p-0 w-4 min-w-0 h-4 min-h-0"
+					>
+						<ShoppingCartOutlinedIcon
+							fontSize="small"
+							onClick={handelBtnClick}
+						/>
+					</Badge>
+				) : (
+					<ShoppingCartOutlinedIcon fontSize="small" onClick={handelBtnClick} />
+				)}
 			</div>
 		</div>
 	);
