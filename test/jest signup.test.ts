@@ -14,5 +14,5 @@ test('POST /api/members/signup', async () => {
 		.send(userData);
 
 	expect(response.status).toEqual(201); // success
-	// expect(response.status).toEqual(401); // duplicated or error
+	// expect(response.status).toEqual(400); // duplicated or error
 });
