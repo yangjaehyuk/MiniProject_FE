@@ -6,7 +6,7 @@ import { Close, DateRange, Person } from '@mui/icons-material';
 import styles from '../category/Category.module.css';
 import { RegionProdOptionModalProps } from 'types/Region.type';
 import { AnimatePresence, motion } from 'framer-motion';
-import { foramtYYYYMMDD, formatMonthDate } from 'utils/formatDate';
+import { formatMonthDate } from 'utils/formatDate';
 import { capacityState } from 'recoil/atoms/capacityAtom';
 
 function RegionProdOptionModal({
@@ -14,8 +14,6 @@ function RegionProdOptionModal({
 	handleOpen,
 	handleCapaOpen,
 	handleDateOpen,
-	searchParams,
-	setSearchParams,
 }: RegionProdOptionModalProps) {
 	const startDate = useRecoilValue(checkInDateState);
 	const endDate = useRecoilValue(checkOutDateState);
@@ -23,12 +21,6 @@ function RegionProdOptionModal({
 	const formattingDate = formatMonthDate(startDate, endDate);
 
 	const handleApply = useCallback(() => {
-		const newSearchParams = searchParams;
-		const from = foramtYYYYMMDD(startDate);
-		const to = foramtYYYYMMDD(endDate);
-		newSearchParams.set('from', from);
-		newSearchParams.set('to', to);
-		setSearchParams(newSearchParams);
 		handleOpen();
 	}, [startDate, endDate]);
 

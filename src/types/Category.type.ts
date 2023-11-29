@@ -6,6 +6,10 @@ export interface ProductItem {
 	image: string;
 }
 
+export type RegionItemProps = ProductItem & {
+	diff: number;
+};
+
 export type ReservationInfo = {
 	reservationName: string;
 	reservationNumber: string;
