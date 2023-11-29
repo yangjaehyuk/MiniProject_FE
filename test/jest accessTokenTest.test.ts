@@ -14,6 +14,7 @@ test('POST /api/members/login', async () => {
 		.send(userData);
 	expect(login.status).toEqual(200); // success
 	// expect(response.status).toEqual(400); // duplicated or error
+	// console.log(login.body);
 	const accessToken = login.body.data.accessToken; // 여기서 나온 토큰으로 밑에서 Authorization으로 토큰 값 넣는 요청 처리하시면 됩니다.
 
 	const getUserInfo = await request // 회원 정보 조회
