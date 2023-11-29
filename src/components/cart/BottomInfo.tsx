@@ -9,7 +9,14 @@ const BottomInfo = () => {
 				<span className="text-sm ">NOL 카드 결제 시,</span>
 				<span className="text-sm text-primary font-semibold">10% 적립</span>
 			</div>
-			<img src={carImage} className="rounded-md mb-2"></img>
+			<a
+				rel="noreferrer"
+				target="_blank"
+				href="https://board.yanolja.com/event/398/index.html"
+				className="text-left"
+			>
+				<img src={carImage} className="rounded-md mb-2"></img>
+			</a>
 			<ul className="flex flex-col text-xxsm leading-5 text-textGray">
 				<li>
 					장바구니에 담긴 상품은 최대 30일간 보관되며 최대 20개의 상품을 담을 수

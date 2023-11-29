@@ -46,44 +46,74 @@ const main = () => {
 		<div className={isOpen ? 'h-screen overflow-hidden' : ''}>
 			<Header handleOpen={handleDrawerOpen} />
 			<div className="flex text-xxsm px-20 py-5 justify-between items-center pt-24">
-				<Link to="https://www.yanolja.com/raffle-deal/YADRAW">
+				<Link to="/hotel">
 					<div className="flex flex-col items-center justify-center font-semibold">
 						<img src={hotel} alt="Hotel" width={40} height={40} />
 						<span> 호텔</span>
 					</div>
 				</Link>
-				<div className="flex flex-col items-center justify-center font-semibold">
-					<img src={resort} alt="resort" className="h-[48px]" />
-					<span> 리조트 </span>
-				</div>
-				<div className="flex flex-col items-center justify-center font-semibold">
-					<img src={pension} alt="pension" className="h-[48px]" />
-					<span> 펜션</span>
-				</div>
-				<div className="flex flex-col items-center justify-center font-semibold">
-					<img src={poolVilla} alt="poolVilla" className="h-[40px]" />
-					<span> 풀빌라</span>
-				</div>
+				<Link to="/resort">
+					<div className="flex flex-col items-center justify-center font-semibold">
+						<img src={resort} alt="resort" className="h-[48px]" />
+						<span> 리조트 </span>
+					</div>
+				</Link>
+				<Link to="/pension">
+					<div className="flex flex-col items-center justify-center font-semibold">
+						<img src={pension} alt="pension" className="h-[48px]" />
+						<span> 펜션</span>
+					</div>
+				</Link>
+				<Link to="/pool_villa">
+					<div className="flex flex-col items-center justify-center font-semibold">
+						<img src={poolVilla} alt="poolVilla" className="h-[40px]" />
+						<span> 풀빌라</span>
+					</div>
+				</Link>
 			</div>
 
 			<MainCarousel />
 			<div className="flex text-xxsm px-20 py-5 mb-4 justify-between items-center">
-				<div className="flex flex-col items-center justify-center font-semibold">
-					<img src={mainIcon1} alt="mainIcon1" width={30} />
-					<span> 매일응모하기</span>
-				</div>
-				<div className="flex flex-col items-center justify-center font-semibold">
-					<img src={mainIcon2} alt="mainIcon2" width={30} />
-					<span> 숙박권받기</span>
-				</div>
-				<div className="flex flex-col items-center justify-center font-semibold">
-					<img src={mainIcon3} alt="mainIcon3" width={30} />
-					<span> 최대8만혜택</span>
-				</div>
-				<div className="flex flex-col items-center justify-center font-semibold">
-					<img src={mainIcon4} alt="mainIcon4" width={30} />
-					<span> 결제할인모음</span>
-				</div>
+				<a
+					href="https://www.yanolja.com/raffle-deal/YADRAW"
+					rel="noreferrer"
+					target="_blank"
+				>
+					<div className="flex flex-col items-center justify-center font-semibold">
+						<img src={mainIcon1} alt="mainIcon1" width={30} />
+						<span> 매일응모하기</span>
+					</div>
+				</a>
+				<a
+					href="https://board.yanolja.com/event/398/index.html"
+					rel="noreferrer"
+					target="_blank"
+				>
+					<div className="flex flex-col items-center justify-center font-semibold">
+						<img src={mainIcon2} alt="mainIcon2" width={30} />
+						<span> 숙박권받기</span>
+					</div>
+				</a>
+				<a
+					href="https://board.yanolja.com/event/291/index.html"
+					rel="noreferrer"
+					target="_blank"
+				>
+					<div className="flex flex-col items-center justify-center font-semibold">
+						<img src={mainIcon3} alt="mainIcon3" width={30} />
+						<span> 최대8만혜택</span>
+					</div>
+				</a>
+				<a
+					href="https://board.yanolja.com/event/4/index.html"
+					rel="noreferrer"
+					target="_blank"
+				>
+					<div className="flex flex-col items-center justify-center font-semibold">
+						<img src={mainIcon4} alt="mainIcon4" width={30} />
+						<span> 결제할인모음</span>
+					</div>
+				</a>
 			</div>
 			<div>
 				{/* <div className="font-semibold">야놀자 추천 숙소</div> */}
@@ -120,13 +150,6 @@ const main = () => {
 				<div className="py-6">
 					<SiderRegions isMain />
 				</div>
-				{/* <div className="flex gap-4 mt-4 mb-8">
-					<img src={item} alt="item" width={120} className="rounded-full" />
-					<img src={item} alt="item" width={120} className="rounded-full" />
-					<img src={item} alt="item" width={120} className="rounded-full" />
-					<img src={item} alt="item" width={120} className="rounded-full" />
-					<img src={item} alt="item" width={120} className="rounded-full" />
-				</div> */}
 			</div>
 			<BenefitsInfo />
 			{/* 사이드바 추가 */}
