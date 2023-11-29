@@ -131,7 +131,7 @@ const Cart = () => {
 
 	// 전체 금액 계산
 	const totalPrice = cartItems.reduce((acc, cur: dataCartItem) => {
-		return acc + cur.roomType.price;
+		return acc + cur.price;
 	}, 0);
 
 	// 예약하기 버튼
