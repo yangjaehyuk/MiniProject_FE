@@ -2,12 +2,22 @@ import React from 'react';
 import RegionItem from './RegionItem';
 import { RegionInnerProps } from 'types/Region.type';
 import RegionItemSkeleton from './skeleton/RegionItemSkeleton';
+import { getDateDifference } from 'hooks/common/getDateDifference';
+import { useRecoilValue } from 'recoil';
+import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
+import { foramtYYYYMMDD } from 'utils/formatDate';
 
 function RegionItems({
 	triggerRef,
 	data,
 	isFetchingNextPage,
 }: RegionInnerProps) {
+	const startDate = useRecoilValue(checkInDateState);
+	const endDate = useRecoilValue(checkOutDateState);
+	const start = foramtYYYYMMDD(startDate);
+	const end = foramtYYYYMMDD(endDate);
+
+	const diff = getDateDifference(start, end);
 	return (
 		<>
 			<div className="py-4">
@@ -15,7 +25,7 @@ function RegionItems({
 					{data?.pages.map((page, index) => (
 						<React.Fragment key={index}>
 							{page?.data.accommodations.map((item) => (
-								<RegionItem key={item.id} {...item} />
+								<RegionItem key={item.id} {...item} diff={diff} />
 							))}
 						</React.Fragment>
 					))}

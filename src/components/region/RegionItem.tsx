@@ -1,12 +1,12 @@
 import React from 'react';
 import { Star } from '@mui/icons-material';
-import { ProductItem } from 'types/Category.type';
+import { RegionItemProps } from 'types/Category.type';
 import { formatNumberWithCommas } from 'utils/numberComma';
 import { Typography } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
 import styles from './Region.module.css';
 
-function RegionItem({ id, image, name, star, price }: ProductItem) {
+function RegionItem({ id, image, name, star, price, diff }: RegionItemProps) {
 	return (
 		<div className="border border-borderGray rounded-md overflow-hidden">
 			<Link to={`/places/${id}`}>
@@ -33,7 +33,8 @@ function RegionItem({ id, image, name, star, price }: ProductItem) {
 						variant="h5"
 						className="text-right text-title font-semibold"
 					>
-						{formatNumberWithCommas(price)}원~
+						{formatNumberWithCommas(price * diff)}원~{' '}
+						<span className="text-content">/{diff}박</span>
 					</Typography>
 				</div>
 			</Link>
