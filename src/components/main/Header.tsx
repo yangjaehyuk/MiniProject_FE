@@ -63,7 +63,12 @@ const Header = ({ handleOpen }: MainHeaderProps) => {
 						/>
 					</Badge>
 				) : (
-					<ShoppingCartOutlinedIcon fontSize="small" onClick={handelBtnClick} />
+					<div className="cursor-pointer">
+						<ShoppingCartOutlinedIcon
+							fontSize="small"
+							onClick={handelBtnClick}
+						/>
+					</div>
 				)}
 			</div>
 		</div>
