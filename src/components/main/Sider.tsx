@@ -98,6 +98,7 @@ function Sider({ isOpen, handleClose }: MainSiderProps) {
 				<ListItem
 					onClick={() => {
 						const res = checkAccessToken();
+						handleClose();
 						if (res === false) {
 							removeCookie();
 							Swal.fire({
