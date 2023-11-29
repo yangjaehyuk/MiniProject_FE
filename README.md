@@ -1,69 +1,31 @@
+<div align="center">
 
-# <p align="center">때려 7조 Mini Project : 숙박 예약 프로젝트</p>
+<img src="https://github.com/yangjaehyuk/Baekjoon/assets/37584686/20fa075f-031b-40fc-8f77-fba23f2b2f06" alt="yanolja"/>
+
+### 때려 7조 Mini Project : 숙박 예약 프로젝트
+
+<p align="center">
+  <a href="https://mini-team-7.vercel.app/">
+    <img src="https://img.shields.io/badge/Yanolja-pink?style=for-the-badge&logoColor=white" alt="wiki"/>
+  </a>
+</p>
+
+</div>
+
+<br/>
 
 
+## :memo: 프로젝트 소개
 
-## :clap: 7조 Contributors
+안녕하세요:smiley: 
 
- <table align="center">
-    <tr>
-        <td align="center"><img alt="avatar" src="https://github.com/moana16.png" width="100"></td>
-        <td align="center"><img alt="avatar" src="https://github.com/yangjaehyuk.png" width="100"></td>
-        <td align="center"><img alt="avatar" src="https://github.com/hhjs2.png" width="100"></td>
-        <td align="center"><img alt="avatar" src="https://github.com/skyeome.png" width="100"></td>
-    </tr>
-    <tr>
-        <td align="center"><a href="https://github.com/moana16">김지민</a></td>
-        <td align="center"><a href="https://github.com/yangjaehyuk">양재혁</a></td>
-        <td align="center"><a href="https://github.com/hhjs2">정효주</a></td>
-        <td align="center"><a href="https://github.com/skyeome">김성겸</a></td>
-    </tr>
- </table>
+때려 7조의 숙박 예약 프로젝트 :computer: 웹 페이지 입니다
 
-## :computer: 커밋 컨벤션
+저희 팀은 프론트엔드 4명 백엔드 4명으로 구성되어 있습니다.   
 
-| Feat | 새로운 기능 추가 |
-| --- | --- |
-| Design | CSS 등 사용자 UI 디자인 변경 |
-| Fix | 버그 수정 |
-| Docs | 문서 수정 |
-| Style | 코드 포맷팅, 세미콜론 누락 |
-| Refactor | 코드 리팩토링 |
-| Test | 테스트 코드, 리팩토링 테스트코드 추가 |
-| Chore | 빌드 업무 수정, 패키지 매니저 수정 |
-| Comment | 필요한 주석 추가 및 변경 |
-| Rename | 파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우 |
-| Remove | 파일을 삭제하는 작업만 수행한 경우 |
+백엔드는 [이곳](https://github.com/YBE-7/YBE-Mini-Project-BE)을 클릭해 주세요 
 
-## :file_folder: 폴더 구조
-
-```
-📦MiniProject
- ┣ 📂src
- ┃ ┣ 📂apis
- ┃ ┣ 📂assets
- ┃ ┣ 📂componets
- ┃ ┣ 📂hooks
- ┃ ┣ 📂pages
- ┃ ┣ 📂recoil
- ┃ ┣ 📂types
- ┃ ┣ 📂utils
- ┃ ┣ 📜App.css
- ┃ ┣ 📜App.tsx
- ┃ ┣ 📜index.tsx
- ┃ ┣ 📜index.css
- ┣ 📜.env
- ┣ 📜.eslintrc.js
- ┣ 📜.eslintignore
- ┣ 📜.gitignore
- ┣ 📜.prettierrc
- ┣ 📜README.md
- ┣ 📜package-lock.json
- ┣ 📜package.json
- ┣ 📜tailwindcss.config.js
- ┗ 📜tsconfig.json
-
-```
+<br/>
 
 ## 🛢️ Stack
 
@@ -102,14 +64,92 @@
   <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white">
 </p>
 
-## Git Branches
+<br/>
 
-- main: 배포용 브랜치
-- develop : 개발용 브랜치
-- feature/#number 개별 개발용 브랜치
+## 🎨 화면 구성
 
+여기에 페이지 사진들 넣으시면 됩니다.
 
-## 개인별 작업 내용
+<br/>
+
+## 📚 주요 기능
+
+<div align="center">
+  <table>
+    <tr align="center">
+      <th>게임방 화면</th>
+      <th>게임 화면</th>
+    </tr>
+    <tr>
+      <td><img src="https://github.com/dslov89/Agricola/assets/71018440/62fe59ca-7aae-4e94-b4b7-99b24c702f5d" alt="gif-main-page" width="370"></td>
+      <td><img src="https://github.com/dslov89/Agricola/assets/71018440/64b0fcf7-bac5-4895-9ea6-3e6d37763d0a"alt="gif-function1" width="370"></td>
+    </tr>
+    <tr align="center">
+      <th>농장</th>
+      <th>카드</th>
+    </tr>
+    <tr>
+      <td><img src="https://github.com/dslov89/Agricola/assets/71018440/0e566f6c-c82f-43c7-86d4-776a860caaa8" alt="gif-function2" width="370"></td>
+      <td><img src= "https://github.com/dslov89/Agricola/assets/71018440/e522d12b-a2ab-47a8-bc5a-e222067da7b6"alt="gif-function3" width="370"></td>
+    </tr>
+  </table>
+</div>
+
+위와 같이 중요한 기능들 gif로 넣으시면 됩니다.
+
+<br/>
+
+## :file_folder: 폴더 구조
+
+```
+📦MiniProject
+ ┣ 📂src
+ ┃ ┣ 📂apis
+ ┃ ┣ 📂assets
+ ┃ ┣ 📂componets
+ ┃ ┣ 📂hooks
+ ┃ ┣ 📂pages
+ ┃ ┣ 📂recoil
+ ┃ ┣ 📂types
+ ┃ ┣ 📂utils
+ ┃ ┣ 📜App.css
+ ┃ ┣ 📜App.tsx
+ ┃ ┣ 📜index.tsx
+ ┃ ┣ 📜index.css
+ ┣ 📜.env
+ ┣ 📜.eslintrc.js
+ ┣ 📜.eslintignore
+ ┣ 📜.gitignore
+ ┣ 📜.prettierrc
+ ┣ 📜README.md
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┣ 📜tailwindcss.config.js
+ ┗ 📜tsconfig.json
+
+```
+<br/>
+
+## :clap: 7조 Contributors
+
+ <table align="center">
+    <tr>
+        <td align="center"><img alt="avatar" src="https://github.com/moana16.png" width="100"></td>
+        <td align="center"><img alt="avatar" src="https://github.com/yangjaehyuk.png" width="100"></td>
+        <td align="center"><img alt="avatar" src="https://github.com/hhjs2.png" width="100"></td>
+        <td align="center"><img alt="avatar" src="https://github.com/skyeome.png" width="100"></td>
+    </tr>
+    <tr>
+        <td align="center"><a href="https://github.com/moana16">김지민</a></td>
+        <td align="center"><a href="https://github.com/yangjaehyuk">양재혁</a></td>
+        <td align="center"><a href="https://github.com/hhjs2">정효주</a></td>
+        <td align="center"><a href="https://github.com/skyeome">김성겸</a></td>
+    </tr>
+ </table>
+
+<br/>
+
+## ✍️: 개인별 작업 내용
 
 
 <details>
