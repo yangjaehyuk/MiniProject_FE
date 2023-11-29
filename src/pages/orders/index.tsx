@@ -20,6 +20,7 @@ import swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
 import { requireLogin } from 'hooks/common/isAcessToken';
 import { formatNumberWithCommas } from 'utils/numberComma';
+import { isAxiosError } from 'axios';
 
 // ReservationInfo
 export type ReservationInfo = {
@@ -106,24 +107,23 @@ const orders = () => {
 				if (res.success === true) {
 					swal({ title: '결제하기에 성공하셨습니다.', icon: 'success' });
 					navigate('/result');
-				} else {
-					// res.success 가 false 인 경우에 대한 에러 핸들링
-					// res.error 객체로부터 메시지를 추출하여 사용자에게 보여줌
-					if (res.error) {
-						const errorMessage = res.error.message;
-						swal({ title: errorMessage, icon: 'error' });
-					} else {
-						swal({ title: '알 수 없는 오류가 발생했습니다.', icon: 'error' });
-					}
-					navigate('/cart');
 				}
 			} else {
 				console.log('모든 데이터를 만족시켜주세요.');
 			}
-		} catch (e) {
+		} catch (e: any) {
 			// 네트워크 오류 등 예상치 못한 오류를 캐치하여 사용자에게 알림
-			console.error(e);
-			swal({ title: '예상치 못한 오류가 발생했습니다.', icon: 'error' });
+
+			// console.log("e", e);
+			// console.log("err.response", e.response)
+			// console.log("e.message", e.message)
+			// console.log("e.errorMessage", e.response.data.error.message)
+			if (e.response.status === '400') {
+				const errorMessage = e.response.data.error.message;
+				swal({ title: errorMessage, icon: 'error' });
+			} else {
+				swal({ title: '알 수 없는 오류가 발생했습니다.', icon: 'error' });
+			}
 			navigate('/cart');
 		}
 	};

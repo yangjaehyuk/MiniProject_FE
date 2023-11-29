@@ -91,7 +91,7 @@ const ReservationItem = () => {
 									<div className="font-semibold text-content ">
 										{item.checkoutDate} ({getDayOfWeek(item.checkoutDate)})
 									</div>
-									<div className="text-sm">19: 00</div>
+									<div className="text-sm">11: 00</div>
 								</div>
 							</div>
 							<div className="text-xxsm text-textGray flex items-center py-2">
@@ -102,11 +102,10 @@ const ReservationItem = () => {
 							<div>
 								<div className="flex justify-end items-center content-center">
 									<div className="text-sm text-textGray pr-1">
-										연박 /{' '}
 										{getDateDifference(item.checkinDate, item.checkoutDate)} 박
 									</div>
 									<div className="font-semibold text-content">
-										{formatNumberWithCommas(item.roomType.price)} 원
+										{formatNumberWithCommas(item.price)} 원
 									</div>
 								</div>
 							</div>
@@ -114,7 +113,6 @@ const ReservationItem = () => {
 					))}
 					<div className="flex justify-end items-center content-center">
 						<div className="font-semibold ">
-							{' '}
 							총 {formatNumberWithCommas(totalPrice)} 원
 						</div>
 					</div>

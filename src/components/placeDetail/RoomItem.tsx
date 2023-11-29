@@ -25,7 +25,7 @@ export default function RoomItem({ roomItem, name }: RoomProps) {
 
 	const handleItemClick = () => {
 		if (name !== undefined) {
-			navigate(`/places/${accommodationdId}/${roomItem.id}?name=${name}&status=${roomItem.status}`);
+			navigate(`/places/${accommodationdId}/${roomItem.id}?name=${name}&status=${roomItem.status}&price=${roomItem.price}`);
 		}
 	};
 

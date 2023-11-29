@@ -80,7 +80,7 @@ const CartList: React.FC<CartListProps> = ({
 								</span>
 
 								<span className="text-sm font-semibold pl-3">
-									{formatNumberWithCommas(item.roomType.price)}원
+									{formatNumberWithCommas(item.price)}원
 								</span>
 							</div>
 						</div>
