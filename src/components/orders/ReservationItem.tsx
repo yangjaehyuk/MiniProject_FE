@@ -8,6 +8,7 @@ import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
 import { formatFullDateRange } from 'utils/formatDate';
 import { getDateDifference } from 'hooks/common/getDateDifference';
 import { getDayOfWeek } from 'hooks/common/getDayOfWeek';
+import { formatNumberWithCommas } from 'utils/numberComma';
 
 const ReservationItem = () => {
 	const cartItem = useRecoilValue(cartItemState);
@@ -17,8 +18,6 @@ const ReservationItem = () => {
 	const orderItem = useRecoilValue(orderItemState);
 	const checkInDate = useRecoilValue(checkInDateState);
 	const checkOutDate = useRecoilValue(checkOutDateState);
-
-	console.log(orderItem);
 
 	const checkDate = formatFullDateRange(checkInDate, checkOutDate);
 
@@ -63,7 +62,7 @@ const ReservationItem = () => {
 									연박 / {nights}
 								</div>
 								<div className="font-semibold text-content">
-									{orderItem.price} 원
+									{formatNumberWithCommas(orderItem.price)} 원
 								</div>
 							</div>
 						</div>
@@ -107,14 +106,17 @@ const ReservationItem = () => {
 										{getDateDifference(item.checkinDate, item.checkoutDate)} 박
 									</div>
 									<div className="font-semibold text-content">
-										{item.roomType.price} 원
+										{formatNumberWithCommas(item.roomType.price)} 원
 									</div>
 								</div>
 							</div>
 						</div>
 					))}
 					<div className="flex justify-end items-center content-center">
-						<div className="font-semibold "> 총 {totalPrice} 원</div>
+						<div className="font-semibold ">
+							{' '}
+							총 {formatNumberWithCommas(totalPrice)} 원
+						</div>
 					</div>
 				</>
 			)}

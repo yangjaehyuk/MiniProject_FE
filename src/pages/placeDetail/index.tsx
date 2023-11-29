@@ -1,5 +1,6 @@
-import Header from 'components/placeDetail/Header';
-import React, { useEffect, useState } from 'react';
+// import Header from 'components/placeDetail/Header';
+import React, { useEffect, useRef, useState } from 'react';
+import CommonHeader from 'components/common/CommonHeader';
 import banner from '../../assets/images/banner.png';
 import StarIcon from '@mui/icons-material/Star';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -47,7 +48,7 @@ export default function PlaceDetail() {
 			try {
 				const id = +accommodationdId;
 				const response = await accommodationAPI.getPlaceDetail(id);
-				setAccommodationInfo(response.data.data); 
+				setAccommodationInfo(response.data.data);
 			} catch (error) {
 				console.error('Failed to load accommodation details:', error);
 			}
@@ -62,26 +63,27 @@ export default function PlaceDetail() {
 				const checkInDateString = checkInDate.toISOString().split('T')[0];
 				const checkOutDateString = checkOutDate.toISOString().split('T')[0];
 
-				const response = await accommodationAPI.getPlaceDetailRooms(id,checkInDateString, checkOutDateString,capacityValue);
+				const response = await accommodationAPI.getPlaceDetailRooms(
+					id,
+					checkInDateString,
+					checkOutDateString,
+					capacityValue,
+				);
 				setRoomsInfo(response.data.data);
-
-			}
-			catch (error) {
-				console.error('Failed to load roomtype information',error);
+			} catch (error) {
+				console.error('Failed to load roomtype information', error);
 			}
 		}
-
-	}
+	};
 
 	useEffect(() => {
 		getAccommodationDetail();
 		getRoomsInfo();
 	}, [accommodationdId]);
-	
+
 	useEffect(() => {
 		getRoomsInfo();
-		
-	},[checkInDate,checkOutDate,capacityValue])
+	}, [checkInDate, checkOutDate, capacityValue]);
 
 	useEffect(() => {
 		setFormattingDate(
@@ -95,26 +97,29 @@ export default function PlaceDetail() {
 
 	const handleCapacityClick = () => {
 		setIsCapacityModalOpen((prev) => !prev);
-
-	}
+	};
 
 	const handleCopyBtnClick = () => {
-		if(accommodationInfo?.location.address !== undefined) {
-			navigator.clipboard.writeText(accommodationInfo.location.address)
-		.then(() => {
-			swal("주소가 복사되었습니다.",{icon : "success"});
-		})
-		.catch(err => {
-			// This will be executed if the copying failed
-			swal("주소 복사에 실패했습니다.", { icon: "error" });
-			console.error('Error copying text: ', err);
-		  });
-
+		if (accommodationInfo?.location.address !== undefined) {
+			navigator.clipboard
+				.writeText(accommodationInfo.location.address)
+				.then(() => {
+					swal('주소가 복사되었습니다.', { icon: 'success' });
+				})
+				.catch((err) => {
+					// This will be executed if the copying failed
+					swal('주소 복사에 실패했습니다.', { icon: 'error' });
+					console.error('Error copying text: ', err);
+				});
 		}
-		
-	}
+	};
 
-	
+	const mapRef = useRef<HTMLDivElement | null>(null); // KakaoMap 컴포넌트에 대한 참조 생성
+
+	const handleAddressClick = () => {
+		// KakaoMap 컴포넌트로 스크롤
+		mapRef.current?.scrollIntoView({ behavior: 'smooth' });
+	};
 
 	if (isLoading) {
 		return <Loading />;
@@ -123,10 +128,16 @@ export default function PlaceDetail() {
 	return (
 		<div className="justify-center m-auto text-content text-black">
 			<CalendarModal isOpen={isModalOpen} handleOpen={handleCalendarClick} />
-			<RegionProdCapacityModal isOpen={isCapacityModalOpen} handleOpen={handleCapacityClick} />
-			<Header name={accommodationInfo?.name}/>
+			<RegionProdCapacityModal
+				isOpen={isCapacityModalOpen}
+				handleOpen={handleCapacityClick}
+			/>
+			<CommonHeader name={accommodationInfo?.name} isHomeIcon isCartIcon />
+			{/* <Header name={accommodationInfo?.name} /> */}
 			<div className="relative mt-[48px] flex-row">
-				<ImageSwiper items={accommodationInfo?.images} />
+				<div className="ml-[-1.25rem] mr-[-1.25rem]">
+					<ImageSwiper items={accommodationInfo?.images} />
+				</div>
 				<div className="pt-3">
 					<span className="text-sm">일반 호텔</span>
 					<div className="flex w-full justify-between">
@@ -138,7 +149,10 @@ export default function PlaceDetail() {
 					</div>
 					<div className="flex items-center pt-[6px] pb-[2px]">
 						<LocationOnIcon sx={{ fill: '#0152cc' }} fontSize="small" />
-						<span className="text-blue font-bold text-content">
+						<span
+							className="text-blue font-bold text-content cursor-pointer"
+							onClick={handleAddressClick}
+						>
 							{accommodationInfo?.location.address}
 						</span>
 						<KeyboardArrowRightIcon sx={{ fill: '#0152cc' }} />
@@ -148,11 +162,17 @@ export default function PlaceDetail() {
 						{accommodationInfo?.star}
 					</div>
 				</div>
-				<img
-					src={banner}
-					alt="숙소사진"
-					className="w-[728px] mx-auto rounded-md pt-2"
-				/>
+				<a
+					href="https://www.yanolja.com/promotion/nol-promotion?eventcode=NOYHH"
+					target="_blank"
+					rel="noreferrer"
+				>
+					<img
+						src={banner}
+						alt="배너 이미지"
+						className="w-full mx-auto rounded-md pt-2"
+					/>
+				</a>
 				<div className="pt-5">
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold ">객실 선택</p>
@@ -172,14 +192,23 @@ export default function PlaceDetail() {
 						</button>
 					</div>
 
-					{roomsInfo?.map((roomItem,index) => (
-						roomItem.status !==  'NO_STOCK' ? <RoomItem key = {index} roomItem={roomItem} name={accommodationInfo?.name}/> : <SoldOutRoomItem key = {index} roomItem={roomItem} name={accommodationInfo?.name}/>
-					))}
-
-					
-					
+					{roomsInfo?.map((roomItem, index) =>
+						roomItem.status !== 'NO_STOCK' ? (
+							<RoomItem
+								key={index}
+								roomItem={roomItem}
+								name={accommodationInfo?.name}
+							/>
+						) : (
+							<SoldOutRoomItem
+								key={index}
+								roomItem={roomItem}
+								name={accommodationInfo?.name}
+							/>
+						),
+					)}
 				</div>
-				<div className="pt-5">
+				<div className="pt-5" ref={mapRef}>
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold">위치/교통</p>
 					</div>
@@ -194,7 +223,10 @@ export default function PlaceDetail() {
 						/>
 						<p>{accommodationInfo?.location.address}</p>
 					</div>
-					<button className="w-full border border-gray py-[6px] rounded-sm text-sm hover:bg-bgGray" onClick={handleCopyBtnClick}>
+					<button
+						className="w-full border border-gray py-[6px] rounded-sm text-sm hover:bg-bgGray"
+						onClick={handleCopyBtnClick}
+					>
 						주소복사
 					</button>
 				</div>
@@ -221,10 +253,10 @@ export default function PlaceDetail() {
 					<div className="min-h-[3rem] flex items-center">
 						<p className="text-title font-bold ">취소 안내</p>
 					</div>
-					<ul className="list-disc">
+					<ul className="list-disc pl-5">
 						<li className="pb-2">
 							{' '}
-							취소 밒 환불이 불가하 숙소 상품을 예약한 경우도 예약 완료 후 일정
+							취소 및 환불이 불가한 숙소 상품을 예약한 경우도 예약 완료 후 일정
 							시간 이내에 무료로 취소할 수 있습니다.
 						</li>
 						<li>

@@ -1,0 +1,7 @@
+@tailwind components;
+
+@layer components {
+	.linkItem {
+		@apply font-semibold px-4 p-2 border-borderGray border-[1px] rounded-md;
+	}
+}

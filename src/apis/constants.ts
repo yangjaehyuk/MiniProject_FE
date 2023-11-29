@@ -1,1 +1,1 @@
-export const SERVER_URL = 'http://3.39.123.109:8080/api/';
+export const SERVER_URL = 'https://api.hitit7mini.store/api/';

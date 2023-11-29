@@ -13,6 +13,7 @@ import { getUserInfo } from 'apis/axios';
 import TopBtn from 'components/common/TopBtn';
 import useScrollToShow from 'hooks/common/handleScroll';
 import useQueryMyPage from 'hooks/myPage/useQueryMyPage';
+import MyPageSkeleton from './skeleton/MyPageSkeleton';
 
 const Inner = () => {
 	const [now, setNow] = useState(3);
@@ -49,8 +50,7 @@ const Inner = () => {
 		fetchData();
 	}, []);
 
-	const { data } = useQueryMyPage(now);
-
+	const { data, isLoading } = useQueryMyPage(now);
 	return (
 		<div className="pt-20 min-h-screen m-auto bg-white max-w-[768px] mx-auto">
 			<div className="pt-4.5 pl-6 pr-6 pb-7">
@@ -89,7 +89,7 @@ const Inner = () => {
 
 						<div className="pt-10 ">
 							<div
-								className="flex items-center w-full h-9 border border-gray rounded-md cursor-pointer justify-between ml-3 hover:bg-lightGray"
+								className="flex items-center w-full h-9 border border-gray rounded-md cursor-pointer justify-between ml-3 hover:bg-lightGray pl-4"
 								onClick={() => setShowDateModal(true)}
 							>
 								{nowDate}
@@ -105,11 +105,14 @@ const Inner = () => {
 				onClose={handleDateModalClose}
 			></DateModal>
 			{show && <TopBtn show={show} />}
-
+			{isLoading && <MyPageSkeleton />}
 			{data && data?.length > 0 && (
 				<div className="pr-6 pl-6">
 					{data?.map((order, index) => (
-						<React.Fragment key={index}>
+						<div
+							key={index}
+							className="border border-gray rounded-lg mb-8 shadow-md overflow-hidden"
+						>
 							<ReservationCardHeader orderDate={order.orderDate} />
 							{order.orderItems?.map((item, itemIndex) => (
 								<React.Fragment key={itemIndex}>
@@ -126,8 +129,7 @@ const Inner = () => {
 									/>
 								</React.Fragment>
 							))}
-							<div className="pb-16"></div>
-						</React.Fragment>
+						</div>
 					))}
 				</div>
 			)}

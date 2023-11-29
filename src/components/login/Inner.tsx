@@ -65,8 +65,9 @@ const Inner = () => {
 		onSubmit: async (values) => {
 			removeCookie();
 			try {
-				const res = await postLogin(values.mail, values.pw);
 				swal({ title: '로그인에 성공했습니다.', icon: 'success' });
+
+				const res = await postLogin(values.mail, values.pw);
 				setDate('최근 3개월');
 				const { accessToken } = res;
 				setCookie(accessToken);

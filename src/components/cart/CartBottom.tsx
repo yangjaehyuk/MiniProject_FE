@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../components/cart/Cart.module.css';
 import BottomInfo from './BottomInfo';
-
+import { formatNumberWithCommas } from 'utils/numberComma';
 interface totalPriceProps {
 	totalPrice: number;
 }
@@ -15,11 +15,13 @@ const CartBottom: React.FC<totalPriceProps> = ({ totalPrice }) => {
 					<div className=" text-sm text-text ">
 						<div className="flex justify-between items-center">
 							<div>상품금액</div>
-							<div>{totalPrice} 원</div>
+							<div>{formatNumberWithCommas(totalPrice)} 원</div>
 						</div>
 						<div className="flex justify-between items-center mt-3">
 							<div>결제 예상 금액</div>
-							<div className="text-[16px] font-semibold ">{totalPrice} 원</div>
+							<div className="text-[16px] font-semibold ">
+								{formatNumberWithCommas(totalPrice)} 원
+							</div>
 						</div>
 
 						<BottomInfo />

@@ -30,8 +30,17 @@ export default function CalendarModal({ isOpen, handleOpen }: ModalProps) {
 	const handleOnChange = (dates: [Date, Date]) => {
 		setIsRest(false);
 		const [start, end] = dates;
-		setStartDay(start);
-		setEndDay(end);
+		if(end && start.getTime() === end.getTime()) {
+			setStartDay(start);
+        	const nextDay = new Date(start);
+        	nextDay.setDate(start.getDate() + 1); // start 날짜에 하루를 더합니다.
+        	setEndDay(nextDay);
+		}
+		else {
+			setStartDay(start);
+			setEndDay(end);
+		}
+		
 	};
 
 	const handleBtnClick = () => {
@@ -125,6 +134,7 @@ export default function CalendarModal({ isOpen, handleOpen }: ModalProps) {
 					selectsRange
 					inline
 					minDate={new Date()}
+					maxDate={new Date(new Date().setDate(new Date().getDate() + 30))}
 					className='custom-datePicker'
 				/>
 			</DialogBody>
