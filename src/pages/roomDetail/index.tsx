@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ShareIcon from '@mui/icons-material/Share';
+import { useNavigate } from 'react-router-dom';
 import CheckIcon from '@mui/icons-material/Check';
 import Header from 'components/roomDetail/Header';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
@@ -56,6 +56,12 @@ export default function RoomDetail() {
 		}
 	}, [roomId]);
 
+	const navigate = useNavigate();
+
+	const handleBackBtnClick = () => {
+		navigate(-1);
+	};
+
 	
 
 
@@ -95,10 +101,9 @@ export default function RoomDetail() {
 							<p className="text-lg font-bold text-black">{roomInfo?.name}</p>
 							<p className="text-content">{roomInfo?.introduction}</p>
 						</div>
-						<ShareIcon fontSize="small" />
 					</div>
 
-					<div className="mt-[13px]">
+					<div className="mt-[13px] cursor-pointer" onClick={handleBackBtnClick}>
 						<p className="text-sm">
 							{name} <KeyboardArrowRightIcon sx={{ fontSize: '14px' }} />
 						</p>
@@ -128,7 +133,7 @@ export default function RoomDetail() {
 						))}
 					</div>
 				</div>
-				<div className="border border-borderGray p-4 rounded-lg">
+				<div className="border border-borderGray p-4 rounded-lg mt-5">
 					<div>
 						<span className="text-sm text-black font-bold">숙박</span>
 						<p className="text-sm text-textGray py-1">
