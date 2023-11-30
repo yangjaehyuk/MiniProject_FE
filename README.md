@@ -195,7 +195,7 @@ Jira를 간단하게 작성하여 서로 작업 내용을 공유하니까 다른
 
 
 <details>
-<summary>양재혁</summary>.
+<summary>양재혁</summary>
 
 ## 주요 기능
 
