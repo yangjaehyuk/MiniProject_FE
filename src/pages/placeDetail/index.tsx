@@ -25,6 +25,8 @@ import Loading from 'components/placeDetail/Loading';
 import { capacityState } from 'recoil/atoms/capacityAtom';
 import RegionProdCapacityModal from 'components/region/RegionProdCapacityModal';
 import swal from 'sweetalert';
+import useScrollToShow from 'hooks/common/handleScroll';
+import TopBtn from 'components/common/TopBtn';
 
 export default function PlaceDetail() {
 	const { accommodationdId } = useParams();
@@ -41,6 +43,7 @@ export default function PlaceDetail() {
 		formatFullDateRangeWithoutYear(checkInDate, checkOutDate),
 	);
 	const capacityValue = useRecoilValue(capacityState);
+	const show = useScrollToShow(false, 200);
 
 	const getAccommodationDetail = async () => {
 		if (accommodationdId !== undefined) {
@@ -141,7 +144,6 @@ export default function PlaceDetail() {
 				<div className="pt-3">
 					<div className="flex w-full justify-between">
 						<p className="text-lg font-bold">{accommodationInfo?.name}</p>
-						
 					</div>
 					<div className="flex items-center pt-[6px] pb-[2px]">
 						<LocationOnIcon sx={{ fill: '#0152cc' }} fontSize="small" />
@@ -294,6 +296,7 @@ export default function PlaceDetail() {
 					</table>
 				</div>
 				<Footer />
+				{show && <TopBtn show={show} />}
 			</div>
 		</div>
 	);

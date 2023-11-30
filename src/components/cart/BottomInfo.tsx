@@ -4,25 +4,19 @@ import carImage from '../../assets/images/cart-img.png';
 const BottomInfo = () => {
 	return (
 		<>
-			{' '}
-			<div className="my-5 p-2  bg-bgGray  rounded-md">
-				<span className="text-sm ">NOL 카드 결제 시,</span>
-				<span className="text-sm text-primary font-semibold">10% 적립</span>
-			</div>
 			<a
 				rel="noreferrer"
 				target="_blank"
 				href="https://board.yanolja.com/event/398/index.html"
 				className="text-left"
 			>
-				<img src={carImage} className="rounded-md mb-2"></img>
+				<img src={carImage} className="rounded-md mb-2 cursor-pointer"></img>
 			</a>
-			<ul className="flex flex-col text-xxsm leading-5 text-textGray">
+			<ul className="flex flex-col text-xs leading-5 text-textGray list-disc ">
 				<li>
 					장바구니에 담긴 상품은 최대 30일간 보관되며 최대 20개의 상품을 담을 수
 					있습니다.
 				</li>
-
 				<li>
 					일부 상품의 경우, 장바구니에서 수량 및 상세 옵션 수정이 불가하므로
 					삭제 후 다시 담아주시기 바랍니다.

@@ -8,9 +8,20 @@ import { ProductSwiperProps } from 'types/Category.type';
 import { formatNumberWithCommas } from 'utils/numberComma';
 import styles from './Category.module.css';
 import { Link } from 'react-router-dom';
+import { getDateDifference } from 'hooks/common/getDateDifference';
+import { checkInDateState, checkOutDateState } from 'recoil/atoms/dateAtom';
+import { foramtYYYYMMDD } from 'utils/formatDate';
+import { useRecoilValue } from 'recoil';
 
 function CategorySwiper({ items }: ProductSwiperProps) {
 	const id = useId();
+
+	const startDate = useRecoilValue(checkInDateState);
+	const endDate = useRecoilValue(checkOutDateState);
+	const start = foramtYYYYMMDD(startDate);
+	const end = foramtYYYYMMDD(endDate);
+
+	const diff = getDateDifference(start, end);
 	return (
 		<Swiper
 			slidesPerView={'auto'}
@@ -39,7 +50,7 @@ function CategorySwiper({ items }: ProductSwiperProps) {
 								{item.star}
 							</p>
 							<div className="text-[16px] font-semibold text-right">
-								{formatNumberWithCommas(item.price)}원~
+								{formatNumberWithCommas(item.price * diff)}원~
 							</div>
 						</div>
 					</Link>

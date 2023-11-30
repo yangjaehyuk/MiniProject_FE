@@ -41,7 +41,9 @@ const PaymentMethod: React.FC<PaymentMethodProps> = ({ handlePayment }) => {
 			<div>
 				<img src={banner} alt="banner Kakao " />
 			</div>
-			<div className="font-semibold text-content pb-2 pb-5">결제 수단</div>
+			<div className="font-semibold text-content pb-2 pb-5">
+				결제 수단 <span className="text-primary  pl-1">*</span>
+			</div>
 			<div className="flex flex-col ">
 				<button
 					onClick={() => handlePaymentClick('KAKAO_PAY')}

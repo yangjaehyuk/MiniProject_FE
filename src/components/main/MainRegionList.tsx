@@ -15,9 +15,11 @@ const MainRegionList = () => {
 	const [selectedLocation, setSelectedLocation] = useState<string>('SEOUL');
 	const [accommodations, setAccommodations] = useState<Accommodation[]>([]);
 	const { data, isLoading } = useQueryMainRegion(selectedLocation);
+	const [btnActive, setBtnActive] = useState('');
 
 	const handleLocationClick = (location: string) => {
 		setSelectedLocation(location);
+		setBtnActive(location);
 	};
 
 	useEffect(() => {
@@ -26,45 +28,36 @@ const MainRegionList = () => {
 		}
 	}, [data]);
 
+	const region = [
+		{ region: '서울', data: 'SEOUL' },
+		{ region: '부산', data: 'BUSAN' },
+		{ region: '인천', data: 'INCHEON' },
+		{ region: '경상', data: 'GYEONGSANG' },
+		{ region: '충청', data: 'CHUNGCHEONG' },
+	];
+
 	return (
 		<>
 			{isLoading ? (
-				<div>Loading...</div>
+				<div className="font-semibold h-50 flex items-center "> Loading</div>
 			) : (
 				<>
-					{!data && <div>No data available</div>}
+					{!data && <div>숙소가 없습니다 ! </div>}
 					<div className="font-semibold text-title"> 겨울엔 이 숙소 </div>
 					<div className="my-2 ">
-						<button
-							className="bg-white border-2 border-bgGray rounded-full py-1 px-2 text-black w-[80px] mr-2"
-							onClick={() => handleLocationClick('SEOUL')}
-						>
-							서울
-						</button>
-						<button
-							className="bg-white border-2 border-bgGray rounded-full py-1 px-2 text-black w-[80px] mr-2"
-							onClick={() => handleLocationClick('BUSAN')}
-						>
-							부산
-						</button>
-						<button
-							className="bg-white border-2 border-bgGray rounded-full py-1 px-2 text-black w-[80px] mr-2"
-							onClick={() => handleLocationClick('INCHEON')}
-						>
-							인천
-						</button>
-						<button
-							className="bg-white border-2 border-bgGray rounded-full py-1 px-2 text-black w-[80px] mr-2"
-							onClick={() => handleLocationClick('GYEONGSANG')}
-						>
-							경상
-						</button>
-						<button
-							className="bg-white border-2 border-bgGray rounded-full py-1 px-2 text-black w-[80px] mr-2"
-							onClick={() => handleLocationClick('CHUNGCHEONG')}
-						>
-							충청
-						</button>
+						{region.map((item, idx) => (
+							<button
+								className={`rounded-full py-1 px-2 w-[80px] mr-2 hover:bg-bgGray ${
+									btnActive === item.data
+										? 'bg-hoverBg text-blue font-semibold'
+										: 'bg-white text-black border-2 border-bgGray '
+								}`}
+								onClick={() => handleLocationClick(`${item.data}`)}
+								key={idx}
+							>
+								{item.region}
+							</button>
+						))}
 					</div>
 					<MainRegionItem accommodations={accommodations} />
 				</>

@@ -21,6 +21,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 import './Carouse.css';
+import styles from './MainCarousel.module.css';
 
 const MainCarousel = () => {
 	const carouselDate = [
@@ -93,11 +94,12 @@ const MainCarousel = () => {
 					modules={[Navigation, Pagination, Scrollbar, A11y]}
 					spaceBetween={10}
 					slidesPerView={2.5}
-					scrollbar={{ draggable: true }}
+					// scrollbar={{ draggable: true }}
 					navigation
 					pagination={{
 						type: 'fraction',
 					}}
+					className={styles.mainSwiper}
 				>
 					{carouselDate.map((item) => (
 						<SwiperSlide key={item.id}>
