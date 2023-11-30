@@ -41,7 +41,7 @@ const CartList: React.FC<CartListProps> = ({
 									<div className="text-content font-semibold ">
 										{item.roomType.name}
 									</div>
-									<div className="text-gray w-12 h-12">
+									<div className="text-gray w-12 h-12 cursor-pointer">
 										<CloseOutlinedIcon
 											fontSize="small"
 											onClick={() => handleDeleteItem(item.id)}
@@ -50,6 +50,7 @@ const CartList: React.FC<CartListProps> = ({
 								</div>
 								<div className="flex">
 									<input
+										className="cursor-pointer"
 										type="checkbox"
 										onClick={() => {
 											item.isClicked = !item.isClicked;

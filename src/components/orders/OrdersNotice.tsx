@@ -18,9 +18,15 @@ const OrdersNotice = () => {
 						예약 완료 후 무료 취소 안내
 					</div>
 					{isClick ? (
-						<ExpandLessRoundedIcon onClick={handleClick} />
+						<ExpandLessRoundedIcon
+							onClick={handleClick}
+							className="cursor-pointer"
+						/>
 					) : (
-						<ExpandMoreOutlinedIcon onClick={handleClick} />
+						<ExpandMoreOutlinedIcon
+							onClick={handleClick}
+							className="cursor-pointer"
+						/>
 					)}
 				</div>
 				<div>
