@@ -53,10 +53,28 @@
   font-size : 17px !important;
   border-radius : 50% !important;
 }
+.react-datepicker__day--keyboard-selected {
+  background-color : white !important;
+}
+.react-datepicker__day--selected {
+  background-color : #FF3478 !important;
+  
+}
+.react-datepicker__day--in-selecting-range{
+  background-color : #FF3478 !important;
+  
+}
 
 .react-datepicker__day--in-range {
   background-color : #FF3478 !important;
   border : 1px solid #FF3478 !important;
   color : white !important;
+}
+
+
+.react-datepicker__navigation-icon::before {
+  top : 16px !important;
+  border-color : #FF3478 !important;
+
 }
 
