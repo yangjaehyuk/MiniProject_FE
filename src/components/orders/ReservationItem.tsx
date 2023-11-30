@@ -48,7 +48,7 @@ const ReservationItem = () => {
 							<div className="flex flex-col w-1/2 ">
 								<div className="text-xxsm text-textGray">체크아웃</div>
 								<div className="font-semibold text-content ">{checkOut}</div>
-								<div className="text-sm">19: 00</div>
+								<div className="text-sm">11: 00</div>
 							</div>
 						</div>
 						<div className="text-xxsm text-textGray flex items-center py-2">
