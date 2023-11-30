@@ -157,6 +157,7 @@ const Cart = () => {
 						<div className="flex h-[48px]  justify-between items-center px-4  w-[768px]  m-auto top-0   left-0">
 							<div className="flex ">
 								<input
+									className="cursor-pointer"
 									type="checkbox"
 									onChange={handleSelectAll}
 									checked={selectAll}
