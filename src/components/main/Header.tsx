@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import DehazeOutlinedIcon from '@mui/icons-material/DehazeOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { Link, useNavigate } from 'react-router-dom';
 import { MainHeaderProps } from 'types/MainPage.type';
-import { useQueryCartCount } from 'hooks/common/useQueryCartCount';
+import { getCartCount } from 'hooks/common/useQueryCartCount';
 import { Badge } from '@material-tailwind/react';
+import { getCookie } from 'utils';
+import { useRecoilState } from 'recoil';
+import { cartCountState } from 'recoil/atoms/cartAtom';
 
 const Header = ({ handleOpen }: MainHeaderProps) => {
 	const navigate = useNavigate();
-	const { data: cartCount } = useQueryCartCount();
+	const [cartCount, setCartCount] = useRecoilState(cartCountState);
+
+	useEffect(() => {
+		const accessToken = getCookie('accessToken');
+		if (accessToken) {
+			(async () => {
+				const count = await getCartCount();
+				setCartCount(count);
+			})();
+		} else {
+			setCartCount(0);
+		}
+	}, []);
 
 	const handleInputBtn = () => {
 		navigate('/search');

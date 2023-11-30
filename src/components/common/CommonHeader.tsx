@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
 	HomeOutlined,
 	KeyboardArrowLeft,
@@ -6,12 +6,14 @@ import {
 } from '@mui/icons-material';
 import { useParams } from 'react-router-dom';
 import { categoryToKor, regionToKor } from 'utils/switchNameToKor';
-import { handleArrowBackClick } from 'utils';
+import { getCookie, handleArrowBackClick } from 'utils';
 import { Link } from 'react-router-dom';
 import { RegionHeaderProps } from 'types/Region.type';
 import styles from './Common.module.css';
-import { useQueryCartCount } from 'hooks/common/useQueryCartCount';
+import { getCartCount } from 'hooks/common/useQueryCartCount';
 import { Badge } from '@material-tailwind/react';
+import { useRecoilState } from 'recoil';
+import { cartCountState } from 'recoil/atoms/cartAtom';
 
 function CommonHeader({
 	type,
@@ -20,8 +22,21 @@ function CommonHeader({
 	isBackIcon = true,
 	isCartIcon = false,
 }: RegionHeaderProps) {
+	const [cartCount, setCartCount] = useRecoilState(cartCountState);
 	const { category, region } = useParams();
-	const { data: cartCount } = useQueryCartCount();
+	// const { data: cartCount } = useQueryCartCount();
+
+	useEffect(() => {
+		const accessToken = getCookie('accessToken');
+		if (accessToken) {
+			(async () => {
+				const count = await getCartCount();
+				setCartCount(count);
+			})();
+		} else {
+			setCartCount(0);
+		}
+	}, []);
 
 	return (
 		<nav className={styles.nav}>

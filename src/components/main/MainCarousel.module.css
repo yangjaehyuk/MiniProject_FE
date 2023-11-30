@@ -1,0 +1,7 @@
+@tailwind components;
+
+@layer components {
+	.mainSwiper {
+		@apply pb-6;
+	}
+}

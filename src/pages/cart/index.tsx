@@ -17,6 +17,7 @@ import { ShoppingCartOutlined } from '@mui/icons-material';
 import BottomInfo from 'components/cart/BottomInfo';
 
 import CommonHeader from 'components/common/CommonHeader';
+import TopBtn from 'components/common/TopBtn';
 
 const Cart = () => {
 	requireLogin();
@@ -225,6 +226,7 @@ const Cart = () => {
 					</div>
 				</>
 			)}
+			<TopBtn show isOverlap />
 		</>
 	);
 };
