@@ -118,8 +118,6 @@ const Inner = () => {
 		setShowModal(false);
 	};
 
-	console.log(errors.mail, errors.pw, values.mail, values.pw);
-
 	return (
 		<div className="pt-20 min-h-screen m-auto bg-white max-w-[768px] mx-auto">
 			<div className="pt-4.5 pl-8 pr-8">
