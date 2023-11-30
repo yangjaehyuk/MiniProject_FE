@@ -94,7 +94,7 @@ const result = () => {
 					</div>
 					<div className={styles.subWrap}>
 						<div>
-							<div className="flex justify-between items-center border-b border-bgGray ">
+							<div className="flex justify-between items-center ">
 								<div className="text-content font-semibold pb-1 ">
 									상품 정보 {orderData.orderItems.length}건
 								</div>
