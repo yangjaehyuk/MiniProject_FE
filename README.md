@@ -237,10 +237,16 @@ Zira를 간단하게 작성하여 서로 작업 내용을 공유하니까 다른
 <br/>
 
 ## 🎨 화면 구성
+
+#### 메인페이지
 ![image](https://github.com/YBE-7/MiniProject_FE/assets/65649035/96c57314-5770-41bc-9399-d30abfcee2cc)
+#### 카테고리별 페이지
 ![image](https://github.com/YBE-7/MiniProject_FE/assets/65649035/93ddb03d-7338-4db1-9a04-e0b2d897fc5c)
+#### 숙소 상세 페이지
 ![image](https://github.com/YBE-7/MiniProject_FE/assets/65649035/b7424080-f060-4ff2-80e6-fb20e54e9412)
+#### 장바구니 페이지
 ![image](https://github.com/YBE-7/MiniProject_FE/assets/65649035/36f9c7f2-90df-440e-9a3d-2333d6281c08)
+#### 마이페이지
 ![image](https://github.com/YBE-7/MiniProject_FE/assets/65649035/f99573f7-14f0-46ea-9b45-7520c17dfc6e)
 
 
