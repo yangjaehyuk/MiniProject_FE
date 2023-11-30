@@ -1,5 +1,5 @@
 // import Header from 'components/common/Header';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import CommonHeader from 'components/common/CommonHeader';
 import styles from 'components/cart/Cart.module.css';
 import OrdersNotice from 'components/orders/OrdersNotice';
@@ -43,6 +43,7 @@ export type ReservationInfo = {
 const orders = () => {
 	requireLogin();
 	const navigate = useNavigate();
+	const scrollRef = useRef<HTMLDivElement>(null);
 
 	// 장바구니에서 예약 데이터
 	const cartItem = useRecoilValue(cartItemState);
@@ -95,6 +96,11 @@ const orders = () => {
 			orderData,
 		);
 
+		if (!payment) {
+			scrollRef?.current?.scrollIntoView({ behavior: 'smooth' });
+			swal({ title: '결제 수단을 선택해주세요', icon: 'error' });
+		}
+
 		try {
 			if (client && subscriber && payment && orderData) {
 				const res = await postOrder(client, subscriber, payment, orderData);
@@ -108,16 +114,8 @@ const orders = () => {
 					swal({ title: '결제하기에 성공하셨습니다.', icon: 'success' });
 					navigate('/result');
 				}
-			} else {
-				console.log('모든 데이터를 만족시켜주세요.');
 			}
 		} catch (e: any) {
-			// 네트워크 오류 등 예상치 못한 오류를 캐치하여 사용자에게 알림
-
-			// console.log("e", e);
-			// console.log("err.response", e.response)
-			// console.log("e.message", e.message)
-			// console.log("e.errorMessage", e.response.data.error.message)
 			if (e.response.status === '400') {
 				const errorMessage = e.response.data.error.message;
 				swal({ title: errorMessage, icon: 'error' });
@@ -139,7 +137,6 @@ const orders = () => {
 		<>
 			<FormProvider {...methods}>
 				<CommonHeader name="예약" isHomeIcon />
-				{/* <Header title="예약" /> */}
 
 				<div className={styles.wrap}>
 					<div className="font-semibold text-md pb-2">숙소</div>
@@ -169,7 +166,7 @@ const orders = () => {
 						</div>
 					</div>
 				</div>
-				<div className={styles.wrap}>
+				<div className={styles.wrap} ref={scrollRef}>
 					<PaymentMethod handlePayment={handlePayment} />
 				</div>
 				<div className={styles.wrap}>
