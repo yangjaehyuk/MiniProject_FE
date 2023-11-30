@@ -53,6 +53,7 @@ export default function RoomItem({ roomItem, name }: RoomProps) {
 
 		if (!accessToken) {
 			swal({ title: '로그인이 필요한 서비스입니다.', icon: 'warning' });
+			navigate('/login');
 		} else saveRoomtoCart();
 	};
 
@@ -61,6 +62,7 @@ export default function RoomItem({ roomItem, name }: RoomProps) {
 
 		if (!accessToken) {
 			swal({ title: '로그인이 필요한 서비스입니다.', icon: 'warning' });
+			navigate('/login');
 		} else {
 			console.log(roomItem);
 
