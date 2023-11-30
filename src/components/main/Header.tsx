@@ -63,6 +63,7 @@ const Header = ({ handleOpen }: MainHeaderProps) => {
 						<span className=" text-textGray text-sm py-1.5">
 							무엇을 하고 놀까요 ?
 						</span>
+
 						<SearchOutlinedIcon fontSize="small" />
 					</div>
 				</div>
@@ -74,6 +75,7 @@ const Header = ({ handleOpen }: MainHeaderProps) => {
 						<ShoppingCartOutlinedIcon
 							fontSize="small"
 							onClick={handelBtnClick}
+							className="cursor-pointer"
 						/>
 					</Badge>
 				) : (
@@ -81,6 +83,7 @@ const Header = ({ handleOpen }: MainHeaderProps) => {
 						<ShoppingCartOutlinedIcon
 							fontSize="small"
 							onClick={handelBtnClick}
+							className="cursor-pointer"
 						/>
 					</div>
 				)}
