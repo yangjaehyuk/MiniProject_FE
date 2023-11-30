@@ -15,7 +15,6 @@ import { formatNumberWithCommas } from 'utils/numberComma';
 import styles from '../../components/cart/Cart.module.css';
 import { ShoppingCartOutlined } from '@mui/icons-material';
 import BottomInfo from 'components/cart/BottomInfo';
-
 import CommonHeader from 'components/common/CommonHeader';
 import EmptyCart from 'components/cart/EmptyCart';
 import TopBtn from 'components/common/TopBtn';
