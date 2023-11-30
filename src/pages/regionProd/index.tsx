@@ -7,9 +7,13 @@ import RegionProdInnerSkeleton from 'components/regionProd/skeleton/RegionProdIn
 import { useParams } from 'react-router-dom';
 import { regionToKor } from 'utils/switchNameToKor';
 import RegionProdHotpick from 'components/regionProd/RegionProdHotpick';
+import useScrollToShow from 'hooks/common/handleScroll';
+import TopBtn from 'components/common/TopBtn';
 
 function RegionAllProducts() {
 	const { region = '' } = useParams();
+	const show = useScrollToShow(false, 200);
+
 	return (
 		<main>
 			<CategoryHeader />
@@ -26,6 +30,7 @@ function RegionAllProducts() {
 				</h4>
 				<RegionProdHotpick />
 			</div>
+			{show && <TopBtn show={show} />}
 		</main>
 	);
 }

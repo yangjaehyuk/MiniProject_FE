@@ -11,6 +11,8 @@ import CriticalErrorBoundary from 'components/common/CriticalErrorBoundary';
 import RetryErrorBoundary from 'components/common/RetryErrorBoundary';
 import regionCheckRouter from 'components/region/regionCheckRouter';
 import { OrderEnum } from 'recoil/atoms/orderAtom';
+import TopBtn from 'components/common/TopBtn';
+import useScrollToShow from 'hooks/common/handleScroll';
 
 function Region() {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -19,6 +21,7 @@ function Region() {
 	const [optionOpen, setOptionOpen] = useState(false);
 	const [dateOpen, setDateOpen] = useState(false);
 	const [capacityOpen, setCapacityOpen] = useState(false);
+	const show = useScrollToShow(false, 200);
 
 	const handleRegionOpen = () => {
 		setRegionOpen((prev) => !prev);
@@ -88,6 +91,7 @@ function Region() {
 				isOpen={capacityOpen}
 				handleOpen={handleCapacityOpen}
 			/>
+			{show && <TopBtn show={show} />}
 		</main>
 	);
 }

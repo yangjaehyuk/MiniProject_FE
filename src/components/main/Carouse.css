@@ -1,3 +1,22 @@
 .swiper-pagination swiper-pagination-fraction {
 	background-color: #ccc;
 }
+/* 객실 상세 정보 이미지 스타일 커스텀 */
+[class*='MainCarousel'] .swiper-button-prev,
+[class*='MainCarousel'] .swiper-button-next {
+	top: 40%;
+	background: rgba(0, 0, 0, 0.3);
+	color: #fff;
+	padding: 1rem 0.75rem;
+}
+[class*='MainCarousel'] .swiper-button-prev {
+	left: 0;
+}
+[class*='MainCarousel'] .swiper-button-next {
+	right: 0;
+}
+[class*='MainCarousel'] .swiper-button-prev::after,
+[class*='MainCarousel'] .swiper-button-next::after {
+	font-size: 1rem;
+	opacity: 0.75;
+}

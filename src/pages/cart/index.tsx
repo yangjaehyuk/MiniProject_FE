@@ -18,6 +18,7 @@ import BottomInfo from 'components/cart/BottomInfo';
 
 import CommonHeader from 'components/common/CommonHeader';
 import EmptyCart from 'components/cart/EmptyCart';
+import TopBtn from 'components/common/TopBtn';
 
 const Cart = () => {
 	requireLogin();
@@ -212,6 +213,7 @@ const Cart = () => {
 					</div>
 				</>
 			)}
+			<TopBtn show isOverlap />
 		</>
 	);
 };

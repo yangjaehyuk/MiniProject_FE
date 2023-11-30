@@ -15,6 +15,9 @@ import { formatNumberWithCommas } from 'utils/numberComma';
 import styles from '../../components/cart/Cart.module.css';
 import { getDayOfWeek } from 'hooks/common/getDayOfWeek';
 import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
+import TopBtn from 'components/common/TopBtn';
+import useScrollToShow from 'hooks/common/handleScroll';
+
 
 const result = () => {
 	requireLogin();
@@ -29,9 +32,13 @@ const result = () => {
 	// 주문 객실 상품 데이터
 	const [orderItem, setOrderItem] = useState<OrderItems>();
 
+
 	const [item, setItem] = useState(true);
 	const [subscriber, setSubscriber] = useState(true);
 	const [user, setUser] = useState(true);
+
+	const show = useScrollToShow(false, 200);
+
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -240,7 +247,7 @@ const result = () => {
 					</div>
 				</div>
 			)}
-
+			{show && <TopBtn show={show} isOverlap />}
 			<ResultFooter />
 		</>
 	);
