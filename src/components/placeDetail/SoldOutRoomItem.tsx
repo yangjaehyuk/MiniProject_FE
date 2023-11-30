@@ -9,10 +9,13 @@ import { formatNumberWithCommas } from 'utils/numberComma';
 export default function SoldOutRoomItem({ roomItem, name }: RoomProps) {
 	const navigate = useNavigate();
 	const { accommodationdId } = useParams();
-	const handleItemClick = () => {
-		navigate(`/places/${accommodationdId}/${roomItem.id}`);
-	};
 	const formattedPrice = formatNumberWithCommas(roomItem.price);
+
+	const handleItemClick = () => {
+		if (name !== undefined) {
+			navigate(`/places/${accommodationdId}/${roomItem.id}?name=${name}&status=${roomItem.status}&price=${roomItem.price}`);
+		}
+	};
 
 
 	return (
