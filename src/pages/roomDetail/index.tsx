@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CheckIcon from '@mui/icons-material/Check';
 import Header from 'components/roomDetail/Header';
@@ -32,6 +32,10 @@ export default function RoomDetail() {
 	const [datesBeforeCheckIn, setDatesBeforeCheckIn] = useState<string[]>([]);
 
 	const show = useScrollToShow(false, 200);
+
+	useEffect(() => {
+		window.scrollTo(0,0);
+	},[]);
 
 	useEffect(() => {
 		const dates = [];
