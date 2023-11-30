@@ -23,7 +23,12 @@ const CartBottom: React.FC<totalPriceProps> = ({ totalPrice }) => {
 								{formatNumberWithCommas(totalPrice)} 원
 							</div>
 						</div>
-
+						<div className="my-5 p-2  bg-bgGray  rounded-md">
+							<span className="text-sm ">NOL 카드 결제 시,</span>
+							<span className="text-sm text-primary font-semibold">
+								10% 적립
+							</span>
+						</div>
 						<BottomInfo />
 					</div>
 				</div>

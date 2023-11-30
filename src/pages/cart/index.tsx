@@ -17,10 +17,12 @@ import { ShoppingCartOutlined } from '@mui/icons-material';
 import BottomInfo from 'components/cart/BottomInfo';
 
 import CommonHeader from 'components/common/CommonHeader';
+import EmptyCart from 'components/cart/EmptyCart';
 import TopBtn from 'components/common/TopBtn';
 
 const Cart = () => {
 	requireLogin();
+
 	const [cart, setCart] = useState<CartResponse>();
 
 	useEffect(() => {
@@ -145,25 +147,10 @@ const Cart = () => {
 
 	return (
 		<>
-			<CommonHeader />
+			<CommonHeader name="장바구니" />
 			{(cart && cart?.data?.cartItems.length === 0) ||
 			dataCartItems.length === 0 ? (
-				<div className={styles.wrap}>
-					<div className=" flex flex-col justify-center items-center py-4">
-						<ShoppingCartOutlined />
-						<div>장바구니에 담긴 상품이 없습니다. </div>
-						<div>원하는 상품을 담아보세요</div>
-						<div
-							className="p-3 border  border-blue rounded-md cursor-pointer text-blue text-content pl-10 pr-10"
-							onClick={() => {
-								navigate('/');
-							}}
-						>
-							홈으로 가기
-						</div>
-						<BottomInfo />
-					</div>
-				</div>
+				<EmptyCart />
 			) : (
 				<>
 					<div className="bg-white fixed left-0 top-[48px] w-screen drop-shadow-sm">
@@ -177,7 +164,7 @@ const Cart = () => {
 								<div className="ml-2 text-sm">전체선택</div>
 							</div>
 							<div
-								className="text-sm text-blue"
+								className="text-sm text-blue cursor-pointer"
 								onClick={() => {
 									AllDeleteItem();
 								}}
@@ -211,7 +198,7 @@ const Cart = () => {
 
 							<button
 								onClick={handleReservation}
-								className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-secondary rounded-md h-[20px]  text-white"
+								className="flex font-semibold text-content justify-center items-center w-full py-5 text-center bg-secondary rounded-md h-[20px]  hover:bg-hoverSecondary text-white"
 							>
 								예약하기
 							</button>
