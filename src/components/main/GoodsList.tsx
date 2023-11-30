@@ -10,14 +10,6 @@ interface GoodsListProps {
 	title: string;
 }
 
-interface DataItem {
-	id: number;
-	image: string;
-	name: string;
-	price: number;
-	star: number;
-}
-
 const GoodsList: React.FC<GoodsListProps> = ({ type, title }) => {
 	const { data, isLoading } = useQueryMainCategory(type);
 
@@ -33,7 +25,6 @@ const GoodsList: React.FC<GoodsListProps> = ({ type, title }) => {
 			{data && <CategorySwiper items={data.data.accommodations} />}
 		</div>
 	);
-
 };
 
 export default GoodsList;

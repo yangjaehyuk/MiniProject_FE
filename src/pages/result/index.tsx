@@ -18,7 +18,6 @@ import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
 import TopBtn from 'components/common/TopBtn';
 import useScrollToShow from 'hooks/common/handleScroll';
 
-
 const result = () => {
 	requireLogin();
 	const navigate = useNavigate();
@@ -32,13 +31,11 @@ const result = () => {
 	// 주문 객실 상품 데이터
 	const [orderItem, setOrderItem] = useState<OrderItems>();
 
-
 	const [item, setItem] = useState(true);
 	const [subscriber, setSubscriber] = useState(true);
 	const [user, setUser] = useState(true);
 
 	const show = useScrollToShow(false, 200);
-
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -102,9 +99,15 @@ const result = () => {
 									상품 정보 {orderData.orderItems.length}건
 								</div>
 								{item ? (
-									<ExpandLessRoundedIcon onClick={toggleItem} />
+									<ExpandLessRoundedIcon
+										onClick={toggleItem}
+										className="cursor-pointer"
+									/>
 								) : (
-									<ExpandMoreOutlinedIcon onClick={toggleItem} />
+									<ExpandMoreOutlinedIcon
+										onClick={toggleItem}
+										className="cursor-pointer"
+									/>
 								)}
 							</div>
 							{item
@@ -154,9 +157,15 @@ const result = () => {
 							<div className="text-content font-semibold "> 예약자 정보</div>
 
 							{subscriber ? (
-								<ExpandLessRoundedIcon onClick={toggleSubscriber} />
+								<ExpandLessRoundedIcon
+									onClick={toggleSubscriber}
+									className="cursor-pointer"
+								/>
 							) : (
-								<ExpandMoreOutlinedIcon onClick={toggleSubscriber} />
+								<ExpandMoreOutlinedIcon
+									onClick={toggleSubscriber}
+									className="cursor-pointer"
+								/>
 							)}
 						</div>
 						{subscriber ? (
@@ -181,9 +190,15 @@ const result = () => {
 							<div className="text-content font-semibold "> 이용자 정보</div>
 
 							{user ? (
-								<ExpandLessRoundedIcon onClick={toggleUser} />
+								<ExpandLessRoundedIcon
+									onClick={toggleUser}
+									className="cursor-pointer"
+								/>
 							) : (
-								<ExpandMoreOutlinedIcon onClick={toggleUser} />
+								<ExpandMoreOutlinedIcon
+									onClick={toggleUser}
+									className="cursor-pointer"
+								/>
 							)}
 						</div>
 						{user ? (
